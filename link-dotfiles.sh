@@ -26,9 +26,8 @@ ln -s $DOTFILES/irbrc .irbrc
 echo "Linking oh-my-zsh custom files..."
 
 if [ -d $OHMYZSH ]; then
-  cd ~/.oh-my-zsh
-  rm -rf custom
-  ln -s ~/$DOTFILES/ohmyzsh_custom custom
+  cd ~/.oh-my-zsh/custom
+  cp -R $DOTFILES/ohmyzsh_custom/* ./
   source ~/.zshrc
 fi
 
