@@ -1,0 +1,50 @@
+[user]
+  name = #{your_name}
+  email =#{your_email}
+[alias]
+  br = branch
+  co = checkout
+  ci = commit
+  cim = commit -m
+  ciam = commit -a -m
+  st = status
+  mg = merge
+  mgnf = merge --no-ff
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  #remove deleted files
+  rmd = !git rm `git ls-files --deleted`
+  #A stupid thing to do, but illustrates that arbitrary 
+  # unix commands can be executed in this manner
+  cal = !cal
+  #sourcetree = !open -a SourceTree .
+  #add an alias in the shell profile:
+  #alias ste='git sourcetree'
+[core]
+  excludesfile = /Users/#{your_name}/.gitignore
+  #set autocrlf and savecrlf
+  autocrlf = input
+  #editor = 
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  log = auto
+  ui = true
+[apply]
+  #whitespace=nowarn
+[git-pair]
+  # authors = AUTHOR NAME <author_mail@email.com>
+[difftool]
+  prompt = false
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  #path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[merge "comment"]
+  tool = vimdiff
+[diff "comment"]
+  tool = vimdiff
+[credential]
+  helper = osxkeychain
