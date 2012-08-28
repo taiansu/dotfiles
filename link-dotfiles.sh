@@ -16,6 +16,7 @@ source ~/.zshrc
 echo "Linking Git files..."
 mv .gitignore $DOTFILES/$BACKUPFILES/gitignore.bk
 mv .gitconfig $DOTFILES/$BACKUPFILES/gitconfig.bk
+cp $DOTFILES/gitconfig.template $DOTFILES/gitconfig
 ln -s $DOTFILES/gitignore .gitignore
 ln -s $DOTFILES/gitconfig .gitconfig
 
@@ -24,6 +25,10 @@ mv .gemrc $DOTFILES/$BACKUPFILES/gemrc.bk
 mv .irbrc $DOTFILES/$BACKUPFILES/irbrc.bk
 ln -s $DOTFILES/gemrc .gemrc
 ln -s $DOTFILES/irbrc .irbrc
+
+echo "Linking tmux.conf"
+mv .tmux.conf $DOTFILES/$BACKUPFILES/tmux.conf.bk
+ln -s $DOTFILES/tmux.conf .tmux.conf
 
 echo "Copying oh-my-zsh custom files..."
 
