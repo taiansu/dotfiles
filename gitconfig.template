@@ -11,12 +11,13 @@
   mg = merge
   mgnf = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  ref = reflog show --date=relative
   #remove deleted files
   rmd = !git rm `git ls-files --deleted`
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
   cal = !cal
-  #sourcetree = !open -a SourceTree .
+  sourcetree = !open -a SourceTree .
   #add an alias in the shell profile:
   #alias ste='git sourcetree'
 [core]
@@ -48,3 +49,5 @@
   tool = vimdiff
 [credential]
   helper = osxkeychain
+[push]
+  default = current
