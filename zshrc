@@ -7,14 +7,14 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="mh"
+ZSH_THEME="tsuzh"
 setopt extended_glob
 unsetopt correct_all
 
 # Aliases
 alias gvimdiff="mvimdiff"
 alias vdf="gvimdiff"
-alias em="/usr/local/Cellar/emacs/24.1/Emacs.app/Contents/MacOS/Emacs"
+alias em="/usr/local/Cellar/emacs/24.2/Emacs.app/Contents/MacOS/Emacs"
 alias integrate="INTEGRATION=true DRIVER=selenium be rspec "
 alias integrateall="INTEGRATION=true DRIVER=selenium be rspec spec/integration"
 alias git="nocorrect git"
