@@ -22,9 +22,10 @@
   #alias ste='git sourcetree'
 [core]
   excludesfile = /Users/#{your_name}/.gitignore
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
   #set autocrlf and savecrlf
   autocrlf = input
-  #editor = 
+  #editor = 'mate -w'
 [color]
   diff = auto
   status = auto

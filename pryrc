@@ -23,6 +23,8 @@ Pry.config.commands.import Pry::ExtendedCommands::Experimental
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('Pry').class_eval('@current_line')}> " }
 
 begin
+  require 'rubygems'
+  require 'interactive_editor'
   require 'hirb'
 rescue LoadError
   # Missing goodies, bummer
