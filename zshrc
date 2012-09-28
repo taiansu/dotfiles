@@ -7,28 +7,13 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="tsuzh"
+ZSH_THEME="mh"
 setopt extended_glob
+setopt INTERACTIVE_COMMENTS
 unsetopt correct_all
 
 # Aliases
-alias gvimdiff="mvimdiff"
-alias vdf="gvimdiff"
-alias em="/usr/local/Cellar/emacs/24.2/Emacs.app/Contents/MacOS/Emacs"
-alias integrate="INTEGRATION=true DRIVER=selenium be rspec "
-alias integrateall="INTEGRATION=true DRIVER=selenium be rspec spec/integration"
-alias git="nocorrect git"
-alias ste="nocorrect git sourcetree"
-alias pry="nocorrect pry"
-alias b="bundle"
-alias be="bundle exec"
-alias br="bundle exec rake"
-alias light_profile="echo -e \"\033]50;SetProfile=light\a\""
-alias dark_profile="echo -e \"\033]50;SetProfile=dark\a\""
-alias default_profile="echo -e \"\033]50;SetProfile=Default\a\""
-
-# alias zshconfig="em ~/.zshrc"
-# alias ohmyzsh="em ~/.oh-my-zsh"
+source ~/.dotfiles/aliases.conf
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -48,7 +33,7 @@ alias default_profile="echo -e \"\033]50;SetProfile=Default\a\""
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew eifion gem git osx rake)
+plugins=(autojump codefolder git git-flow heroku node npm osx rails3 taskwarrior textmate vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 

@@ -1,7 +1,6 @@
 #!/bin/sh
 
-#DOTFILES=~/.dotfiles
-DOTFILES=~/Code/dotfiles
+DOTFILES=~/.dotfiles
 BACKUPFILES=dotfiles_backup
 OHMYZSH=~/.oh-my-zsh
 
