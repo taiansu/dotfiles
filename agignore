@@ -1,3 +1,11 @@
+# Assets files
 assets
+
+# Plugin files
 vendor
+
+# Log files
 log
+
+# Minified files
+*.min.js
