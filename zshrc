@@ -14,6 +14,7 @@ unsetopt correct_all
 
 # Aliases
 source ~/.dotfiles/aliases.conf
+alias rake="noglob rake"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
