@@ -17,18 +17,21 @@ EDITOR = 'mvim'
 Pry.editor = proc { |file, line| "#{EDITOR} #{file} +#{line}" }
 
 Pry.config.commands.import Pry::ExtendedCommands::Experimental
+Pry.plugins["doc"].activate!
+Pry.plugins["remote"].activate!
+Pry.plugins["rails"].activate!
+Pry.plugins["nav"].activate!
 
 # Example of custom prompt mucking
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('_pry_').instance_variable_get('@output_array').count}> " }
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('Pry').class_eval('@current_line')}> " }
 
-begin
-  require 'rubygems'
-  require 'interactive_editor'
-  require 'hirb'
-rescue LoadError
-  # Missing goodies, bummer
-end
+require 'rubygems'
+require 'interactive_editor'
+require 'hirb'
+require 'wirble'
+require 'awesome_print'
+require 'ruby18_source_location'
 
 if defined? Hirb
   # Dirty hack to support in-session Hirb.disable/enable
@@ -44,9 +47,21 @@ if defined? Hirb
       Pry.config.print = proc { |output, value| Pry::DEFAULT_PRINT.call(output, value) }
       @output_method = nil
     end
+    def vertical
+      Hirb.enable(:output => {"ActiveRecord::Base" => {:class => :auto_table, :options => {:vertical => true}}})
+    end
+
+    def horizational
+      Hirb.enable(:output => {"ActiveRecord::Base" => {:class => :auto_table, :options => {:vertical => false}}})
+    end
   end
 
   Hirb.enable
+end
+
+if defined? Wirble
+  Wirble.init
+  Wirble.colorize
 end
 
 # Log Rails stuff like SQL/Mongo queries to $stdout if in Rails console
@@ -69,6 +84,26 @@ if defined?(Rails) && Rails.respond_to?(:logger)    # Rails 3 style
 elsif ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
   require 'logger'
   RAILS_DEFAULT_LOGGER = Logger.new($stdout)
+end
+
+
+# Launch Pry with access to the entire Rails stack.
+# If you have Pry in your Gemfile, you can pass: ./script/console --irb=pry instead.
+# If you don't, you can load it through the lines below :)
+rails = File.join Dir.getwd, 'config', 'environment.rb'
+
+if File.exist?(rails) && ENV['SKIP_RAILS'].nil?
+  require rails
+  
+  if Rails.version[0..0] == "2"
+    require 'console_app'
+    require 'console_with_helpers'
+  elsif Rails.version[0..0] == "3"
+    require 'rails/console/app'
+    require 'rails/console/helpers'
+  else
+    warn "[WARN] cannot load Rails console commands (Not on Rails2 or Rails3?)"
+  end
 end
 
 #
