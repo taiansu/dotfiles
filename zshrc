@@ -15,6 +15,7 @@ unsetopt correct_all
 # Aliases
 source ~/.dotfiles/aliases.conf
 alias rake="noglob rake"
+alias subl="noglob subl"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -34,7 +35,7 @@ alias rake="noglob rake"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump codefolder git-flow heroku node npm osx rails3 taskwarrior textmate)
+plugins=(codefolder git-flow heroku node npm osx rails3 taskwarrior textmate)
 
 source $ZSH/oh-my-zsh.sh
 
