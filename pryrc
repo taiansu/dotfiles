@@ -21,19 +21,27 @@ Pry.plugins["doc"].activate!
 Pry.plugins["remote"].activate!
 Pry.plugins["rails"].activate!
 Pry.plugins["nav"].activate!
+Pry.plugins["stack_explorer"].activate!
+Pry.plugins["vterm_aliases"].activate!
+Pry.plugins["gist"].activate!
+Pry.plugins["awesome_print"].activate!
 
 # Example of custom prompt mucking
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('_pry_').instance_variable_get('@output_array').count}> " }
 # Pry.config.prompt = proc { |obj, nest_level| "#{obj}:#{obj.instance_eval('Pry').class_eval('@current_line')}> " }
 
 require 'rubygems'
-require 'interactive_editor'
-require 'hirb'
-require 'wirble'
-require 'awesome_print'
-require 'ruby18_source_location'
+begin
+  require 'jist'
+  require 'interactive_editor'
+  require 'ruby18_source_location'
+rescue LoadError => err
+  puts err
+end
 
-if defined? Hirb
+begin
+  require 'hirb'
+
   # Dirty hack to support in-session Hirb.disable/enable
   Hirb::View.instance_eval do
     def enable_output_method
@@ -57,11 +65,23 @@ if defined? Hirb
   end
 
   Hirb.enable
+rescue LoadError => err
+  puts 'no hirb :('
 end
 
-if defined? Wirble
+begin
+  require 'wirble'
   Wirble.init
   Wirble.colorize
+rescue
+  puts 'no wirble'
+end
+
+begin
+  require 'awesome_print'
+   Pry.config.print = proc { |output, value| Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai}", output) }
+rescue LoadError => err
+  puts "no awesome_print :("
 end
 
 # Log Rails stuff like SQL/Mongo queries to $stdout if in Rails console
@@ -114,7 +134,7 @@ Pry.commands.command(/!(\d+)/, "Replay a line of history, bash-style", :listing 
 end
 
 # Sed-style substitution for fixes in the current multi-line input buffer
-Pry.commands.command /s\/(.*?)\/(.*?)/ do |source, dest|
+Pry.commands.command(/s\/(.*?)\/(.*?)/) do |source, dest|
   eval_string.gsub!(/#{source}/) { dest }
   run 'show-input'
 end
