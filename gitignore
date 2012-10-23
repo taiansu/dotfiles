@@ -45,7 +45,6 @@ vmailbuffer
 .rbenv-version
 
 # Rails Assets.
-public/assets
 .jhw-cache
 .sass-cache
 
