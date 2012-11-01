@@ -96,3 +96,6 @@ bindkey "^x " no-magic-abbrev-expand
 # export EDITOR="/usr/local/Cellar/emacs/24.1/Emacs.app/Contents/MacOS/Emacs"
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
+export EDITOR='mvim'
+
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
