@@ -14,8 +14,8 @@ unsetopt correct_all
 
 # Aliases
 source ~/.dotfiles/aliases.conf
-alias rake="noglob rake"
-alias subl="noglob subl"
+# alias subl="noglob subl"
+alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -35,26 +35,27 @@ alias subl="noglob subl"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(codefolder git-flow heroku node npm osx rails3 taskwarrior textmate)
+plugins=(codefolder git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 typeset -A abbreviations
 abbreviations=(
 	"Im"    "| more"
-        "Ia"    "| awk"
-        "Ig"    "| grep"
-        "Ieg"   "| egrep"
-        "Iag"   "| agrep"
-        "Igr"   "| groff -s -p -t -e -Tlatin1 -mandoc"
-        "Ip"    "| $PAGER"
-        "Ih"    "| head"
-        "Ik"    "| keep"
-        "It"    "| tail"
-        "Is"    "| sort"
-        "Iv"    "| ${VISUAL:-${EDITOR}}"
-        "Iw"    "| wc"
-        "Ix"    "| xargs"
+    "Ia"    "| ag"
+    "Iaw"   "| awk"
+    "Ig"    "| grep"
+    "Ieg"   "| egrep"
+    "Ifg"   "| fgrep"
+    "Igr"   "| groff -s -p -t -e -Tlatin1 -mandoc"
+    "Ip"    "| $PAGER"
+    "Ih"    "| head"
+    "Ik"    "| keep"
+    "It"    "| tail"
+    "Is"    "| sort"
+    "Iv"    "| ${VISUAL:-${EDITOR}}"
+    "Iw"    "| wc"
+    "Ix"    "| xargs"
 
 	"HEAD^"     "HEAD\\^"
 	"HEAD^^"    "HEAD\\^\\^"

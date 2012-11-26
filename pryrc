@@ -34,7 +34,6 @@ require 'rubygems'
 begin
   require 'jist'
   require 'interactive_editor'
-  require 'ruby18_source_location'
 rescue LoadError => err
   puts err
 end
