@@ -1,6 +1,6 @@
 [user]
-  name = #{your_name}
-  email =#{your_email}
+  name  = #{your_name}
+  email = #{your_email}
 [alias]
   br = branch
   co = checkout
@@ -21,11 +21,12 @@
   #add an alias in the shell profile:
   #alias ste='git sourcetree'
 [core]
-  excludesfile = /Users/#{your_name}/.gitignore
+  excludesfile = ~/.gitignore
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  #set autocrlf and savecrlf
-  autocrlf = input
-  #editor = 'mate -w'
+  #set autocrlf and safecrlf
+  autocrlf = input # use true if windows
+  safecrlf = true
+  #editor = 'subl -w'
 [color]
   diff = auto
   status = auto
