@@ -1,4 +1,4 @@
-FOLDER = "Code"
+FOLDER="Code"
 
 c() { cd ~/$FOLDER/$1;  }
 
