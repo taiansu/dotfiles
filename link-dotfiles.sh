@@ -28,10 +28,6 @@ ln -s $DOTFILES/gemrc .gemrc
 ln -s $DOTFILES/irbrc .irbrc
 ln -s $DOTFILES/pryrc .pryrc
 
-#echo "Linking tmux.conf"
-#mv .tmux.conf $DOTFILES/$BACKUPFILES/tmux.conf.bk
-#ln -s $DOTFILES/tmux.conf .tmux.conf
-
 echo "Linking .agignore"
 mv .agignore $DOTFILES/$BACKUPFILES/agignore.bk
 ln -s $DOTFILES/agignore .agignore
