@@ -1,4 +1,5 @@
 # CCL_DEFAULT_DIRECTORY="/Applications/Clozure\ CL.app/Contnts/Resources/ccl/scripts"
+__rvm_project_rvmrc
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -35,7 +36,7 @@ alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Framework
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler codefolder git git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
+plugins=(codefolder git git-flow heroku history-substring-search osx rails3 rvm zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,6 +97,6 @@ bindkey "^x " no-magic-abbrev-expand
 
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
-export EDITOR='mvim'
+export EDITOR='vim'
 
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
