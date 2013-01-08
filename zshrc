@@ -8,7 +8,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="mh"
+ZSH_THEME="af-magic"
 setopt extended_glob
 setopt INTERACTIVE_COMMENTS
 unsetopt correct_all

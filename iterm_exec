@@ -8,7 +8,7 @@ on run argv
 		end tell
 	end tell
 	
-	tell application "MacVim"
-		activate
-	end tell
+	# tell application "MacVim"
+	# 	activate
+	# end tell
 end run
