@@ -11,6 +11,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="af-magic"
 setopt extended_glob
 setopt INTERACTIVE_COMMENTS
+unsetopt nomatch
 unsetopt correct_all
 
 # Aliases
@@ -94,6 +95,11 @@ bindkey "^J"  accept-line # no magic
 bindkey " "   magic-abbrev-expand-and-insert
 bindkey "."   magic-abbrev-expand-and-insert
 bindkey "^x " no-magic-abbrev-expand
+
+unsetopt auto_name_dirs # rvm_rvmrc_cwd fix
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+unset RUBYOPT
+cd . # to rvm reload
 
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
