@@ -37,7 +37,7 @@ alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Framework
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(codefolder git git-flow heroku history-substring-search osx rails3 rvm zsh-syntax-highlighting)
+plugins=(codefolder git git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,5 +104,6 @@ cd . # to rvm reload
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
 export EDITOR='vim'
+export LC_CTYPE="utf-8"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
