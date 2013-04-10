@@ -13,6 +13,7 @@ setopt extended_glob
 setopt INTERACTIVE_COMMENTS
 unsetopt nomatch
 unsetopt correct_all
+autoload -U zmv
 
 # Aliases
 source ~/.dotfiles/aliases.conf
