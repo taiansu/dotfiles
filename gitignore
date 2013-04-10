@@ -16,6 +16,7 @@
 # RVM configuration.
 .rvmrc
 .rvmrc.*
+.ruby-version
 
 # Rails database configuration.
 config/database.yml
