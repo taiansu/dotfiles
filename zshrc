@@ -1,5 +1,4 @@
 # CCL_DEFAULT_DIRECTORY="/Applications/Clozure\ CL.app/Contnts/Resources/ccl/scripts"
-__rvm_project_rvmrc
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -97,15 +96,16 @@ bindkey " "   magic-abbrev-expand-and-insert
 bindkey "."   magic-abbrev-expand-and-insert
 bindkey "^x " no-magic-abbrev-expand
 
-unsetopt auto_name_dirs # rvm_rvmrc_cwd fix
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-unset RUBYOPT
-cd . # to rvm reload
-
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
 export EDITOR='mvim'
-export LC_CTYPE="utf-8"
+export LANG="zh_TW.UTF-8"
+export LC_COLLATE="zh_TW.UTF-8"
+export LC_CTYPE="zh_TW.UTF-8"
+export LC_MESSAGES="zh_TW.UTF-8"
+export LC_MONETARY="zh_TW.UTF-8"
+export LC_NUMERIC="zh_TW.UTF-8"
+export LC_TIME="zh_TW.UTF-8"
+export LC_ALL=
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 fpath=(/usr/local/share/zsh-completions $fpath)
