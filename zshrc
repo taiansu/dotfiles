@@ -109,3 +109,4 @@ export LC_TIME="zh_TW.UTF-8"
 export LC_ALL=
 
 fpath=(/usr/local/share/zsh-completions $fpath)
+
