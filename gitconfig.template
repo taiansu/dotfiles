@@ -8,6 +8,8 @@
   cim = commit -m
   ciam = commit -a -m
   st = status
+  shshow = "!f(){ git stash show stash^{/$*} -p; }; f"
+  shapply = "!f(){ git stash apply stash^{/$*}; }; f"
   mg = merge
   mgnf = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
@@ -19,7 +21,7 @@
   cal = !cal
   sourcetree = !open -a SourceTree .
   #add an alias in the shell profile:
-  #alias ste='git sourcetree'
+  alias ste='git sourcetree'
 [core]
   excludesfile = ~/.gitignore
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
