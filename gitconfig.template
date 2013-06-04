@@ -7,21 +7,25 @@
   ci = commit
   cim = commit -m
   ciam = commit -a -m
-  st = status
-  shshow = "!f(){ git stash show stash^{/$*} -p; }; f"
-  shapply = "!f(){ git stash apply stash^{/$*}; }; f"
+  st = statu
+  sh = stash
+  sha = "!f(){ git stash apply stash^{/$*}; }; f"
+  shs = "!f(){ git stash show stash^{/$*} -p; }; f"
+  shl = stash list
+  shp = stash pop
   mg = merge
   mgnf = merge --no-ff
+  lg = log --graph
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  amend = commit -C HEAD --amend
   ref = reflog show --date=relative
   #remove deleted files
   rmd = !git rm `git ls-files --deleted`
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
-  cal = !cal
-  sourcetree = !open -a SourceTree .
+  #cal = !cal
   #add an alias in the shell profile:
-  alias ste='git sourcetree'
+  #sourcetree = !open -a SourceTree .
 [core]
   excludesfile = ~/.gitignore
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
