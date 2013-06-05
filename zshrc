@@ -17,6 +17,8 @@ autoload -U zmv
 # Aliases
 source ~/.dotfiles/aliases.conf
 
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # Set to this to use case-sensitive completion
@@ -37,8 +39,7 @@ alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Framework
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(quickfolder git git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
-
+plugins=(quickfolder git git-flow heroku history-substring-search osx rails3)
 source $ZSH/oh-my-zsh.sh
 
 typeset -A abbreviations
