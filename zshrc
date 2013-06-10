@@ -97,7 +97,7 @@ bindkey "^x " no-magic-abbrev-expand
 
 # Customize to your needs...
 export CC=/usr/local/bin/gcc-4.2
-export EDITOR='mvim'
+export EDITOR='mvim -f'
 export LANG="zh_TW.UTF-8"
 export LC_COLLATE="zh_TW.UTF-8"
 export LC_CTYPE="zh_TW.UTF-8"
