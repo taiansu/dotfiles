@@ -41,20 +41,17 @@
   ui = true
 [apply]
   #whitespace=nowarn
+[merge "gemfilelock"]
+    name = relocks the Gemfile.lock
+    driver = bundle install
 [git-pair]
   # authors = AUTHOR NAME <author_mail@email.com>
+[diff]
+    tool = default-difftool
 [difftool]
-  prompt = false
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  #path = 
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
-[merge "comment"]
-  tool = vimdiff
-[diff "comment"]
-  tool = vimdiff
+	prompt = false
+[difftool "default-difftool"]
+    cmd = default-difftool.sh $LOCAL $REMOTE
 [credential]
   helper = osxkeychain
 [push]
