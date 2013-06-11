@@ -1,9 +1,9 @@
 #! /bin/bash
 
-if [[ -f ~/Applications/MacVim.app/Contents/MacOS/Vim ]]
+if [[ -f /Applications/MacVim.app/Contents/MacOS/Vim ]]
 then
     # bypass mvim for speed
-    VIMPATH='/Applications/MacVim.app/Contents/MacOS/Vim -g -dO -f'
+    VIMPATH='open /Applications/MacVim.app/ --args -g -dO -f'
 elif [[ -f /usr/local/bin/mvim ]]
 then
     # fall back to mvim
