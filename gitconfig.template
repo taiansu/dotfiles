@@ -8,8 +8,7 @@
   cim = commit -m
   ciam = commit -a -m
   st = status
-  mg = merge
-  mgnf = merge --no-ff
+  mg = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   amend = commit -C HEAD --amend
   ref = reflog show --date=relative
@@ -33,8 +32,8 @@
   branch = auto
   log = auto
   ui = true
-[apply]
-  #whitespace=nowarn
+[merge]
+	ff = false
 [merge "gemfilelock"]
     name = relocks the Gemfile.lock
     driver = bundle install
