@@ -32,13 +32,13 @@ echo "Linking .agignore"
 mv .agignore $DOTFILES/$BACKUPFILES/agignore.bk
 ln -s $DOTFILES/agignore .agignore
 
-echo "Copying oh-my-zsh custom files..."
+# echo "Copying oh-my-zsh custom files..."
 
-if [ -d $OHMYZSH ]; then
-  cd ~/.oh-my-zsh/custom
-  cp -R $DOTFILES/ohmyzsh_custom/* ./
-  source ~/.zshrc
-fi
+# if [ -d $OHMYZSH ]; then
+#   cd ~/.oh-my-zsh/custom
+#   cp -R $DOTFILES/ohmyzsh_custom/* ./
+#   source ~/.zshrc
+# fi
 
 echo "=================================================="
 echo "All the files are linked."
