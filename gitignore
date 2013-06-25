@@ -55,3 +55,6 @@ vmailbuffer
 # POWDER file
 .powder
 .agignore
+
+# ctags file
+tags
