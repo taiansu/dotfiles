@@ -42,8 +42,6 @@
 [merge "gemfilelock"]
     name = relocks the Gemfile.lock
     driver = bundle install
-[git-pair]
-  # authors = AUTHOR NAME <author_mail@email.com>
 [diff]
     tool = default-difftool
 [difftool]
