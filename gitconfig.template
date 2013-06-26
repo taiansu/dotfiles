@@ -8,6 +8,11 @@
   cim = commit -m
   ciam = commit -a -m
   st = status
+  sh = stash
+  sha = "!f(){ git stash apply stash^{/$*}; }; f"
+  shs = "!f(){ git stash show stash^{/$*} -p; }; f"
+  shl = stash list
+  shp = stash pop
   mg = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -p
