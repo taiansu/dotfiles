@@ -6,7 +6,8 @@
   co = checkout
   ci = commit
   cim = commit -m
-  ciam = commit -a -m
+  aa = add --all
+  ap = add -p
   st = status
   sh = stash
   sha = "!f(){ git stash apply stash^{/$*}; }; f"
@@ -14,8 +15,8 @@
   shl = stash list
   shp = stash pop
   mg = merge --no-ff
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -p
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit 
+  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
   amend = commit -C HEAD --amend
   ref = reflog show --date=relative
   #remove deleted files
@@ -23,7 +24,7 @@
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
   #cal = !cal
-  ste = !open -a SourceTree .
+  tr = !open -a SourceTree .
   #add an alias in the shell profile:
 [core]
   excludesfile = ~/.gitignore
@@ -37,8 +38,6 @@
   branch = auto
   log = auto
   ui = true
-[merge]
-	ff = false
 [merge "gemfilelock"]
     name = relocks the Gemfile.lock
     driver = bundle install
