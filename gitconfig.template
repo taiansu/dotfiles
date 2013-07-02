@@ -21,6 +21,7 @@
   ref = reflog show --date=relative
   #remove deleted files
   rmd = !git rm `git ls-files --deleted`
+  ste = !open -a SourceTree .
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
   #cal = !cal
@@ -39,8 +40,8 @@
   log = auto
   ui = true
 [merge "gemfilelock"]
-    name = relocks the Gemfile.lock
-    driver = bundle install
+  name = relocks the Gemfile.lock
+  driver = bundle install
 [diff]
     tool = default-difftool
 [difftool]
@@ -57,5 +58,7 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[push]
+	default = simple
 [apply]
   #whitespace=nowarn
