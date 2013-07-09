@@ -8,6 +8,8 @@
   cim = commit -m
   aa = add --all
   ap = add -p
+  df = diff
+  dfc = diff --cached
   st = status
   sh = stash
   sha = "!f(){ git stash apply stash^{/$*}; }; f"
@@ -19,6 +21,8 @@
   lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
   amend = commit -C HEAD --amend
   ref = reflog show --date=relative
+  rhh = reset HEAD --hard
+  rh = reset HEAD
   #remove deleted files
   rmd = !git rm `git ls-files --deleted`
   ste = !open -a SourceTree .
