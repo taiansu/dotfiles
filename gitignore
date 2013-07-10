@@ -58,3 +58,7 @@ vmailbuffer
 
 # ctags file
 tags
+
+#dropbox file
+.dropbox
+Icon
