@@ -37,7 +37,7 @@ alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Framework
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(fasd git git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
+plugins=(fasd git-flow heroku history-substring-search osx rails3 zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 typeset -A abbreviations
