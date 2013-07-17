@@ -1,0 +1,79 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+setopt extended_glob
+setopt INTERACTIVE_COMMENTS
+unsetopt nomatch
+unsetopt correct_all
+autoload -U zmv
+
+source ~/.dotfiles/aliases.conf
+
+typeset -A abbreviations
+abbreviations=(
+	"Im"    "| more"
+    "Ia"    "| ag"
+    "Iaw"   "| awk"
+    "Ig"    "| grep"
+    "Ieg"   "| egrep"
+    "Ifg"   "| fgrep"
+    "Igr"   "| groff -s -p -t -e -Tlatin1 -mandoc"
+    "Ip"    "| $PAGER"
+    "Ih"    "| head"
+    "Ik"    "| keep"
+    "It"    "| tail"
+    "Is"    "| sort"
+    "Iv"    "| ${VISUAL:-${EDITOR}}"
+    "Iw"    "| wc"
+    "Ix"    "| xargs"
+
+	"HEAD^"     "HEAD\\^"
+	"HEAD^^"    "HEAD\\^\\^"
+	"HEAD^^^"   "HEAD\\^\\^\\^"
+	"HEAD^^^^"  "HEAD\\^\\^\\^\\^\\^"
+	"HEAD^^^^^" "HEAD\\^\\^\\^\\^\\^"
+)
+
+magic-abbrev-expand () {
+	local MATCH
+	LBUFFER=${LBUFFER%%(#m)[-_a-zA-Z0-9^]#}
+	LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+}
+
+magic-abbrev-expand-and-insert () {
+	magic-abbrev-expand
+	zle self-insert
+}
+
+magic-abbrev-expand-and-accept () {
+	magic-abbrev-expand
+	zle accept-line
+}
+
+no-magic-abbrev-expand () {
+	LBUFFER+=' '
+}
+
+zle -N magic-abbrev-expand
+zle -N magic-abbrev-expand-and-insert
+zle -N magic-abbrev-expand-and-accept
+zle -N no-magic-abbrev-expand
+bindkey "\r"  magic-abbrev-expand-and-accept # M-x RET はできなくなる
+bindkey "^J"  accept-line # no magic
+bindkey " "   magic-abbrev-expand-and-insert
+bindkey "."   magic-abbrev-expand-and-insert
+bindkey "^x " no-magic-abbrev-expand
+
+# Customize to your needs...
+# fpath=(/usr/local/share/zsh-completions $fpath)
