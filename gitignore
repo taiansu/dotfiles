@@ -54,6 +54,8 @@ vmailbuffer
 
 # POWDER file
 .powder
+
+# The silver searcher ignore
 .agignore
 
 # ctags file
