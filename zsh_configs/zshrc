@@ -18,8 +18,6 @@ unsetopt nomatch
 unsetopt correct_all
 autoload -U zmv
 
-source ~/.dotfiles/aliases.conf
-
 typeset -A abbreviations
 abbreviations=(
 	"Im"    "| more"
@@ -75,5 +73,6 @@ bindkey " "   magic-abbrev-expand-and-insert
 bindkey "."   magic-abbrev-expand-and-insert
 bindkey "^x " no-magic-abbrev-expand
 
+source ~/.dotfiles/aliases.conf
 # Customize to your needs...
 # fpath=(/usr/local/share/zsh-completions $fpath)
