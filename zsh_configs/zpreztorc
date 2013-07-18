@@ -35,8 +35,9 @@ zstyle ':prezto:load' pmodule \
   'osx' \
   'rsync' \
   'fasd' \
-  'syntax-highlighting' \
   'history' \
+  'syntax-highlighting' \
+  'history-substring-search' \
   'prompt'
 
 #
@@ -47,7 +48,7 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:editor' keymap 'emacs'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
 # Git
@@ -65,7 +66,8 @@ zstyle ':prezto:module:git:status:ignore' submodules 'all'
 
 #
 # History Substring Search
-#
+
+zstyle ':prezto:module:history-substring-search' color 'yes'
 
 # Set the query found color.
 # zstyle ':prezto:module:history-substring-search:color' found ''
