@@ -18,6 +18,7 @@
   shp = stash pop
   mg = merge
   mgnf = merge --no-ff
+  ps = push --recurse-submodules=check
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit 
   lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
   amend = commit -C HEAD --amend
