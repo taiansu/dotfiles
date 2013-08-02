@@ -21,7 +21,7 @@
   ps = push --recurse-submodules=check
   psall=push --recurse-submodules=on-demand
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit 
-  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
   amend = commit -C HEAD --amend
   ref = reflog show --date=relative
   rhh = reset HEAD --hard
