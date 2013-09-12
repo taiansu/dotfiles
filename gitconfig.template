@@ -18,6 +18,8 @@
   shp = stash pop
   mg = merge
   mgnf = merge --no-ff
+  p = pull
+  pl = pull
   ps = push --recurse-submodules=check
   psall=push --recurse-submodules=on-demand
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit 
@@ -28,11 +30,10 @@
   rh = reset HEAD
   #remove deleted files
   rmd = !git rm `git ls-files --deleted`
-  ste = !open -a SourceTree .
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
   #cal = !cal
-  tr = !open -a SourceTree .
+  ste = !open -a SourceTree .
   #add an alias in the shell profile:
 [core]
   excludesfile = ~/.gitignore
