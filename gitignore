@@ -64,3 +64,6 @@ tags
 #dropbox file
 .dropbox
 Icon
+
+# Rubymine
+.idea
