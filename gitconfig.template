@@ -6,6 +6,7 @@
   co = checkout
   ci = commit
   cim = commit -m
+  ciam = commit --amend
   aa = add --all
   ap = add -p
   st = status
