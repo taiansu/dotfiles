@@ -13,6 +13,7 @@
   sh = stash
   d = diff
   dc = diff --cached
+  fp = fetch -p
   sha = "!f(){ git stash apply stash^{/$*}; }; f"
   shs = "!f(){ git stash show stash^{/$*} -p; }; f"
   shl = stash list
