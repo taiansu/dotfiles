@@ -11,7 +11,7 @@ module Morning
       update = true
 
       # user_input = gets.chomp!
-      8.downto(0){ |t|
+      1.downto(0){ |t|
         sleep 1
         print "\b\b#{t}]"
       }
