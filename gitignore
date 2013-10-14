@@ -13,9 +13,10 @@
 # Redcar configuration.
 .redcar
 
-# RVM configuration.
+# Ruby Environment.
 .rvmrc
 .rvmrc.*
+.rbenv-version
 .ruby-version
 
 # Rails database configuration.
@@ -42,15 +43,9 @@ config/deploy/local.yml
 vmail.log
 vmailbuffer
 
-# Ruby Environment.
-.rbenv-version
-
 # Rails Assets.
 .jhw-cache
 .sass-cache
-
-# Guardfile.
-.Guardfile
 
 # POWDER file
 .powder
