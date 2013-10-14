@@ -7,7 +7,7 @@ module Morning
 
       puts `brew update`
 
-      print 'Would you like to update all Homebrew items? (Y/n) [8]'
+      print 'Would you like to update all Homebrew items? (Y/n) [1]'
       update = true
 
       # user_input = gets.chomp!
