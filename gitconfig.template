@@ -2,69 +2,72 @@
   name  = #{your_name}
   email = #{your_email}
 [alias]
-  br = branch
-  co = checkout
-  ci = commit
-  cim = commit -m
-  ciam = commit --amend
-  aa = add --all
-  ap = add -p
-  st = status
-  sh = stash
-  d = diff
-  dc = diff --cached
-  fp = fetch -p
-  sha = "!f(){ git stash apply stash^{/$*}; }; f"
-  shs = "!f(){ git stash show stash^{/$*} -p; }; f"
-  shl = stash list
-  shp = stash pop
-  mg = merge
-  mgnf = merge --no-ff
-  p = pull
-  pl = pull
-  ps = push --recurse-submodules=check
-  psall=push --recurse-submodules=on-demand
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit 
-  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
+  br    = branch
+  co    = checkout
+  ci    = commit
+  cim   = commit -m
+  ciam  = commit --amend
+  aa    = add --all
+  ap    = add -p
+  st    = status
+  sh    = stash
+  d     = diff
+  dc    = diff --cached
+  fp    = fetch -p
+  sha   = "!f(){ git stash apply stash^{/$*}; }; f"
+  shs   = "!f(){ git stash show stash^{/$*} -p; }; f"
+  shl   = stash list
+  shp   = stash pop
+  mg    = merge
+  mgnf  = merge --no-ff
+  l     = pull
+  p     = push --recurse-submodules=check
+  pa    = push --recurse-submodules=on-demand
+  lg    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+  lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
   amend = commit -C HEAD --amend
-  ref = reflog show --date=relative
-  rhh = reset HEAD --hard
-  rh = reset HEAD
+  ref   = reflog show --date=relative
+  rhh   = reset HEAD --hard
+  rh    = reset HEAD
   #remove deleted files
-  rmd = !git rm `git ls-files --deleted`
+  rmd   = !git rm `git ls-files --deleted`
   #A stupid thing to do, but illustrates that arbitrary 
   # unix commands can be executed in this manner
   #cal = !cal
-  ste = !open -a SourceTree .
-  #add an alias in the shell profile:
+  ste   = !open -a SourceTree .
+  #Git flow
+  ffs   = flow feature start
+  fhs   = flow hotfix start
+  fff   = flow feature finish
+  fhf   = flow hotfix finish
 [core]
   excludesfile = ~/.gitignore
-  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
-  safecrlf = true
+  safecrlf     = true
 [color]
-  diff = auto
+  diff   = auto
   status = auto
   branch = auto
-  log = auto
-  ui = true
+  log    = auto
+  ui     = true
 [merge "gemfilelock"]
-  name = relocks the Gemfile.lock
+  name   = relocks the Gemfile.lock
   driver = bundle install
 [diff]
     tool = default-difftool
 [difftool]
 	prompt = false
 [difftool "default-difftool"]
-    cmd = default-difftool.sh $LOCAL $REMOTE
+  cmd = default-difftool.sh $LOCAL $REMOTE
 [credential]
   helper = osxkeychain
 [push]
   default = current
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	cmd  = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -72,3 +75,7 @@
 	default = simple
 [apply]
   #whitespace=nowarn
+[github]
+  user = #{your_name}
+[heroku]
+  account = #{your_name}
