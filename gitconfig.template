@@ -35,6 +35,7 @@
   # unix commands can be executed in this manner
   #cal = !cal
   ste   = !open -a SourceTree .
+  twr   = !open -a Tower .
   #Git flow
   ffs   = flow feature start
   fhs   = flow hotfix start
@@ -75,7 +76,11 @@
 	default = simple
 [apply]
   #whitespace=nowarn
+[rerere]
+	enabled = true
+[mergetool]
+	keepBackup = true
 [github]
   user = #{your_name}
 [heroku]
-  account = #{your_name}
+	account = #{your_name}
