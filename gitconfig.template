@@ -35,7 +35,7 @@
   # unix commands can be executed in this manner
   #cal = !cal
   ste   = !open -a SourceTree .
-  twr   = !open -a Tower .
+  t     = !open -a Tower .
   #Git flow
   ffs   = flow feature start
   fhs   = flow hotfix start
