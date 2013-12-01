@@ -56,6 +56,7 @@ export GOPATH=$HOME/.go
 # Set the list of directories that Zsh searches for programs.
 path=(
   ~/.cask/bin
+  ~/.go/bin
   /usr/local/share/npm/bin
   /usr/local/{bin,sbin}
   $path
