@@ -35,7 +35,7 @@ module Morning
     def update_vim_plugins
       vim_location = "~/Code/vim_tsu/update_plugins.vim"
       puts 'updating vim plugins...'
-      puts `vim +BundleInstall +qall`
+      puts `vim +BundleInstall! +qall`
     end
 
     def update_prezto
