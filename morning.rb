@@ -22,7 +22,6 @@ module Morning
     end
 
     def upgrade_homebrew
-      puts 'upgrading Homebrew...'
       puts %x(brew upgrade)
       system('brew cleanup')
     end
@@ -32,12 +31,6 @@ module Morning
       %x(npm update -g)
     end
 
-    def update_vim_plugins
-      vim_location = "~/Code/vim_tsu/update_plugins.vim"
-      puts 'updating vim plugins...'
-      puts `vim +BundleInstall! +qall`
-    end
-
     def update_prezto
       puts 'updating prezto...'
       Dir.chdir("#{Dir.home}/.zprezto")
@@ -45,6 +38,13 @@ module Morning
       puts `git pull`
       `git stash pop`
     end
+
+    def update_vim_plugins
+      puts 'updating vim plugins...'
+      vim_update_command = 'vim "+set nomore" "+UpdateActivatedAddons" "+qall"'
+      exec vim_update_command
+    end
+
 
     def self.run
       runner = new
