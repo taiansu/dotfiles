@@ -28,7 +28,9 @@ module Morning
 
     def update_node
       puts 'updating node plugins...'
-      %x(npm update -g)
+      %x(npm -g list --depth 0 | grep -v "^/" | cut -f2 -d" " | cut -f1 -d@ | grep -v "^npm$" | xargs npm -g update)
+      puts 'updating npm...'
+      %x(./npm_updater.sh)
     end
 
     def update_prezto
