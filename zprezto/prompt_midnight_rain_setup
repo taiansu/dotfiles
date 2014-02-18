@@ -7,7 +7,28 @@
 # Screenshots:
 #   http://
 #
+##################
+# horizontal line
+##################
+COLS="$(tput cols) - 3"
+if (( COLS <= 0 )) ; then
+  COLS="#{COLUMNS:-83}"
+fi
 
+hr() {
+  local WORD="$1"
+  if [[ -n "$WORD" ]] ; then
+    local LINE=''
+    while (( ${#LINE} < COLS ))
+    do
+      LINE="$LINE$WORD"
+    done
+
+    echo "${LINE:0:$COLS}"
+  fi
+}
+
+##################
 function +vi-git-status() {
   # Check for untracked files or updated submodules since vcs_info does not.
   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
@@ -51,7 +72,7 @@ function prompt_midnight_rain_setup {
 
   # Define prompts.
   PROMPT="
-%(?.%F{237}${1:-⎇ }%f.%F{009}${1:-⌥ }%f)%F{237}==========================================================%f
+%(?.%F{237}${1:-⎇ }%f.%F{009}${1:-⌥ }%f)%F{237}$(hr =)%f
 %F{067}%~%f "'${vcs_info_msg_0_}'"
 %F{067}%(!.#.❯)%f "
 
