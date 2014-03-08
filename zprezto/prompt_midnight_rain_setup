@@ -10,10 +10,12 @@
 ##################
 # horizontal line
 ##################
-COLS="$(tput cols) * 0.6"
-if (( COLS <= 0 )) ; then
-  COLS="${COLUMNS:-80*0.6}"
-fi
+# COLS="$(tput cols) * 0.6 - 1"
+# if (( COLS <= 0 )) ; then
+#   COLS="${COLUMNS:-80*0.6}"
+# fi
+
+COLS="59"
 
 hr() {
   local WORD="$1"
