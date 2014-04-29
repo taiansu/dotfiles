@@ -21,6 +21,7 @@ export EDITOR='mvim -f'
 export VISUAL='mvim -f'
 export PAGER='less'
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export DOCKER_HOST=tcp://localhost:4243
 
 #
 # Language
