@@ -10,6 +10,9 @@
 *.swo
 *.orig
 
+# Emacs backup files
+*~
+
 # Redcar configuration.
 .redcar
 
