@@ -7,15 +7,15 @@ module Morning
 
       puts `brew update`
 
-      print 'Would you like to update all Homebrew items? (Y/n) [1]'
+      # print 'Would you like to update all Homebrew items? (Y/n) [1]'
       update = true
 
       # user_input = gets.chomp!
-      1.downto(0){ |t|
-        sleep 1
-        print "\b\b#{t}]"
-      }
-      puts ''
+      # 1.downto(0){ |t|
+      #   sleep 1
+      #   print "\b\b#{t}]"
+      # }
+      # puts ''
       # update = false if ['n', 'no', 'N'].include? user_input
 
       upgrade_homebrew if update
@@ -39,6 +39,12 @@ module Morning
       `git stash -u`
       puts `git pull`
       `git stash pop`
+    end
+
+    def update_emacs
+      puts 'updating emacs...'
+      Dir.chdir("#{Dir.home}/.emacs.d")
+      `cask update`
     end
 
     def update_vim_plugins
