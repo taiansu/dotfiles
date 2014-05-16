@@ -33,7 +33,7 @@ alias intgall="INTEGRATION=true be rspec spec/features"
 alias jspec="RAILS_ENV=INTEGRATION br konacha:serve"
 
 #emacs
-alias em="open /usr/local/Cellar/emacs/HEAD/Emacs.app"
+alias em="open -a Emacs"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
