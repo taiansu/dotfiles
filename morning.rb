@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'mkmf'
 
 module Morning
   class Updater
@@ -22,11 +23,13 @@ module Morning
     end
 
     def upgrade_homebrew
+      return unless find_executable('brew')
       puts %x(brew upgrade)
       system('brew cleanup')
     end
 
     def update_node
+      return unless find_executable('npm')
       puts 'updating node plugins...'
       %x(npm -g list --depth 0 | grep -v "^/" | cut -f2 -d" " | cut -f1 -d@ | grep -v "^npm$" | xargs npm -g update)
       puts 'updating npm...'
@@ -34,6 +37,7 @@ module Morning
     end
 
     def update_prezto
+      return unless File.directory?("#{Dir.home}/.zprezto")
       puts 'updating prezto...'
       Dir.chdir("#{Dir.home}/.zprezto")
       `git stash -u`
@@ -42,6 +46,8 @@ module Morning
     end
 
     def update_emacs
+      return unless File.directory?("#{Dir.home}/.emacs.d")
+      return unless find_executable('cask')
       puts 'updating emacs...'
       Dir.chdir("#{Dir.home}/.emacs.d")
       `cask update`
