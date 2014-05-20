@@ -10,7 +10,7 @@
   aa    = add --all
   ap    = add -p
   st    = status
-  sh    = stash
+  sh    = stash -u
   d     = diff
   dc    = diff --cached
   fp    = fetch -p
@@ -32,8 +32,8 @@
   #remove deleted files
   rmd   = !git rm `git ls-files --deleted`
   #A stupid thing to do, but illustrates that arbitrary 
-  #unix commands can be executed in this manner
-  # cal = !cal
+  # unix commands can be executed in this manner
+  #cal = !cal
   # ste   = !open -a SourceTree .
   # t     = !open -a Tower .
   #Git flow
