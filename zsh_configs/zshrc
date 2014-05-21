@@ -77,10 +77,10 @@ bindkey " "   magic-abbrev-expand-and-insert
 bindkey "."   magic-abbrev-expand-and-insert
 bindkey "^x " no-magic-abbrev-expand
 
-if [ $TERM != 'dumb' ];
-  then
-  source /usr/local/Cellar/cask/0.6.0/share/zsh/site-functions/cask_completion.zsh
+if [ $TERM != 'dumb' ]; then
+  source "$(brew --prefix)/share/zsh/site-functions/cask_completion.zsh"
 fi
 source ~/.dotfiles/aliases.zsh
+fpath=(/usr/local/share/zsh/site-functions $fpath)
 # Customize to your needs...
 # fpath=(/usr/local/share/zsh-completions $fpath)
