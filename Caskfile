@@ -1,0 +1,44 @@
+# Install Cask
+install caskroom/cask/brew-cask
+
+# Productivity tools
+cask install alfred
+cask install slate
+
+# Utilities
+cask install asepsis
+cask install flux
+cask install qlstephen
+cask install vlc
+cask install xld
+cask install xquartz
+# cask install handbrake
+# cask install totalfinder
+# cask install ifunbox
+# cask install calibre
+# cask install fantastical
+# cask install igetter
+# cask install openemu
+
+# Programming
+cask install sourcetree
+cask install sequel-pro
+# cask install lighttable
+# cask install launchrocket
+# cask install kaleidoscope
+# cask install marked
+# cask install mongohub
+# cask install tower
+# cask install dterm
+# cask install java
+
+# Virtualization
+cask install virtualbox
+cask install vagrant
+cask install vagrant-manager
+
+# Applications
+cask install google-chrome
+cask install iterm2
+cask install picasa
+cask install skype
