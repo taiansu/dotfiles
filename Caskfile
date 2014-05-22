@@ -3,7 +3,12 @@ install caskroom/cask/brew-cask
 
 # Productivity tools
 cask install alfred
-cask install slate
+cask install dropbox
+cask install slack
+cask install omnidisksweeper
+cask install omnidazzle
+cask install moom
+cask install witch
 
 # Utilities
 cask install asepsis
