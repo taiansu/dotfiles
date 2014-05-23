@@ -1,39 +1,13 @@
 require 'rake'
 
-task default: [:morning, :update_prezto, :finish]
+task default: [:morning, :prezto, :finish]
 
-multitask morning: [:update_homebrew, :update_node,  :update_emacs, :update_vim]
+multitask morning: [:homebrew, :node,  :emacs, :vim]
 
-task :update_homebrew do
-  return unless sh "brew -v"
-  sh 'brew update'
-  sh 'brew upgrade'
-  sh 'brew cleanup'
-end
-
-task :update_node do
-  return unless sh "npm -v"
-  sh 'npm update -g'
-end
-
-task :update_prezto do
-  return unless File.directory? "#{Dir.home}/.zprezto"
-  Dir.chdir "#{Dir.home}/.zprezto"
-  sh 'git stash -u'
-  sh 'git pull'
-  sh 'git stash pop'
-end
-
-task :update_emacs do
-  return unless File.directory?("#{Dir.home}/.emacs.d")
-  return unless sh "cask --version"
-  Dir.chdir("#{Dir.home}/.emacs.d")
-  sh 'cask update'
-end
-
-task :update_vim do
-  vim_update_command = 'vim "+set nomore" "+UpdateActivatedAddons" "+qall"'
-  sh vim_update_command
+[:homebrew, :node, :prezto, :emacs, :vim].each do |task_name|
+  task task_name do
+    send "update_#{task_name}"
+  end
 end
 
 task :finish do
@@ -48,6 +22,38 @@ task :finish do
     5.times do puts '' end
     print_finish
   end
+end
+
+def update_homebrew
+  return unless sh "brew -v"
+  sh 'brew update'
+  sh 'brew upgrade'
+  sh 'brew cleanup'
+end
+
+def  update_node
+  return unless sh "npm -v"
+  sh 'npm update -g'
+end
+
+def update_prezto
+  return unless File.directory? "#{Dir.home}/.zprezto"
+  Dir.chdir "#{Dir.home}/.zprezto"
+  sh 'git stash -u'
+  sh 'git pull'
+  sh 'git stash pop'
+end
+
+def update_emacs
+  return unless File.directory?("#{Dir.home}/.emacs.d")
+  return unless sh "cask --version"
+  Dir.chdir("#{Dir.home}/.emacs.d")
+  sh 'cask update'
+end
+
+def update_vim
+  vim_update_command = 'vim "+set nomore" "+UpdateActivatedAddons" "+qall"'
+  sh vim_update_command
 end
 
 def print_finish
