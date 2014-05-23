@@ -1,8 +1,8 @@
 require 'rake'
 
-task default: [:morning, :prezto, :finish]
+task default: [:async_tasks, :prezto, :finish]
 
-multitask morning: [:homebrew, :node,  :emacs, :vim]
+multitask async_tasks: [:homebrew, :node,  :emacs, :vim]
 
 [:homebrew, :node, :prezto, :emacs, :vim].each do |task_name|
   task task_name do
@@ -11,15 +11,15 @@ multitask morning: [:homebrew, :node,  :emacs, :vim]
 end
 
 task :finish do
-  if (sh "brew -v") && (sh "brew list cowsay")
+  if (sh "brew -v") && (`brew list cowsay`)
     sh 'clear'
-    5.times do puts '' end
+    5.times { puts '' }
     cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
     cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
-    sh "#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'"
+    system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
   else
     sh 'clear'
-    5.times do puts '' end
+    5.times { puts '' }
     print_finish
   end
 end
