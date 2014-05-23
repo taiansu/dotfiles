@@ -1,26 +1,30 @@
 require 'rake'
 
-task default: [:async_tasks, :prezto, :finish]
+task default: %w[update:async_tasks update:prezto update:finish_msg]
 
-multitask async_tasks: [:homebrew, :node,  :emacs, :vim]
+namespace :update do
+  multitask async_tasks: %w[homebrew node emacs vim]
 
-[:homebrew, :node, :prezto, :emacs, :vim].each do |task_name|
-  task task_name do
-    send "update_#{task_name}"
+  [:homebrew, :node, :prezto, :emacs, :vim].each do |task_name|
+    desc "Update #{task_name}"
+    task task_name do
+      send "update_#{task_name}"
+    end
   end
-end
 
-task :finish do
-  if (sh "brew -v") && (`brew list cowsay`)
-    sh 'clear'
-    5.times { puts '' }
-    cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
-    cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
-    system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
-  else
-    sh 'clear'
-    5.times { puts '' }
-    print_finish
+  desc "show a finish message"
+  task :finish_msg do
+    if (sh "brew -v") && (`brew list cowsay`)
+      sh 'clear'
+      5.times { puts '' }
+      cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
+      cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
+      system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
+    else
+      sh 'clear'
+      5.times { puts '' }
+      print_finish
+    end
   end
 end
 
