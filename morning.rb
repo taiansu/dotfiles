@@ -51,6 +51,7 @@ module Morning
       puts 'updating emacs...'
       Dir.chdir("#{Dir.home}/.emacs.d")
       `cask update`
+      `rm -rf mkmf.log`
     end
 
     def update_vim_plugins
