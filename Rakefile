@@ -1,5 +1,4 @@
 require 'rake'
-require 'rake/clean'
 
 task default: [:morning, :update_prezto, :finish]
 
@@ -38,7 +37,21 @@ task :update_vim do
 end
 
 task :finish do
-  puts "============================================="
-  puts "=====All done! Wish you have a nice day!====="
-  puts "============================================="
+  if (sh "brew -v") && (sh "brew list cowsay")
+    sh 'clear'
+    5.times do puts '' end
+    cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
+    cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
+    sh "#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'"
+  else
+    sh 'clear'
+    5.times do puts '' end
+    print_finish
+  end
+end
+
+def print_finish
+  puts "====================================================="
+  puts "=====    All done! Wish you have a nice day!    ====="
+  puts "====================================================="
 end
