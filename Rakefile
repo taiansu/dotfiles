@@ -14,17 +14,9 @@ namespace :update do
 
   desc "show a finish message"
   task :finish_msg do
-    if (sh "brew -v") && (`brew list cowsay`)
-      sh 'clear'
-      5.times { puts '' }
-      cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
-      cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
-      system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
-    else
-      sh 'clear'
-      5.times { puts '' }
-      print_finish
-    end
+    cmd = cowsay? ? "cowsay" : "print"
+    clear_screen
+    send "#{cmd}_finish"
   end
 
   def update_homebrew
@@ -59,9 +51,24 @@ namespace :update do
     sh vim_update_command
   end
 
+  def clear_screen
+    sh 'clear'
+    5.times { puts '' }
+  end
+
+  def cowsay?
+    (sh "brew -v") && (`brew list cowsay`)
+  end
+
   def print_finish
     puts "====================================================="
     puts "=====    All done! Wish you have a nice day!    ====="
     puts "====================================================="
+  end
+
+  def cowsay_finish
+    cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
+    cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
+    system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
   end
 end
