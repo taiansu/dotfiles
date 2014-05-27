@@ -67,8 +67,12 @@ namespace :update do
   end
 
   def cowsay_finish
+    cow_file = %W[bud-frogs bunny default dragon-and-cow hellokitty kitty koala
+    luke-koala meow moose satanic sheep small stegosaurus supermilker three-eyes
+    turkey turtle tux udder vader vader-koala]
+
     cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
     cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
-    system("#{cow_cmd} #{cow_eye} 'All done! Wish you have a nice day!'")
+    system("fortune | #{cow_cmd} -f #{cow_file.sample} #{cow_eye}")
   end
 end
