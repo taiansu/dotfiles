@@ -90,3 +90,6 @@ alias cov='open ./coverage/index.html'
 
 # MiddleMan
 alias mm='middleman'
+
+#less
+alias lf='less +F'
