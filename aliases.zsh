@@ -93,3 +93,8 @@ alias mm='middleman'
 
 #less
 alias lf='less +F'
+
+#chinese
+alias 牽='ls'
+alias 屠='cd'
+alias 整='z'
