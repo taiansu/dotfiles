@@ -26,6 +26,9 @@ alias br="nocorrect bundle exec rake"
 alias bt="nocorrect bundle exec rspec"
 alias bnp="nocorrect bundle --without production"
 
+#rake
+alias rk="rake"
+
 # Optimis
 alias sel_intg="INTEGRATION=true DRIVER=selenium be rspec"
 alias sel_intgall="INTEGRATION=true DRIVER=selenium be rspec spec/features"
