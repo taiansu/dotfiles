@@ -14,8 +14,8 @@ alias zshconfig="mvim ~/.zshrc"
 alias szr="source ~/.zshrc"
 
 #git
-# alias g='git'
-alias g='hub'
+alias g='git'
+alias h='hub'
 
 #bundler
 
