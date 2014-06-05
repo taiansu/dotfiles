@@ -59,7 +59,7 @@ frequentlyHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
 
-alias usuallyTyped='history 0 | frequentlyHistory | sort -rn | head -20'
+alias whatTyped='history 0 | frequentlyHistory | sort -rn | head -20'
 
 # fix dirs
 alias dv="dirs -v"
@@ -95,8 +95,11 @@ alias cov='open ./coverage/index.html'
 # MiddleMan
 alias mm='middleman'
 
-#less
+# less
 alias lf='less +F'
+
+# Vagrant
+alias vg='vagrant'
 
 #chinese
 alias 牽='ls'
