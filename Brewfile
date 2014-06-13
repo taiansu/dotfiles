@@ -63,7 +63,6 @@ tig
 tmux
 tree
 v8
-w3m
 wget
 xmlto
 yajl
