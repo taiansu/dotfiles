@@ -7,43 +7,54 @@ cask install dropbox
 cask install slack
 cask install omnidisksweeper
 cask install omnidazzle
-cask install moom
-cask install witch
 
 # Utilities
+cask install xquartz
 cask install asepsis
 cask install flux
 cask install qlstephen
 cask install vlc
 cask install xld
-cask install xquartz
-# cask install handbrake
-# cask install totalfinder
-# cask install ifunbox
+cask install handbrake
+cask install ifunbox
 # cask install calibre
-# cask install fantastical
-# cask install igetter
 # cask install openemu
 
 # Programming
 cask install sourcetree
 cask install sequel-pro
+cask install launchrocket
+
 # cask install lighttable
-# cask install launchrocket
-# cask install kaleidoscope
-# cask install marked
 # cask install mongohub
-# cask install tower
-# cask install dterm
 # cask install java
 
 # Virtualization
 cask install virtualbox
 cask install vagrant
-cask install vagrant-manager
 
 # Applications
 cask install google-chrome
 cask install iterm2
 cask install picasa
 cask install skype
+
+# Preview
+# cask install qlcolorcode
+# cask install qlstephen
+# cask install qlmarkdown
+# cask install quicklook-json
+# cask install qlprettypatch
+# cask install quicklook-csv
+# cask install betterzipql
+# cask install webp-quicklook
+# cask install suspicious-package
+
+# Paid
+cask install moom
+cask install witch
+# cask install fantastical
+# cask install kaleidoscope
+# cask install marked
+# cask install totalfinder
+# cask install tower
