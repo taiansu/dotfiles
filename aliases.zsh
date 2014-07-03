@@ -59,6 +59,15 @@ frequentlyHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
 
+# uninstall rails
+uninstallRails(){
+  gems=( "activemodel" "activerecord" "activeresource" "activesupport" "actionmailer" "actionpack" "actionview" "railties" "rails" )
+
+  for gem in $gems; do
+    gem uninstall $gem -v=$1 --force
+  done
+}
+
 alias whatTyped='history 0 | frequentlyHistory | sort -rn | head -20'
 
 # fix dirs
