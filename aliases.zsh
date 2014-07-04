@@ -110,7 +110,10 @@ alias lf='less +F'
 # Vagrant
 alias vg='vagrant'
 
-#chinese
+# chinese
 alias 牽='ls'
 alias 屠='cd'
 alias 整='z'
+
+# docker
+alias dl='docker ps -l -q'
