@@ -1,6 +1,10 @@
 [user]
   name  = #{your_name}
   email = #{your_email}
+[github]
+  user = #{yourname}
+[heroku]
+  user = #{yourname}
 [alias]
   br    = branch
   co    = checkout
@@ -13,7 +17,9 @@
   sh    = stash -u
   d     = diff
   dc    = diff --cached
+  f     = fetch
   fp    = fetch -p
+  fu    = fetch upstream
   sha   = "!f(){ git stash apply stash^{/$*}; }; f"
   shs   = "!f(){ git stash show stash^{/$*} -p; }; f"
   shl   = stash list
@@ -25,22 +31,24 @@
   pa    = push --recurse-submodules=on-demand
   lg    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
+  lgs   = log -S
   amend = commit -C HEAD --amend
   ref   = reflog show --date=relative
   rhh   = reset HEAD --hard
   rh    = reset HEAD
   #remove deleted files
   rmd   = !git rm `git ls-files --deleted`
-  #A stupid thing to do, but illustrates that arbitrary 
+  #A stupid thing to do, but illustrates that arbitrary
   # unix commands can be executed in this manner
   #cal = !cal
-  # ste   = !open -a SourceTree .
-  # t     = !open -a Tower .
+  ste   = !open -a SourceTree .
+  t     = !open -a Tower .
   #Git flow
   ffs   = flow feature start
   fhs   = flow hotfix start
   fff   = flow feature finish
   fhf   = flow hotfix finish
+  colwrd = diff --color-words='\\w+|\\S'
 [core]
   excludesfile = ~/.gitignore
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -60,33 +68,18 @@
   helper = osxkeychain
 [push]
 	default = simple
-[apply]
-  #whitespace=nowarn
 [rerere]
 	enabled = true
-[github]
-  user = #{yourname}
-[heroku]
-  user = #{yourname}
 [diff]
-    tool = default-difftool
+  tool = Kaleidoscope
 [difftool]
-	prompt = false
-[difftool "default-difftool"]
-  cmd = default-difftool.sh $LOCAL $REMOTE
+  prompt = false
+[merge]
+  tool = Kaleidoscope
 [mergetool]
-	keepBackup = true
-# [difftool "Kaleidoscope"]
-#   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-# [diff]
-#   tool = Kaleidoscope
-# [difftool]
-#   prompt = false
-# 
-# [mergetool "Kaleidoscope"]
-#   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-#   trustExitCode = true
-# [mergetool]
-#   prompt = false
-# [merge]
-#   tool = Kaleidoscope
+  prompt = false
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
