@@ -74,13 +74,11 @@ alias whatTyped='history 0 | frequentlyHistory | sort -rn | head -20'
 alias dv="dirs -v"
 
 # fasd
-# unalias j
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
 alias f='fasd -f'        # file
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
 alias vf='f -e mvim'        # file
 alias o='a -e open'        # file
 
@@ -114,6 +112,9 @@ alias vg='vagrant'
 alias 牽='ls'
 alias 屠='cd'
 alias 整='z'
+
+# boot2docker
+alias bd='boot2docker'
 
 # docker
 alias dl='docker ps -l -q'
