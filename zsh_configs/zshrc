@@ -5,9 +5,14 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Source Prezto.
+# Source Prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Source nvm
+if [[ -s "$(brew --prefix nvm)/nvm.sh" ]]; then
+  source $(brew --prefix nvm)/nvm.sh
 fi
 
 # Customize to your needs...
