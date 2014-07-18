@@ -17,6 +17,7 @@
   sh    = stash -u
   d     = diff
   dc    = diff --cached
+  dt    = difftool
   f     = fetch
   fp    = fetch -p
   fu    = fetch upstream
