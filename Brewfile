@@ -39,7 +39,7 @@ mongodb
 multitail
 mysql
 neovim
-node
+nvm
 optipng
 ossp-uuid
 pango
