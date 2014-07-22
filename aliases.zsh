@@ -10,7 +10,6 @@ alias vd="vim -d"
 alias gvimdiff="mvim -d"
 
 # zsh configs
-alias zshconfig="mvim ~/.zshrc"
 alias szr="source ~/.zshrc"
 
 #git
@@ -79,7 +78,7 @@ alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
 alias f='fasd -f'        # file
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias vf='f -e mvim'        # file
+alias vf='f -e vim'        # file
 alias o='a -e open'        # file
 
 # youtube-dl

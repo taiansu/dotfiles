@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='mvim -f'
-export VISUAL='mvim -f'
+export EDITOR='vim -f'
+export VISUAL='vim -f'
 export PAGER='less'
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
