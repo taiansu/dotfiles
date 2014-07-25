@@ -10,16 +10,11 @@
 *.swo
 *.orig
 
-# Emacs backup files
-*~
 
 # Redcar configuration.
 .redcar
 
 # Ruby Environment.
-.rvmrc
-.rvmrc.*
-.rbenv-version
 .ruby-version
 
 # Rails database configuration.
@@ -68,3 +63,87 @@ Icon
 
 # Floorc
 floorc
+
+# Environment normalisation:
+/.bundle
+/vendor/bundle
+
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+
+### Elixir ###
+/_build
+/deps
+erl_crash.dump
+*.ez
+
+
+### Elisp ###
+# Compiled
+*.elc
+
+
+### Emacs ###
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+
+### vim ###
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+
+### Erlang ###
+.eunit
+deps
+*.o
+*.beam
+*.plt
+erl_crash.dump
+
+
+### Sass ###
+.sass-cache
+
+
+### SublimeText ###
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+#sftp configuration file
+sftp-config.json
