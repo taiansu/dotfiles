@@ -5,8 +5,8 @@ alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
 # vim
-alias v="vim"
-alias vd="vim -d"
+alias v="mvim"
+alias vd="mvim -d"
 alias gvimdiff="mvim -d"
 
 # zsh configs

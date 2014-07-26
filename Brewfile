@@ -38,7 +38,6 @@ mercurial
 mongodb
 multitail
 mysql
-neovim
 nvm
 optipng
 ossp-uuid
