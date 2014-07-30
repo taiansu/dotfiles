@@ -103,3 +103,10 @@ if [ -d "${HOME}/google-cloud-sdk" ] ; then
   # The next line enables bash completion for gcloud.
   source "${HOME}/google-cloud-sdk/completion.zsh.inc"
 fi
+
+# boot2docker up
+bdup(){
+  command boot2docker up
+  export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+  echo "DOCKER_HOST is set to $(boot2docker ip 2>/dev/null):2375"
+}
