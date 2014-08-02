@@ -43,7 +43,7 @@ namespace :update do
     return unless File.directory?("#{Dir.home}/.emacs.d")
     return unless sh "cask --version"
     Dir.chdir("#{Dir.home}/.emacs.d")
-    sh 'cask update'
+    sh 'cask upgrade'
   end
 
   def update_vim
