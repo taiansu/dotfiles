@@ -54,9 +54,11 @@ alias mmv="noglob zmv -W"
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # usually typed
-frequentlyHistory(){
+topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
+
+alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
 # uninstall rails
 uninstallRails(){
@@ -66,8 +68,6 @@ uninstallRails(){
     gem uninstall $gem -v=$1 --force
   done
 }
-
-alias whatTyped='history 0 | frequentlyHistory | sort -rn | head -20'
 
 # fix dirs
 alias dv="dirs -v"
