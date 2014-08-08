@@ -117,3 +117,8 @@ alias bd='boot2docker'
 
 # docker
 alias dl='docker ps -l -q'
+
+# mkdir + autocd
+mkd () {
+  mkdir -p "$@" && cd "$@"
+}
