@@ -122,3 +122,8 @@ alias dl='docker ps -l -q'
 mkd () {
   mkdir -p "$@" && cd "$@"
 }
+
+# dump website
+dump () {
+  wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=unix --domains "$@" --no-parent "$@"
+}
