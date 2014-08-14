@@ -6,28 +6,27 @@
 [heroku]
   user = #{yourname}
 [alias]
+  aa    = add --all
+  ap    = add -p
   br    = branch
   co    = checkout
   ci    = commit
   cim   = commit -m
   ciam  = commit --amend
-  aa    = add --all
-  ap    = add -p
-  st    = status
-  sh    = stash -u
   d     = diff
   dc    = diff --cached
   dt    = difftool
   f     = fetch
+  ffs   = flow feature start
+  fhs   = flow hotfix start
+  fff   = flow feature finish
+  fhf   = flow hotfix finish
   fp    = fetch -p
   fu    = fetch upstream
-  sha   = "!f(){ git stash apply stash^{/$*}; }; f"
-  shs   = "!f(){ git stash show stash^{/$*} -p; }; f"
-  shl   = stash list
-  shp   = stash pop
+  l     = pull
+  st    = status
   mg    = merge
   mgnf  = merge --no-ff
-  l     = pull
   p     = push --recurse-submodules=check
   pu    = push --recurse-submodules=check -u
   pa    = push --recurse-submodules=on-demand
@@ -40,16 +39,16 @@
   rh    = reset HEAD
   #remove deleted files
   rmd   = !git rm `git ls-files --deleted`
-  #A stupid thing to do, but illustrates that arbitrary
-  # unix commands can be executed in this manner
-  #cal = !cal
+  sh    = stash
+  sha   = "!f(){ git stash apply stash^{/$*}; }; f"
+  shs   = "!f(){ git stash show stash^{/$*} -p; }; f"
+  shl   = stash list
+  shp   = stash pop
+  shu   = stash -u
+  # use ! to execute unix command
   ste   = !open -a SourceTree .
   t     = !open -a Tower .
   #Git flow
-  ffs   = flow feature start
-  fhs   = flow hotfix start
-  fff   = flow feature finish
-  fhf   = flow hotfix finish
   colwrd = diff --color-words='\\w+|\\S'
 [core]
   excludesfile = ~/.gitignore
@@ -73,21 +72,14 @@
 [rerere]
 	enabled = true
 [diff]
-  tool = Kaleidoscope
 [difftool]
-  prompt = false
 [merge]
-  tool = Kaleidoscope
 [mergetool]
-  prompt = false
 [difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustExitCode = true
