@@ -116,6 +116,7 @@ alias 整='z'
 alias bd='boot2docker'
 
 # docker
+alias dk='docker'
 alias dl='docker ps -l -q'
 
 # mkdir + autocd
