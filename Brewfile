@@ -38,7 +38,7 @@ mercurial
 mongodb
 multitail
 mysql
-nvm
+node --devel
 optipng
 ossp-uuid
 pango

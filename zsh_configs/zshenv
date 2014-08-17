@@ -54,8 +54,8 @@ export GOPATH=$HOME/go
 # PSQL path
 export PQ_PATH='/Applications/Postgres.app/Contents/Versions/9.3/bin'
 
-# NVM DIR
-export NVM_DIR='/usr/local/opt/nvm/'
+# NODE_PATH
+export NODE_PATH='/usr/local/lib/node_modules'
 
 # Set the list of directories that Zsh searches for programs.
 path=(
