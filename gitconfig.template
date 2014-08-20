@@ -9,6 +9,7 @@
   aa    = add --all
   ap    = add -p
   br    = branch
+  cb    = checkout -b
   co    = checkout
   ci    = commit
   cim   = commit -m
