@@ -31,32 +31,16 @@ git-escape-magic
 
 typeset -A abbreviations
 abbreviations=(
-	"Im"    "| more"
-  "Ia"    "| ag"
-  "Iaw"   "| awk"
-  "Ig"    "| grep"
-  "Ieg"   "| egrep"
-  "Ifg"   "| fgrep"
-  "Igr"   "| groff -s -p -t -e -Tlatin1 -mandoc"
-  "Ip"    "| $PAGER"
-  "Ih"    "| head"
-  "Ik"    "| keep"
-  "It"    "| tail"
-  "Is"    "| sort"
-  "Iv"    "| ${VISUAL:-${EDITOR}}"
-  "Iw"    "| wc"
-  "Ix"    "| xargs"
-
+  "@^"        "@^"
+  "@^^"       "@^\\^"
+  "@^^^"      "@^\\^\\^"
+  "@^^^^"     "@^\\^\\^\\^\\^"
+  "@^^^^^"    "@^\\^\\^\\^\\^"
   "HEAD^"     "HEAD\\^"
   "HEAD^^"    "HEAD\\^\\^"
   "HEAD^^^"   "HEAD\\^\\^\\^"
   "HEAD^^^^"  "HEAD\\^\\^\\^\\^\\^"
   "HEAD^^^^^" "HEAD\\^\\^\\^\\^\\^"
-  "@^"     "@^"
-  "@^^"    "@^\\^"
-  "@^^^"   "@^\\^\\^"
-  "@^^^^"  "@^\\^\\^\\^\\^"
-  "@^^^^^" "@^\\^\\^\\^\\^"
 )
 
 magic-abbrev-expand () {
