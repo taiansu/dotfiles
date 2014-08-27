@@ -85,9 +85,6 @@ alias o='a -e open'        # file
 alias yt4='youtube-dl -o "%(title)s.%(ext)s" -q --extract-audio --audio-format "m4a" '
 alias yt3='youtube-dl -o "%(title)s.%(ext)s" -q --extract-audio --audio-format "mp3" '
 
-# maven
-alias m='mvn -q'
-
 c(){
   gcc "$@"
   ./a.out
