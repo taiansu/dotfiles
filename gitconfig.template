@@ -49,7 +49,7 @@
   shu   = stash -u
   # use ! to execute unix command
   ste   = !open -a SourceTree .
-  sync  = !"git fetch origin -v & git fetch upstream -v & git merge upstream/master"
+  sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
   t     = !open -a Tower .
   #Git flow
   colwrd = diff --color-words='\\w+|\\S'
