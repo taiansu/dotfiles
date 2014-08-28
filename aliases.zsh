@@ -125,3 +125,7 @@ mkd () {
 dump () {
   wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=unix --domains "$@" --no-parent "$@"
 }
+
+# god object
+alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+# alias god_object='find . -type f | grep -v ".git" | xargs wc -l | sort -r | head -n 20'
