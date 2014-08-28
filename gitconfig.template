@@ -28,6 +28,7 @@
   st    = status
   mg    = merge
   mgnf  = merge --no-ff
+  mm    = !sh -c 'git checkout master && git merge "$1" && git checkout "$1"' -
   p     = push --recurse-submodules=check
   pu    = push --recurse-submodules=check -u
   pa    = push --recurse-submodules=on-demand
@@ -48,6 +49,7 @@
   shu   = stash -u
   # use ! to execute unix command
   ste   = !open -a SourceTree .
+  sync  = !"git fetch origin -v & git fetch upstream -v & git merge upstream/master"
   t     = !open -a Tower .
   #Git flow
   colwrd = diff --color-words='\\w+|\\S'
