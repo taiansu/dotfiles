@@ -36,8 +36,8 @@ cask install vagrant
 # Applications
 cask install google-chrome
 cask install iterm2
-cask install picasa
 cask install skype
+# cask install picasa
 
 # Preview
 # cask install qlcolorcode
@@ -53,8 +53,10 @@ cask install skype
 # Paid
 cask install moom
 cask install witch
+cask install pg-commander
+cask install marked
+cask install kaleidoscope
+# cask install omnigraffle
 # cask install fantastical
-# cask install kaleidoscope
-# cask install marked
 # cask install totalfinder
 # cask install tower
