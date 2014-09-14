@@ -62,7 +62,12 @@ alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
 # uninstall rails
 uninstallRails(){
-  gems=( "activemodel" "activerecord" "activeresource" "activesupport" "actionmailer" "actionpack" "actionview" "railties" "rails" )
+  gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails")
+  if [ $1 =~ "^3" ] ; then
+    gems+=("activeresource" )
+  else
+    gems+=("actionview")
+  fi
 
   for gem in $gems; do
     gem uninstall $gem -v=$1 --force
