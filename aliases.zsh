@@ -8,6 +8,7 @@ alias -g ......='../../../../..'
 alias v="mvim"
 alias vd="mvim -d"
 alias gvimdiff="mvim -d"
+alias u="subl"
 
 # zsh configs
 alias szr="source ~/.zshrc"
