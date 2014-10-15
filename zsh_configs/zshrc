@@ -26,8 +26,6 @@ setopt hist_ignore_space
 unsetopt nomatch
 unsetopt correct_all
 autoload -U zmv
-autoload -Uz git-escape-magic
-git-escape-magic
 
 typeset -A abbreviations
 abbreviations=(
