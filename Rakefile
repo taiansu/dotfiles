@@ -27,8 +27,9 @@ namespace :update do
   end
 
   def  update_node
-    return unless sh "npm -v"
-    sh 'npm update -g'
+    sh './upd_npm.sh'
+    # return unless sh "npm -v"
+    # sh 'npm update -g'
   end
 
   def update_prezto
