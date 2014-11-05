@@ -140,3 +140,7 @@ dump () {
 # god object
 alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
 # alias god_object='find . -type f | grep -v ".git" | xargs wc -l | sort -r | head -n 20'
+
+
+# reactjs_bootstrap
+alias reactjs_bootstrap='mkdir -p app/{actions,constants,dispatcher,fixtures,mixins,stores,views,assets/{css,images}}'
