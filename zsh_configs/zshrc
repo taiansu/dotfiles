@@ -91,6 +91,9 @@ fi
 # boot2docker up
 bdup(){
   command boot2docker up
-  export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
-  echo "DOCKER_HOST is set to $(boot2docker ip 2>/dev/null):2375"
+  export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2376
+  export DOCKER_CERT_PATH=/Users/tsu/.boot2docker/certs/boot2docker-vm
+  export DOCKER_TLS_VERIFY=1
+  echo "DOCKER_HOST is set to $(boot2docker ip 2>/dev/null):2376"
+  echo "ready to go"
 }

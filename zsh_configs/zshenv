@@ -95,3 +95,4 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
+eval `/usr/libexec/path_helper -s`
