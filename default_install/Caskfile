@@ -2,61 +2,61 @@
 install caskroom/cask/brew-cask
 
 # Productivity tools
-cask install alfred
-cask install dropbox
-cask install slack
-cask install omnidisksweeper
-cask install omnidazzle
+brew cask install alfred
+brew cask install dropbox
+brew cask install slack
+brew cask install omnidisksweeper
+brew cask install omnidazzle
 
 # Utilities
-cask install xquartz
-cask install asepsis
-cask install flux
-cask install qlstephen
-cask install vlc
-cask install xld
-cask install handbrake
-cask install ifunbox
-# cask install calibre
-# cask install openemu
+brew cask install xquartz
+brew cask install asepsis
+brew cask install flux
+brew cask install qlstephen
+brew cask install vlc
+brew cask install xld
+brew cask install handbrake
+brew cask install ifunbox
+brew # cask install calibre
+brew # cask install openemu
 
 # Programming
-cask install sourcetree
-cask install sequel-pro
-cask install launchrocket
+brew cask install sourcetree
+brew cask install sequel-pro
+brew cask install launchrocket
 
-# cask install lighttable
-# cask install mongohub
-# cask install java
+# brew cask install lighttable
+brew cask install mongohub
+# brew cask install java
 
 # Virtualization
-cask install virtualbox
-cask install vagrant
+brew cask install virtualbox
+brew cask install vagrant
 
 # Applications
-cask install google-chrome
-cask install iterm2
-cask install skype
+# brew cask install google-chrome
+brew cask install iterm2
+brew cask install skype
 # cask install picasa
 
 # Preview
-# cask install qlcolorcode
-# cask install qlstephen
-# cask install qlmarkdown
-# cask install quicklook-json
-# cask install qlprettypatch
-# cask install quicklook-csv
-# cask install betterzipql
-# cask install webp-quicklook
-# cask install suspicious-package
+#brew cask install qlcolorcode
+#brew cask install qlstephen
+#brew cask install qlmarkdown
+#brew cask install quicklook-json
+#brew cask install qlprettypatch
+#brew cask install quicklook-csv
+#brew cask install betterzipql
+#brew cask install webp-quicklook
+#brew cask install suspicious-package
 
 # Paid
-cask install moom
-cask install witch
-cask install pg-commander
-cask install marked
-cask install kaleidoscope
+brew cask install moom
+brew cask install witch
+brew cask install pg-commander
+brew cask install marked
+brew cask install kaleidoscope
+brew cask install fantastical
 # cask install omnigraffle
-# cask install fantastical
 # cask install totalfinder
 # cask install tower
