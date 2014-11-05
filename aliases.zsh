@@ -127,6 +127,11 @@ mkd () {
   mkdir -p "$@" && cd "$@"
 }
 
+# name tab
+nt () {
+  printf "\e]0;$@\a"
+}
+
 # dump website
 dump () {
   wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=unix --domains "$@" --no-parent "$@"
