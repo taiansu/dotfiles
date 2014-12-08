@@ -1,5 +1,6 @@
 # Plugin files
 vendor
+node_modules
 
 # Log files
 log
