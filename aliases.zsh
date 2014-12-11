@@ -141,6 +141,10 @@ dump () {
 alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
 # alias god_object='find . -type f | grep -v ".git" | xargs wc -l | sort -r | head -n 20'
 
-
 # reactjs_bootstrap
 alias reactjs_bootstrap='mkdir -p app/{actions,constants,dispatcher,fixtures,mixins,stores,views,assets/{css,images}}'
+
+# some other applications
+alias vlc="open -a /Applications/VLC.app"
+alias deckset="open -a /Applications/Deckset.app"
+alias subl="open -a /Applications/Sublime\ Text.app"
