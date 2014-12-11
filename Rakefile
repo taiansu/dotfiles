@@ -49,7 +49,7 @@ namespace :update do
   end
 
   def update_vim
-    vim_update_command = 'vim "+set nomore" "+UpdateActivatedAddons" "+qall"'
+    vim_update_command = 'vim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
     sh vim_update_command
   end
 
