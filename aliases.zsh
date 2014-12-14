@@ -148,3 +148,6 @@ alias reactjs_bootstrap='mkdir -p app/{actions,constants,dispatcher,fixtures,mix
 alias vlc="open -a /Applications/VLC.app"
 alias deckset="open -a /Applications/Deckset.app"
 alias subl="open -a /Applications/Sublime\ Text.app"
+
+# Webpack
+alias wp="webpack --progress --colors --watch"
