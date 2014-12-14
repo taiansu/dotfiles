@@ -1,1 +1,2 @@
-LiveScript coffee-script gulp keybase-installer newman prettyjson lodash browserify  webpack
+LiveScript coffee-script gulp keybase-installer newman prettyjson lodash
+browserify  webpack bower
