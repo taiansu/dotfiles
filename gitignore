@@ -1,6 +1,8 @@
 # Global GIT ignore file list.
 # These files will be ignored from all GIT repositories on the system.
 
+*~
+
 # Mac files.
 *.DS_Store
 
@@ -28,10 +30,10 @@ spec/spec.opts
 .rspec
 
 # Watchr configuration.
-watchr.rb
+# watchr.rb
 
 # Guard configuration.
-Guardfile
+# Guardfile
 
 # Whiskey disk configuration.
 config/deploy
@@ -46,7 +48,7 @@ vmailbuffer
 .sass-cache
 
 # POWDER file
-.powder
+# .powder
 
 # The silver searcher ignore
 .agignore
