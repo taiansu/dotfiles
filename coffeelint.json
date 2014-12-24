@@ -1,0 +1,5 @@
+{
+    "coffeelint": {
+        "transforms": [ "coffee-react-transform" ]
+    }
+}
