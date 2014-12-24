@@ -5,14 +5,16 @@
 
 # Mac files.
 *.DS_Store
+##########
 
 # Swap files.
 *.swp
 *.swn
 *.swo
 *.orig
+##########
 
-
+### Ruby and Rails ###
 # Redcar configuration.
 .redcar
 
@@ -39,16 +41,24 @@ spec/spec.opts
 config/deploy
 config/deploy/local.yml
 
-# Vmail log and buffer.
-vmail.log
-vmailbuffer
-
 # Rails Assets.
 .jhw-cache
 .sass-cache
 
 # POWDER file
 # .powder
+
+# Rubymine
+.idea
+
+# Environment normalisation:
+/.bundle
+/vendor/bundle
+
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+##########
+
 
 # The silver searcher ignore
 .agignore
@@ -60,18 +70,8 @@ tags
 .dropbox
 Icon
 
-# Rubymine
-.idea
-
 # Floorc
 floorc
-
-# Environment normalisation:
-/.bundle
-/vendor/bundle
-
-# these should all be checked in to normalise the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
 
 ### Elixir ###
 /_build
@@ -80,10 +80,20 @@ erl_crash.dump
 *.ez
 
 
-### Elisp ###
-# Compiled
-*.elc
 
+### vim ###
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Vmail log and buffer.
+vmail.log
+vmailbuffer
+
+##########
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -113,18 +123,12 @@ tramp
 # reftex files
 *.rel
 
-# AUCTeX auto folder
+ #
 /auto/
 
-
-### vim ###
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-*~
-
+# Elisp Compiled
+*.elc
+##########
 
 ### Erlang ###
 .eunit
@@ -133,11 +137,11 @@ deps
 *.beam
 *.plt
 erl_crash.dump
-
+##########
 
 ### Sass ###
 .sass-cache
-
+##########
 
 ### SublimeText ###
 # workspace files are user-specific
@@ -146,6 +150,13 @@ erl_crash.dump
 # project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using SublimeText
 # *.sublime-project
+##########
 
-#sftp configuration file
+### sftp configuration file ###
 sftp-config.json
+##########
+
+### node modules ###
+node_modules
+npm-debug.log
+##########

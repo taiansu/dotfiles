@@ -151,3 +151,4 @@ alias subl="open -a /Applications/Sublime\ Text.app"
 
 # Webpack
 alias wp="webpack --progress --colors --watch"
+alias ws="webpack-dev-server --progress --colors"
