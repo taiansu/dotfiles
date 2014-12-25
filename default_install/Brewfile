@@ -30,7 +30,7 @@ memcached
 mercurial
 mongodb
 multitail
-node --devel
+node
 optipng
 ossp-uuid
 pango
@@ -56,3 +56,4 @@ tmux
 tree
 youtube-dl
 keybase
+icdiff
