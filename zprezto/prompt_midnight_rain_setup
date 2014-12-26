@@ -10,10 +10,11 @@
 ##################
 # horizontal line
 ##################
-COLS="$(tput cols) * 0.6 - 1"
-if (( COLS <= 0 )) ; then
-#   COLS="${COLUMNS:-80*0.6}"
-  COLS="52"
+if (( $(tput cols) < 72 )) ; then
+  COLS="$(tput cols) * 0.6 - 1"
+else
+  # 72 - 9
+  COLS="63"
 fi
 
 hr() {
