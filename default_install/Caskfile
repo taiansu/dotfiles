@@ -2,61 +2,90 @@
 install caskroom/cask/brew-cask
 
 # Productivity tools
-brew cask install alfred
-brew cask install dropbox
-brew cask install slack
-brew cask install omnidisksweeper
-brew cask install omnidazzle
+alfred
+dropbox
+slack
+omnidisksweeper
+omnidazzle
+tomighty
 
 # Utilities
-brew cask install xquartz
-brew cask install asepsis
-brew cask install flux
-brew cask install qlstephen
-brew cask install vlc
-brew cask install xld
-brew cask install handbrake
-brew cask install ifunbox
-brew # cask install calibre
-brew # cask install openemu
+xquartz
+asepsis
+# flux
+vlc
+xld
+handbrake
+ifunbox
+appcleaner
+transmission
+# calibre
+# openemu
 
 # Programming
-brew cask install sourcetree
-brew cask install sequel-pro
-brew cask install launchrocket
+sourcetree
+sequel-pro
+launchrocket
 
-# brew cask install lighttable
-brew cask install mongohub
-# brew cask install java
+mongohub
+atom
+postgres
+chefdk
+github
+# lighttable
+# java
 
 # Virtualization
-brew cask install virtualbox
-brew cask install vagrant
+virtualbox
+vagrant
 
 # Applications
-# brew cask install google-chrome
-brew cask install iterm2
-brew cask install skype
-# cask install picasa
+# google-chrome
+firefox
+iterm2
+skype
+welly
+# picasa
 
 # Preview
-#brew cask install qlcolorcode
-#brew cask install qlstephen
-#brew cask install qlmarkdown
-#brew cask install quicklook-json
-#brew cask install qlprettypatch
-#brew cask install quicklook-csv
-#brew cask install betterzipql
-#brew cask install webp-quicklook
-#brew cask install suspicious-package
+qlcolorcode
+qlstephen
+# qlmarkdown
+quicklook-json
+qlprettypatch
+quicklook-csv
+betterzipql
+webp-quicklook
+suspicious-package
+
+# Design
+sketch-toolbox
+colorpicker-hex
+colorpicker-skalacolor
 
 # Paid
-brew cask install moom
-brew cask install witch
-brew cask install pg-commander
-brew cask install marked
-brew cask install kaleidoscope
-brew cask install fantastical
-# cask install omnigraffle
-# cask install totalfinder
-# cask install tower
+1password
+moom
+contexts
+pg-commander
+marked
+kaleidoscope
+fantastical
+duet
+dropzone
+screenflow
+# witch
+# omnigraffle
+# totalfinder
+# tower
+
+# Fonts
+# brew tap caskroom/fonts
+font-fira-sans
+font-open-sans
+font-roboto
+font-roboto-slab
+font-source-code-pro
+font-source-han-sans
+font-source-sans-pro
+font-source-serif-pro
