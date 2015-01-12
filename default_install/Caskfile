@@ -81,6 +81,8 @@ screenflow
 
 # Fonts
 # brew tap caskroom/fonts
+font-andale-mono
+font-cousine
 font-fira-sans
 font-open-sans
 font-roboto
@@ -89,3 +91,4 @@ font-source-code-pro
 font-source-han-sans
 font-source-sans-pro
 font-source-serif-pro
+font-pt-mono
