@@ -1,7 +1,7 @@
-# Install Cask
-install caskroom/cask/brew-cask
+##Install Cask
+#install caskroom/cask/brew-cask
 
-# Productivity tools
+##Productivity tools
 alfred
 dropbox
 slack
@@ -9,18 +9,18 @@ omnidisksweeper
 omnidazzle
 tomighty
 
-# Utilities
+##Utilities
 xquartz
-asepsis
-# flux
 vlc
 xld
 handbrake
 ifunbox
 appcleaner
 transmission
-# calibre
-# openemu
+#asepsis
+#flux
+#calibre
+#openemu
 
 # Programming
 sourcetree
@@ -32,38 +32,38 @@ atom
 postgres
 chefdk
 github
-# lighttable
-# java
+#lighttable
+#java
 
 # Virtualization
 virtualbox
 vagrant
 
-# Applications
-# google-chrome
-firefox
+##Applications
+#google-chrome
+#firefox
 iterm2
 skype
 welly
-# picasa
+#picasa
 
-# Preview
+##Preview
 qlcolorcode
 qlstephen
-# qlmarkdown
-quicklook-json
-qlprettypatch
+#qlmarkdown
+#quicklook-json
+#qlprettypatch
 quicklook-csv
 betterzipql
-webp-quicklook
+#webp-quicklook
 suspicious-package
 
-# Design
+##Design
 sketch-toolbox
 colorpicker-hex
 colorpicker-skalacolor
 
-# Paid
+##Paid
 1password
 moom
 contexts
@@ -74,13 +74,13 @@ fantastical
 duet
 dropzone
 screenflow
-# witch
-# omnigraffle
-# totalfinder
-# tower
+omnigraffle
+#witch
+#totalfinder
+#tower
 
-# Fonts
-# brew tap caskroom/fonts
+##Fonts
+#brew tap caskroom/fonts
 font-andale-mono
 font-cousine
 font-fira-sans
