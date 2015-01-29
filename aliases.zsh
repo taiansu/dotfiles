@@ -13,12 +13,15 @@ alias u="subl"
 # zsh configs
 alias szr="source ~/.zshrc"
 
-#git
+# git
 alias g='git'
 alias h='hub'
 
-#bundler
+# tail
+alias tf='tail -f'
+alias tn='tail -n'
 
+# bundler
 alias b="nocorrect bundle"
 alias bb="nocorrect bundle -j4"
 alias be="nocorrect bundle exec"
@@ -26,7 +29,7 @@ alias br="nocorrect bundle exec rake"
 alias bt="nocorrect bundle exec rspec"
 alias bnp="nocorrect bundle --without production"
 
-#rake
+# rake
 alias k="rake"
 
 # Optimis
@@ -36,17 +39,17 @@ alias intg="INTEGRATION=true be rspec"
 alias intgall="INTEGRATION=true be rspec spec/features"
 alias jspec="RAILS_ENV=INTEGRATION br konacha:serve"
 
-#emacs
+# emacs
 alias em="open -a Emacs"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
 
-#postgresql
+# postgresql
 alias pgup="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pghalt="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 
-#nocorrect zsh
+# nocorrect zsh
 alias cap="nocorrect cap"
 alias spec="nocorrect spec"
 alias mmv="noglob zmv -W"
@@ -96,9 +99,6 @@ c(){
   gcc "$@"
   ./a.out
 }
-
-alias tf='tail -f'
-alias tn='tail -n'
 
 alias cov='open ./coverage/index.html'
 
@@ -153,3 +153,6 @@ alias subl="open -a /Applications/Sublime\ Text.app"
 # Webpack
 alias wp="webpack --progress --colors --watch"
 alias ws="webpack-dev-server --progress --colors"
+
+# Retrieve full website
+alias retrieve="wget -r -nc -np -p --restrict-file-names=unix --show-progress"
