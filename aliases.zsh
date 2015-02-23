@@ -41,6 +41,8 @@ alias jspec="RAILS_ENV=INTEGRATION br konacha:serve"
 
 # emacs
 alias em="open -a Emacs"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
