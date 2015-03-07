@@ -32,13 +32,6 @@ alias bnp="nocorrect bundle --without production"
 # rake
 alias k="rake"
 
-# Optimis
-alias sel_intg="INTEGRATION=true DRIVER=selenium be rspec"
-alias sel_intgall="INTEGRATION=true DRIVER=selenium be rspec spec/features"
-alias intg="INTEGRATION=true be rspec"
-alias intgall="INTEGRATION=true be rspec spec/features"
-alias jspec="RAILS_ENV=INTEGRATION br konacha:serve"
-
 # emacs
 alias em="open -a Emacs"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
@@ -113,11 +106,6 @@ alias lf='less +F'
 # Vagrant
 alias vg='vagrant'
 
-# chinese
-alias 牽='ls'
-alias 屠='cd'
-alias 整='z'
-
 # boot2docker
 alias bd='boot2docker'
 
@@ -137,15 +125,11 @@ nt () {
 
 # dump website
 dump () {
-  wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=unix --domains "$@" --no-parent "$@"
+  wget --recursive --no-clobber --page-requisites --html-extension --convert-links --restrict-file-names=unix --show-progress --domains "$@" --no-parent "$@"
 }
 
 # god object
 alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
-# alias god_object='find . -type f | grep -v ".git" | xargs wc -l | sort -r | head -n 20'
-
-# reactjs_bootstrap
-alias reactjs_bootstrap='mkdir -p app/{actions,constants,dispatcher,fixtures,mixins,stores,views,assets/{css,images}}'
 
 # some other applications
 alias vlc="open -a /Applications/VLC.app"
@@ -156,5 +140,3 @@ alias subl="open -a /Applications/Sublime\ Text.app"
 alias wp="webpack --progress --colors --watch"
 alias ws="webpack-dev-server --progress --colors"
 
-# Retrieve full website
-alias retrieve="wget -r -nc -np -p --restrict-file-names=unix --show-progress"

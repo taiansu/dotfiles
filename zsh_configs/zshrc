@@ -10,11 +10,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && ! [ -n "$INSIDE_EMACS" ]; t
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Source nvm
-if [[ -s "$(brew --prefix nvm)/nvm.sh" ]]; then
-  source $(brew --prefix nvm)/nvm.sh
-fi
-
 # Customize to your needs...
 
 setopt extended_glob
@@ -71,22 +66,10 @@ bindkey " "   magic-abbrev-expand-and-insert
 bindkey "."   magic-abbrev-expand-and-insert
 bindkey "^x " no-magic-abbrev-expand
 
-file="$(brew --prefix)/share/zsh/site-functions/cask_completion.zsh"
-if [ -e "${file}" ] && [ $TERM != 'dumb' ]; then
-  source "${file}"
-fi
 source ~/.dotfiles/aliases.zsh
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 # Customize to your needs...
 # fpath=(/usr/local/share/zsh-completions $fpath)
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -d "${HOME}/google-cloud-sdk" ] ; then
-  source "${HOME}/google-cloud-sdk/path.zsh.inc"
-
-  # The next line enables bash completion for gcloud.
-  source "${HOME}/google-cloud-sdk/completion.zsh.inc"
-fi
 
 # boot2docker up
 bdup(){
