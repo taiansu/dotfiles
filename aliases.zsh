@@ -5,10 +5,12 @@ alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
 # vim
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias v="mvim"
 alias vd="mvim -d"
 alias gvimdiff="mvim -d"
 alias u="subl"
+alias uu="subl ."
 
 # zsh configs
 alias szr="source ~/.zshrc"
@@ -140,3 +142,5 @@ alias subl="open -a /Applications/Sublime\ Text.app"
 alias wp="webpack --progress --colors --watch"
 alias ws="webpack-dev-server --progress --colors"
 
+# Fix Moom
+alias fix_moom="defaults write com.manytricks.Moom "Ignore Dock" -bool YES"
