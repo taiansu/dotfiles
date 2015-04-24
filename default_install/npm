@@ -14,3 +14,7 @@ browser-sync
 coffeelint
 coffee-react-transform
 js-yaml
+underscore
+yo
+eslint
+flow-bin
