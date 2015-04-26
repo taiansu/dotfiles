@@ -21,6 +21,8 @@ setopt hist_ignore_space
 unsetopt nomatch
 unsetopt correct_all
 autoload -U zmv
+# 10ms for key sequences
+KEYTIMEOUT=1
 
 typeset -A abbreviations
 abbreviations=(
@@ -80,3 +82,6 @@ bdup(){
   echo "DOCKER_HOST is set to $(boot2docker ip 2>/dev/null):2376"
   echo "ready to go"
 }
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
