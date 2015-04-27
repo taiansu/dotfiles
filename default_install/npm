@@ -18,3 +18,5 @@ underscore
 yo
 eslint
 flow-bin
+grunt-cli
+jest-cli
