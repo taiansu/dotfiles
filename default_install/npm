@@ -20,3 +20,4 @@ eslint
 flow-bin
 grunt-cli
 jest-cli
+babel
