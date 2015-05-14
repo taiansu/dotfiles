@@ -24,6 +24,7 @@ namespace :update do
     sh 'brew update'
     sh 'brew upgrade --all'
     sh 'brew cleanup'
+    sh 'brew cask cleanup'
   end
 
   def  update_node
