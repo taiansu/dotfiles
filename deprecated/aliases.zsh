@@ -9,6 +9,7 @@ alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias v="mvim"
 alias vd="mvim -d"
 alias gvimdiff="mvim -d"
+alias nv="nvim"
 alias u="subl"
 alias uu="subl ."
 
