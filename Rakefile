@@ -1,11 +1,11 @@
 require 'rake'
 
-task default: %w[update:async_tasks update:prezto update:finish_msg]
+task default: %w[update:async_tasks update:finish_msg]
 
 namespace :update do
   multitask async_tasks: %w[homebrew vim node]
 
-  [:homebrew, :node, :prezto, :emacs, :vim].each do |task_name|
+  [:homebrew, :node, :emacs, :vim].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
