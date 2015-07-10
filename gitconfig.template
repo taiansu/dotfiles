@@ -53,6 +53,7 @@
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
   safecrlf     = true
+  editor       = 'mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
 [color]
   diff   = auto
   status = auto
@@ -83,7 +84,7 @@
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustExitCode = true
