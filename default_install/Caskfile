@@ -1,17 +1,18 @@
-##Install Cask
-#install caskroom/cask/brew-cask
+##InstallCask
+#installcaskroom/cask/brew-cask
 
-##Productivity tools
-alfred
-dropbox
-slack
+##Productivity
+#alfred
+#dropbox
 omnidisksweeper
-omnidazzle
 tomighty
+sublime-text-dev
+#anki
+#atom
 
 ##Utilities
-xquartz
-vlc
+#xquartz
+#vlc
 xld
 handbrake
 ifunbox
@@ -20,30 +21,35 @@ transmission
 #asepsis
 #flux
 #calibre
-#openemu
+openemu
+#goofy
+#gpgtools
+#spotify
+#xe22
 
-# Programming
-sourcetree
-sequel-pro
+#Programming
+#sourcetree
+#sequel-pro
 launchrocket
+mactex
 
-mongohub
-atom
+#mongohub
+#atom
 postgres
 chefdk
 github
 #lighttable
 #java
 
-# Virtualization
+#Virtualization
 virtualbox
 vagrant
 
 ##Applications
 #google-chrome
 #firefox
-iterm2
-skype
+#iterm2
+#skype
 welly
 #picasa
 
@@ -55,8 +61,9 @@ qlstephen
 #qlprettypatch
 quicklook-csv
 betterzipql
-#webp-quicklook
+webp-quicklook
 suspicious-package
+#skim
 
 ##Design
 sketch-toolbox
@@ -64,20 +71,18 @@ colorpicker-hex
 colorpicker-skalacolor
 
 ##Paid
-1password
-moom
-contexts
-pg-commander
+#1password
+#moom
+#contexts
+postico
 marked
 kaleidoscope
-fantastical
 duet
-dropzone
+#dropzone
+#bartender
 screenflow
 omnigraffle
-#witch
-#totalfinder
-#tower
+parallels-desktop
 
 ##Fonts
 #brew tap caskroom/fonts
@@ -89,6 +94,16 @@ font-roboto
 font-roboto-slab
 font-source-code-pro
 font-source-han-sans
+font-source-han-code-jp
 font-source-sans-pro
 font-source-serif-pro
 font-pt-mono
+
+#Game
+#minecraft
+
+#Deprecated
+#witch
+#totalfinder
+#tower
+#omnidazzle
