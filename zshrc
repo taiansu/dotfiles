@@ -10,7 +10,7 @@ autoload -U colors && colors
 # Default colors:
 # Cyan for users, red for root, magenta for system users
 local _time="%{$fg[yellow]%}[%*]"
-local _path="%B%{$fg[green]%}%(8~|...|)%7~"
+local _path="%{$fg[green]%}%(8~|...|)%7~"
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
   # red for root, magenta for system users
@@ -19,7 +19,7 @@ else
   _usercol="$fg[magenta]"
 fi
 local _user="%{$_usercol%}%n"
-local _prompt="%{$fg[white]%}${(r:$SHLVL*2::%#:)}"
+local _prompt="%{$fg[white]%}${(r:$SHLVL*2::\$#:)}"
 
 PROMPT="$_time $_user $_path $_prompt%b%f%k "
 
@@ -394,15 +394,16 @@ zstyle ":vcs_info:(git*):*" get-revision true
 zstyle ":vcs_info:(git*):*" check-for-changes true
 
 local _branch="%c%u%m %{$fg[green]%}%b%{$reset_color%}"
-local _repo="%{$fg[green]%}%r %{$fg[yellow]%}%{$reset_color%}"
+local _repo="%{$fg[green]%}%r %{$fg[yellow]%}⎇%{$reset_color%}"
 local _revision="%{$fg[yellow]%}%.7i%{$reset_color%}"
 local _action="%{$fg[red]%}%a%{$reset_color%}"
-zstyle ":vcs_info:*" stagedstr "%{$fg[yellow]%}✓%{$reset_color%}"
-zstyle ":vcs_info:*" unstagedstr "%{$fg[red]%}✗%{$reset_color%}"
+zstyle ":vcs_info:*" stagedstr "%{$fg[yellow]%}✚%{$reset_color%}"
+zstyle ":vcs_info:*" unstagedstr "%{$fg[red]%}✖%{$reset_color%}"
 zstyle ":vcs_info:git*" formats "$_branch:$_revision"
 zstyle ":vcs_info:git*" actionformats "$_branch:$_revision:$_action - $_repo"
 zstyle ':vcs_info:git*+set-message:*' hooks git-stash
-# Uncomment to enable vcs_info debug mode
+
+
 # zstyle ':vcs_info:*+*:*' debug true
 
 function +vi-git-stash() {
@@ -450,6 +451,7 @@ function j() {
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
