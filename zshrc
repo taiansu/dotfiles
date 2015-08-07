@@ -445,13 +445,22 @@ function j() {
     }
 }
 
+# Rename tab or window
+function tabname {
+  printf "\e]1;$1\a"
+}
+
+function winname {
+  printf "\e]2;$1\a"
+}
+
 # zsh-syntax-highlighting
 [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
+export EDITOR='mvim -f'
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
