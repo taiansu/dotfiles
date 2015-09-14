@@ -19,7 +19,12 @@ else
   _usercol="$fg[magenta]"
 fi
 local _user="%{$_usercol%}%n"
-local _prompt="%{$fg[white]%}${(r:$SHLVL*2::\$#:)}"
+local _prompt
+if [[ $SHLVL -gt 1 ]]; then
+  _prompt="%{$fg[white]%}%%"
+else
+  _prompt="%{$fg[white]%}$"
+fi
 
 PROMPT="$_time $_user $_path $_prompt%b%f%k "
 
