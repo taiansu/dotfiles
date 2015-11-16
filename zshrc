@@ -21,15 +21,15 @@ fi
 local _user="%{$_usercol%}%n"
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%{$fg[white]%}%%"
+  _prompt="%{$fg[white]%}∞"
 else
-  _prompt="%{$fg[white]%}$"
+  _prompt="%{$fg[white]%}λ"
 fi
 
-PROMPT="$_time $_user $_path $_prompt%b%f%k "
+PROMPT="$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} "
 
 # RPROMPT='${vcs_info_msg_0_}' # git branch
-RPROMPT='$(git-radar --zsh --fetch) '
+RPROMPT='$(git-radar --zsh --fetch)'
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
@@ -111,7 +111,7 @@ alias egrep="egrep --color=auto"
 alias dmesg="dmesg --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
-
+alias br="bundle exec rake"
 
 ##
 # Completion system
@@ -174,7 +174,7 @@ bindkey "\e[Z" reverse-menu-complete
 # Make ctrl-e edit the current command line
 autoload edit-command-line
 zle -N edit-command-line
-bindkey "^e" edit-command-line
+bindkey "^v" edit-command-line
 
 # Make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
@@ -243,22 +243,14 @@ alias g="git"
 alias v="mvim"
 
 # Emacs
-alias em="open -a Emacs"
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
-alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+alias em="/usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs"
+alias emacsclient="/usr/local/Cellar/emacs/24.5/bin/emacsclient"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
 
 #clean open_with
-alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-
-# usually typed
-topTypedHistory(){
-  awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
-}
-
-alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
+ alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # rake
 alias k="rake"
@@ -269,30 +261,30 @@ alias u="subl"
 # vagrant
 alias vg="vagrant"
 
-# god object
-alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
-# usually typed
+# god object
+# alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+
+alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
 topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
 
-alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
-
 # uninstall rails
-uninstallRails(){
-  gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails")
-  if [ $1 =~ "^3" ] ; then
-    gems+=("activeresource" )
-  else
-    gems+=("actionview")
-  fi
+# uninstallRails(){
+#   gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails")
+#   if [ $1 =~ "^3" ] ; then
+#     gems+=("activeresource" )
+#   else
+#     gems+=("actionview")
+#   fi
 
-  for gem in $gems; do
-    gem uninstall $gem -v=$1 --force
-  done
-}
+#   for gem in $gems; do
+#     gem uninstall $gem -v=$1 --force
+#   done
+# }
 
 ##
 # Functions
@@ -300,33 +292,33 @@ uninstallRails(){
 
 # make a backup of a file
 # https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc
-bk() {
-  cp -a "$1" "${1}_$(date --iso-8601=seconds)"
-}
+# bk() {
+#   cp -a "$1" "${1}_$(date --iso-8601=seconds)"
+# }
 
-# display a list of supported colors
-function lscolors {
-  ((cols = $COLUMNS - 4))
-  s=$(printf %${cols}s)
-  for i in {000..$(tput colors)}; do
-    echo -e $i $(tput setaf $i; tput setab $i)${s// /=}$(tput op);
-  done
-}
+# # display a list of supported colors
+# function lscolors {
+#   ((cols = $COLUMNS - 4))
+#   s=$(printf %${cols}s)
+#   for i in {000..$(tput colors)}; do
+#     echo -e $i $(tput setaf $i; tput setab $i)${s// /=}$(tput op);
+#   done
+# }
 
 # get the content type of an http resource
-function htmime {
-  if [[ -z $1 ]]; then
-    print "USAGE: htmime <URL>"
-    return 1
-  fi
-  mime=$(curl -sIX HEAD $1 | sed -nr "s/Content-Type: (.+)/\1/p")
-  print $mime
-}
+# function htmime {
+#   if [[ -z $1 ]]; then
+#     print "USAGE: htmime <URL>"
+#     return 1
+#   fi
+#   mime=$(curl -sIX HEAD $1 | sed -nr "s/Content-Type: (.+)/\1/p")
+#   print $mime
+# }
 
 # open a web browser on google for a query
-function google {
-  xdg-open "https://www.google.com/search?q=`urlencode "${(j: :)@}"`"
-}
+# function google {
+#   xdg-open "https://www.google.com/search?q=`urlencode "${(j: :)@}"`"
+# }
 
 # print a separator banner, as wide as the terminal
 function hr {
@@ -334,60 +326,60 @@ function hr {
 }
 
 # launch an app
-function launch {
-  type $1 >/dev/null || { print "$1 not found" && return 1 }
-  $@ &>/dev/null &|
-}
-alias launch="launch " # expand aliases
+# function launch {
+#   type $1 >/dev/null || { print "$1 not found" && return 1 }
+#   $@ &>/dev/null &|
+# }
+# alias launch="launch " # expand aliases
 
 # urlencode text
-function urlencode {
-  print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
-}
+# function urlencode {
+#   print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
+# }
 
 # get public ip
-function myip {
-  local api
-  case "$1" in
-    "-4")
-      api="http://v4.ipv6-test.com/api/myip.php"
-      ;;
-    "-6")
-      api="http://v6.ipv6-test.com/api/myip.php"
-      ;;
-    *)
-      api="http://ipv6-test.com/api/myip.php"
-      ;;
-  esac
-  curl -s "$api"
-  echo # Newline.
-}
+# function myip {
+#   local api
+#   case "$1" in
+#     "-4")
+#       api="http://v4.ipv6-test.com/api/myip.php"
+#       ;;
+#     "-6")
+#       api="http://v6.ipv6-test.com/api/myip.php"
+#       ;;
+#     *)
+#       api="http://ipv6-test.com/api/myip.php"
+#       ;;
+#   esac
+#   curl -s "$api"
+#   echo # Newline.
+# }
 
 # Create short urls via http://goo.gl using curl(1).
 # Contributed back to grml zshrc
 # API reference: https://code.google.com/apis/urlshortener/
-function zurl {
-  if [[ -z $1 ]]; then
-    print "USAGE: $0 <URL>"
-    return 1
-  fi
+# function zurl {
+#   if [[ -z $1 ]]; then
+#     print "USAGE: $0 <URL>"
+#     return 1
+#   fi
 
-  local url=$1
-  local api="https://www.googleapis.com/urlshortener/v1/url"
-  local data
+#   local url=$1
+#   local api="https://www.googleapis.com/urlshortener/v1/url"
+#   local data
 
-  # Prepend "http://" to given URL where necessary for later output.
-  if [[ $url != http(s|)://* ]]; then
-    url="http://$url"
-  fi
-  local json="{\"longUrl\": \"$url\"}"
+#   # Prepend "http://" to given URL where necessary for later output.
+#   if [[ $url != http(s|)://* ]]; then
+#     url="http://$url"
+#   fi
+#   local json="{\"longUrl\": \"$url\"}"
 
-  data=$(curl --silent -H "Content-Type: application/json" -d $json $api)
-  # Match against a regex and print it
-  if [[ $data =~ '"id": "(http://goo.gl/[[:alnum:]]+)"' ]]; then
-    print $match
-  fi
-}
+#   data=$(curl --silent -H "Content-Type: application/json" -d $json $api)
+#   # Match against a regex and print it
+#   if [[ $data =~ '"id": "(http://goo.gl/[[:alnum:]]+)"' ]]; then
+#     print $match
+#   fi
+# }
 
 
 ##
@@ -440,7 +432,8 @@ fi
 
 # Check if $LANG is badly set as it causes issues
 if [[ $LANG == "C"  || $LANG == "" ]]; then
-  >&2 echo "$fg[red]The \$LANG variable is not set. This can cause a lot of problems.$reset_color"
+  # >&2 echo "$fg[red]The \$LANG variable is not set. This can cause a lot of problems.$reset_color"
+  export LANG=en_US.UTF-8
 fi
 
 # Autojump
@@ -453,19 +446,23 @@ function j() {
 }
 
 # Rename tab or window
-function tabname {
-  printf "\e]1;$1\a"
-}
+# function tabname {
+#   printf "\e]1;$1\a"
+# }
 
-function winname {
-  printf "\e]2;$1\a"
-}
+# function winname {
+#   printf "\e]2;$1\a"
+# }
 
 # zsh-syntax-highlighting
 [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# go
+export GOPATH=$HOME/projects/go
+export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 
 export EDITOR='mvim -f'
 export NVM_DIR=~/.nvm
