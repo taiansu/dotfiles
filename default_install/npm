@@ -1,4 +1,6 @@
 babel
+babel-cli
+babel-eslint
 bower
 browser-sync
 browserify
@@ -6,6 +8,7 @@ coffee-react-transform
 coffee-script
 coffeelint
 eslint
+eslint-plugin-react
 flow-bin
 grunt-cli
 gulp
@@ -17,6 +20,9 @@ newman
 node-gyp-install
 prettyjson
 react-tools
+react-native-cli
+strongloop
+tern
 underscore
 webpack
 webpack-dev-server
