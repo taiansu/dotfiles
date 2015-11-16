@@ -17,6 +17,7 @@ namespace :update do
     cmd = cowsay? ? "cowsay" : "print"
     clear_screen
     send "#{cmd}_finish"
+    # sh "say thanks for your patient, all updates are complete" if /darwin/ =~ RUBY_PLATFORM
   end
 
   def update_homebrew
@@ -77,5 +78,10 @@ namespace :update do
     cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
     cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
     system("fortune | #{cow_cmd} -f #{cow_file.sample} #{cow_eye}")
+  end
+
+  private
+  def osx?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
   end
 end
