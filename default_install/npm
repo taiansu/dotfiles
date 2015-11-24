@@ -9,6 +9,7 @@ coffee-script
 coffeelint
 eslint
 eslint-plugin-react
+express-generator
 flow-bin
 grunt-cli
 gulp
