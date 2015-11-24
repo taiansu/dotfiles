@@ -461,7 +461,7 @@ function j() {
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # go
-export GOPATH=$HOME/projects/go
+export GOPATH=$HOME/projects/gocode
 export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 
 export EDITOR='mvim -f'
