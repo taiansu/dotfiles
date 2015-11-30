@@ -85,6 +85,7 @@ setopt autocd # assume "cd" when a command is a directory
 setopt histignorealldups # Substitute commands in the prompt
 setopt sharehistory # Share the same history between all shells
 setopt promptsubst # required for git plugin
+setopt histignorespace # Ignore command start with space
 # setopt extendedglob
 # Extended glob syntax, eg ^ to negate, <x-y> for range, (foo|bar) etc.
 # Backwards-incompatible with bash, so disabled by default.
