@@ -21,7 +21,7 @@ fi
 local _user="%{$_usercol%}%n"
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%{$fg[white]%}∞"
+  _prompt="%{$fg[white]%}Ⴤ"
 else
   _prompt="%{$fg[white]%}λ"
 fi
@@ -268,6 +268,11 @@ alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ I
 
 alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
+# docker
+alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
+alias dk="docker"
+alias dkex="docker-machine stop default && exit"
+
 topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
@@ -380,8 +385,6 @@ function hr {
 #     print $match
 #   fi
 # }
-
-
 ##
 # Extras
 #
@@ -413,6 +416,7 @@ function +vi-git-stash() {
 
 precmd() {
   vcs_info
+  print -Pn "\e]0;%~/\a"
 }
 
 # virtualenvwrapper support
