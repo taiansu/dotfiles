@@ -17,7 +17,7 @@ namespace :update do
     cmd = cowsay? ? "cowsay" : "print"
     clear_screen
     send "#{cmd}_finish"
-    # sh "say thanks for your patient, all updates are complete" if /darwin/ =~ RUBY_PLATFORM
+    system "All updates are complete, we are good to go now." if RUBY_PLATFORM =~ /darwin/
   end
 
   def update_homebrew
@@ -34,25 +34,23 @@ namespace :update do
     # sh 'npm update -g'
   end
 
-  def update_prezto
-    return unless File.directory? "#{Dir.home}/.zprezto"
-    Dir.chdir "#{Dir.home}/.zprezto"
-    sh 'git stash -u'
-    sh 'git pull'
-    sh 'git stash pop'
-  end
-
   def update_emacs
     return unless File.directory?("#{Dir.home}/.emacs.d")
     return unless sh "cask --version"
-    Dir.chdir("#{Dir.home}/.emacs.d")
-    sh 'cask upgrade'
-    sh 'cask update'
+    # Dir.chdir("#{Dir.home}/.emacs.d")
+    # sh 'cask upgrade'
+    # sh 'cask update'
   end
 
   def update_vim
     vim_update_command = 'vim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
     sh vim_update_command
+    if File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
+      Dir.chdir "#{Dir.home}/Projects/vim_tsu"
+      File.delete 'vim/autoload/plug.vim.old'
+      sh 'git add vim/autoload'
+      sh 'git commit -m "update plug.vim"'
+    end
   end
 
   def clear_screen
