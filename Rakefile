@@ -43,7 +43,7 @@ namespace :update do
   end
 
   def update_vim
-    vim_update_command = 'vim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
+    vim_update_command = 'vi "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
     sh vim_update_command
     if File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
       Dir.chdir "#{Dir.home}/Projects/vim_tsu"

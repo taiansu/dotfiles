@@ -9,6 +9,7 @@ coffee-script
 coffeelint
 eslint
 eslint-plugin-react
+eslint-config-airbnb
 express-generator
 flow-bin
 grunt-cli
@@ -23,6 +24,7 @@ prettyjson
 react-tools
 react-native-cli
 strongloop
+supervisor
 tern
 underscore
 webpack

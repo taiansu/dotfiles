@@ -241,10 +241,10 @@ alias sudo="sudo "
 alias g="git"
 
 # vim
-alias v="mvim"
+alias v="nvim"
 
 # Emacs
-alias em="/usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs"
+alias em="open -a /usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs"
 alias emacsclient="/usr/local/Cellar/emacs/24.5/bin/emacsclient"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
@@ -469,13 +469,9 @@ function j() {
 export GOPATH=$HOME/projects/gocode
 export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 
-export EDITOR='mvim -f'
+export EDITOR='nvim'
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby ruby-2.2
-
-################ Profiling End ###########################
-# unsetopt xtrace
-# exec 2>&3 3>&-
