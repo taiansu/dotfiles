@@ -63,8 +63,6 @@ else
   export XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
 fi
 
-# add ~/bin to $PATH
-path=(~/bin $path)
 # add ~/.config/zsh/completion to completion paths
 # NOTE: this needs to be a directory with 0755 permissions, otherwise you will
 # get "insecure" warnings on shell load!
@@ -450,6 +448,14 @@ function j() {
     }
 }
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# NVM
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
 # Rename tab or window
 # function tabname {
 #   printf "\e]1;$1\a"
@@ -465,13 +471,7 @@ function j() {
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-# go
-export GOPATH=$HOME/projects/gocode
-export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
-
-export EDITOR='nvim'
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+export EDITOR='nvim'
 chruby ruby-2.2
