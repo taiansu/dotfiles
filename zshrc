@@ -242,8 +242,8 @@ alias g="git"
 alias v="nvim"
 
 # Emacs
-alias em="open -a /usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs"
-alias emacsclient="/usr/local/Cellar/emacs/24.5/bin/emacsclient"
+alias em="/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.15/Emacs.app/Contents/MacOS/Emacs"
+alias emacsclient="/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.15/bin/emacsclient"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
@@ -447,10 +447,6 @@ function j() {
         j "$@"
     }
 }
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # NVM
 export NVM_DIR=~/.nvm

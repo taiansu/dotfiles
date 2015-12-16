@@ -1,0 +1,16 @@
+{
+    extends: "eslint-config-airbnb",
+    rules: {
+         // Override any settings from the "parent" configuration
+         dot-notation: 0,
+         key-spacing: [2, {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
+         new-cap: 0,
+         no-console: 0,
+         no-else-return: 0,
+         no-multi-spaces: 0,
+         no-use-before-define: 0,
+         quotes: 0,
+         semi: 0,
+         strict: 0,
+    }
+}
