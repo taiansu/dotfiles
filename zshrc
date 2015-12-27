@@ -21,9 +21,9 @@ fi
 local _user="%{$_usercol%}%n"
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%{$fg[white]%}Ⴤ"
+  _prompt="%{$fg_no_bold[white]%}Ⴤ"
 else
-  _prompt="%{$fg[white]%}λ"
+  _prompt="%{$fg_no_bold[white]%}λ"
 fi
 
 PROMPT="$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} "
@@ -440,13 +440,7 @@ if [[ $LANG == "C"  || $LANG == "" ]]; then
 fi
 
 # Autojump
-function j() {
-    (( $+commands[brew] )) && {
-        local pfx=$(brew --prefix)
-        [[ -f "$pfx/etc/autojump.sh" ]] && . "$pfx/etc/autojump.sh"
-        j "$@"
-    }
-}
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # NVM
 export NVM_DIR=~/.nvm
@@ -470,4 +464,4 @@ source $(brew --prefix nvm)/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 export EDITOR='nvim'
-chruby ruby-2.2
+chruby ruby-2.3
