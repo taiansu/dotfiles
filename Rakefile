@@ -23,7 +23,7 @@ namespace :update do
   def update_homebrew
     return unless sh "brew -v"
     sh 'brew update'
-    sh 'brew upgrade --all'
+    sh 'brew upgrade'
     sh 'brew cleanup'
     sh 'brew cask cleanup'
   end
