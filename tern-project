@@ -1,0 +1,10 @@
+{
+    "libs": [
+        "browser",
+        "lodash",
+        "jquery"
+            ],
+        "plugins": {
+          "node": {}
+        }
+}

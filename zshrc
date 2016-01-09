@@ -112,6 +112,9 @@ alias dmesg="dmesg --color=auto"
 alias less="less -R"
 alias br="bundle exec rake"
 
+# Open another tab of same directory
+alias n="open -a iTerm ."
+
 ##
 # Completion system
 #
