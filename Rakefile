@@ -1,11 +1,11 @@
 require 'rake'
 
-task default: %w[update:async_tasks update:finish_msg]
+task default: %w[update:node update:async_tasks update:finish_msg]
 
 namespace :update do
-  multitask async_tasks: %w[homebrew vim node]
+  multitask async_tasks: %w[homebrew vim npm]
 
-  [:homebrew, :node, :emacs, :vim].each do |task_name|
+  [:homebrew, :node, :npm, :emacs, :vim].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -28,8 +28,12 @@ namespace :update do
     sh 'brew cask cleanup'
   end
 
-  def  update_node
-    sh './upd_npm.sh'
+  def update_node
+    sh './update_node.sh'
+  end
+
+  def  update_npm
+    sh './update_npm.sh'
     # return unless sh "npm -v"
     # sh 'npm update -g'
   end
