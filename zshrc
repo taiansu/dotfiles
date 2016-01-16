@@ -263,6 +263,11 @@ alias u="subl"
 # vagrant
 alias vg="vagrant"
 
+vc() {
+    CMD='cd /vagrant; $@';
+    vagrant ssh -c "$CMD";
+}
+
 alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
 # god object
