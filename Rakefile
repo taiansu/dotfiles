@@ -1,7 +1,7 @@
 require 'rake'
 
 task default: %w[update:node update:async_tasks_with_commit update:finish_msg]
-task simple_update: %[update:node, update:async_tasks_without_commit update:finish_msg]
+task just_update: %w[update:node  update:async_tasks_without_commit update:finish_msg]
 
 namespace :update do
   multitask async_tasks_with_commit: %w[homebrew vim_and_commit npm]
