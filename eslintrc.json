@@ -18,5 +18,11 @@
          strict: 0,
          "react/prefer-es6-class": 0,
          "react/prop-types": 1,
+    },
+    env: {
+        borwser: true,
+        node: true,
+        mocha: true,
+        es6: true
     }
 }
