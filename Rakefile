@@ -35,9 +35,8 @@ namespace :update do
   end
 
   def  update_npm
-    sh './update_npm.sh'
-    # return unless sh "npm -v"
-    # sh 'npm update -g'
+    return unless sh "npm -v"
+    sh 'npm update -g'
   end
 
   def update_emacs
