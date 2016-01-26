@@ -1,9 +1,31 @@
 # Plugin files
 vendor
 node_modules
+bower_components
+target
+_site
+dist
+build
+tags
 
 # Log files
 log
 
 # Minified files
 *.min.js
+
+# Binaries
+swp
+ico
+so
+dll
+DS_Store
+class
+png
+jpg
+jpeg
+
+
+# Source Control
+.git
+.svn
