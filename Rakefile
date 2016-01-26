@@ -36,7 +36,7 @@ namespace :update do
 
   def  update_npm
     return unless sh "npm -v"
-    sh 'npm update -g'
+    sh 'npm set progress=false && npm update -g'
   end
 
   def update_emacs
@@ -58,7 +58,7 @@ namespace :update do
     if File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
       Dir.chdir "#{Dir.home}/Projects/vim_tsu"
       File.delete 'vim/autoload/plug.vim.old'
-      sh 'git add vim/autoload && git commit -m "update plug.vim"' if auto_commit?
+      sh 'git add vim/autoload && git commit -m "update plug.vim"'
     end
   end
 
