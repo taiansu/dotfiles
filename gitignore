@@ -179,3 +179,7 @@ node_modules
 npm-debug.log
 *.map
 ##########
+
+#### mix project ###
+_build
+##########
