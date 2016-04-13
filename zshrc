@@ -280,23 +280,27 @@ alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Co
 alias dk="docker"
 alias dkex="docker-machine stop default && exit"
 
+# elixir
+alias im="iex -S mix"
+alias is="iex -S mix phoenix.server"
+
 topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
 
 # uninstall rails
-# uninstallRails(){
-#   gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails")
-#   if [ $1 =~ "^3" ] ; then
-#     gems+=("activeresource" )
-#   else
-#     gems+=("actionview")
-#   fi
+uninstallRails(){
+  gems=("activemodel" "activerecord" "activesupport"  "actionmailer" "actionpack" "railties" "rails")
+  if [ $1 =~ "^3" ] ; then
+    gems+=("activeresource")
+  else
+    gems+=("actionview" "activejob")
+  fi
 
-#   for gem in $gems; do
-#     gem uninstall $gem -v=$1 --force
-#   done
-# }
+  for gem in $gems; do
+    gem uninstall $gem -v=$1 --force
+  done
+}
 
 ##
 # Functions
@@ -473,3 +477,5 @@ source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 export EDITOR='nvim'
 chruby ruby-2.3
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

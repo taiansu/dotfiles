@@ -4,10 +4,10 @@ task default: %w[update:node update:async_tasks_with_commit update:finish_msg]
 task just_update: %w[update:node  update:async_tasks_without_commit update:finish_msg]
 
 namespace :update do
-  multitask async_tasks_with_commit: %w[homebrew vim_and_commit npm]
-  multitask async_tasks_without_commit: %w[homebrew vim npm]
+  multitask async_tasks_with_commit: %w[homebrew vim_and_commit npm spacemacs]
+  multitask async_tasks_without_commit: %w[homebrew vim npm spacemacs]
 
-  [:homebrew, :node, :npm, :vim, :vim_and_commit, :emacs].each do |task_name|
+  [:homebrew, :node, :npm, :vim, :vim_and_commit, :emacs, :spacemacs].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -39,10 +39,17 @@ namespace :update do
     sh 'npm set progress=false && npm update -g'
   end
 
+  def update_spacemacs
+    spacemacs_dir = "#{Dir.home}/Projects/spacemacs"
+    return unless File.directory?(spacemacs_dir)
+    Dir.chdir(spacemacs_dir)
+    sh 'git pull'
+  end
+
   def update_emacs
-    return unless File.directory?("#{Dir.home}/.emacs.d")
-    return unless sh "cask --version"
-    # Dir.chdir("#{Dir.home}/.emacs.d")
+    emacs_d = "#{Dir.home}/.emacs.d"
+    return unless File.directory?(emacs_d)
+    # Dir.chdir(emacs_d)
     # sh 'cask upgrade'
     # sh 'cask update'
   end

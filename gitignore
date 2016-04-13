@@ -43,6 +43,9 @@ Temporary Items
 # Rails database configuration.
 config/database.yml
 
+# Temp ignore
+db/schema.rb
+
 # This file sets up the load paths when using RVM with Passenger.
 config/setup_load_paths.rb
 

@@ -1,28 +1,55 @@
 {
-  "extends": "eslint-config-airbnb",
-  "rules": { // Override any settings from the "parent" configuration
-    "dot-notation": 0,
-    "func-names": 1,
-    "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
-    "new-cap": 0,
-    "no-console": 0,
-    "no-else-return": 0,
-    "no-multi-spaces": 0,
-    "no-param-reassign": [1, {"props": false}],
-    "no-shadow": 0,
-    "no-use-before-define": 0,
-    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
-    "no-var": 1,
-    "quotes": 0,
-    "semi": 0,
-    "strict": 0,
-    "react/prefer-es6-class": 0,
-    "react/prop-types": 1
-  },
   "env": {
     "browser": true,
-    "node": true,
-    "mocha": true,
+    "commonjs": true,
     "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+
+  "globals":: [
+    "$": true,
+    "_": true
+  ],
+
+  "rules": {
+    "comma-dangle": [
+      "warn",
+      "only-multiline"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "no-unused-vars" : [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "[iI]gnored",
+        "caughtErrors": "none"
+      }
+    ],
+    "react/jsx-uses-vars": 1
   }
 }
