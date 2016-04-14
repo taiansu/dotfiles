@@ -16,12 +16,16 @@
     "react"
   ],
 
-  "globals":: [
+  "globals": {
     "$": true,
     "_": true
-  ],
+  },
 
   "rules": {
+    "camelcase": [
+      "warn",
+      {"properties": "always"}
+    ],
     "comma-dangle": [
       "warn",
       "only-multiline"
