@@ -261,6 +261,8 @@ alias k="rake"
 alias u="subl"
 
 # vagrant
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+
 alias vg="vagrant"
 
 vc() {
