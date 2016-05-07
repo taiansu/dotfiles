@@ -399,6 +399,12 @@ function hr {
 #   fi
 # }
 ##
+
+# find shorthand
+function f() {
+  find . -iname "$1"
+}
+
 # Extras
 #
 
