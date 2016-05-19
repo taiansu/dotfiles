@@ -115,6 +115,9 @@ alias br="bundle exec rake"
 # Open another tab of same directory
 alias n="open -a iTerm ."
 
+# Simplify gittower
+alias gt="gittower"
+
 ##
 # Completion system
 #

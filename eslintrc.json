@@ -46,6 +46,9 @@
       "warn",
       "never"
     ],
+    "no-console": [
+      "ignore"
+    ],
     "no-unused-vars" : [
       "error",
       {
