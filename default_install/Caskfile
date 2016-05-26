@@ -1,24 +1,21 @@
-##InstallCask
+###InstallCask
 #installcaskroom/cask/brew-cask
 
-##Productivity
+###Productivity
 #alfred
 #dropbox
-omnidisksweeper
 tomighty
 sublime-text-dev
 #anki
 #atom
 
-##Utilities
+###Utilities
 #xquartz
 #vlc
 xld
 handbrake
-ifunbox
 appcleaner
 transmission
-#asepsis
 #flux
 #calibre
 openemu
@@ -27,33 +24,30 @@ openemu
 #spotify
 #xe22
 
-#Programming
+###Programming
 #sourcetree
 #sequel-pro
 launchrocket
 mactex
-
 #mongohub
-#atom
 postgres
 chefdk
 github
 #lighttable
 #java
 
-#Virtualization
+###Virtualization
 virtualbox
 vagrant
 
-##Applications
+###Applications
 #google-chrome
 #firefox
 #iterm2
 #skype
 welly
-#picasa
 
-##Preview
+###Preview
 qlcolorcode
 qlstephen
 #qlmarkdown
@@ -63,14 +57,13 @@ quicklook-csv
 betterzipql
 webp-quicklook
 suspicious-package
-#skim
 
-##Design
+###Design
 sketch-toolbox
 colorpicker-hex
 colorpicker-skalacolor
 
-##Paid
+###Paid
 #1password
 #moom
 #contexts
@@ -80,11 +73,12 @@ kaleidoscope
 duet
 #dropzone
 #bartender
+#tower
 screenflow
 omnigraffle
 parallels-desktop
 
-##Fonts
+###Fonts
 #brew tap caskroom/fonts
 font-andale-mono
 font-cousine
@@ -99,11 +93,5 @@ font-source-sans-pro
 font-source-serif-pro
 font-pt-mono
 
-#Game
+###Game
 #minecraft
-
-#Deprecated
-#witch
-#totalfinder
-#tower
-#omnidazzle
