@@ -47,7 +47,7 @@
       "never"
     ],
     "no-console": [
-      "ignore"
+      "off"
     ],
     "no-unused-vars" : [
       "error",

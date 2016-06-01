@@ -1,5 +1,7 @@
+### Profile start
+# setopt xtrace prompt_subst
 # PS4=$'%D{%M%S%.} %N:%i> '
-# exec 3>&2 2>/tmp/startlog.$$
+# exec 3>&2 2>/tmp/zshstart.$$.log
 # setopt xtrace prompt_subst
 
 ##########################################
@@ -66,7 +68,7 @@ fi
 # add ~/.config/zsh/completion to completion paths
 # NOTE: this needs to be a directory with 0755 permissions, otherwise you will
 # get "insecure" warnings on shell load!
-fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
+# fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
 
 
 ##
@@ -110,13 +112,6 @@ alias egrep="egrep --color=auto"
 alias dmesg="dmesg --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
-alias br="bundle exec rake"
-
-# Open another tab of same directory
-alias n="open -a iTerm ."
-
-# Simplify gittower
-alias gt="gittower"
 
 ##
 # Completion system
@@ -248,8 +243,6 @@ alias g="git"
 alias v="nvim"
 
 # Emacs
-alias em="/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.15/Emacs.app/Contents/MacOS/Emacs"
-alias emacsclient="/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.15/bin/emacsclient"
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
@@ -259,52 +252,33 @@ alias et="emacsclient -t"
 
 # rake
 alias k="rake"
+alias br="bundle exec rake"
 
-# sublime
-alias u="subl"
+# Open another tab of same directory
+alias n="open -a iTerm ."
+
+# gittower
+alias gt="gittower"
 
 # vagrant
 export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 alias vg="vagrant"
 
-vc() {
-    CMD='cd /vagrant; $@';
-    vagrant ssh -c "$CMD";
-}
-
-alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
+# alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
 # god object
 # alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
 
-alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
-
 # docker
-alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
-alias dk="docker"
-alias dkex="docker-machine stop default && exit"
+# alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
+# alias dk="docker"
+# alias dkex="docker-machine stop default && exit"
 
-# elixir
-alias im="iex -S mix"
-alias is="iex -S mix phoenix.server"
+alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
 topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
-}
-
-# uninstall rails
-uninstallRails(){
-  gems=("activemodel" "activerecord" "activesupport"  "actionmailer" "actionpack" "railties" "rails")
-  if [ $1 =~ "^3" ] ; then
-    gems+=("activeresource")
-  else
-    gems+=("actionview" "activejob")
-  fi
-
-  for gem in $gems; do
-    gem uninstall $gem -v=$1 --force
-  done
 }
 
 ##
@@ -342,9 +316,9 @@ uninstallRails(){
 # }
 
 # print a separator banner, as wide as the terminal
-function hr {
-  print ${(l:COLUMNS::=:)}
-}
+# function hr {
+#   print ${(l:COLUMNS::=:)}
+# }
 
 # launch an app
 # function launch {
@@ -403,9 +377,34 @@ function hr {
 # }
 ##
 
+# uninstall rails
+uninstallRails(){
+  gems=("activemodel" "activerecord" "activesupport"  "actionmailer" "actionpack" "railties" "rails")
+  if [ $1 =~ "^3" ] ; then
+    gems+=("activeresource")
+  else
+    gems+=("actionview" "activejob")
+  fi
+
+  for gem in $gems; do
+    gem uninstall $gem -v=$1 --force
+  done
+}
+
+# vagrant
+# vc() {
+#     CMD='cd /vagrant; $@';
+#     vagrant ssh -c "$CMD";
+# }
+
 # find shorthand
 function f() {
   find . -iname "$1"
+}
+
+# Emacs GUI
+function em() {
+    /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
 }
 
 # Extras
@@ -441,21 +440,6 @@ precmd() {
   print -Pn "\e]0;%~/\a"
 }
 
-# virtualenvwrapper support
-# Remember to set $PROJECT_HOME in your profile file!
-if command -V virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
-  export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
-  source virtualenvwrapper_lazy.sh
-  # Arch linux uses python3 by default, this is required to make python2-compatible projects
-  alias mkproject2="mkproject -p /usr/bin/python2"
-  alias mkvirtualenv2="mkvirtualenv -p /usr/bin/python2"
-fi
-
-# User profile
-if [[ -e $XDG_CONFIG_HOME/zsh/profile ]]; then
-  source $XDG_CONFIG_HOME/zsh/profile
-fi
-
 # Check if $LANG is badly set as it causes issues
 if [[ $LANG == "C"  || $LANG == "" ]]; then
   # >&2 echo "$fg[red]The \$LANG variable is not set. This can cause a lot of problems.$reset_color"
@@ -486,3 +470,8 @@ export EDITOR='nvim'
 chruby ruby-2.3
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+##########################################
+### Profile end
+# unsetopt xtrace
+# exec 2>&3 3>&-
