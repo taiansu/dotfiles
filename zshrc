@@ -16,7 +16,7 @@ local _path="%{$fg[green]%}%(8~|...|)%7~"
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
   # red for root, magenta for system users
-  _usercol="%(!.%{$fg[red]%}.%{$fg[cyan]%})"
+  _usercol="%(!.%{$fg[red]%}.%F{154})"
 else
   _usercol="$fg[magenta]"
 fi
