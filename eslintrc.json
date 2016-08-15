@@ -33,25 +33,28 @@
       "only-multiline"
     ],
     "indent": [
-      "error",
-      2
+      "error", 2, { "SwitchCase": 1, "VariableDeclarator": 1, "outerIIFEBody": 1 }
     ],
+    "jsx-quotes": [0, "prefer-double"],
+    "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
     "linebreak-style": [
       "error",
       "unix"
     ],
     "quotes": [
-      "off"
+      "off",
+      "single",
+      { "avoidEscape": true }
     ],
     "semi": [
-      "warn",
+      "off",
       "never"
     ],
     "no-console": [
       "off"
     ],
     "no-unused-vars" : [
-      "error",
+      "warn",
       {
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "[iI]gnored",

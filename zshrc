@@ -264,6 +264,10 @@ alias gt="gittower"
 export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 alias vg="vagrant"
+vc() {
+  CMD="cd /vagrant; $@";
+  vagrant ssh -c "$CMD"
+}
 
 # alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
