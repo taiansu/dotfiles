@@ -20,7 +20,9 @@
     "$": true,
     "_": true,
     "root": false,
-    "window": false
+    "window": false,
+    "process": false,
+    "__dirname": false
   },
 
   "rules": {
@@ -61,6 +63,7 @@
         "caughtErrors": "none"
       }
     ],
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 }
