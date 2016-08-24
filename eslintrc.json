@@ -1,21 +1,22 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
   "plugins": [
     "react"
   ],
-
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "classes": true,
+      "jsx": true
+    }
+  },
   "globals": {
     "$": true,
     "_": true,
@@ -63,7 +64,10 @@
         "caughtErrors": "none"
       }
     ],
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react": {
+      "jsx-uses-react": "warn",
+      "jsx-uses-vars": "warn",
+      "display-name": "warn"
+    }
   }
 }
