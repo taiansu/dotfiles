@@ -428,8 +428,8 @@ function em() {
 }
 
 # Hide desktop icons
-function deskIcons() {
-  defaults write com.apple.finder CreateDesktop $1 && killall Finder
+function desktopIcons() {
+  defaults write com.apple.finder CreateDesktop true && killall Finder
 }
 
 # Extras
