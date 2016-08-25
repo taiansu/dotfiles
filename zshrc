@@ -405,20 +405,31 @@ uninstallRails(){
   done
 }
 
-# vagrant
-# vc() {
-#     CMD='cd /vagrant; $@';
-#     vagrant ssh -c "$CMD";
-# }
-
 # find shorthand
 function f() {
-  find . -iname "$1"
+  find . -iregex "^.*$1.*$"
+}
+
+function fd() {
+  find $1 -iregex "^.*$2.*$"
+}
+
+function fr() {
+  find . -regex "$1"
+}
+
+function fdr() {
+  find $1 -regex "$2"
 }
 
 # Emacs GUI
 function em() {
     /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
+}
+
+# Hide desktop icons
+function deskIcons() {
+  defaults write com.apple.finder CreateDesktop $1 && killall Finder
 }
 
 # Extras
@@ -484,6 +495,11 @@ export EDITOR='nvim'
 chruby ruby-2.3
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# source homebrew github api token
+if [[ -f ~/.homebrew_github_api_token ]]; then
+  source ~/.homebrew_github_api_token
+fi
 
 ##########################################
 ### Profile end
