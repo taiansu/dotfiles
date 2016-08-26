@@ -1,10 +1,6 @@
 # go
 export GOPATH=$HOME/projects/gocode
 
-# NVM
-export NVM_DIR=$HOME/.nvm
-. /usr/local/opt/nvm/nvm.sh
-
 # ANDROID
 export ANDROID_HOME=/usr/local/opt/android-sdk
 

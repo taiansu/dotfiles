@@ -1,9 +1,11 @@
-### Profile start
-# setopt xtrace prompt_subst
-# PS4=$'%D{%M%S%.} %N:%i> '
-# exec 3>&2 2>/tmp/zshstart.$$.log
-# setopt xtrace prompt_subst
+ # zmodload zsh/zprof
 
+ ### Profile start
+# zmodload zsh/datetime
+# setopt promptsubst
+# PS4='+$EPOCHREALTIME %N:%i> '
+# exec 3>&2 2>/tmp/startlog.$$
+# setopt xtrace prompt_subst
 ##########################################
 
 # Let's have some colors first
@@ -30,8 +32,8 @@ fi
 
 PROMPT="$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} "
 
+RPROMPT="\$(git-radar --zsh --fetch)"
 # RPROMPT='${vcs_info_msg_0_}' # git branch
-RPROMPT='$(git-radar --zsh --fetch)'
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
@@ -247,6 +249,11 @@ alias emd="emacs --daemon"
 alias ec="emacsclient -c"
 alias et="emacsclient -t"
 
+# Emacs GUI
+function em() {
+    /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
+}
+
 #clean open_with
  alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
@@ -393,11 +400,11 @@ topTypedHistory(){
 
 # uninstall rails
 uninstallRails(){
-  gems=("activemodel" "activerecord" "activesupport"  "actionmailer" "actionpack" "railties" "rails")
+  gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails" "arel")
   if [ $1 =~ "^3" ] ; then
     gems+=("activeresource")
   else
-    gems+=("actionview" "activejob")
+    gems+=("actionview" "activejob" "nio4r" "actioncable" "rails-dom-testing")
   fi
 
   for gem in $gems; do
@@ -422,11 +429,6 @@ function fdr() {
   find $1 -regex "$2"
 }
 
-# Emacs GUI
-function em() {
-    /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
-}
-
 # Hide desktop icons
 function desktopIcons() {
   defaults write com.apple.finder CreateDesktop true && killall Finder
@@ -436,34 +438,34 @@ function desktopIcons() {
 #
 
 # Git plugin
-autoload -Uz vcs_info
-zstyle ":vcs_info:*" enable git
-zstyle ":vcs_info:(git*):*" get-revision true
-zstyle ":vcs_info:(git*):*" check-for-changes true
+# autoload -Uz vcs_info
+# zstyle ":vcs_info:*" enable git
+# zstyle ":vcs_info:(git*):*" get-revision true
+# zstyle ":vcs_info:(git*):*" check-for-changes true
 
-local _branch="%c%u%m %{$fg[green]%}%b%{$reset_color%}"
-local _repo="%{$fg[green]%}%r %{$fg[yellow]%}⎇%{$reset_color%}"
-local _revision="%{$fg[yellow]%}%.7i%{$reset_color%}"
-local _action="%{$fg[red]%}%a%{$reset_color%}"
-zstyle ":vcs_info:*" stagedstr "%{$fg[yellow]%}✚%{$reset_color%}"
-zstyle ":vcs_info:*" unstagedstr "%{$fg[red]%}✖%{$reset_color%}"
-zstyle ":vcs_info:git*" formats "$_branch:$_revision"
-zstyle ":vcs_info:git*" actionformats "$_branch:$_revision:$_action - $_repo"
-zstyle ':vcs_info:git*+set-message:*' hooks git-stash
+# local _branch="%c%u%m %{$fg[green]%}%b%{$reset_color%}"
+# local _repo="%{$fg[green]%}%r %{$fg[yellow]%}⎇%{$reset_color%}"
+# local _revision="%{$fg[yellow]%}%.7i%{$reset_color%}"
+# local _action="%{$fg[red]%}%a%{$reset_color%}"
+# zstyle ":vcs_info:*" stagedstr "%{$fg[yellow]%}✚%{$reset_color%}"
+# zstyle ":vcs_info:*" unstagedstr "%{$fg[red]%}✖%{$reset_color%}"
+# zstyle ":vcs_info:git*" formats "$_branch:$_revision"
+# zstyle ":vcs_info:git*" actionformats "$_branch:$_revision:$_action - $_repo"
+# zstyle ':vcs_info:git*+set-message:*' hooks git-stash
 
 
 # zstyle ':vcs_info:*+*:*' debug true
 
-function +vi-git-stash() {
-  if [[ -s "${hook_com[base]}/.git/refs/stash" ]]; then
-    hook_com[misc]="%{$fg_bold[grey]%}~%{$reset_color%}"
-  fi
-}
+# function +vi-git-stash() {
+#   if [[ -s "${hook_com[base]}/.git/refs/stash" ]]; then
+#     hook_com[misc]="%{$fg_bold[grey]%}~%{$reset_color%}"
+#   fi
+# }
 
-precmd() {
-  vcs_info
-  print -Pn "\e]0;%~/\a"
-}
+# precmd() {
+#   vcs_info
+#   print -Pn "\e]0;%~/\a"
+# }
 
 # Check if $LANG is badly set as it causes issues
 if [[ $LANG == "C"  || $LANG == "" ]]; then
@@ -489,10 +491,15 @@ fi
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+# NVM
+export NVM_DIR=$HOME/.nvm
+. /usr/local/opt/nvm/nvm.sh --no-use
+
+# chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-export EDITOR='nvim'
 chruby ruby-2.3
+export EDITOR='nvim'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
