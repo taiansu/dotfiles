@@ -1,29 +1,30 @@
 require 'rake'
 
-task default: %w[update:node update:async_tasks_with_commit update:finish_msg]
-task just_update: %w[update:node  update:async_tasks_without_commit update:finish_msg]
+task default: %w(update:async_tasks_with_commit update:finish_msg)
+task just_update: %w(update:async_tasks_without_commit update:finish_msg)
 
 namespace :update do
-  multitask async_tasks_with_commit: %w[homebrew vim_and_commit npm spacemacs]
-  multitask async_tasks_without_commit: %w[homebrew vim npm spacemacs]
+  multitask async_tasks_with_commit: %w(homebrew vim_and_commit npm spacemacs)
+  multitask async_tasks_without_commit: %w(homebrew vim npm spacemacs)
 
-  [:homebrew, :node, :npm, :vim, :vim_and_commit, :emacs, :spacemacs].each do |task_name|
+  [:homebrew, :node, :npm, :vim,
+   :vim_and_commit, :emacs, :spacemacs].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
     end
   end
 
-  desc "show a finish message"
+  desc 'show a finish message'
   task :finish_msg do
-    cmd = cowsay? ? "cowsay" : "print"
+    cmd = cowsay? ? 'cowsay' : 'print'
     clear_screen
     send "#{cmd}_finish"
-    system "All updates are complete, we are good to go now." if RUBY_PLATFORM =~ /darwin/
+    system 'All updates are complete, we are good to go.' if osx?
   end
 
   def update_homebrew
-    return unless sh "brew -v"
+    return unless sh 'brew -v'
     sh 'brew update'
     sh 'brew upgrade'
     sh 'brew cleanup'
@@ -35,7 +36,7 @@ namespace :update do
   end
 
   def  update_npm
-    return unless sh "npm -v"
+    return unless sh 'npm -v'
     sh 'npm set progress=false && npm update -g'
   end
 
@@ -55,8 +56,8 @@ namespace :update do
   end
 
   def update_vim
-    vim_update_command = 'mvim -v "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
-    sh vim_update_command
+    vim_update = 'mvim -v "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
+    sh vim_update
   end
 
   def update_vim_and_commit
@@ -75,26 +76,27 @@ namespace :update do
   end
 
   def cowsay?
-    (sh "brew -v") && (`brew list cowsay`)
+    (sh 'brew -v') && `brew list cowsay`
   end
 
   def print_finish
-    puts "====================================================="
-    puts "=====    All done! Wish you have a nice day!    ====="
-    puts "====================================================="
+    puts '====================================================='
+    puts '=====    All done! Wish you have a nice day!    ====='
+    puts '====================================================='
   end
 
   def cowsay_finish
-    cow_file = %W[bud-frogs bunny default dragon-and-cow hellokitty kitty koala
-    luke-koala meow moose satanic sheep small stegosaurus supermilker three-eyes
-    turkey turtle tux udder vader vader-koala]
+    cow_file = %w(bud-frogs bunny default dragon-and-cow hellokitty kitty
+                  koala luke-koala meow moose satanic sheep small stegosaurus
+                  three-eyes turkey turtle tux udder vader vader-koala)
 
-    cow_eye = ["-b", "-d", "-g", "-p", "-s", "-t", "-w", "-y", ""].sample
+    cow_eye = ['-b', '-d', '-g', '-p', '-s', '-t', '-w', '-y', ''].sample
     cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
     system("fortune | #{cow_cmd} -f #{cow_file.sample} #{cow_eye}")
   end
 
   private
+
   def osx?
     (/darwin/ =~ RUBY_PLATFORM) != nil
   end

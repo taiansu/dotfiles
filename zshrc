@@ -491,10 +491,6 @@ fi
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-# NVM
-export NVM_DIR=$HOME/.nvm
-. /usr/local/opt/nvm/nvm.sh --no-use
-
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
