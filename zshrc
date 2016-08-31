@@ -261,9 +261,6 @@ function em() {
 alias k="rake"
 alias br="bundle exec rake"
 
-# Open another tab of same directory
-alias n="open -a iTerm ."
-
 # gittower
 alias gt="gittower"
 
@@ -286,10 +283,11 @@ man () {
   command man "$@"
 }
 
-# alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
-# god object
-# alias god_object='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+# god file
+alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+
+# alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
 # docker
 # alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
