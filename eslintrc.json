@@ -68,6 +68,10 @@
       "jsx-uses-react": "warn",
       "jsx-uses-vars": "warn",
       "display-name": "warn"
+    },
+    "babel": {
+      "generator-star-spacing": "warn",
+      "new-cap": "warn"
     }
   }
 }
