@@ -11,6 +11,9 @@
 # Let's have some colors first
 autoload -U colors && colors
 
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
 # Default colors:
 # Cyan for users, red for root, magenta for system users
 local _time="%{$fg[yellow]%}[%*]"
@@ -210,10 +213,7 @@ bindkey -M isearch . self-insert # history search fix
 
 # some more ls aliases
 alias l="ls -CF"
-alias ll="ls -la"
-alias la="ls -A"
-alias lh="ls -lh"
-alias lash="ls -lAsh"
+alias ll="ls -alFh"
 alias sl="ls"
 
 # tail
@@ -238,11 +238,9 @@ alias perms="stat -c '%A %a %n'"
 # expand sudo aliases
 alias sudo="sudo "
 
-# git
-alias g="git"
-
 # vim
 alias v="nvim"
+export EDITOR='nvim'
 
 # Emacs
 alias emd="emacs --daemon"
@@ -399,7 +397,7 @@ topTypedHistory(){
 # uninstall rails
 uninstallRails(){
   gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails" "arel")
-  if [ $1 =~ "^3" ] ; then
+  if [[ "$1" =~ "^3" ]] ; then
     gems+=("activeresource")
   else
     gems+=("actionview" "activejob" "nio4r" "actioncable" "rails-dom-testing")
@@ -429,7 +427,7 @@ function fdr() {
 
 # Hide desktop icons
 function desktopIcons() {
-  defaults write com.apple.finder CreateDesktop true && killall Finder
+  defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
 }
 
 # Extras
@@ -483,17 +481,18 @@ fi
 #   printf "\e]2;$1\a"
 # }
 
+# zsh-history-substring-search
+[[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 # zsh-syntax-highlighting
 [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# zsh-history-substring-search
-[[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # chruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby ruby-2.3
-export EDITOR='nvim'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -502,7 +501,11 @@ if [[ -f ~/.homebrew_github_api_token ]]; then
   source ~/.homebrew_github_api_token
 fi
 
+# export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"
+
 ##########################################
 ### Profile end
 # unsetopt xtrace
 # exec 2>&3 3>&-
+
+export PATH="$HOME/.yarn/bin:$PATH"
