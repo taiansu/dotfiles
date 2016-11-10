@@ -4,10 +4,10 @@ task default: %w(update:async_tasks_with_commit update:finish_msg)
 task just_update: %w(update:async_tasks_without_commit update:finish_msg)
 
 namespace :update do
-  multitask async_tasks_with_commit: %w(homebrew vim_and_commit npm spacemacs)
-  multitask async_tasks_without_commit: %w(homebrew vim npm spacemacs)
+  multitask async_tasks_with_commit: %w(homebrew vim_and_commit spacemacs)
+  multitask async_tasks_without_commit: %w(homebrew vim spacemacs)
 
-  [:homebrew, :node, :npm, :vim,
+  [:homebrew, :node, :npm, :yarn, :vim,
    :vim_and_commit, :emacs, :spacemacs].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
