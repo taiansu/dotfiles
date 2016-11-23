@@ -240,7 +240,7 @@ alias sudo="sudo "
 
 # vim
 alias v="nvim"
-export EDITOR='nvim'
+export EDITOR="nvim"
 
 # Emacs
 alias emd="emacs --daemon"
@@ -508,4 +508,3 @@ fi
 # unsetopt xtrace
 # exec 2>&3 3>&-
 
-export PATH="$HOME/.yarn/bin:$PATH"
