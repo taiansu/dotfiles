@@ -4,8 +4,8 @@ task default: %w(update:async_tasks_with_commit update:finish_msg)
 task just_update: %w(update:async_tasks_without_commit update:finish_msg)
 
 namespace :update do
-  multitask async_tasks_with_commit: %w(homebrew vim_and_commit spacemacs)
-  multitask async_tasks_without_commit: %w(homebrew vim spacemacs)
+  multitask async_tasks_with_commit: %w(homebrew vim_and_commit yarn spacemacs)
+  multitask async_tasks_without_commit: %w(homebrew vim yarn spacemacs)
 
   [:homebrew, :node, :npm, :yarn, :vim,
    :vim_and_commit, :emacs, :spacemacs].each do |task_name|
@@ -40,6 +40,10 @@ namespace :update do
     sh 'npm set progress=false && npm update -g'
   end
 
+  def update_yarn
+    sh 'yarn global upgrade'
+  end
+
   def update_spacemacs
     spacemacs_dir = "#{Dir.home}/Projects/spacemacs"
     return unless File.directory?(spacemacs_dir)
@@ -56,18 +60,18 @@ namespace :update do
   end
 
   def update_vim
-    vim_update = 'mvim -v "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+qall"'
+    vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"'
     sh vim_update
   end
 
   def update_vim_and_commit
     update_vim
 
-    if File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
-      Dir.chdir "#{Dir.home}/Projects/vim_tsu"
-      File.delete 'vim/autoload/plug.vim.old'
-      sh 'git add vim/autoload && git commit -m "update plug.vim"'
-    end
+    return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
+
+    Dir.chdir "#{Dir.home}/Projects/vim_tsu"
+    File.delete 'vim/autoload/plug.vim.old'
+    sh 'git add vim/autoload && git commit -m "update plug.vim"'
   end
 
   def clear_screen
