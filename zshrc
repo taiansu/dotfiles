@@ -248,7 +248,7 @@ alias ec="emacsclient -c"
 alias et="emacsclient -t"
 
 # Emacs GUI
-function em() {
+function e() {
     /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
 }
 
@@ -258,6 +258,10 @@ function em() {
 # rake
 alias k="rake"
 alias br="bundle exec rake"
+
+# mix
+alias m="mix"
+alias im="iex -S mix"
 
 # gittower
 alias gt="gittower"
