@@ -1,14 +1,13 @@
 require 'rake'
 
-task default: %w(update:async_tasks_with_commit update:finish_msg)
-task just_update: %w(update:async_tasks_without_commit update:finish_msg)
+task default: %w[update:async_tasks_with_commit update:finish_msg]
 
 namespace :update do
-  multitask async_tasks_with_commit: %w(homebrew vim_and_commit yarn spacemacs)
-  multitask async_tasks_without_commit: %w(homebrew vim yarn spacemacs)
+  multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn spacemacs]
+  desc 'Update all without commit plug.vim'
+  multitask only: %w[homebrew vim yarn spacemacs]
 
-  [:homebrew, :node, :npm, :yarn, :vim,
-   :vim_and_commit, :emacs, :spacemacs].each do |task_name|
+  [:homebrew, :node, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -48,7 +47,7 @@ namespace :update do
     spacemacs_dir = "#{Dir.home}/Projects/spacemacs"
     return unless File.directory?(spacemacs_dir)
     Dir.chdir(spacemacs_dir)
-    sh 'git pull'
+    sh 'git fetch && git pull'
   end
 
   def update_emacs
