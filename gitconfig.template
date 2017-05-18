@@ -24,7 +24,8 @@
   fp    = fetch -p
   fu    = fetch upstream
   l     = pull
-  lg    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+  lf    = !git-foresta --style=10 "$@" | less -RSX
+  lg    = log --graph
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
   lgs   = log -S
   lsau  = !git ls-files -v | grep ^h | awk '{print $2}'
