@@ -2,7 +2,6 @@
 
  ### Profile start
 # zmodload zsh/datetime
-# setopt promptsubst
 # PS4='+$EPOCHREALTIME %N:%i> '
 # exec 3>&2 2>/tmp/startlog.$$
 # setopt xtrace prompt_subst
@@ -267,8 +266,9 @@ t () { stt_tab "${PWD/${HOME}/~}" }
 #clean open_with
  alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
-# rake
+# bundle & rake
 alias k="rake"
+alias b="bundle"
 alias br="bundle exec rake"
 
 # mix
@@ -488,15 +488,6 @@ fi
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# Rename tab or window
-# function tabname {
-#   printf "\e]1;$1\a"
-# }
-
-# function winname {
-#   printf "\e]2;$1\a"
-# }
-
 # zsh-history-substring-search
 [[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
@@ -505,17 +496,16 @@ fi
 
 [[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby ruby-2.4
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
   source ~/.homebrew_github_api_token
 fi
+
+# asdf
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
 # export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"
 
