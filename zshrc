@@ -117,6 +117,9 @@ alias dmesg="dmesg --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 
+# Headless Chrome
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
 ##
 # Completion system
 #
