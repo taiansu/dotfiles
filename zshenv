@@ -7,7 +7,10 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 # NODE
 export NODE_PATH=/usr/local/lib/node_modules:/Users/tai/.asdf/shims
 
-export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM:$HOME/.config/yarn/global/node_modules/.bin:$HOME/Library/Haskell/bin
+# ANACONDA
+export ANACONDA_PATH=/usr/local/anaconda3/bin
+
+export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM:$HOME/.config/yarn/global/node_modules/.bin:$HOME/Library/Haskell/bin:$ANACONDA_PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Open another tab of same directory
