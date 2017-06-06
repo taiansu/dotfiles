@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "eslint",
   "env": {
     "browser": true,
     "commonjs": true,
@@ -64,14 +64,12 @@
         "caughtErrors": "none"
       }
     ],
-    "react": {
-      "jsx-uses-react": "warn",
-      "jsx-uses-vars": "warn",
-      "display-name": "warn"
-    },
-    "babel": {
-      "generator-star-spacing": "warn",
-      "new-cap": "warn"
-    }
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/display-name": "warn",
+    "babel/generator-star-spacing": "warn",
+    "babel/new-cap": "warn",
+    "babel/object-curly-spacing": "warn",
+    "babel/no-invalid-this": "warn"
   }
 }
