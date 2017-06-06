@@ -12,6 +12,8 @@ autoload -U colors && colors
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
 
 # Default colors:
 # Cyan for users, red for root, magenta for system users
@@ -352,9 +354,9 @@ topTypedHistory(){
 # }
 
 # print a separator banner, as wide as the terminal
-# function hr {
-#   print ${(l:COLUMNS::=:)}
-# }
+function hr {
+  print ${(l:COLUMNS::=:)}
+}
 
 # launch an app
 # function launch {
