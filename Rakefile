@@ -3,11 +3,11 @@ require 'rake'
 task default: %w[update:async_tasks_with_commit update:finish_msg]
 
 namespace :update do
-  multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn spacemacs]
+  multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn source spacemacs]
   desc 'Update all without commit plug.vim'
   multitask only: %w[homebrew vim yarn spacemacs]
 
-  [:homebrew, :node, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs].each do |task_name|
+  [:homebrew, :node, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -68,9 +68,20 @@ namespace :update do
 
     return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
 
-    Dir.chdir "#{Dir.home}/Projects/vim_tsu"
+    Dir.chdir "#{Dir.home}/Projects/vimrc"
     File.delete 'vim/autoload/plug.vim.old'
     sh 'git add vim/autoload && git commit -m "update plug.vim"'
+  end
+
+  def update_source
+    %w(otp elixir dialyxir credo).each do |source|
+      puts "Fetching #{source}..."
+      Dir.chdir("#{Dir.home}/Projects/source/#{source}")
+      sh 'git fetch && git pull'
+      if source == "dialyxir"
+        sh 'MIX_ENV=prod mix do compile, archive.build, archive.install --force, dialyzer --plt --no-warn'
+      end
+    end
   end
 
   def clear_screen
