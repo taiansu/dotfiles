@@ -50,14 +50,6 @@ namespace :update do
     sh 'git fetch && git pull'
   end
 
-  def update_emacs
-    emacs_d = "#{Dir.home}/.emacs.d"
-    return unless File.directory?(emacs_d)
-    # Dir.chdir(emacs_d)
-    # sh 'cask upgrade'
-    # sh 'cask update'
-  end
-
   def update_vim
     vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"'
     sh vim_update
