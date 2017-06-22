@@ -122,6 +122,9 @@ alias less="less -R"
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
+# Youtube mp3
+alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
+
 ##
 # Completion system
 #
