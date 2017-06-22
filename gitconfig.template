@@ -2,9 +2,10 @@
   name  = #{your_name}
   email = #{your_email}
 [github]
-  user = #{yourname}
+  user = #{your_name}
+  token = #{your_token}
 [heroku]
-  user = #{yourname}
+  user = #{your_name}
 [alias]
   aa    = add --all
   ap    = add -p
@@ -25,7 +26,7 @@
   fu    = fetch upstream
   l     = pull
   lf    = !git-foresta --style=10 "$@" | less -RSX
-  lg    = log --graph
+  lg    = log --graph --abbrev-commit
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
   lgs   = log -S
   lsau  = !git ls-files -v | grep ^h | awk '{print $2}'
@@ -66,8 +67,6 @@
 [merge "gemfilelock"]
   name   = relocks the Gemfile.lock
   driver = bundle install
-[credential]
-  helper = osxkeychain
 [push]
   default = simple
 [rerere]
@@ -77,7 +76,7 @@
 [difftool]
   prompt = false
 [difftool "Kaleidoscope"]
-        cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [merge]
   tool = Kaleidoscope
 [mergetool]
@@ -85,3 +84,11 @@
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
   trustexitcode = true
+[commit]
+  template = /Users/tai/.stCommitMsg
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[credential]
+  helper = osxkeychain
