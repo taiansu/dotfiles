@@ -12,8 +12,8 @@ autoload -U colors && colors
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
+autoload -Uz bracketed-paste-url-magic
+zle -N bracketed-paste bracketed-paste-url-magic
 
 # Default colors:
 # Cyan for users, red for root, magenta for system users
@@ -504,7 +504,13 @@ fi
 
 [[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+if [ -n "$INSIDE_EMACS" ]; then
+  chpwd() { print -P "\033AnSiTc %d" }
+  print -P "\033AnSiTu %n"
+  print -P "\033AnSiTc %d"
+else
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
