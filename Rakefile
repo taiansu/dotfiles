@@ -2,6 +2,21 @@ require 'rake'
 
 task default: %w[update:async_tasks_with_commit update:finish_msg]
 
+desc 'Git pull all sub-directory'
+task :pull_all do
+  dir = ARGV[1]
+  Dir.chdir("#{dir}")
+
+  Dir.glob("*/").each do |d|
+    Dir.chdir("#{Dir.pwd}/#{d}")
+    p "=== Pulling: #{Dir.pwd} ==="
+    sh 'git stash -u'
+    sh 'git checkout master'
+    sh 'git fetch && git pull'
+    Dir.chdir("../")
+  end
+end
+
 namespace :update do
   multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn source spacemacs]
   desc 'Update all without commit plug.vim'
@@ -69,10 +84,12 @@ namespace :update do
     %w(otp elixir dialyxir credo).each do |source|
       puts "Fetching #{source}..."
       Dir.chdir("#{Dir.home}/Projects/source/#{source}")
+      puts "#{Dir.pwd}"
       sh 'git fetch && git pull'
       if source == "dialyxir"
         sh 'MIX_ENV=prod mix do compile, archive.build, archive.install --force, dialyzer --plt --no-warn'
       end
+      Dir.chdir("../")
     end
   end
 
