@@ -1,5 +1,4 @@
 export PATH=/usr/local/sbin:$PATH
-echo $PATH
 
 # GO
 export GOPATH=$HOME/projects/gocode/bin
