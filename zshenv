@@ -1,16 +1,41 @@
-# go
-export GOPATH=$HOME/projects/gocode
+export PATH=/usr/local/sbin:$PATH
+echo $PATH
+
+# GO
+export GOPATH=$HOME/projects/gocode/bin
+export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
+
+[ -d $GOPATH ] && export PATH=$PATH:$GOPATH
+
+[ -d $GO_CUSTOM_PATH ] && export PATH=$PATH:$GO_CUSTOM_PATH
 
 # ANDROID
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
+[ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
+
 # NODE
-export NODE_PATH=/usr/local/lib/node_modules:/Users/tai/.asdf/shims
+# export NODE_PATH=/usr/local/lib/node_modules
+
+# [-d $NODE_PATH ] && export PATH=$PATH:$NODE_PATH
+
+# HASKELL
+export HASKELL_PATH=$HOME/Library/Haskell/bin
+
+[ -d $HASKELL_PATH ] && export PATH=$PATH:$HASKELL_PATH
 
 # ANACONDA
 export ANACONDA_PATH=/usr/local/anaconda3/bin
 
-export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM:$HOME/.config/yarn/global/node_modules/.bin:$HOME/Library/Haskell/bin:$ANACONDA_PATH
+[ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
+
+# Yarn
+export YARN_PATH=$HOME/.config/yarn/global/node_modules/.bin
+
+[ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
+
+
+# export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM::$HOME/Library/Haskell/bin:$ANACONDA_PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Open another tab of same directory
