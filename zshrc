@@ -119,6 +119,9 @@ alias dmesg="dmesg --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 
+# Override system vim
+alias vim='mvim -v'
+
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
@@ -220,6 +223,7 @@ bindkey -M isearch . self-insert # history search fix
 
 # some more ls aliases
 alias l="ls -CF"
+alias la="ls -al"
 alias ll="ls -alFh"
 alias sl="ls"
 
@@ -510,6 +514,10 @@ if [ -n "$INSIDE_EMACS" ]; then
   print -P "\033AnSiTc %d"
 else
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
+
+if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
+  stty ek
 fi
 
 # source homebrew github api token
