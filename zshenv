@@ -33,6 +33,8 @@ export YARN_PATH=$HOME/.config/yarn/global/node_modules/.bin
 
 [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
 
+# Erlang
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM::$HOME/Library/Haskell/bin:$ANACONDA_PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
