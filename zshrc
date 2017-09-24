@@ -29,9 +29,9 @@ fi
 local _user="%{$_usercol%}%n"
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%{$reset_color%}Ⴤ"
+  _prompt="%{$reset_color%}𝝠"
 else
-  _prompt="%{$reset_color%}λ"
+  _prompt="%{$reset_color%}𝝺"
 fi
 
 PROMPT="$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} "
