@@ -20,9 +20,9 @@ end
 namespace :update do
   multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn source spacemacs]
   desc 'Update all without commit plug.vim'
-  multitask only: %w[homebrew vim yarn spacemacs]
+  multitask only: %w[homebrew vim yarn spacemacs asdf]
 
-  [:homebrew, :node, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source].each do |task_name|
+  [:homebrew, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source, :asdf].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -45,16 +45,13 @@ namespace :update do
     sh 'brew cask cleanup'
   end
 
-  def update_node
-    sh './update_node.sh'
-  end
-
   def  update_npm
     return unless sh 'npm -v'
     sh 'npm set progress=false && npm update -g'
   end
 
   def update_yarn
+    return unless sh 'yarn -v'
     sh 'yarn global upgrade'
   end
 
@@ -91,6 +88,13 @@ namespace :update do
       end
       Dir.chdir("../")
     end
+  end
+
+  def update_asdf
+    return unless sh 'asdf -v'
+
+    sh 'asdf update'
+    sh 'asdf plugin-update --all'
   end
 
   def clear_screen
