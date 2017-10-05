@@ -119,6 +119,9 @@ alias dmesg="dmesg --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 
+# WORDCHARS
+# export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
+
 # Override system vim
 alias vim='mvim -v'
 
@@ -175,8 +178,8 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 # Bind ctrl-left / ctrl-right
-bindkey "\e[1;5D" backward-word
-bindkey "\e[1;5C" forward-word
+# bindkey "\e[1;5D" backward-word
+# bindkey "\e[1;5C" forward-word
 
 # Bind ctrl-backspace to delete word.
 # NOTE: This may not work properly in some emulators
@@ -216,7 +219,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 bindkey -M isearch . self-insert # history search fix
 
-
 ##
 # Aliases
 #
@@ -228,8 +230,8 @@ alias ll="ls -alFh"
 alias sl="ls"
 
 # tail
-alias tf="tail -f"
-alias tn="tail -n"
+alias taf="tail -f"
+alias tan="tail -n"
 
 # less
 alias lf="less +F"
@@ -240,14 +242,8 @@ alias diff="diff -u"
 # simple webserver
 alias mkhttp="python -m http.server"
 
-# json prettify
-alias json="python -m json.tool"
-
 # octal+text permissions for files
 alias perms="stat -c '%A %a %n'"
-
-# expand sudo aliases
-alias sudo="sudo "
 
 # vim
 alias v="nvim"
@@ -256,10 +252,9 @@ export EDITOR="nvim"
 # Emacs
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
-alias et="emacsclient -t"
 
 # Emacs GUI
-function e() {
+function em() {
     /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
 }
 
@@ -273,7 +268,7 @@ stt_both  () { setTerminalText 0 $@; }
 stt_tab   () { setTerminalText 1 $@; }
 stt_title () { setTerminalText 2 $@; }
 
-t () { stt_tab "${PWD/${HOME}/~}" }
+tb () { stt_tab "${PWD/${HOME}/~}" }
 
 #clean open_with
  alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
@@ -299,6 +294,10 @@ vc() {
   vagrant ssh -c "$CMD"
 }
 
+# terraform
+alias tf="terraform"
+alias tg="terragrunt"
+
 man () {
   LESS_TERMCAP_md=$'\e'"[1;36m" \
   LESS_TERMCAP_me=$'\e'"[0m" \
@@ -308,7 +307,6 @@ man () {
   LESS_TERMCAP_us=$'\e'"[1;32m" \
   command man "$@"
 }
-
 
 # god file
 alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
