@@ -91,7 +91,7 @@ namespace :update do
   end
 
   def update_asdf
-    return unless sh 'asdf -v'
+    return unless sh 'asdf --verson'
 
     sh 'asdf update'
     sh 'asdf plugin-update --all'
