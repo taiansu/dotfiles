@@ -31,6 +31,11 @@ Temporary Items
 *.swn
 *.swo
 *.orig
+
+#dropbox file
+.dropbox
+Icon
+
 ##########
 
 ### Ruby and Rails ###
@@ -53,22 +58,12 @@ config/setup_load_paths.rb
 spec/spec.opts
 .rspec
 
-# Watchr configuration.
-# watchr.rb
-
 # Guard configuration.
 # Guardfile
-
-# Whiskey disk configuration.
-config/deploy
-config/deploy/local.yml
 
 # Rails Assets.
 .jhw-cache
 .sass-cache
-
-# POWDER file
-# .powder
 
 # Rubymine
 .idea
@@ -81,27 +76,20 @@ config/deploy/local.yml
 # Gemfile.lock, .ruby-version, .ruby-gemset
 ##########
 
-
-# The silver searcher ignore
-.agignore
-
-# ctags file
-tags
-
-#dropbox file
-.dropbox
-Icon
-
-# Floorc
-floorc
+### Erlang ###
+.eunit
+deps
+*.o
+*.beam
+*.plt
+erl_crash.dump
+##########
 
 ### Elixir ###
-/_build
-/deps
-erl_crash.dump
+_build
+deps
 *.ez
-
-
+##########
 
 ### vim ###
 [._]*.s[a-w][a-z]
@@ -151,15 +139,6 @@ tramp
 *.elc
 ##########
 
-### Erlang ###
-.eunit
-deps
-*.o
-*.beam
-*.plt
-erl_crash.dump
-##########
-
 ### Sass ###
 .sass-cache
 ##########
@@ -183,6 +162,9 @@ npm-debug.log
 *.map
 ##########
 
-#### mix project ###
-_build
-##########
+# The silver searcher ignore
+.agignore
+
+# ctags file
+tags
+
