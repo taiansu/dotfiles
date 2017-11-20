@@ -1,5 +1,0 @@
-export HOME=/Users/tsu
-export PATH=`brew --prefix rbenv`/shims:`brew --prefix rbenv`/bin:$PATH
-export POW_WORKERS=3
-export POW_TIMEOUT=180
-export POW_DOMAINS=local,dev,test
