@@ -2,21 +2,6 @@ require 'rake'
 
 task default: %w[update:async_tasks_with_commit update:finish_msg]
 
-desc 'Git pull all sub-directory'
-task :pull_all do
-  dir = ARGV[1]
-  Dir.chdir("#{dir}")
-
-  Dir.glob("*/").each do |d|
-    Dir.chdir("#{Dir.pwd}/#{d}")
-    p "=== Pulling: #{Dir.pwd} ==="
-    sh 'git stash -u'
-    sh 'git checkout master'
-    sh 'git fetch && git pull'
-    Dir.chdir("../")
-  end
-end
-
 namespace :update do
   multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn source spacemacs]
   desc 'Update all without commit plug.vim'
@@ -65,6 +50,11 @@ namespace :update do
   def update_vim
     vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"'
     sh vim_update
+
+    return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
+
+    Dir.chdir "#{Dir.home}/Projects/vimrc"
+    File.delete 'vim/autoload/plug.vim.old'
   end
 
   def update_vim_and_commit
@@ -126,5 +116,22 @@ namespace :update do
 
   def osx?
     (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+end
+
+namespace :git do
+  desc 'Git pull all sub-directory'
+  task :pull_all do
+    dir = ARGV[1]
+    Dir.chdir("#{dir}")
+
+    Dir.glob("*/").each do |d|
+      Dir.chdir("#{Dir.pwd}/#{d}")
+      p "=== Pulling: #{Dir.pwd} ==="
+      sh 'git stash -u'
+      sh 'git checkout master'
+      sh 'git fetch && git pull'
+      Dir.chdir("../")
+    end
   end
 end
