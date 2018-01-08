@@ -16,7 +16,7 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 
 # Default colors:
-# Cyan for users, red for root, magenta for system users
+# White for users, red for root, magenta for system users
 local _time="%{$fg[yellow]%}[%*]"
 local _path="%{$fg[green]%}%(8~|...|)%7~"
 local _usercol
@@ -34,9 +34,9 @@ else
   _prompt="%{$reset_color%}𝝺"
 fi
 
-PROMPT="$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} "
+PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
-RPROMPT="\$(git-radar --zsh --fetch)"
+RPROMPT='\$(git-radar --zsh --fetch)'
 # RPROMPT='${vcs_info_msg_0_}' # git branch
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
@@ -189,7 +189,7 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # NOTE this won't work on Konsole if the new tab button is shown
 bindkey "\e[Z" reverse-menu-complete
 
-# Make ctrl-e edit the current command line
+# Make ctrl-v edit the current command line
 autoload edit-command-line
 zle -N edit-command-line
 bindkey "^v" edit-command-line
@@ -364,11 +364,11 @@ function hr {
 }
 
 # launch an app
-# function launch {
-#   type $1 >/dev/null || { print "$1 not found" && return 1 }
-#   $@ &>/dev/null &|
-# }
-# alias launch="launch " # expand aliases
+function launch {
+  type $1 >/dev/null || { print "$1 not found" && return 1 }
+  $@ &>/dev/null &|
+}
+alias launch="launch " # expand aliases
 
 # urlencode text
 # function urlencode {
@@ -484,10 +484,12 @@ function desktopIcons() {
 #   fi
 # }
 
-# precmd() {
-#   vcs_info
-#   print -Pn "\e]0;%~/\a"
-# }
+function precmd() {
+    # Clear the terminal title before running any command.
+    # This is a somewhat hacky workaround to Neovim not refreshing the title
+    # after it exits.
+    echo -ne "\e]1;${PWD##*/}\a"
+}
 
 # Check if $LANG is badly set as it causes issues
 if [[ $LANG == "C"  || $LANG == "" ]]; then
