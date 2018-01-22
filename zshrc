@@ -525,6 +525,12 @@ if [[ -f ~/.homebrew_github_api_token ]]; then
   source ~/.homebrew_github_api_token
 fi
 
+# source google-cloud-sdk
+if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+fi
+
 # asdf
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
