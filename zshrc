@@ -120,7 +120,7 @@ alias dmesg="dmesg --color=auto"
 alias less="less -R"
 
 # WORDCHARS
-# export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # Override system vim
 alias vim='mvim -v'
@@ -181,9 +181,8 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # bindkey "\e[1;5D" backward-word
 # bindkey "\e[1;5C" forward-word
 
-# Bind ctrl-backspace to delete word.
-# NOTE: This may not work properly in some emulators
-# bindkey "^?" backward-delete-word
+autoload backward-delete-word
+zle -N backward-delete-word
 
 # Bind shift-tab to backwards-menu
 # NOTE this won't work on Konsole if the new tab button is shown
