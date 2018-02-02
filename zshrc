@@ -128,6 +128,9 @@ alias vim='mvim -v'
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
+# Headless Firefox
+alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
+
 # Youtube mp3
 alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
 
