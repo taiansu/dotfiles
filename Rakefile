@@ -26,7 +26,7 @@ namespace :update do
     return unless sh 'brew -v'
     sh 'brew update'
     sh 'brew upgrade'
-    sh 'brew cleanup'
+    # sh 'brew cleanup'
     sh 'brew cask cleanup'
   end
 
@@ -76,7 +76,7 @@ namespace :update do
       if source == "dialyxir"
         sh 'MIX_ENV=prod mix do compile, archive.build, archive.install --force, dialyzer --plt --no-warn'
       end
-      Dir.chdir("../")
+      Dir.chdir("#{Dir.home}")
     end
   end
 
