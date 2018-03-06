@@ -39,6 +39,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # export PATH=/usr/local/sbin:$PATH:$GOPATH/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM::$HOME/Library/Haskell/bin:$ANACONDA_PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+# FZF
+export FZF_DEFAULT_COMMAND='ag -l'
+
 # Open another tab of same directory
 alias n="open -a iTerm ."
 alias re="repeat"

@@ -491,6 +491,12 @@ if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 fi
 
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+  complete -F _fzf_path_completion -o default -o bashdefault ag
+  complete -F _fzf_dir_completion -o default -o bashdefault tree
+fi
+
 # asdf
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
