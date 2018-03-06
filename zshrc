@@ -123,7 +123,7 @@ alias less="less -R"
 export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # Override system vim
-alias vim='mvim -v'
+alias vim='nvim'
 
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
