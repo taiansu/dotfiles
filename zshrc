@@ -436,23 +436,6 @@ uninstallRails(){
   done
 }
 
-# find shorthand
-function f() {
-  find . -iregex "^.*$1.*$"
-}
-
-function fd() {
-  find $1 -iregex "^.*$2.*$"
-}
-
-function fr() {
-  find . -regex "$1"
-}
-
-function fdr() {
-  find $1 -regex "$2"
-}
-
 # Hide desktop icons
 function desktopIcons() {
   defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
