@@ -1,14 +1,16 @@
- # zmodload zsh/zprof
+ ### Profile
+# zmodload zsh/zprof
 
- ### Profile start
-# zmodload zsh/datetime
-# PS4='+$EPOCHREALTIME %N:%i> '
-# exec 3>&2 2>/tmp/startlog.$$
-# setopt xtrace prompt_subst
-##########################################
+autoload -Uz compinit
 
 # Let's have some colors first
 autoload -U colors && colors
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+
+compinit -C
+
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
@@ -138,9 +140,6 @@ alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
 # Completion system
 #
 
-autoload -Uz compinit
-compinit
-
 zstyle ":completion:*" auto-description "specify: %d"
 zstyle ":completion:*" completer _expand _complete _correct _approximate
 zstyle ":completion:*" format "Completing %d"
@@ -179,13 +178,6 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-
-# Bind ctrl-left / ctrl-right
-# bindkey "\e[1;5D" backward-word
-# bindkey "\e[1;5C" forward-word
-
-autoload backward-delete-word
-zle -N backward-delete-word
 
 # Bind shift-tab to backwards-menu
 # NOTE this won't work on Konsole if the new tab button is shown
@@ -310,15 +302,7 @@ man () {
   command man "$@"
 }
 
-# god file
-alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
-
 # alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
-
-# docker
-# alias dkup="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
-# alias dk="docker"
-# alias dkex="docker-machine stop default && exit"
 
 alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
@@ -327,6 +311,9 @@ topTypedHistory(){
 }
 
 ##
+# god file
+alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+
 # Functions
 #
 
@@ -376,51 +363,6 @@ alias launch="launch " # expand aliases
 # function urlencode {
 #   print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
 # }
-
-# get public ip
-# function myip {
-#   local api
-#   case "$1" in
-#     "-4")
-#       api="http://v4.ipv6-test.com/api/myip.php"
-#       ;;
-#     "-6")
-#       api="http://v6.ipv6-test.com/api/myip.php"
-#       ;;
-#     *)
-#       api="http://ipv6-test.com/api/myip.php"
-#       ;;
-#   esac
-#   curl -s "$api"
-#   echo # Newline.
-# }
-
-# Create short urls via http://goo.gl using curl(1).
-# Contributed back to grml zshrc
-# API reference: https://code.google.com/apis/urlshortener/
-# function zurl {
-#   if [[ -z $1 ]]; then
-#     print "USAGE: $0 <URL>"
-#     return 1
-#   fi
-
-#   local url=$1
-#   local api="https://www.googleapis.com/urlshortener/v1/url"
-#   local data
-
-#   # Prepend "http://" to given URL where necessary for later output.
-#   if [[ $url != http(s|)://* ]]; then
-#     url="http://$url"
-#   fi
-#   local json="{\"longUrl\": \"$url\"}"
-
-#   data=$(curl --silent -H "Content-Type: application/json" -d $json $api)
-#   # Match against a regex and print it
-#   if [[ $data =~ '"id": "(http://goo.gl/[[:alnum:]]+)"' ]]; then
-#     print $match
-#   fi
-# }
-##
 
 # uninstall rails
 uninstallRails(){
@@ -502,9 +444,3 @@ fi
 . $HOME/.asdf/completions/asdf.bash
 
 # export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"
-
-##########################################
-### Profile end
-# unsetopt xtrace
-# exec 2>&3 3>&-
-
