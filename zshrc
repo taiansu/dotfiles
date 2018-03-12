@@ -3,19 +3,22 @@
 
 autoload -Uz compinit
 
-# Let's have some colors first
-autoload -U colors && colors
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
 
 compinit -C
 
+autoload -Uz promptinit colors
+colors
+promptinit
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
+autoload backward-delete-word
+zle -N backward-delete-word
 
 # Default colors:
 # White for users, red for root, magenta for system users
@@ -224,8 +227,9 @@ alias ll="ls -alFh"
 alias sl="ls"
 
 # tail
-alias taf="tail -f"
-alias tan="tail -n"
+alias tl="tail"
+alias tlf="tail -f"
+alias tln="tail -n"
 
 # less
 alias lf="less +F"
@@ -440,7 +444,9 @@ if [[ -f ~/.fzf.zsh ]]; then
 fi
 
 # asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+if [[ -f ~/.asdf/asdf.sh ]]; then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+fi
 
 # export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"
