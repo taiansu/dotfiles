@@ -41,8 +41,8 @@ fi
 
 PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
-RPROMPT='\$(git-radar --zsh --fetch)'
-# RPROMPT='${vcs_info_msg_0_}' # git branch
+RPROMPT="\$(gitHUD zsh)"
+# RPROMPT="${vcs_info_msg_0_}" # git branch
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
