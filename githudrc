@@ -11,7 +11,7 @@
 # Lines that are not understood by githud are silently ignored
 #
 # Colors are from [Black, Red, Green, Yellow, Blue, Magenta, Cyan, White, NoColor]
-# NoColor is a special keyword to remove any specific color and use the 
+# NoColor is a special keyword to remove any specific color and use the
 # terminal foreground color
 #
 # Intensities are from [Vivid, Dull]
@@ -23,7 +23,7 @@
 # Uncomment one and change it to obtain a different prompt
 #
 #
-# The following character is a better repo indicator to me but needs the 
+# The following character is a better repo indicator to me but needs the
 # powerline patched font https://github.com/powerline/fonts
 # it's not a default anymore
 # Don't use it unless it displays a nice fork symbol
@@ -42,7 +42,7 @@ show_part_repo_indicator=False
 # no_tracked_upstream_text=upstream
 # no_tracked_upstream_text_color=Red
 # no_tracked_upstream_text_intensity=Vivid
-# no_tracked_upstream_indicator=⚡
+no_tracked_upstream_indicator=ꝇ
 # no_tracked_upstream_indicator_color=Red
 # no_tracked_upstream_indicator_intensity=Vivid
 #
