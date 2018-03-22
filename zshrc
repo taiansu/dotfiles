@@ -314,6 +314,10 @@ alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sor
 
 # Functions
 #
+function mkcd() {
+  mkdir "$1"
+  cd "$1"
+}
 
 # make a backup of a file
 # https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc
