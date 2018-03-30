@@ -4,12 +4,12 @@ export PATH=/usr/local/sbin:$PATH
 export GOPATH=$HOME/projects/gocode/bin
 export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
 
-[ -d $GOPATH ] && export PATH=$PATH:$GOPATH
-[ -d $GO_CUSTOM_PATH ] && export PATH=$PATH:$GO_CUSTOM_PATH
+# [ -d $GOPATH ] && export PATH=$PATH:$GOPATH
+# [ -d $GO_CUSTOM_PATH ] && export PATH=$PATH:$GO_CUSTOM_PATH
 
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
-[ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
+# [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
 # ANDROID
 # export ANDROID_HOME=/usr/local/opt/android-sdk
