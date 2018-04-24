@@ -429,8 +429,21 @@ fi
 
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
-  complete -F _fzf_path_completion -o default -o bashdefault ag
-  complete -F _fzf_dir_completion -o default -o bashdefault tree
+  # export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_DEFAULT_COMMAND='fd --type f'
+
+  # Use fd (https://github.com/sharkdp/fd) instead of the default find
+  # command for listing path candidates.
+  # - The first argument to the function ($1) is the base path to start traversal
+  # - See the source code (completion.{bash,zsh}) for the details.
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
 fi
 
 # asdf
