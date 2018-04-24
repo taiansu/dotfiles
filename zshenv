@@ -9,7 +9,7 @@ export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
 
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
-# [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
+[ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
 # ANDROID
 # export ANDROID_HOME=/usr/local/opt/android-sdk
@@ -27,9 +27,6 @@ export YARN_PATH=$HOME/.config/yarn/global/node_modules/.bin
 
 # Erlang
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-# FZF
-export FZF_DEFAULT_COMMAND='ag -l'
 
 # Open another tab of same directory
 alias n="open -a iTerm ."
