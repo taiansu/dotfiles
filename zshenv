@@ -12,7 +12,7 @@ export HASKELL_INSTALL_PATH=$HOME/.local/bin
 [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
 # ANDROID
-# export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_HOME=/usr/local/share/android-sdk
 
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
 
