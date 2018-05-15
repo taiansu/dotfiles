@@ -7,7 +7,7 @@ namespace :update do
   desc 'Update all without commit plug.vim'
   multitask only: %w[homebrew vim yarn spacemacs asdf]
 
-  [:homebrew, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source, :asdf].each do |task_name|
+  [:homebrew, :cask, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source, :asdf].each do |task_name|
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -27,15 +27,27 @@ namespace :update do
     sh 'brew update'
     sh 'brew upgrade'
     # sh 'brew cleanup'
+  end
+
+  def update_cask
+    return unless sh 'brew cask --version'
+    sh 'brew update'
+
+    ignore_apps = ['microsoft-office']
+    outdated_apps = `brew cask outdated | awk '{print $1}'`.split(" ")
+    update_apps = outdated_apps - ignore_apps
+    sh "brew cask install #{update_apps.join(' ')} --force" unless update_apps.empty?
     sh 'brew cask cleanup'
   end
 
   def  update_npm
     return unless sh 'npm -v'
+    # cd ~/.asdf/installs/nodejs/8.8.1/lib && npm i npm
     sh 'npm set progress=false && npm update -g'
   end
 
   def update_yarn
+    # yarn config set prefix ~/.yarn
     return unless sh 'yarn -v'
     sh 'yarn global upgrade'
   end
@@ -68,7 +80,7 @@ namespace :update do
   end
 
   def update_source
-    %w(otp elixir dialyxir credo).each do |source|
+    %w(otp elixir dialyxir phoenix).each do |source|
       puts "Fetching #{source}..."
       Dir.chdir("#{Dir.home}/Projects/source/#{source}")
       puts "#{Dir.pwd}"

@@ -13,16 +13,19 @@ export HASKELL_INSTALL_PATH=$HOME/.local/bin
 
 # ANDROID
 export ANDROID_HOME=/usr/local/share/android-sdk
-
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
+
+# MONO
+export MONO_GAC_PREFIX="/usr/local"
+export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
+
 
 # ANACONDA
 # export ANACONDA_PATH=/usr/local/anaconda3/bin
-
 # [ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
 
 # Yarn
-export YARN_PATH=$HOME/.config/yarn/global/node_modules/.bin
+export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
 [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
 
 # Erlang
