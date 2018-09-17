@@ -39,23 +39,17 @@ Icon
 
 ### Ruby and Rails ###
 # Redcar configuration.
-.redcar
-
-# Ruby Environment.
-.ruby-version
+# .redcar
 
 # Rails database configuration.
-config/database.yml
-
-# Temp ignore
-db/schema.rb
+# config/database.yml
 
 # This file sets up the load paths when using RVM with Passenger.
-config/setup_load_paths.rb
+# config/setup_load_paths.rb
 
 # Rspec configuration.
-spec/spec.opts
-.rspec
+# spec/spec.opts
+# .rspec
 
 # Guard configuration.
 # Guardfile
