@@ -24,6 +24,9 @@ export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 # export ANACONDA_PATH=/usr/local/anaconda3/bin
 # [ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
 
+# ANSIBLE
+export ANSIBLE_NOCOWS=1
+
 # Yarn
 export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
 [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH

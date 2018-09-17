@@ -128,7 +128,7 @@ alias less="less -R"
 export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # Headless Chrome
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
 
 # Headless Firefox
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
@@ -241,6 +241,9 @@ alias perms="stat -c '%A %a %n'"
 alias v="nvim"
 export EDITOR="nvim"
 
+# kerl
+export KERL_BUILD_DOCS=yes
+
 # Emacs
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
@@ -274,8 +277,8 @@ alias br="bundle exec rake"
 alias m="mix"
 alias im="iex -S mix"
 
-# gittower
-alias gt="gittower"
+# fork
+alias f="fork"
 
 # vagrant
 export VAGRANT_DEFAULT_PROVIDER='virtualbox'
@@ -367,7 +370,7 @@ alias launch="launch " # expand aliases
 # }
 
 # uninstall rails
-uninstallRails(){
+uninstallRails() {
   gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails" "arel")
   if [[ "$1" =~ "^3" ]] ; then
     gems+=("activeresource")
@@ -378,6 +381,15 @@ uninstallRails(){
   for gem in $gems; do
     gem uninstall $gem -v=$1 --force
   done
+}
+
+# Typora
+typora() {
+  if [ "$#" -eq 0 ]; then
+    open -a typora .
+  else
+    open -a typora $@
+  fi
 }
 
 # Hide desktop icons
@@ -401,8 +413,8 @@ if [[ $LANG == "C"  || $LANG == "" ]]; then
   export LANG=en_US.UTF-8
 fi
 
-# Autojump
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+# autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 if [ -n "$INSIDE_EMACS" ]; then
   chpwd() { print -P "\033AnSiTc %d" }
@@ -430,7 +442,6 @@ fi
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
   # export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_DEFAULT_COMMAND='fd --type f'
 
   # Use fd (https://github.com/sharkdp/fd) instead of the default find
   # command for listing path candidates.
