@@ -4,8 +4,6 @@
 [github]
   user = #{your_name}
   token = #{your_token}
-[heroku]
-  user = #{your_name}
 [alias]
   aa    = add --all
   ap    = add -p
