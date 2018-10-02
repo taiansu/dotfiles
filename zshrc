@@ -241,9 +241,6 @@ alias perms="stat -c '%A %a %n'"
 alias v="nvim"
 export EDITOR="nvim"
 
-# kerl
-export KERL_BUILD_DOCS=yes
-
 # Emacs
 alias emd="emacs --daemon"
 alias ec="emacsclient -c"
