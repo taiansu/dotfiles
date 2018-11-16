@@ -80,16 +80,19 @@ namespace :update do
   end
 
   def update_source
-    %w(otp elixir dialyxir phoenix).each do |source|
+    %w(otp elixir phoenix ex_doc ecto).each do |source|
       puts "Fetching #{source}..."
-      Dir.chdir("#{Dir.home}/Projects/source/#{source}")
-      puts "#{Dir.pwd}"
-      sh 'git fetch && git pull'
-      if source == "dialyxir"
-        sh 'MIX_ENV=prod mix do compile, archive.build, archive.install --force, dialyzer --plt --no-warn'
-      end
-      Dir.chdir("#{Dir.home}")
+      dir = "#{Dir.home}/Projects/source/#{source}"
+      git_pull(dir) if Dir.exist?(dir)
     end
+  end
+
+  def git_pull(dir)
+    Dir.chdir(dir)
+    stdout = %x{git stash -u}
+    has_stash = "No local changes to save\n" != stdout
+    sh 'git pull && git gc'
+    sh 'git pop' if has_stash
   end
 
   def update_asdf
