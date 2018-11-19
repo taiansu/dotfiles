@@ -297,9 +297,15 @@ alias f="fork"
 export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 alias vg="vagrant"
-vc() {
+vgc() {
   CMD="cd /vagrant; $@";
   vagrant ssh -c "$CMD"
+}
+
+vgkey() {
+  ssh-keygen -y -f ~/.vagrant.d/insecure_private_key
+  ssh-keygen -y -f ~/.vagrant.d > ~/.vagrant.d/vagrant.pub
+  ssh-copy-id -f -i ~/.vagrant.d/vagrant.pub -p 2222 vagrant@127.0.0.1
 }
 
 # terraform
