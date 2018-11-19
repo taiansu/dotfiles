@@ -53,10 +53,8 @@ namespace :update do
   end
 
   def update_spacemacs
-    spacemacs_dir = "#{Dir.home}/Projects/spacemacs"
-    return unless File.directory?(spacemacs_dir)
-    Dir.chdir(spacemacs_dir)
-    sh 'git fetch && git pull'
+    dir = "#{Dir.home}/Projects/spacemacs"
+    git_pull(dir) if Dir.exist?(dir)
   end
 
   def update_vim
