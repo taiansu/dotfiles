@@ -460,7 +460,6 @@ fi
 
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
-  # export FZF_DEFAULT_COMMAND='ag -g ""'
 
   # Use fd (https://github.com/sharkdp/fd) instead of the default find
   # command for listing path candidates.
