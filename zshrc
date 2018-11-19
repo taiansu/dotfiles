@@ -274,6 +274,22 @@ alias br="bundle exec rake"
 alias m="mix"
 alias im="iex -S mix"
 
+ism() {
+  iex --sname $1 -S mix ${@:2}
+}
+
+iscm() {
+  iex --sname $1 --cookie $2 -S mix ${@:3}
+}
+
+inm() {
+  iex --name $1 -S mix ${@:2}
+}
+
+incm() {
+  iex --name $1 --cookie $2 -S mix ${@:3}
+}
+
 # fork
 alias f="fork"
 

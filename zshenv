@@ -26,6 +26,7 @@ export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Yarn
 export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
