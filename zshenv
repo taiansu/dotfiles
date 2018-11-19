@@ -38,9 +38,10 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # Open another tab of same directory
 alias n="open -a iTerm ."
 alias re="repeat"
+alias oa="open -a"
 
 function tagjs() {
   find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
 }
 # git
-alias g="git"
+alias g="hub"
