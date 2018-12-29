@@ -82,6 +82,7 @@ erl_crash.dump
 _build
 deps
 *.ez
+.elixir_ls
 ##########
 
 ### vim ###
