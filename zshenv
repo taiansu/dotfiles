@@ -21,8 +21,8 @@ export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
 
 # ANACONDA
-# export ANACONDA_PATH=/usr/local/anaconda3/bin
-# [ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
+export ANACONDA_PATH=/usr/local/anaconda3/bin
+[ -d $ANACONDA_PATH ] && export PATH=$ANACONDA_PATH:$PATH
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
