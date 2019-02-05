@@ -110,13 +110,11 @@ export TERM="xterm-256color"
 if command -V dircolors >/dev/null 2>&1; then
   eval "$(dircolors -b)"
   # Only alias ls colors if dircolors is installed
-  alias ls="ls -F --color=auto"
   alias dir="dir --color=auto"
   alias vdir="vdir --color=auto"
-else
-  alias ls="ls -G"
 fi
 
+alias ls="ls -G"
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
@@ -238,7 +236,7 @@ alias mkhttp="python -m http.server"
 alias perms="stat -c '%A %a %n'"
 
 # vim
-alias v="nvim"
+alias v="MIX_ENV=edit nvim"
 export EDITOR="nvim"
 
 # Emacs
@@ -271,7 +269,6 @@ alias b="bundle"
 alias br="bundle exec rake"
 
 # mix
-alias m="mix"
 alias im="iex -S mix"
 
 ism() {
