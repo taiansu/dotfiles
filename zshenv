@@ -1,7 +1,7 @@
-export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # GO
-export GOPATH=$HOME/projects/gocode/bin
+export GOPATH=$HOME/Projects/gocode/bin
 export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
 
 # [ -d $GOPATH ] && export PATH=$PATH:$GOPATH
@@ -19,10 +19,9 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 export MONO_GAC_PREFIX="/usr/local"
 export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
-
 # ANACONDA
 export ANACONDA_PATH=/usr/local/anaconda3/bin
-[ -d $ANACONDA_PATH ] && export PATH=$ANACONDA_PATH:$PATH
+[ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
@@ -43,5 +42,10 @@ alias oa="open -a"
 function tagjs() {
   find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
 }
+
 # git
-alias g="hub"
+if type "hub" > /dev/null; then
+  alias g="hub"
+else
+  alias g="git"
+fi

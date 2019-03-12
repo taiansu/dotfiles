@@ -41,8 +41,11 @@ fi
 
 PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
-RPROMPT="\$(gitHUD zsh)"
-# RPROMPT="${vcs_info_msg_0_}" # git branch
+if type "gitHUD" > /dev/null; then
+  RPROMPT="\$(gitHUD zsh)"
+else
+  RPROMPT="${vcs_info_msg_0_}" # git branch
+fi
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
