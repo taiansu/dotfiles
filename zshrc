@@ -137,6 +137,11 @@ alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 # Youtube mp3
 alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
 
+# sed
+if command -V gsed >/dev/null 2>&1; then
+  alias sed=gsed
+fi
+
 ##
 # Completion system
 #
@@ -414,6 +419,12 @@ typora() {
 # Hide desktop icons
 function desktopIcons() {
   defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
+}
+
+# Download Gist
+
+function gistDownload() {
+  curl -L ${1}/download | tar -xvz --strip-components=1
 }
 
 # Extras
