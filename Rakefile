@@ -115,7 +115,7 @@ def git_pull(dir)
   stdout = `git stash -u`
   has_stash = stdout != "No local changes to save\n"
   sh 'git pull && git gc'
-  sh 'git pop' if has_stash
+  sh 'git stash pop' if has_stash
 end
 
 def update_asdf
