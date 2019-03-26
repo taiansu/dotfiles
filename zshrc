@@ -216,46 +216,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 bindkey -M isearch . self-insert # history search fix
 
-##
-# Aliases
-#
-
-# some more ls aliases
-alias l="ls -CF"
-alias la="ls -al"
-alias ll="ls -alFh"
-alias sl="ls"
-
-# tail
-alias tl="tail"
-alias tlf="tail -f"
-alias tln="tail -n"
-
-# less
-alias lf="less +F"
-
-# Make unified diff syntax the default
-alias diff="diff -u"
-
-# simple webserver
-alias mkhttp="python -m http.server"
-
-# octal+text permissions for files
-alias perms="stat -c '%A %a %n'"
-
-# vim
-alias v="MIX_ENV=edit nvim"
-export EDITOR="nvim"
-
-# Emacs
-alias emd="emacs --daemon"
-alias ec="emacsclient -c"
-
-# Emacs GUI
-function em() {
-    /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
-}
-
 # zsh tab title
 setTerminalText () {
     # echo works in bash & zsh
@@ -267,65 +227,6 @@ stt_tab   () { setTerminalText 1 $@; }
 stt_title () { setTerminalText 2 $@; }
 
 tb () { stt_tab "${PWD/${HOME}/~}" }
-
-#clean open_with
- alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-
-# bundle & rake
-alias k="rake"
-alias b="bundle"
-alias br="bundle exec rake"
-
-# mix
-alias im="iex -S mix"
-
-ism() {
-  iex --sname $1 -S mix ${@:2}
-}
-
-iscm() {
-  iex --sname $1 --cookie $2 -S mix ${@:3}
-}
-
-inm() {
-  iex --name $1 -S mix ${@:2}
-}
-
-incm() {
-  iex --name $1 --cookie $2 -S mix ${@:3}
-}
-
-# fork
-alias f="fork"
-
-# vagrant
-export VAGRANT_DEFAULT_PROVIDER='virtualbox'
-
-alias vg="vagrant"
-vgc() {
-  CMD="cd /vagrant; $@";
-  vagrant ssh -c "$CMD"
-}
-
-vgkey() {
-  ssh-keygen -y -f ~/.vagrant.d/insecure_private_key
-  ssh-keygen -y -f ~/.vagrant.d > ~/.vagrant.d/vagrant.pub
-  ssh-copy-id -f -i ~/.vagrant.d/vagrant.pub -p 2222 vagrant@127.0.0.1
-}
-
-# terraform
-alias tf="terraform"
-alias tg="terragrunt"
-
-man () {
-  LESS_TERMCAP_md=$'\e'"[1;36m" \
-  LESS_TERMCAP_me=$'\e'"[0m" \
-  LESS_TERMCAP_se=$'\e'"[0m" \
-  LESS_TERMCAP_so=$'\e'"[1;40;92m" \
-  LESS_TERMCAP_ue=$'\e'"[0m" \
-  LESS_TERMCAP_us=$'\e'"[1;32m" \
-  command man "$@"
-}
 
 # alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
@@ -381,13 +282,6 @@ function hr {
   print ${(l:COLUMNS::=:)}
 }
 
-# launch an app
-function launch {
-  type $1 >/dev/null || { print "$1 not found" && return 1 }
-  $@ &>/dev/null &|
-}
-alias launch="launch " # expand aliases
-
 # urlencode text
 # function urlencode {
 #   print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
@@ -405,15 +299,6 @@ uninstallRails() {
   for gem in $gems; do
     gem uninstall $gem -v=$1 --force
   done
-}
-
-# Typora
-typora() {
-  if [ "$#" -eq 0 ]; then
-    open -a typora .
-  else
-    open -a typora $@
-  fi
 }
 
 # Hide desktop icons
@@ -436,71 +321,5 @@ function precmd() {
     # after it exits.
     echo -ne "\e]1;${PWD##*/}\a"
 }
-
-# Check if $LANG is badly set as it causes issues
-if [[ $LANG == "C"  || $LANG == "" ]]; then
-  # >&2 echo "$fg[red]The \$LANG variable is not set. This can cause a lot of problems.$reset_color"
-  export LANG=en_US.UTF-8
-fi
-
-# autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
-if [ -n "$INSIDE_EMACS" ]; then
-  chpwd() { print -P "\033AnSiTc %d" }
-  print -P "\033AnSiTu %n"
-  print -P "\033AnSiTc %d"
-else
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
-if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
-  stty ek
-fi
-
-# source homebrew github api token
-if [[ -f ~/.homebrew_github_api_token ]]; then
-  source ~/.homebrew_github_api_token
-fi
-
-# source google-cloud-sdk
-if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-fi
-
-if [[ -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
-
-  # Use fd (https://github.com/sharkdp/fd) instead of the default find
-  # command for listing path candidates.
-  # - The first argument to the function ($1) is the base path to start traversal
-  # - See the source code (completion.{bash,zsh}) for the details.
-  _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
-
-  # Use fd to generate the list for directory completion
-  _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-fi
-
-# asdf
-if [[ -f ~/.asdf/asdf.sh ]]; then
-  source $HOME/.asdf/asdf.sh
-  source $HOME/.asdf/completions/asdf.bash
-fi
-
-# zsh-history-substring-search
-[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# zsh-syntax-highlighting
-[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"

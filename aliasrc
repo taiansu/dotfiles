@@ -1,0 +1,98 @@
+##
+# Aliases
+##
+
+alias n="open -a iTerm ."
+alias re="repeat"
+alias oa="open -a"
+
+# some more ls aliases
+alias l="ls -CF"
+alias la="ls -al"
+alias ll="ls -alFh"
+alias sl="ls"
+
+# tail
+alias tl="tail"
+alias tlf="tail -f"
+alias tln="tail -n"
+
+# less
+alias lf="less +F"
+
+# Make unified diff syntax the default
+alias diff="diff -u"
+
+# simple webserver
+alias mkhttp="python -m http.server"
+
+# octal+text permissions for files
+alias perms="stat -c '%A %a %n'"
+
+# vim
+alias v="MIX_ENV=edit nvim"
+alias vdiff="nvim -d"
+export EDITOR="nvim"
+
+#clean open_with
+alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+
+# bundle & rake
+alias k="rake"
+alias b="bundle"
+alias br="bundle exec rake"
+
+# mix
+alias im="iex -S mix"
+
+ism() {
+  iex --sname $1 -S mix ${@:2}
+}
+
+iscm() {
+  iex --sname $1 --cookie $2 -S mix ${@:3}
+}
+
+inm() {
+  iex --name $1 -S mix ${@:2}
+}
+
+incm() {
+  iex --name $1 --cookie $2 -S mix ${@:3}
+}
+
+# fork
+alias f="fork"
+
+
+# vagrant
+alias vg="vagrant"
+
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+
+vgc() {
+  CMD="cd /vagrant; $@";
+  vagrant ssh -c "$CMD"
+}
+
+vgkey() {
+  ssh-keygen -y -f ~/.vagrant.d/insecure_private_key
+  ssh-keygen -y -f ~/.vagrant.d > ~/.vagrant.d/vagrant.pub
+  ssh-copy-id -f -i ~/.vagrant.d/vagrant.pub -p 2222 vagrant@127.0.0.1
+}
+
+# terraform
+alias tf="terraform"
+alias tg="terragrunt"
+
+man () {
+  LESS_TERMCAP_md=$'\e'"[1;36m" \
+  LESS_TERMCAP_me=$'\e'"[0m" \
+  LESS_TERMCAP_se=$'\e'"[0m" \
+  LESS_TERMCAP_so=$'\e'"[1;40;92m" \
+  LESS_TERMCAP_ue=$'\e'"[0m" \
+  LESS_TERMCAP_us=$'\e'"[1;32m" \
+  command man "$@"
+}
+
+
