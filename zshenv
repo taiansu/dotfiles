@@ -1,4 +1,3 @@
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # GO
 export GOPATH=$HOME/Projects/gocode/bin
@@ -28,11 +27,16 @@ export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Yarn
-export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
-[ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
+# export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
+# [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
 
 # Erlang
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+
+
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+
 
 # Rust
 # export RUST_SRC_PATH=$HOME/Projects/source/rust
@@ -62,8 +66,6 @@ if [ -n "$INSIDE_EMACS" ]; then
   chpwd() { print -P "\033AnSiTc %d" }
   print -P "\033AnSiTu %n"
   print -P "\033AnSiTc %d"
-else
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
 if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
@@ -104,15 +106,22 @@ if [[ -f ~/.asdf/asdf.sh ]]; then
   source $HOME/.asdf/completions/asdf.bash
 fi
 
-# zsh-history-substring-search
-[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
 # zsh-syntax-highlighting
 [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# zsh-history-substring-search
+[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 [[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+if [ -n "$INSIDE_EMACS" ]; then
+  bindkey "^[OA" history-substring-search-up
+  bindkey "^[OB" history-substring-search-down
+else
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 source ~/.dotfiles/aliasrc

@@ -29,6 +29,13 @@ alias mkhttp="python -m http.server"
 # octal+text permissions for files
 alias perms="stat -c '%A %a %n'"
 
+# emacs
+function e() {
+  # -c creates a new frame
+  # -a= fire a new emacs server if none is running
+  emacsclient -cn -a= $*
+}
+
 # vim
 alias v="MIX_ENV=edit nvim"
 alias vdiff="nvim -d"

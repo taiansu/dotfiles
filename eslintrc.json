@@ -1,75 +1,8 @@
 {
   "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "mocha": true,
-    "node": true
-  },
-  "plugins": [
-    "react", "babel"
-  ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "globals": {
-    "$": true,
-    "_": true,
-    "root": false,
-    "window": false,
-    "process": false,
-    "__dirname": false
-  },
-
+  "plugins": ["prettier"],
+  "extends": ["prettier"],
   "rules": {
-    "camelcase": [
-      "warn",
-      {"properties": "always"}
-    ],
-    "comma-dangle": [
-      "warn",
-      "only-multiline"
-    ],
-    "indent": [
-      "error", 2, { "SwitchCase": 1, "VariableDeclarator": 1, "outerIIFEBody": 1 }
-    ],
-    "jsx-quotes": [0, "prefer-double"],
-    "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "off",
-      "single",
-      { "avoidEscape": true }
-    ],
-    "semi": [
-      "off",
-      "never"
-    ],
-    "no-console": [
-      "off"
-    ],
-    "no-unused-vars" : [
-      "warn",
-      {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "[iI]gnored",
-        "caughtErrors": "none"
-      }
-    ],
-    "react/jsx-uses-react": "warn",
-    "react/jsx-uses-vars": "warn",
-    "react/prop-types": "warn",
-    "react/display-name": "warn",
-    "babel/generator-star-spacing": "warn",
-    "babel/new-cap": "warn",
-    "babel/object-curly-spacing": "warn",
-    "babel/no-invalid-this": "warn"
+    "prettier/prettier": "error"
   }
 }
