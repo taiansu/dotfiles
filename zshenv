@@ -1,3 +1,5 @@
+# ulimit
+ulimit -n 4864
 
 # GO
 export GOPATH=$HOME/Projects/gocode/bin
