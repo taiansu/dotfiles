@@ -1,4 +1,3 @@
-tap "d12frosted/emacs-plus"
 tap "gbataille/gba"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -156,7 +155,6 @@ brew "speedtest-cli"
 brew "squashfs"
 brew "ssh-copy-id"
 brew "stormssh"
-brew "telnet"
 brew "terraform"
 brew "the_silver_searcher"
 brew "tig"
@@ -181,28 +179,22 @@ brew "zsh-completions"
 brew "zsh-git-prompt"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "d12frosted/emacs-plus/emacs-plus", args: ["without-spacemacs-icon"]
 brew "gbataille/gba/githud"
-brew "michaeldfallen/formula/git-radar"
 brew "puma/puma/puma-dev"
 brew "rs/tap/jplot"
 brew "wagoodman/dive/dive"
 cask "1password"
-cask "ableton-live-lite"
 cask "adobe-acrobat-reader"
-cask "adobe-digital-editions"
 cask "alfred"
-cask "aliwangwang"
 cask "anaconda"
 cask "anki"
 cask "appcleaner"
-cask "baiducloud"
 cask "bettertouchtool"
 cask "bitbar"
 cask "calibre"
 cask "charles"
 cask "cheatsheet"
-cask "cloudmounter"
+# cask "cloudmounter"
 cask "coconutbattery"
 cask "colorpicker-developer"
 cask "colorpicker-rcwebcolorpicker"
@@ -211,13 +203,13 @@ cask "contexts"
 cask "daisydisk"
 cask "dash"
 cask "deckset"
-cask "default-folder-x"
+# cask "default-folder-x"
 cask "dictunifier"
 cask "dotnet-sdk"
 cask "dropbox"
 cask "dropzone"
 cask "duet"
-cask "etcher"
+cask "balenaetcher"
 cask "fantastical"
 cask "finicky"
 cask "firefox"
@@ -232,7 +224,6 @@ cask "font-dejavu-sans"
 cask "font-edlo"
 cask "font-fira-code"
 cask "font-fira-sans"
-cask "font-hack"
 cask "font-hasklig"
 cask "font-iosevka"
 cask "font-kalam"
@@ -253,50 +244,42 @@ cask "font-source-serif-pro"
 cask "fontbase"
 cask "fork"
 cask "freac"
-cask "gfxcardstatus"
 cask "gitter"
-cask "gitup"
 cask "google-backup-and-sync"
 cask "google-chrome"
 cask "google-cloud-sdk"
-cask "google-earth"
-cask "google-earth-pro"
-cask "gpg-suite"
+# cask "gpg-suite"
 cask "grammarly"
 cask "hammerspoon"
 cask "handbrake"
 cask "hazel"
-cask "imageoptim"
-cask "inkscape"
-cask "insomnia"
-cask "insomniax"
+# cask "imageoptim"
+# cask "inkscape"
 cask "istat-menus"
-cask "iterm2-beta"
+cask "iterm2"
 cask "java"
 cask "java8"
-cask "jetbrains-toolbox"
+# cask "jetbrains-toolbox"
 cask "jmc"
 cask "kaleidoscope"
 cask "keybase"
 cask "kitematic"
-cask "kkbox"
+# cask "kkbox"
 cask "kobo"
 cask "logitech-unifying"
-cask "mactex"
+# cask "mactex"
 cask "mark-text"
 cask "medis"
-cask "messenger"
+# cask "messenger"
 cask "metabase-app"
-cask "microsoft-office"
+# cask "microsoft-office"
 cask "microsoft-teams"
-cask "minecraft"
+# cask "minecraft"
 cask "moom"
 cask "mosaic"
 cask "motrix"
-cask "musescore"
+# cask "musescore"
 cask "ngrok"
-cask "nosleep"
-cask "notion"
 cask "nuimo"
 cask "numi"
 cask "omnifocus"
@@ -313,55 +296,53 @@ cask "qlmarkdown"
 cask "qlstephen"
 cask "quicklook-csv"
 cask "quicklook-json"
-cask "rcdefaultapp"
+# cask "rcdefaultapp"
 cask "reflector"
 cask "resilio-sync"
-cask "screenflow5"
-cask "screenhero"
-cask "setapp"
+# cask "screenflow5"
+# cask "screenhero"
+# cask "setapp"
 cask "skim"
-cask "skyfonts"
+# cask "skyfonts"
 cask "skype"
 cask "slack"
 cask "snagit"
 cask "sourcetree"
 cask "spotify"
 cask "squirrel"
-cask "steam"
-cask "sublime-text"
+# cask "steam"
+# cask "sublime-text"
 cask "suspicious-package"
 cask "tableplus"
-cask "thyme"
-cask "tomighty"
-cask "transmission"
+# cask "thyme"
+# cask "tomighty"
+# cask "transmission"
 cask "typora"
 cask "udeler"
-cask "vagrant"
-cask "vagrant-manager"
-cask "virtualbox"
-cask "virtualbox-extension-pack"
+# cask "vagrant"
+# cask "vagrant-manager"
+# cask "virtualbox"
+# cask "virtualbox-extension-pack"
 cask "visual-studio-code"
-cask "visual-studio-code-insiders"
 cask "vlc"
 cask "webpquicklook"
 cask "whatsapp"
 cask "wireshark"
-cask "xbox360-controller-driver-unofficial"
+# cask "xbox360-controller-driver-unofficial"
 cask "zoomus"
 mas "com.acqualia.soulver", id: 413965349
 mas "com.agilebits.onepassword7", id: 1333542190
 mas "com.alinofsoftware.alinoftimer", id: 512464723
 mas "com.amazon.Kindle", id: 405399194
-mas "com.apple.dt.Xcode", id: 497799835
-mas "com.apple.iMovieApp", id: 408981434
+# mas "com.apple.dt.Xcode", id: 497799835
+# mas "com.apple.iMovieApp", id: 408981434
 mas "com.apple.iWork.Keynote", id: 409183694
 mas "com.apple.iWork.Numbers", id: 409203825
 mas "com.apple.iWork.Pages", id: 409201541
-mas "com.apple.logic10", id: 634148309
+# mas "com.apple.logic10", id: 634148309
 mas "com.atlassian.trello", id: 1278508951
 mas "com.autodesk.sketchbookpro7mac", id: 863486266
 mas "com.avazapp.osx.AvazFreespeech", id: 1089150955
-mas "com.aws.weatherbugosx", id: 1059074180
 mas "com.blackmagic-design.DiskSpeedTest", id: 425264550
 mas "com.boinx.Mousepose.Mac", id: 405904955
 mas "com.canoejoy.Clearview", id: 557090104
@@ -377,18 +358,17 @@ mas "com.kryolokovlin.Noizio", id: 928871589
 mas "com.macpaw.Gemini2", id: 1090488118
 mas "com.manytricks.KeyCodes", id: 414568915
 mas "com.massimobiolcati.irealbookmac", id: 409035833
-mas "com.momenta.agenda.macos", id: 1287445660
 mas "com.mr-brightside.debitandcreditMac", id: 882637653
-mas "com.pilotmoon.popclip", id: 445189367
+# mas "com.pilotmoon.popclip", id: 445189367
 mas "com.readdle.smartemail-Mac", id: 1176895641
 mas "com.readitlater.PocketMac", id: 568494494
 mas "com.reederapp.macOS", id: 1449412482
 mas "com.ruiaureliano.Sip", id: 507257563
-mas "com.seriflabs.affinitydesigner", id: 824171161
-mas "com.seriflabs.affinityphoto", id: 824183456
+# mas "com.seriflabs.affinitydesigner", id: 824171161
+# mas "com.seriflabs.affinityphoto", id: 824183456
 mas "com.softwareambience.lilyview", id: 529490330
 mas "com.stuffit.StuffIt-Expander16", id: 919269455
-mas "com.supermegaultragroovy.capo3.mac", id: 696977615
+# mas "com.supermegaultragroovy.capo3.mac", id: 696977615
 mas "com.tapbots.Tweetbot3Mac", id: 1384080005
 mas "com.tayasui.sketchesmacfree", id: 1178074963
 mas "com.tinyspeck.slackmacgap", id: 803453959
@@ -397,7 +377,6 @@ mas "com.xwavesoft.pomodoromac", id: 961632517
 mas "com.yoannmoinet.fenetre", id: 1286743037
 mas "cx.c3.theunarchiver", id: 425424353
 mas "de.christian-kienle.Jayson.app", id: 1189824719
-mas "it.nebula.cappuccino", id: 1286725949
 mas "jp.naver.line.mac", id: 539883307
 mas "net.limechat.LimeChat-AppStore", id: 414030210
 mas "net.shinyfrog.bear", id: 1091189122
