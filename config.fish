@@ -9,6 +9,11 @@ end
 
 ## pure
 set -U pure_symbol_prompt '𝝺'
+set -U pure_color_prompt_on_success $pure_color_light
+set -U pure_color_git_dirty $pure_color_warning
+set -U pure_symbol_git_dirty "₊"
+set -U pure_symbol_title_bar_separator ":"
+
 
 ## Variables
 set -U WORDCHARS '*?[]~=&;!#$%^(){}<>'
