@@ -44,7 +44,7 @@ alias v "nvim"
 
 alias ll "ls -al"
 
-alias g "git"
+alias g "hub"
 
 alias tl "tail"
 
