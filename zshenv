@@ -1,3 +1,6 @@
+setopt no_global_rcs
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
 # ulimit
 ulimit -n 4864
 
@@ -20,10 +23,6 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 export MONO_GAC_PREFIX="/usr/local"
 export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
-# ANACONDA
-export ANACONDA_PATH=/usr/local/anaconda3/bin
-[ -d $ANACONDA_PATH ] && export PATH=$PATH:$ANACONDA_PATH
-
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
@@ -34,11 +33,6 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Erlang
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-
-
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
-
 
 # Rust
 # export RUST_SRC_PATH=$HOME/Projects/source/rust
