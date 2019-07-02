@@ -1,16 +1,19 @@
-[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
-[ -f ~/.iterm2_shell_integration.fish ]; and source ~/.iterm2_shell_integration.fish
-[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
+### fisher
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
+end
+
+# fisher add laughedelic/pisces rafaelrinaldi/pure franciscolourenco/done jorgebucaran/fish-bax jethrokuan/fzf jethrokuan/z
+
+## pure
+set -U pure_symbol_prompt '𝝺'
 
 ## Variables
 set -U WORDCHARS '*?[]~=&;!#$%^(){}<>'
 
 set -U EDITOR nvim
-
-set -U GOPATH $HOME/projects/gocode/bin
-set -U GO_CUSTOM_PATH /usr/local/opt/go/libexec/bin
-
-set -U YARN_PATH $HOME/.config/yarn/global/node_modules/.bin
 
 set -U ERL_AFLAGS "-kernel shell_history enabled"
 
@@ -18,28 +21,32 @@ set -U ERL_AFLAGS "-kernel shell_history enabled"
 set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
 
 # FZF
-# set -U FZF_DEFAULT_COMMAND 'ag -l'
+set -U FZF_DEFAULT_COMMAND 'ag -l'
+
+## z
+set -U Z_CMD "j"
 
 ### Path
 
 #GOPATH
+set -U GOPATH $HOME/projects/gocode/bin
+set -U GO_CUSTOM_PATH /usr/local/opt/go/libexec/bin
+
 [ -d $GOPATH ]; and set PATH $PATH $GOPATH
 [ -d $GO_CUSTOM_PATH ]; and set PATH $PATH $GO_CUSTOM_PATH
 
 # Yarn
-[ -d $YARN_PATH ]; and set PATH $PATH $YARN_PATH
+# set -U YARN_PATH $HOME/.config/yarn/global/node_modules/.bin
+# [ -d $YARN_PATH ]; and set PATH $PATH $YARN_PATH
 
 ### aliases
-alias vim "nvim"
-alias v "vim"
+alias v "nvim"
 
 alias ll "ls -al"
 
 alias g "git"
 
 alias tl "tail"
-alias tlf "tail -f"
-alias tln "tail -n"
 
 # Headless Browsers
 alias chrome "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -69,33 +76,6 @@ alias br "bundle exec rake"
 alias m "mix"
 alias im "iex -S mix"
 
-alias gt "gittower"
-
-alias vg "vagrant"
-
-# terraform
-alias tf "terraform"
-alias tg "terragrunt"
-
-### functions
-function fish_prompt
-  set_color yellow
-  echo -n [(date "+%H:%M:%S")]
-  set_color cyan
-  echo -n " "(whoami)" "
-  set_color green
-  echo -n (prompt_pwd)" "
-  set_color $fish_color_cwd
-  set_color normal
-  echo -n "λ "
-  # echo -n "∀ "
-end
-
-function fish_right_prompt
-  echo -n (/usr/local/bin/gitHUD)
-end
-
-function vc
-  set CMD "cd /vagrant; $ARGV";
-  vagrant ssh -c "$CMD"
-end
+# [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+[ -f ~/.iterm2_shell_integration.fish ]; and source ~/.iterm2_shell_integration.fish
+[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
