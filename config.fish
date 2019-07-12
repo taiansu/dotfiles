@@ -45,6 +45,8 @@ set -U GO_CUSTOM_PATH /usr/local/opt/go/libexec/bin
 # [ -d $YARN_PATH ]; and set PATH $PATH $YARN_PATH
 
 ### aliases
+alias n "tab"
+
 alias v "nvim"
 
 alias ll "ls -al"
@@ -80,6 +82,9 @@ alias br "bundle exec rake"
 # mix
 alias m "mix"
 alias im "iex -S mix"
+
+# vagrant
+alias vg "vagrant"
 
 # [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 [ -f ~/.iterm2_shell_integration.fish ]; and source ~/.iterm2_shell_integration.fish
