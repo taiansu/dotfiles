@@ -35,6 +35,10 @@ Temporary Items
 .dropbox
 Icon
 
+
+# editor
+.vscode
+
 ##########
 
 ### Ruby and Rails ###
