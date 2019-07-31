@@ -28,9 +28,6 @@ set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
 # FZF
 set -U FZF_DEFAULT_COMMAND 'ag -l'
 
-## z
-set -U Z_CMD "j"
-
 ### Path
 
 #GOPATH
@@ -89,3 +86,4 @@ alias vg "vagrant"
 # [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 [ -f ~/.iterm2_shell_integration.fish ]; and source ~/.iterm2_shell_integration.fish
 [ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
+[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
