@@ -16,6 +16,8 @@ set -U pure_symbol_title_bar_separator ":"
 
 
 ## Variables
+ulimit -n 4096
+
 set -U WORDCHARS '*?[]~=&;!#$%^(){}<>'
 
 set -U EDITOR nvim

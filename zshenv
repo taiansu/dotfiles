@@ -2,7 +2,7 @@ setopt no_global_rcs
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # ulimit
-ulimit -n 4864
+ulimit -n 4096
 
 # GO
 export GOPATH=$HOME/Projects/gocode/bin
