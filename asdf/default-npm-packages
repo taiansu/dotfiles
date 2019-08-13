@@ -1,8 +1,5 @@
 cake
 tern
 neovim
-eslint
 prettier
-eslint-plugin-prettier
-eslint-config-prettier
 typescript
