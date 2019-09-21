@@ -163,9 +163,6 @@ npm-debug.log
 # The silver searcher ignore
 .agignore
 
-# ctags file
-tags
-
 # Haskell
 dist
 dist-*
