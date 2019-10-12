@@ -7,13 +7,14 @@ if not functions -q fisher
 end
 
 # fisher add laughedelic/pisces rafaelrinaldi/pure franciscolourenco/done jorgebucaran/fish-bax jethrokuan/fzf jethrokuan/z
+set fish_greeting
 
 ## pure
-set -U pure_symbol_prompt '𝝺'
-set -U pure_color_prompt_on_success $pure_color_light
-set -U pure_color_git_dirty $pure_color_warning
-set -U pure_symbol_git_dirty "₊"
-set -U pure_symbol_title_bar_separator ":"
+# set -U pure_symbol_prompt '𝝺'
+# set -U pure_color_prompt_on_success $pure_color_light
+# set -U pure_color_git_dirty $pure_color_warning
+# set -U pure_symbol_git_dirty "₊"
+# set -U pure_symbol_title_bar_separator ":"
 
 
 ## Variables
@@ -32,6 +33,7 @@ set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
 set -U FZF_DEFAULT_COMMAND 'ag -l'
 
 ### Path
+set PATH $PATH /usr/local/sbin
 
 #GOPATH
 set -U GOPATH $HOME/projects/gocode/bin
