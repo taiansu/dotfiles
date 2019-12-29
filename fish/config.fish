@@ -16,8 +16,10 @@ set fish_greeting
 # set -U pure_symbol_git_dirty "₊"
 # set -U pure_symbol_title_bar_separator ":"
 
-
 ## Variables
+set -x LC_ALL zh_TW.UTF-8
+set -x LANG zh_TW.UTF-8
+
 ulimit -n 4096
 
 set -U WORDCHARS '*?[]~=&;!#$%^(){}<>'
@@ -31,6 +33,9 @@ set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
 
 # FZF
 set -U FZF_DEFAULT_COMMAND 'ag -l'
+
+# pisces
+set -U pisces_pairs '(,)' '","' '\',\'' '<<,>>'
 
 ### Path
 set PATH $PATH /usr/local/sbin
@@ -64,7 +69,22 @@ end
 
 bind . 'expand-dot-to-parent-directory-path'
 
+function fish_right_prompt
+    date "+%T"
+    set_color normal
+end
+
+# mkcd
+function mkcd -d 'create and switch to directory'
+    mkdir $argv[1] && cd $argv[1]
+end
+
+
 ### aliases
+
+alias cleanOpenWith "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+
+### abbreviations
 abbr o "open"
 
 abbr n "tab"
@@ -93,9 +113,6 @@ abbr diff "diff -u"
 # octal+text permissions for files
 abbr perms "stat -c '%A %a %n'"
 
-#clean open_with
-abbr cleanOpenWith "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-
 # bundle & rake
 abbr k "rake"
 abbr b "bundle"
@@ -113,7 +130,6 @@ abbr vg "vagrant"
 # please
 alias please "sudo"
 
-# [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 [ -f ~/.iterm2_shell_integration.fish ]
 and source ~/.iterm2_shell_integration.fish
 [ -f ~/.asdf/asdf.fish ]
