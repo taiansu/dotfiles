@@ -53,6 +53,10 @@ and set PATH $PATH $GO_CUSTOM_PATH
 # set -U YARN_PATH $HOME/.config/yarn/global/node_modules/.bin
 # [ -d $YARN_PATH ]; and set PATH $PATH $YARN_PATH
 
+set -U HASKELL_INSTALL_PATH $HOME/.local/bin
+[ -d $HASKELL_INSTALL_PATH ]
+and set PATH $PATH $HASKELL_INSTALL_PATH
+
 ### functions
 function expand-dot-to-parent-directory-path -d 'expand ... to ../.. etc'
     # Get commandline up to cursor
