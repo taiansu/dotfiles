@@ -115,7 +115,7 @@ end
 def git_pull(dir)
   Dir.chdir(dir)
   stdout = `git stash -u`
-  has_stash = stdout != "No local changes to save\n"
+  has_stash = stdout !~ /No local changes to save/ && stdout !~ /沒有要儲存的本機修改/
   sh 'git pull && git gc'
   sh 'git stash pop' if has_stash
 end
