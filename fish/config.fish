@@ -41,13 +41,13 @@ set -U pisces_pairs '(,)' '","' '\',\'' '<<,>>'
 set PATH $PATH /usr/local/sbin
 
 #GOPATH
-set -U GOPATH $HOME/projects/gocode/bin
-set -U GO_CUSTOM_PATH /usr/local/opt/go/libexec/bin
+# set -U GOPATH $HOME/projects/gocode/bin
+# set -U GO_CUSTOM_PATH /usr/local/opt/go/libexec/bin
 
-[ -d $GOPATH ]
-and set PATH $PATH $GOPATH
-[ -d $GO_CUSTOM_PATH ]
-and set PATH $PATH $GO_CUSTOM_PATH
+# [ -d $GOPATH ]
+# and set PATH $PATH $GOPATH
+# [ -d $GO_CUSTOM_PATH ]
+# and set PATH $PATH $GO_CUSTOM_PATH
 
 # Yarn
 # set -U YARN_PATH $HOME/.config/yarn/global/node_modules/.bin
