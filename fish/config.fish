@@ -128,11 +128,21 @@ abbr im "iex -S mix"
 abbr imt "env MIX_ENV=test iex -S mix"
 abbr imp "env MIX_ENV=prod iex -S mix"
 
+# stack
+abbr ghci "stack ghci"
+
 # vagrant
 abbr vg "vagrant"
 
 # please
 alias please "sudo"
+alias pls "sudo"
+
+# AWS default profile
+set -U AWS_DEFAULT_PROFILE "blog"
+
+# Typora
+abbr typora "open -a Typora"
 
 [ -f ~/.iterm2_shell_integration.fish ]
 and source ~/.iterm2_shell_integration.fish
