@@ -19,12 +19,11 @@ namespace :update do # rubocop: disable BlockLength
 
   desc 'show a finish message'
   task :finish_msg do
-    cmd = cowsay? ? 'cowsay' : 'print'
+    cmd = pick_printer(["pokemonsay", "cowsay"])
     clear_screen
-    send "#{cmd}_finish"
-    system 'All updates are complete, we are good to go.' if osx?
+    send "#{cmd}"
+    # system 'All updates are complete, we are good to go.' if osx?
   end
-
 end
 
 namespace :git do
@@ -132,8 +131,18 @@ def clear_screen
   5.times { puts '' }
 end
 
-def cowsay?
-  (sh 'brew -v') && `brew list cowsay`
+def cmd_exist?(cmd)
+  (sh 'brew -v') && `brew list #{cmd}`
+end
+
+def pick_printer(cmds)
+  return "print_finish" unless `brew -v`
+
+  cmds.each do |cmd|
+    return "#{cmd}_finish" if `brew list #{cmd}`
+  end
+
+  "print_finish"
 end
 
 def print_finish
@@ -150,6 +159,10 @@ def cowsay_finish
   cow_eye = ['-b', '-d', '-g', '-p', '-s', '-t', '-w', '-y', ''].sample
   cow_cmd = rand(2) > 0.5 ? 'cowsay' : 'cowthink'
   system("fortune | #{cow_cmd} -f #{cow_file.sample} #{cow_eye}")
+end
+
+def pokemonsay_finish
+  system("fortune | pokemonsay")
 end
 
 def osx?
