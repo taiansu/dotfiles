@@ -19,34 +19,36 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 autoload backward-delete-word
 zle -N backward-delete-word
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
 
 # Default colors:
-# White for users, red for root, magenta for system users
-local _time="%{$fg[yellow]%}[%*]"
-local _path="%{$fg[green]%}%(8~|...|)%7~"
+# White for users, red for root, yellow for system users
+local _time="%F{246}[%*]"
+local _path="%F{blue}%(8~|...|)%7~"
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
-  # red for root, magenta for system users
-  _usercol="%(!.%{$fg[red]%}.%F{154})"
+  # red for root, yellow for system users
+  _usercol="%(!.%F{red}.%F{154})"
 else
-  _usercol="$fg[magenta]"
+  _usercol="%F{yellow}"
 fi
 local _user="%{$_usercol%}%n"
+
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%{$reset_color%}𝝠"
+  _prompt="%F{reset_color%}𝝠"
 else
-  _prompt="%{$reset_color%}𝝺"
+  _prompt="%F{reset_color%}𝝺"
 fi
-
-PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
 if type "gitHUD" > /dev/null; then
-  RPROMPT="\$(gitHUD zsh)"
+  PROMPT='$_path %F{reset_color}$(gitHUD zsh) $_prompt%b%f%k%F{white} '
 else
-  RPROMPT="${vcs_info_msg_0_}" # git branch
+  PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
 fi
 
+local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
 fi
