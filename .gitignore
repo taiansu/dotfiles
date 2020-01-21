@@ -2,3 +2,4 @@ gitconfig
 *.log
 dotfiles_backup
 data
+*_credential
