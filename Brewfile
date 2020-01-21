@@ -6,28 +6,20 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "puma/puma"
+tap "possatti/possatti"
 tap "rs/tap"
 tap "universal-ctags/universal-ctags"
 tap "wagoodman/dive"
 tap "xo/xo"
-cask "xquartz"
+
 brew "ack"
-brew "gettext"
-brew "openssl"
-brew "readline"
-brew "sqlite"
-brew "xz"
-brew "python"
 brew "glib"
 brew "pixman"
 brew "cairo"
 brew "jpeg"
 brew "icu4c"
 brew "libcroco"
-brew "libyaml"
 brew "ansible"
-brew "boost"
 brew "asciinema"
 brew "autoconf"
 brew "autojump"
@@ -36,14 +28,21 @@ brew "awscli"
 brew "bash"
 brew "bat"
 brew "bison"
+brew "boost"
 brew "brew-cask-completion"
 brew "cmake"
 brew "faad2"
 brew "libogg"
 brew "flac"
-brew "libao"
-brew "libcue"
+brew "gmp"
+brew "libunistring"
+brew "nettle"
+brew "gnutls"
+brew "lame"
 brew "libvorbis"
+brew "xvid"
+brew "ffmpeg"
+brew "libcue"
 brew "mad"
 brew "mp4v2"
 brew "cmus"
@@ -52,7 +51,6 @@ brew "coreutils"
 brew "cowsay"
 brew "cscope"
 brew "csvkit"
-brew "ctags"
 brew "curl"
 brew "dnscrypt-proxy"
 brew "doitlive"
@@ -63,13 +61,6 @@ brew "exa"
 brew "exercism"
 brew "exiftool"
 brew "fd"
-brew "gmp"
-brew "libunistring"
-brew "nettle"
-brew "gnutls"
-brew "lame"
-brew "xvid"
-brew "ffmpeg"
 brew "fish"
 brew "fortune"
 brew "fselect"
@@ -83,14 +74,11 @@ brew "gnu-sed"
 brew "gnu-tar"
 brew "libxml2"
 brew "gnumeric"
-brew "gnupg", link: false
-brew "qt"
-brew "gnuplot", args: ["with-qt", "with-x11"]
+brew "gnupg"
 brew "go"
-brew "pkg-config"
 brew "googler"
+brew "gpatch"
 brew "gts"
-brew "libtool"
 brew "graphviz"
 brew "haskell-stack"
 brew "htop"
@@ -98,6 +86,7 @@ brew "httperf"
 brew "httpie"
 brew "hub"
 brew "shared-mime-info"
+brew "libtool"
 brew "imagemagick"
 brew "imageoptim-cli"
 brew "io"
@@ -106,7 +95,7 @@ brew "ispell"
 brew "jp2a"
 brew "jpeg-archive"
 brew "jq"
-brew "kerl"
+brew "libao"
 brew "libmagic"
 brew "libsass"
 brew "libtensorflow"
@@ -119,15 +108,14 @@ brew "mas"
 brew "memcached", restart_service: true
 brew "minimal-racket"
 brew "mono"
-brew "python@2"
 brew "mosh"
 brew "msgpack"
 brew "multitail"
-brew "mysql", restart_service: true
 brew "ncdu"
 brew "neovim"
 brew "no-more-secrets"
 brew "noti"
+brew "opam"
 brew "opencc"
 brew "optipng"
 brew "packer"
@@ -136,13 +124,16 @@ brew "pandoc"
 brew "pgcli"
 brew "picocom"
 brew "pidof"
+brew "pkg-config"
 brew "pngquant"
 brew "postgresql", restart_service: true
 brew "prettyping"
 brew "prometheus"
 brew "pstree"
-brew "pv", args: ["with-gettext"]
+brew "python@2"
+brew "qt"
 brew "qcachegrind"
+brew "qpdf"
 brew "ranger"
 brew "rclone"
 brew "redis", restart_service: true
@@ -161,6 +152,7 @@ brew "tig"
 brew "tldr"
 brew "tmux"
 brew "tokei"
+brew "trash"
 brew "tree"
 brew "unixodbc"
 brew "vim"
@@ -180,34 +172,33 @@ brew "zsh-git-prompt"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "gbataille/gba/githud"
-brew "puma/puma/puma-dev"
+brew "possatti/possatti/pokemonsay"
 brew "rs/tap/jplot"
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 brew "wagoodman/dive/dive"
+
 cask "adobe-acrobat-reader"
 cask "alfred"
-# cask "anki"
-# cask "calibre"
+cask "anki"
+cask "balenaetcher"
+cask "bartender"
+cask "bettertouchtool"
+cask "calibre"
 # cask "charles"
-# cask "cheatsheet"
-# cask "cloudmounter"
-# cask "coconutbattery"
 cask "colorpicker-developer"
 cask "colorpicker-rcwebcolorpicker"
 cask "colorpicker-skalacolor"
 # cask "contexts"
-# cask "daisydisk"
 # cask "dash"
 # cask "deckset"
-# cask "default-folder-x"
 cask "dictunifier"
-# cask "dotnet-sdk"
-# cask "dropbox"
+cask "docker"
+cask "dotnet-sdk"
+cask "dropbox"
 # cask "dropzone"
-cask "balenaetcher"
 # cask "fantastical"
 cask "firefox"
-# cask "flowdock"
-# cask "folx"
+cask "flowdock"
 cask "font-andale-mono"
 cask "font-b612"
 cask "font-bitstream-vera"
@@ -227,60 +218,44 @@ cask "font-open-sans"
 cask "font-public-sans"
 cask "font-roboto"
 cask "font-roboto-slab"
-# cask "font-source-code-pro"
-# cask "font-source-han-sans"
-# cask "font-source-han-serif-el-m"
-# cask "font-source-han-serif-sb-h"
-# cask "font-source-sans-pro"
-# cask "font-source-serif-pro"
+cask "font-source-code-pro"
+cask "font-source-han-sans"
+cask "font-source-sans-pro"
+cask "font-source-serif-pro"
 cask "fontbase"
-# cask "fork"
 cask "freac"
-# cask "gitter"
-# cask "google-backup-and-sync"
-cask "google-chrome"
-# cask "google-cloud-sdk"
-# cask "gpg-suite"
-# cask "grammarly"
-# cask "hammerspoon"
-# cask "handbrake"
+cask "google-backup-and-sync"
+cask "google-cloud-sdk"
+cask "gpg-suite"
+cask "grammarly"
+cask "hammerspoon"
+cask "handbrake"
 # cask "hazel"
-# cask "imageoptim"
-# cask "inkscape"
 # cask "istat-menus"
 cask "iterm2"
 cask "java"
-cask "java8"
-# cask "jetbrains-toolbox"
-# cask "jmc"
+cask "jetbrains-toolbox"
 # cask "kaleidoscope"
-# cask "keybase"
+cask "karabiner-elements"
+cask "keybase"
 cask "kitematic"
 # cask "kkbox"
-# cask "kobo"
-# cask "logitech-unifying"
-# cask "mactex"
+cask "kobo"
+# cask "logitech-control-center"
+cask "mactex"
 cask "mark-text"
-cask "medis"
-# cask "messenger"
-cask "metabase-app"
-# cask "microsoft-office"
-# cask "microsoft-teams"
-# cask "minecraft"
-# cask "moom"
-# cask "mosaic"
-# cask "motrix"
-# cask "musescore"
+cask "messenger"
+cask "mpv"
 cask "ngrok"
-# cask "nuimo"
-# cask "numi"
+# cask "notion"
 # cask "omnifocus"
 # cask "omnigraffle"
-# cask "onedrive"
+cask "onedrive"
 # cask "paw"
 # cask "pdf-expert"
+# cask "pdfpenpro"
 cask "pineapple"
-# cask "pomodone"
+cask "podman"
 # cask "postico"
 cask "postman"
 cask "qlcolorcode"
@@ -288,86 +263,54 @@ cask "qlmarkdown"
 cask "qlstephen"
 cask "quicklook-csv"
 cask "quicklook-json"
-# cask "rcdefaultapp"
-# cask "reflector"
-# cask "resilio-sync"
-# cask "screenflow5"
-# cask "screenhero"
+# cask "screenflow"
 # cask "setapp"
+# cask "sketch"
 cask "skim"
-# cask "skyfonts"
 cask "skype"
 cask "slack"
-# cask "snagit"
+cask "soundflower"
+cask "soundflowerbed"
 cask "sourcetree"
-# cask "spotify"
-# cask "squirrel"
-# cask "steam"
-# cask "sublime-text"
+cask "squirrel"
+cask "standard-notes"
+cask "steam"
 cask "suspicious-package"
-# cask "tableplus"
-# cask "thyme"
-# cask "tomighty"
-# cask "transmission"
+cask "transmission"
+cask "twist"
 cask "typora"
-# cask "udeler"
-# cask "vagrant"
-# cask "vagrant-manager"
-# cask "virtualbox"
-# cask "virtualbox-extension-pack"
 cask "visual-studio-code"
 cask "vlc"
 cask "webpquicklook"
+cask "welly"
 cask "whatsapp"
 cask "wireshark"
-# cask "xbox360-controller-driver-unofficial"
-# cask "zoomus"
-# mas "com.acqualia.soulver", id: 413965349
-mas "com.agilebits.onepassword7", id: 1333542190
-mas "com.amazon.Kindle", id: 405399194
-# mas "com.apple.dt.Xcode", id: 497799835
-# mas "com.apple.iMovieApp", id: 408981434
-# mas "com.apple.iWork.Keynote", id: 409183694
-# mas "com.apple.iWork.Numbers", id: 409203825
-# mas "com.apple.iWork.Pages", id: 409201541
-# mas "com.apple.logic10", id: 634148309
-mas "com.atlassian.trello", id: 1278508951
-# mas "com.autodesk.sketchbookpro7mac", id: 863486266
-# mas "com.avazapp.osx.AvazFreespeech", id: 1089150955
-# mas "com.blackmagic-design.DiskSpeedTest", id: 425264550
-# mas "com.boinx.Mousepose.Mac", id: 405904955
-# mas "com.canoejoy.Clearview", id: 557090104
-# mas "com.ctmdev.App-Language-Chooser", id: 451732904
-# mas "com.fileloupe.app.mas.release", id: 944693506
-# mas "com.gingerlabs.NotabilityMac", id: 736189492
-# mas "com.hankinsoft.osx.sqliteprofessional", id: 586001240
-# mas "com.ideasoncanvas.mindnode.macos", id: 1289197285
-# mas "com.jumsoft.keynote.toolbox", id: 582635628
-# mas "com.jumsoft.LayoutsforKeynote.OSX", id: 671768282
-# mas "com.khanov.BlockerMac", id: 1107421413
-# mas "com.kryolokovlin.Noizio", id: 928871589
-# mas "com.macpaw.Gemini2", id: 1090488118
-# mas "com.manytricks.KeyCodes", id: 414568915
-# mas "com.massimobiolcati.irealbookmac", id: 409035833
-# mas "com.mr-brightside.debitandcreditMac", id: 882637653
-# mas "com.pilotmoon.popclip", id: 445189367
-# mas "com.readdle.smartemail-Mac", id: 1176895641
-mas "com.readitlater.PocketMac", id: 568494494
-# mas "com.ruiaureliano.Sip", id: 507257563
-# mas "com.seriflabs.affinitydesigner", id: 824171161
-# mas "com.seriflabs.affinityphoto", id: 824183456
-# mas "com.softwareambience.lilyview", id: 529490330
-# mas "com.stuffit.StuffIt-Expander16", id: 919269455
-# mas "com.supermegaultragroovy.capo3.mac", id: 696977615
-# mas "com.tapbots.Tweetbot3Mac", id: 1384080005
-# mas "com.udoncode.copiedmac", id: 1026349850
-# mas "com.xwavesoft.pomodoromac", id: 961632517
-# mas "com.yoannmoinet.fenetre", id: 1286743037
-mas "cx.c3.theunarchiver", id: 425424353
-mas "de.christian-kienle.Jayson.app", id: 1189824719
-mas "jp.naver.line.mac", id: 539883307
-# mas "net.limechat.LimeChat-AppStore", id: 414030210
-# mas "net.shinyfrog.bear", id: 1091189122
-# mas "org.lindenstruth.Exchange-Rates", id: 718218603
-# mas "pro.writer.mac", id: 775737590
-mas "ru.keepcoder.Telegram", id: 747648890
+cask "xbox360-controller-driver-unofficial"
+# cask "xquartz"
+cask "zoom"
+
+# mas "1Password 7", id: 1333542190
+# mas "Be Focused Pro", id: 961632517
+mas "Bear", id: 1091189122
+# mas "Capo", id: 696977615
+# mas "Copied", id: 1026349850
+# mas "DaisyDisk", id: 411643860
+mas "Disk Speed Test", id: 425264550
+# mas "Dropzone 3", id: 695406827
+mas "Grammarly for Safari", id: 1462114288
+# mas "Irvue", id: 1039633667
+mas "Jayson", id: 1189824719
+mas "Kindle", id: 405399194
+mas "LINE", id: 539883307
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft Word", id: 462054704
+# mas "Moom", id: 419330170
+mas "OneDrive", id: 823766827
+# mas "SketchBook", id: 863486266
+mas "Slack", id: 803453959
+mas "Smart JSON Editor", id: 1268962404
+# mas "Spark", id: 1176895641
+mas "Telegram", id: 747648890
+mas "The Unarchiver", id: 425424353
+mas "Trello", id: 1278508951
+mas "Xcode", id: 497799835
