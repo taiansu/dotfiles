@@ -26,7 +26,7 @@ set -U WORDCHARS '*?[]~=&;!#$%^(){}<>'
 
 set -U EDITOR nvim
 
-set -U ERL_AFLAGS "-kernel shell_history enabled"
+set -gx ERL_AFLAGS "-kernel shell_history enabled"
 
 # vagrant
 set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
