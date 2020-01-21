@@ -5,8 +5,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 ulimit -n 4096
 
 # GO
-export GOPATH=$HOME/Projects/gocode/bin
-export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
+# export GOPATH=$HOME/Projects/gocode/bin
+# export GO_CUSTOM_PATH=/usr/local/opt/go/libexec/bin
 
 # [ -d $GOPATH ] && export PATH=$PATH:$GOPATH
 # [ -d $GO_CUSTOM_PATH ] && export PATH=$PATH:$GO_CUSTOM_PATH
@@ -20,8 +20,8 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
 
 # MONO
-export MONO_GAC_PREFIX="/usr/local"
-export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
+# export MONO_GAC_PREFIX="/usr/local"
+# export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1

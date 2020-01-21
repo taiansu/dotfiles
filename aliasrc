@@ -4,7 +4,7 @@
 
 alias n="open -a iTerm ."
 alias re="repeat"
-alias oa="open -a"
+alias o="open -a"
 
 # some more ls aliases
 alias l="ls -CF"
@@ -23,18 +23,8 @@ alias lf="less +F"
 # Make unified diff syntax the default
 alias diff="diff -u"
 
-# simple webserver
-alias mkhttp="python -m http.server"
-
 # octal+text permissions for files
 alias perms="stat -c '%A %a %n'"
-
-# emacs
-function e() {
-  # -c creates a new frame
-  # -a= fire a new emacs server if none is running
-  emacsclient -cn -a= $*
-}
 
 # vim
 alias v="MIX_ENV=edit nvim"
@@ -52,45 +42,25 @@ alias br="bundle exec rake"
 # mix
 alias im="iex -S mix"
 
-ism() {
-  iex --sname $1 -S mix ${@:2}
-}
-
-iscm() {
-  iex --sname $1 --cookie $2 -S mix ${@:3}
-}
-
-inm() {
-  iex --name $1 -S mix ${@:2}
-}
-
-incm() {
-  iex --name $1 --cookie $2 -S mix ${@:3}
-}
+# stack
+alias ghci="stack ghci"
 
 # fork
 alias f="fork"
 
-
-# vagrant
-alias vg="vagrant"
-
-export VAGRANT_DEFAULT_PROVIDER='virtualbox'
-
-vgc() {
-  CMD="cd /vagrant; $@";
-  vagrant ssh -c "$CMD"
-}
-
-vgkey() {
-  ssh-keygen -y -f ~/.vagrant.d/insecure_private_key
-  ssh-keygen -y -f ~/.vagrant.d > ~/.vagrant.d/vagrant.pub
-  ssh-copy-id -f -i ~/.vagrant.d/vagrant.pub -p 2222 vagrant@127.0.0.1
-}
-
 # terraform
 alias tf="terraform"
 alias tg="terragrunt"
+
+# please
+alias please="sudo"
+alias pls="sudo"
+
+# AWS default profile
+export AWS_DEFAULT_PROFILE="blog"
+
+# Typora
+alias typora="open -a Typora"
 
 man () {
   LESS_TERMCAP_md=$'\e'"[1;36m" \
@@ -101,5 +71,3 @@ man () {
   LESS_TERMCAP_us=$'\e'"[1;32m" \
   command man "$@"
 }
-
-
