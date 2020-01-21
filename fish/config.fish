@@ -139,7 +139,7 @@ alias please "sudo"
 alias pls "sudo"
 
 # AWS default profile
-set -U AWS_DEFAULT_PROFILE "blog"
+set -gx AWS_DEFAULT_PROFILE "blog"
 
 # Typora
 abbr typora "open -a Typora"
