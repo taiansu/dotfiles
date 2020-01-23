@@ -19,6 +19,14 @@ function _git_status_symbol
   end
 end
 
+function _git_status
+  if type -q githud
+    echo -n (/usr/local/bin/githud)
+  else
+    echo (_git_branch_name)(_git_status_symbol)
+  end
+end
+
 function _remote_hostname
   if test -n "$SSH_CONNECTION"
     echo "(whoami) (ssh)"
@@ -55,7 +63,7 @@ function fish_prompt
 
   set -l arrow "λ"
   set -l cwd (set_color $fish_color_cwd)(prompt_pwd)
-  set -l git_status (_git_status_symbol)(_git_branch_name)
+  set -l git_status (_git_status)
 
   if test -n "$git_status"
     set git_status " $git_status"
