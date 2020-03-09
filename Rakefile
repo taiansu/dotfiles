@@ -50,7 +50,9 @@ def update_homebrew
 
   sh 'brew update'
   sh 'brew upgrade'
-  # sh 'brew cleanup'
+rescue StandardError => err
+  p err
+  0
 end
 
 def update_cask
