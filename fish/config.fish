@@ -58,7 +58,8 @@ set PATH $PATH /usr/local/sbin
 
 set -U HASKELL_INSTALL_PATH $HOME/.local/bin
 [ -d $HASKELL_INSTALL_PATH ]
-and set PATH $PATH $HASKELL_INSTALL_PATH
+and set PATH $HASKELL_INSTALL_PATH $PATH
+# alias "ghc" "stack exec -- ghc"
 
 ### functions
 function expand-dot-to-parent-directory-path -d 'expand ... to ../.. etc'
