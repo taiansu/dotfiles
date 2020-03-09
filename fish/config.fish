@@ -31,6 +31,9 @@ set -gx ERL_AFLAGS "-kernel shell_history enabled"
 # vagrant
 set -U VAGRANT_DEFAULT_PROVIDER 'virtualbox'
 
+# ansible
+set -Ux ANSIBLE_NOCOWS "1"
+
 # FZF
 set -U FZF_DEFAULT_COMMAND 'ag -l'
 
