@@ -15,6 +15,11 @@ ulimit -n 4096
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
 [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
+# Rust
+source ~/.asdf/installs/rust/nightly/env
+export RUST_BIN=~/.asdf/installs/rust/nightly/bin
+[ -d $RUST_BIN ] && export PATH=$PATH:$RUST_BIN
+
 # ANDROID
 export ANDROID_HOME=/usr/local/share/android-sdk
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
