@@ -86,6 +86,9 @@ fi
 # get "insecure" warnings on shell load!
 # fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
 
+# FZF
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+
 
 ##
 # zsh configuration
