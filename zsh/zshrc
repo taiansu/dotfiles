@@ -2,11 +2,9 @@
 # zmodload zsh/zprof
 
 autoload -Uz compinit
-
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
-
 compinit -C
 
 autoload -Uz promptinit colors
@@ -19,8 +17,6 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 autoload backward-delete-word
 zle -N backward-delete-word
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
 
 # Default colors:
 # White for users, red for root, yellow for system users
@@ -45,6 +41,8 @@ fi
 if type "gitHUD" > /dev/null; then
   PROMPT='$_path %F{reset_color}$(gitHUD zsh) $_prompt%b%f%k%F{white} '
 else
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
   PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
 fi
 
@@ -89,6 +87,11 @@ fi
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
+# ANSIBLE
+export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 ##
 # zsh configuration
@@ -113,39 +116,6 @@ setopt histignorespace # Ignore command start with space
 
 # 256 color mode
 export TERM="xterm-256color"
-
-# Color aliases
-if command -V dircolors >/dev/null 2>&1; then
-  eval "$(dircolors -b)"
-  # Only alias ls colors if dircolors is installed
-  alias dir="dir --color=auto"
-  alias vdir="vdir --color=auto"
-fi
-
-alias ls="ls -G"
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
-alias dmesg="dmesg --color=auto"
-# make less accept color codes and re-output them
-alias less="less -R"
-
-# WORDCHARS
-export WORDCHARS='*?[]~=&;!#$%^(){}<>'
-
-# Headless Chrome
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
-
-# Headless Firefox
-alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
-
-# Youtube mp3
-alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
-
-# sed
-if command -V gsed >/dev/null 2>&1; then
-  alias sed=gsed
-fi
 
 ##
 # Completion system
@@ -221,28 +191,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 bindkey -M isearch . self-insert # history search fix
 
-# zsh tab title
-setTerminalText () {
-    # echo works in bash & zsh
-    local mode=$1 ; shift
-    echo -ne "\033]$mode;$@\007"
-}
-stt_both  () { setTerminalText 0 $@; }
-stt_tab   () { setTerminalText 1 $@; }
-stt_title () { setTerminalText 2 $@; }
-
-tb () { stt_tab "${PWD/${HOME}/~}" }
-
-alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
-
-topTypedHistory(){
-  awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
-}
-
-##
-# god file
-alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
-
 # Functions
 #
 function mkcd() {
@@ -280,8 +228,10 @@ function gistDownload() {
   curl -L ${1}/download | tar -xvz --strip-components=1
 }
 
-# Extras
-#
+function tagjs() {
+  find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
+}
+
 function precmd() {
     # Clear the terminal title before running any command.
     # This is a somewhat hacky workaround to Neovim not refreshing the title
@@ -289,5 +239,78 @@ function precmd() {
     echo -ne "\e]1;${PWD##*/}\a"
 }
 
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# Extras
+#
+# if [ -n "$INSIDE_EMACS" ]; then
+#   chpwd() { print -P "\033AnSiTc %d" }
+#   print -P "\033AnSiTu %n"
+#   print -P "\033AnSiTc %d"
+# fi
+
+# if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
+#   stty ek
+# fi
+
+# source
+
+# autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# source homebrew github api token
+if [[ -f ~/.homebrew_github_api_token ]]; then
+  source ~/.homebrew_github_api_token
+fi
+
+source ~/.dotfiles/zsh/aliasrc
+
+if [[ -f ~/.dotfiles/credentials ]]; then
+  source ~/.dotfiles/credentials
+fi
+# source google-cloud-sdk
+if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+fi
+
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+
+  # Use fd (https://github.com/sharkdp/fd) instead of the default find
+  # command for listing path candidates.
+  # - The first argument to the function ($1) is the base path to start traversal
+  # - See the source code (completion.{bash,zsh}) for the details.
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
+
+# asdf
+if [[ -f ~/.asdf/asdf.sh ]]; then
+  source $HOME/.asdf/asdf.sh
+  source $HOME/.asdf/completions/asdf.bash
+fi
+
+# zsh-syntax-highlighting
+[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-history-substring-search
+[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# if [ -n "$INSIDE_EMACS" ]; then
+#   bindkey "^[OA" history-substring-search-up
+#   bindkey "^[OB" history-substring-search-down
+# else
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# fi
+
 # zprof

@@ -1,0 +1,28 @@
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# Haskell
+export HASKELL_INSTALL_PATH=$HOME/.local/bin
+[ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
+
+# Rust
+# source ~/.asdf/installs/rust/nightly/env
+# export RUST_BIN=~/.asdf/installs/rust/nightly/bin
+# [ -d $RUST_BIN ] && export PATH=$PATH:$RUST_BIN
+# export RUST_SRC_PATH=$HOME/Projects/source/rust
+
+# ANDROID
+export ANDROID_HOME=/usr/local/share/android-sdk
+# [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
+
+# MONO
+# export MONO_GAC_PREFIX="/usr/local"
+# export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
+
+# Yarn
+# export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
+# [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
+
+# Erlang
+
+export LANG=en_US.UTF-8
+

@@ -1,0 +1,122 @@
+##
+# Aliases
+##
+
+alias n="open -a iTerm ."
+alias re="repeat"
+alias o="open -a"
+
+# some more ls aliases
+alias l="ls -CF"
+alias la="ls -al"
+alias ll="ls -alFh"
+alias sl="ls"
+
+# tail
+alias tl="tail"
+alias tlf="tail -f"
+alias tln="tail -n"
+
+# less
+alias lf="less +F"
+
+# Make unified diff syntax the default
+alias diff="diff -u"
+
+# octal+text permissions for files
+alias perms="stat -c '%A %a %n'"
+
+# Color aliases
+if command -V dircolors >/dev/null 2>&1; then
+  eval "$(dircolors -b)"
+  # Only alias ls colors if dircolors is installed
+  alias dir="dir --color=auto"
+  alias vdir="vdir --color=auto"
+fi
+
+alias ls="ls -G"
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+alias dmesg="dmesg --color=auto"
+# make less accept color codes and re-output them
+alias less="less -R"
+
+# WORDCHARS
+export WORDCHARS='*?[]~=&;!#$%^(){}<>'
+
+# Headless Chrome
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
+
+# Headless Firefox
+alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
+
+# Youtube mp3
+alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
+
+# sed
+if command -V gsed >/dev/null 2>&1; then
+  alias sed=gsed
+fi
+
+# git
+if type "hub" > /dev/null; then
+  alias g="hub"
+else
+  alias g="git"
+fi
+
+# vim
+alias v="MIX_ENV=edit nvim"
+alias vdiff="nvim -d"
+export EDITOR="nvim"
+export VEDITOR="code"
+
+#clean open_with
+alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+
+# bundle & rake
+alias k="rake"
+alias b="bundle"
+alias br="bundle exec rake"
+
+# mix
+alias im="iex -S mix"
+
+# stack
+alias ghci="stack ghci"
+
+# terraform
+alias tf="terraform"
+alias tg="terragrunt"
+
+# please
+alias please="sudo"
+alias pls="sudo"
+
+# AWS default profile
+export AWS_DEFAULT_PROFILE="rainmargin"
+
+# Typora
+alias typora="open -a Typora"
+
+man () {
+  LESS_TERMCAP_md=$'\e'"[1;36m" \
+  LESS_TERMCAP_me=$'\e'"[0m" \
+  LESS_TERMCAP_se=$'\e'"[0m" \
+  LESS_TERMCAP_so=$'\e'"[1;40;92m" \
+  LESS_TERMCAP_ue=$'\e'"[0m" \
+  LESS_TERMCAP_us=$'\e'"[1;32m" \
+  command man "$@"
+}
+
+alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
+
+topTypedHistory(){
+  awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
+}
+
+##
+# god file
+alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+
