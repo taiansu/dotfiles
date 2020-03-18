@@ -119,8 +119,3 @@ topTypedHistory(){
 ##
 # god file
 alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
-
-##
-# haskell
-alias ghc="stack ghc --"
-

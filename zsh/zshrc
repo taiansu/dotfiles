@@ -314,3 +314,4 @@ fi
 # fi
 
 # zprof
+export PATH="/usr/local/opt/ghc@8.6/bin:$PATH"
