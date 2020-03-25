@@ -1,9 +1,5 @@
-[user]
-  name  = #{your_name}
-  email = #{your_email}
-[github]
-  user = #{your_name}
-  token = #{your_token}
+[include]
+  path = .git_credential
 [alias]
   aa    = add --all
   ap    = add -p
@@ -26,7 +22,6 @@
   lf    = !git-foresta --style=10 "$@" | less -RSX
   lg    = log --graph --abbrev-commit
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
-  lgs   = log -S
   lsau  = !git ls-files -v | grep ^h | awk '{print $2}'
   mg    = merge
   mgnf  = merge --no-ff
@@ -50,12 +45,11 @@
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
 [core]
-  excludesfile = ~/.gitignore
+  excludesfile = /Users/tai/.gitignore
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
   safecrlf     = true
-  editor       = 'mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
 [color]
   diff   = auto
   status = auto
@@ -90,3 +84,9 @@
   required = true
 [credential]
   helper = osxkeychain
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
