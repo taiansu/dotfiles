@@ -45,7 +45,7 @@
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
 [core]
-  excludesfile = /Users/tai/.gitignore
+  excludesfile = ~/.gitignore
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
