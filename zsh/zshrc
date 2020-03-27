@@ -21,7 +21,8 @@ zle -N backward-delete-word
 # Default colors:
 # White for users, red for root, yellow for system users
 local _time="%F{246}[%*]"
-local _path="%F{blue}%(8~|...|)%7~"
+# PROMPT_COMMAND='PS1X=$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
+local _path="%F{blue}%(4~|%-1~/…/%2~|%3~)"
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
   # red for root, yellow for system users

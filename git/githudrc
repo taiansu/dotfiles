@@ -46,7 +46,7 @@ no_tracked_upstream_indicator=ꝇ
 # no_tracked_upstream_indicator_color=Red
 # no_tracked_upstream_indicator_intensity=Vivid
 #
-# merge_branch_commits_indicator=𝘮
+merge_branch_commits_indicator=
 # merge_branch_commits_pull_prefix=→
 # merge_branch_commits_push_prefix=←
 # merge_branch_commits_push_pull_infix=⇄
