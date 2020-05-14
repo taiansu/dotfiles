@@ -60,11 +60,7 @@ if command -V gsed >/dev/null 2>&1; then
 fi
 
 # git
-if type "hub" > /dev/null; then
-  alias g="hub"
-else
-  alias g="git"
-fi
+alias g="git"
 
 # vim
 alias v="MIX_ENV=edit nvim"
