@@ -63,7 +63,7 @@ fi
 alias g="git"
 
 # vim
-alias v="MIX_ENV=edit nvim"
+alias v="nvim"
 alias vdiff="nvim -d"
 export EDITOR="nvim"
 export VEDITOR="code"
