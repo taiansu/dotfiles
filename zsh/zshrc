@@ -94,6 +94,9 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+# KERL
+export KERL_BUILD_DOCS=yes
+
 ##
 # zsh configuration
 #

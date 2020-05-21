@@ -1,2 +1,1 @@
-export KERL_BUILD_DOCS=yes
 KERL_CONFIGURE_OPTIONS="--with-wx-config=/usr/local/bin/wx-config"
