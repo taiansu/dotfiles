@@ -45,7 +45,7 @@
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/tai/.gitignore
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
@@ -77,7 +77,7 @@
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
   trustexitcode = true
 [commit]
-  template = /Users/tai/.stCommitMsg
+	template = /Users/tai/.stCommitMsg
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
@@ -90,3 +90,8 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[user]
+	name = Tai An Su
+	email = a@tai.su
+[pull]
+	ff = only
