@@ -91,7 +91,7 @@ alias please="sudo"
 alias pls="sudo"
 
 # AWS default profile
-export AWS_DEFAULT_PROFILE="rainmargin"
+# export AWS_DEFAULT_PROFILE="some iam account"
 
 # Typora
 alias typora="open -a Typora"
