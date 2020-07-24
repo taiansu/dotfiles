@@ -1,6 +1,7 @@
  ### Profile
 # zmodload zsh/zprof
 
+fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -296,7 +297,11 @@ fi
 # asdf
 if [[ -f ~/.asdf/asdf.sh ]]; then
   source $HOME/.asdf/asdf.sh
-  source $HOME/.asdf/completions/asdf.bash
+fi
+
+# tre
+if [[ -f /usr/local/bin/tre ]]; then
+  tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
 
 # zsh-syntax-highlighting
@@ -307,14 +312,20 @@ fi
 
 [[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+test_declare () {
+  declare -F $1 > /dev/null
+}
+
 # if [ -n "$INSIDE_EMACS" ]; then
 #   bindkey "^[OA" history-substring-search-up
 #   bindkey "^[OB" history-substring-search-down
 # else
+if [[ test_declare(history-substring-search-up) ]]; then
   bindkey "$terminfo[kcuu1]" history-substring-search-up
   bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
 
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # fi
 
 # zprof
