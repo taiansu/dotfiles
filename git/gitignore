@@ -182,3 +182,8 @@ cabal.sandbox.config
 *.hp
 *.eventlog
 .stack-work/
+
+venv
+
+### IntelliJ
+*.iml

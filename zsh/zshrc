@@ -2,7 +2,8 @@
 # zmodload zsh/zprof
 
 fpath=(${ASDF_DIR}/completions $fpath)
-autoload -Uz compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
@@ -87,7 +88,7 @@ fi
 # fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
 
 # FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules/*,.git/*,.idea/*}"'
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
@@ -198,6 +199,35 @@ bindkey -M isearch . self-insert # history search fix
 
 # Functions
 #
+
+# function shorternPwd() {
+#   local current_path=${PWD/#$HOME/"~"}
+#   local home_path="$(getUniqueFolder $HOME)"
+#   local trunc_path="$(getUniqueFolder $PWD)"
+#   [[ $current_path == "~"* ]] && current_path="~${trunc_path//${home_path}/}" || current_path="/${trunc_path}"
+# }
+
+# function getUniqueFolder() {
+#   local trunc_path directory test_dir test_dir_length
+#   local -a matching
+#   local -a paths
+#   local cur_path='/'
+#   paths=(${(s:/:)1})
+#   for directory in ${paths[@]}; do
+#     test_dir=''
+#     for (( i=0; i < ${#directory}; i++ )); do
+#       test_dir+="${directory:$i:1}"
+#       matching=("$cur_path"/"$test_dir"*/)
+#       if [[ ${#matching[@]} -eq 1 ]]; then
+#         break
+#       fi
+#     done
+#     trunc_path+="$test_dir/"
+#     cur_path+="$directory/"
+#   done
+#   echo "${trunc_path: : -1}"
+# }
+
 function mkcd() {
   mkdir "$1"
   cd "$1"
@@ -258,6 +288,20 @@ function precmd() {
 
 # source
 
+# zsh-syntax-highlighting
+[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-history-substring-search
+[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# zsh-autosuggestions
+[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [[ test_declare(history-substring-search-up) ]]; then
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
+
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
@@ -294,39 +338,18 @@ if [[ -f ~/.fzf.zsh ]]; then
   }
 fi
 
-# asdf
-if [[ -f ~/.asdf/asdf.sh ]]; then
-  source $HOME/.asdf/asdf.sh
-fi
-
 # tre
 if [[ -f /usr/local/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
 
-# zsh-syntax-highlighting
-[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# zsh-history-substring-search
-[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-test_declare () {
-  declare -F $1 > /dev/null
-}
-
 # if [ -n "$INSIDE_EMACS" ]; then
 #   bindkey "^[OA" history-substring-search-up
 #   bindkey "^[OB" history-substring-search-down
 # else
-if [[ test_declare(history-substring-search-up) ]]; then
-  bindkey "$terminfo[kcuu1]" history-substring-search-up
-  bindkey "$terminfo[kcud1]" history-substring-search-down
-fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # fi
 
 # zprof
-export PATH="/usr/local/opt/ghc@8.6/bin:$PATH"
+# [ -f "/Users/taian.su/.ghcup/env" ] && source "/Users/taian.su/.ghcup/env" # ghcup-env
