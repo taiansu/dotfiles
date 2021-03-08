@@ -86,7 +86,7 @@ def update_emacs
 end
 
 def update_vim
-  vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"'  # rubocop: disable LineLength
+  vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+CocUpdateSync", "+qall"'  # rubocop: disable LineLength
   sh vim_update
 
   return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
