@@ -80,7 +80,7 @@ alias br="bundle exec rake"
 alias im="iex -S mix"
 
 # stack
-# alias ghci="stack ghci"
+alias ghci="stack ghci"
 
 # terraform
 alias tf="terraform"
