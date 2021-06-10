@@ -23,6 +23,17 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 # [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
 
 # Erlang
-
 export LANG=en_US.UTF-8
 
+# jenv path
+export JENV_PATH=$HOME/.jenv/bin
+[ -d $JENV_PATH ] && export PATH=$PATH:$JENV_PATH && eval "$(jenv init -)"
+
+# php path
+export PHP_SBIN_PATH=/usr/local/opt/php@7.4/sbin
+export PHP_PATH=/usr/local/opt/php@7.4/bin
+[ -d $PHP_PATH ] && export PATH="$PHP_SBIN_PATH:$PHP_PATH:$PATH"
+
+# php composer path
+export COMPOSER_PATH=~/.config/composer/vendor/bin
+[ -d $COMPOSER_PATH ] && export PATH=$COMPOSER_PATH:$PATH
