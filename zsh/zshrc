@@ -357,4 +357,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # fi
 
 # zprof
-# [ -f "/Users/taian.su/.ghcup/env" ] && source "/Users/taian.su/.ghcup/env" # ghcup-env
+
+# [ -f "#{HOME}/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
