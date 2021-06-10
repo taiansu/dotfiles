@@ -18,6 +18,8 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export COLORTERM="truecolor"
 
+# GPG
+export GPG_TTY=$(tty)
 
 # https://github.com/sorin-ionescu/prezto/blob/master/runcoms/zshenv
 # Ensure that a non-login, non-interactive shell has a defined environment.
