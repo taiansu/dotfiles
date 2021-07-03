@@ -50,6 +50,7 @@
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
   safecrlf     = true
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
   diff   = auto
   status = auto
@@ -63,12 +64,8 @@
   default = simple
 [rerere]
   enabled = true
-[diff]
-  tool = Kaleidoscope
 [difftool]
   prompt = false
-[difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [merge]
   tool = Kaleidoscope
 [mergetool]
@@ -94,3 +91,18 @@
 	forceSignAnnotated = true
 [gpg]
   program = gpg
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
