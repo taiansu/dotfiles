@@ -22,7 +22,10 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 # export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
 # [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
 
-# Erlang
+# PHP
+export PHP_PATH=/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.4/sbin
+[ -d /usr/local/opt/php@7.4 ] && export PATH=$PHP_PATH:$PATH
+
 export LANG=en_US.UTF-8
 
 # jenv path
