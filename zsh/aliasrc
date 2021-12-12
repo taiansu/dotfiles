@@ -78,6 +78,7 @@ alias br="bundle exec rake"
 
 # mix
 alias im="iex -S mix"
+alias pim="MIX_ENV=prod iex -S mix"
 
 # stack
 alias ghci="stack ghci"

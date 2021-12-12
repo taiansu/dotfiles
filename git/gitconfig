@@ -1,3 +1,6 @@
+[user]
+  name = Tai An Su
+  email = a@tai.su
 [include]
   path = .git_credential
 [alias]
@@ -86,8 +89,8 @@
 [init]
   defaultBranch = main
 [commit]
-	gpgsign = true
-	template = /Users/tai/.stCommitMsg
+  gpgsign = true
+  template = /Users/tai/.stCommitMsg
 [tag]
   forceSignAnnotated = true
 [gpg]
@@ -108,8 +111,8 @@
   new = green bold
   whitespace = red reverse
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+  path =
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
+  cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
