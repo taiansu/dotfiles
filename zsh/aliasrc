@@ -6,11 +6,19 @@ alias n="open -a iTerm ."
 alias re="repeat"
 alias o="open -a"
 
-# some more ls aliases
-alias l="ls -CF"
-alias la="ls -al"
-alias ll="ls -alFh"
-alias sl="ls"
+# ls aliases
+if command -V exa >/dev/null 2>&1; then
+  alias l="exa --git"
+  alias la="exa -al --git"
+  alias ll="exa -alFh --git"
+  alias sl="l"
+else
+  alias ls="ls -G"
+  alias l="ls -CF"
+  alias la="ls -al"
+  alias ll="ls -alFh"
+  alias sl="ls"
+fi
 
 # tail
 alias tl="tail"
@@ -34,7 +42,6 @@ if command -V dircolors >/dev/null 2>&1; then
   alias vdir="vdir --color=auto"
 fi
 
-alias ls="ls -G"
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
