@@ -71,6 +71,9 @@ fi
 # git
 alias g="git"
 
+# lazygit
+alias lg="lazygit"
+
 # vim
 alias v="nvim"
 alias vdiff="nvim -d"
