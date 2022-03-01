@@ -105,6 +105,10 @@ alias tg="terragrunt"
 alias please="sudo"
 alias pls="sudo"
 
+# dotnet
+alias .n="dotnet"
+alias fsi="dotnet fsi"
+
 # AWS default profile
 # export AWS_DEFAULT_PROFILE="some iam account"
 
