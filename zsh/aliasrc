@@ -106,7 +106,7 @@ alias please="sudo"
 alias pls="sudo"
 
 # dotnet
-alias .n="dotnet"
+alias dn="dotnet"
 alias fsi="dotnet fsi"
 
 # AWS default profile
