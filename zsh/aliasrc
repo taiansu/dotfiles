@@ -2,6 +2,9 @@
 # Aliases
 ##
 
+## trash instead of rm -rf
+alias rm='trash'
+
 alias n="open -a iTerm ."
 alias re="repeat"
 alias o="open -a"
