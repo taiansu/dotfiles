@@ -115,9 +115,6 @@ alias fsi="dotnet fsi"
 # AWS default profile
 # export AWS_DEFAULT_PROFILE="some iam account"
 
-# Typora
-alias typora="open -a Typora"
-
 man () {
   LESS_TERMCAP_md=$'\e'"[1;36m" \
   LESS_TERMCAP_me=$'\e'"[0m" \
