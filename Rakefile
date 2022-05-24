@@ -5,12 +5,12 @@ task default: %w[update:tasks_with_commit update:finish_msg]
 
 namespace :update do # rubocop: disable BlockLength
   multitask async_tasks: %w[homebrew vim_with_commit]
-  task tasks_with_commit: %w[async_tasks source emacs] # rubocop: disable LineLength
-  # multitask async_tasks_with_commit: %w[homebrew vim_with_commit source emacs] # rubocop: disable LineLength
+  task tasks_with_commit: %w[async_tasks source] # rubocop: disable LineLength
+  # multitask async_tasks_with_commit: %w[homebrew vim_with_commit source] # rubocop: disable LineLength
   desc 'Update all without commit plug.vim'
-  task only: %w[homebrew vim emacs asdf]
+  task only: %w[homebrew vim asdf]
 
-  %i[homebrew cask npm yarn vim vim_with_commit emacs source asdf].each do |task_name| # rubocop: disable LineLength
+  %i[homebrew cask npm yarn vim vim_with_commit source asdf].each do |task_name| # rubocop: disable LineLength
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -78,15 +78,8 @@ def update_yarn
   sh 'yarn global upgrade --all'
 end
 
-def update_emacs
-  %W[#{Dir.home}/Projects/spacemacs
-     #{Dir.home}/Projects/doom_emacs].each do |dir|
-      git_pull(dir) if Dir.exist?(dir)
-  end
-end
-
 def update_vim
-  vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+CocUpdateSync", "+qall"'  # rubocop: disable LineLength
+  vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin", "+qall"'  # rubocop: disable LineLength
   sh vim_update
 
   return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
