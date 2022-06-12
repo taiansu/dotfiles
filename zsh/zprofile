@@ -1,3 +1,7 @@
+declare -A homebrew_prefix
+homebrew_prefix[x86_64]=/usr/local
+homebrew_prefix[arm64]=/opt/homebrew
+
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # Haskell
@@ -11,20 +15,16 @@ export HASKELL_INSTALL_PATH=$HOME/.local/bin
 # export RUST_SRC_PATH=$HOME/Projects/source/rust
 
 # ANDROID
-export ANDROID_HOME=/usr/local/share/android-sdk
+export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
 
 # MONO
 # export MONO_GAC_PREFIX="/usr/local"
 # export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
 
-# Yarn
-# export YARN_PATH=$HOME/.local/share/yarn/global/node_modules/.bin
-# [ -d $YARN_PATH ] && export PATH=$PATH:$YARN_PATH
-
 # PHP
-export PHP_PATH=/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.4/sbin
-[ -d /usr/local/opt/php@7.4 ] && export PATH=$PHP_PATH:$PATH
+export PHP_PATH=$homebrew_prefix[$CPUTYPE]/opt/php@7.4/bin:$homebrew_prefix[$CPUTYPE]/opt/php@7.4/sbin
+[ -d $homebrew_prefix[$CPUTYPE]/opt/php@7.4 ] && export PATH=$PHP_PATH:$PATH
 
 export LANG=en_US.UTF-8
 
@@ -32,11 +32,15 @@ export LANG=en_US.UTF-8
 export JENV_PATH=$HOME/.jenv/bin
 [ -d $JENV_PATH ] && export PATH=$PATH:$JENV_PATH && eval "$(jenv init -)"
 
-# php path
-export PHP_SBIN_PATH=/usr/local/opt/php@7.4/sbin
-export PHP_PATH=/usr/local/opt/php@7.4/bin
-[ -d $PHP_PATH ] && export PATH="$PHP_SBIN_PATH:$PHP_PATH:$PATH"
-
 # php composer path
 export COMPOSER_PATH=~/.config/composer/vendor/bin
 [ -d $COMPOSER_PATH ] && export PATH=$COMPOSER_PATH:$PATH
+
+ # Nix
+ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ fi
+ # End Nix
+
+export HOMEBREW_PATH=/opt/homebrew
+[ -d $HOMEBREW_PATH ] && eval "$(/opt/homebrew/bin/brew shellenv)"

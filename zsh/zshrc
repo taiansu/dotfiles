@@ -1,6 +1,10 @@
  ### Profile
 # zmodload zsh/zprof
 
+declare -A homebrew_prefix
+homebrew_prefix[x86_64]=/usr/local
+homebrew_prefix[arm64]=/opt/homebrew
+
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
@@ -289,13 +293,13 @@ function precmd() {
 # source
 
 # zsh-syntax-highlighting
-[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-history-substring-search
-[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # zsh-autosuggestions
-[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 if [[ test_declare(history-substring-search-up) ]]; then
   bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -303,7 +307,7 @@ if [[ test_declare(history-substring-search-up) ]]; then
 fi
 
 # autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh ] && . $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
@@ -316,9 +320,9 @@ if [[ -f ~/.dotfiles/credentials ]]; then
   source ~/.dotfiles/credentials
 fi
 # source google-cloud-sdk
-if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+if [[ -s $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
+  source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+  source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
 
 if [[ -f ~/.fzf.zsh ]]; then
@@ -344,7 +348,7 @@ if [[ -f ~/.asdf/asdf.sh ]]; then
 fi
 
 # tre
-if [[ -f /usr/local/bin/tre ]]; then
+if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
 
