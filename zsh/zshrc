@@ -347,6 +347,10 @@ if [[ -f ~/.asdf/asdf.sh ]]; then
   source $HOME/.asdf/asdf.sh
 fi
 
+if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
+  source /opt/homebrew/opt/asdf/libexec/asdf.sh
+fi
+
 # tre
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
