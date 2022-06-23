@@ -2,6 +2,10 @@
 # Aliases
 ##
 
+# please. Be Polite to Computer.
+alias please="sudo"
+alias pls="sudo"
+
 ## trash instead of rm -rf
 alias rm='trash'
 
@@ -104,9 +108,8 @@ alias ghci="stack ghci"
 alias tf="terraform"
 alias tg="terragrunt"
 
-# please
-alias please="sudo"
-alias pls="sudo"
+# ansible
+alias anpb="ansible-playbook"
 
 # dotnet
 alias .n="dotnet"
@@ -130,6 +133,10 @@ alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
+
+alias nix=$HOME/.nix-profile/etc/profile.d/nix.sh
+
+alias AWSEG="AWS_PROFILE=eagle"
 
 ##
 # god file
