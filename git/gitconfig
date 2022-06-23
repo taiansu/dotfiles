@@ -1,5 +1,5 @@
 [include]
-  path = .git_credential
+  path = ~/.git_credential
 [alias]
   aa    = add --all
   ap    = add -p
@@ -87,9 +87,10 @@
   defaultBranch = main
 [commit]
   gpgsign = true
-  template = /Users/tai/.stCommitMsg
+	template = ~/.stCommitMsg
 [tag]
   forceSignAnnotated = true
+	gpgSign = true
 [gpg]
   program = gpg2
 [interactive]
