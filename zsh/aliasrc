@@ -115,6 +115,9 @@ alias anpb="ansible-playbook"
 alias .n="dotnet"
 alias fsi="dotnet fsi"
 
+# ripgrep
+alias rg="rg --stats"
+
 # AWS default profile
 # export AWS_DEFAULT_PROFILE="some iam account"
 
