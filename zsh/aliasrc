@@ -112,7 +112,7 @@ alias tg="terragrunt"
 alias anpb="ansible-playbook"
 
 # dotnet
-alias .n="dotnet"
+alias .net="dotnet"
 alias fsi="dotnet fsi"
 
 # ripgrep
