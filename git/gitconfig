@@ -61,7 +61,8 @@
   name   = relocks the Gemfile.lock
   driver = bundle install
 [push]
-  default = simple
+      default = simple
+      autoSetupRemote = true
 [rerere]
   enabled = true
 [difftool]
@@ -108,9 +109,3 @@
   old = red bold
   new = green bold
   whitespace = red reverse
-[difftool "sourcetree"]
-  cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-  path =
-[mergetool "sourcetree"]
-  cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
