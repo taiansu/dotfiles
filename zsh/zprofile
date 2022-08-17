@@ -4,18 +4,14 @@ homebrew_prefix[arm64]=/opt/homebrew
 
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
+export LANG=en_US.UTF-8
+
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
 [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
-# Rust
-# source ~/.asdf/installs/rust/nightly/env
-# export RUST_BIN=~/.asdf/installs/rust/nightly/bin
-# [ -d $RUST_BIN ] && export PATH=$PATH:$RUST_BIN
-# export RUST_SRC_PATH=$HOME/Projects/source/rust
-
 # ANDROID
-export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
+# export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
 
 # MONO
@@ -26,21 +22,28 @@ export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
 export PHP_PATH=$homebrew_prefix[$CPUTYPE]/opt/php@7.4/bin:$homebrew_prefix[$CPUTYPE]/opt/php@7.4/sbin
 [ -d $homebrew_prefix[$CPUTYPE]/opt/php@7.4 ] && export PATH=$PHP_PATH:$PATH
 
-export LANG=en_US.UTF-8
+# php composer path
+export COMPOSER_PATH=~/.config/composer/vendor/bin
+[ -d $COMPOSER_PATH ] && export PATH=$COMPOSER_PATH:$PATH
 
 # jenv path
 export JENV_PATH=$HOME/.jenv/bin
 [ -d $JENV_PATH ] && export PATH=$PATH:$JENV_PATH && eval "$(jenv init -)"
 
-# php composer path
-export COMPOSER_PATH=~/.config/composer/vendor/bin
-[ -d $COMPOSER_PATH ] && export PATH=$COMPOSER_PATH:$PATH
 
  # Nix
- if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- fi
+ # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+ #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ # fi
  # End Nix
 
 export HOMEBREW_PATH=/opt/homebrew
 [ -d $HOMEBREW_PATH ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Rust
+if [ -e 'rustc' ]; then
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+source $HOME/.cargo/env
+source "$HOME/.config/rustlang/autocomplete/rustup"
+fi
