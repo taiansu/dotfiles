@@ -360,10 +360,21 @@ fi
 #   bindkey "^[OA" history-substring-search-up
 #   bindkey "^[OB" history-substring-search-down
 # else
+# fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# fi
+# rust
+if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
+  mkdir -p ~/.config/rustlang/autocomplete
+  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
+fi
+
+# Bun
+# bun completions
+# [ -s "/Users/tai/.bun/_bun" ] && source "/Users/tai/.bun/_bun"
+# export BUN_INSTALL="/Users/tai/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
 # zprof
 
