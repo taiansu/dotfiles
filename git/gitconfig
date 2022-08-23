@@ -22,6 +22,7 @@
   lf    = !git-foresta --style=10 "$@" | less -RSX
   lg    = log --graph --abbrev-commit
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
+  lgn   = log --pretty=format:'%C(yellow)%h %Cgreen%<(7)%aN %Cblue%>(12)%ad %Cred%d %Creset%s'
   lsau  = !git ls-files -v | grep ^h | awk '{print $2}'
   mg    = merge
   mgnf  = merge --no-ff
