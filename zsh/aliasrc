@@ -141,6 +141,9 @@ alias nix=$HOME/.nix-profile/etc/profile.d/nix.sh
 
 alias AWSEG="AWS_PROFILE=eagle"
 
+# vscode
+alias c="code"
+
 ##
 # god file
 alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
