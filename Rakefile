@@ -19,9 +19,9 @@ namespace :update do # rubocop: disable BlockLength
 
   desc 'show a finish message'
   task :finish_msg do
-    cmd = pick_printer(["pokemonsay", "cowsay"])
+    cmd = pick_printer(['pokemonsay', 'cowsay'])
     clear_screen
-    send "#{cmd}"
+    send cmd.to_s
     # system 'All updates are complete, we are good to go.' if osx?
   end
 end
@@ -50,8 +50,8 @@ def update_homebrew
 
   sh 'brew update'
   sh 'brew upgrade'
-rescue StandardError => err
-  p err
+rescue StandardError => e
+  p e
   0
 end
 
