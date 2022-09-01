@@ -86,6 +86,7 @@ alias v="nvim"
 alias vdiff="nvim -d"
 export EDITOR="nvim"
 export VEDITOR="code"
+alias vv="vimr"
 
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
