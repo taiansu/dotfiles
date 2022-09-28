@@ -82,11 +82,11 @@ alias g="git"
 alias lg="lazygit"
 
 # vim
-alias v="nvim"
+alias v="vimr"
 alias vdiff="nvim -d"
-export EDITOR="nvim"
+export EDITOR="vimr"
 export VEDITOR="code"
-alias vv="vimr"
+alias nv="nvim"
 
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
