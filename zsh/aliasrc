@@ -82,7 +82,7 @@ alias g="git"
 alias lg="lazygit"
 
 # vim
-alias v="~/.dotfiles/vimr_wait"
+alias v="vimr"
 alias vdiff="nvim -d"
 export EDITOR="vimr"
 export VEDITOR="code"
