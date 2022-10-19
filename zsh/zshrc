@@ -370,6 +370,13 @@ if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
   rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
 fi
 
+# idris2
+if [[ -f ~/.idris2/bin/idris2 ]]; then
+  autoload -U +X compinit && compinit
+  autoload -U +X bashcompinit && bashcompinit
+  eval "$(idris2 --bash-completion-script idris2)"
+fi
+
 # Bun
 # bun completions
 # [ -s "/Users/tai/.bun/_bun" ] && source "/Users/tai/.bun/_bun"

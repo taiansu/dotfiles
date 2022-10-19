@@ -47,3 +47,9 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 source $HOME/.cargo/env
 source "$HOME/.config/rustlang/autocomplete/rustup"
 fi
+
+export IDRIS2_PATH=$HOME/.idris2
+if [ -d $IDRIS2_PATH ]; then
+  export LD_LIBRARY_PATH=$IDRIS2_PATH/lib
+  export PATH=$PATH:$IDRIS2_PATH/bin
+fi
