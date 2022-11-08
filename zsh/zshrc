@@ -113,6 +113,7 @@ SAVEHIST=1000
 HISTFILE=$XDG_CACHE_HOME/shell_history
 
 # shell options
+setopt PROMPT_SUBST
 setopt autocd # assume "cd" when a command is a directory
 setopt histignorealldups # Substitute commands in the prompt
 setopt sharehistory # Share the same history between all shells
