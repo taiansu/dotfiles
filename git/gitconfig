@@ -16,6 +16,9 @@
   dt    = difftool
   dk    = difftool -y -t Kaleidoscope
   f     = fetch
+  fo    = fetch origin
+  fod   = fetch origin dev:dev
+  fom   = fetch origin main:main
   fp    = fetch -p
   fu    = fetch upstream
   l     = pull
@@ -90,10 +93,10 @@
   defaultBranch = main
 [commit]
   gpgsign = true
-	template = ~/.stCommitMsg
+  template = ~/.stCommitMsg
 [tag]
   forceSignAnnotated = true
-	gpgSign = true
+  gpgSign = true
 [gpg]
   program = gpg2
 [interactive]
@@ -112,4 +115,4 @@
   new = green bold
   whitespace = red reverse
 [add "interactive"]
-	useBuiltin = false
+  useBuiltin = false
