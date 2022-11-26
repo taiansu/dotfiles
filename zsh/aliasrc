@@ -82,7 +82,7 @@ alias g="git"
 alias lg="lazygit"
 
 # vim
-alias v="vimr"
+alias v="vimr -n"
 alias vdiff="nvim -d"
 export EDITOR="vimr"
 export VEDITOR="code"
