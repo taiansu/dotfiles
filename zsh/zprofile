@@ -53,3 +53,6 @@ if [ -d $IDRIS2_PATH ]; then
   export LD_LIBRARY_PATH=$IDRIS2_PATH/lib
   export PATH=$PATH:$IDRIS2_PATH/bin
 fi
+
+export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
+[ -d $DOTNET_TOOLS_PATH ] && export PATH=$PATH:$DOTNET_TOOLS_PATH
