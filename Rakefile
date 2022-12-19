@@ -117,8 +117,7 @@ end
 def update_asdf
   return unless find_executable 'asdf'
 
-  sh 'asdf update'
-  sh 'asdf plugin-update --all'
+  sh 'asdf plugin update --all'
 end
 
 def clear_screen
