@@ -14,23 +14,6 @@ export HASKELL_INSTALL_PATH=$HOME/.local/bin
 # export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
 # [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
 
-# MONO
-# export MONO_GAC_PREFIX="/usr/local"
-# export FrameworkPathOverride=/usr/local/Cellar/mono/5.4.1.6/lib/mono/4.5
-
-# PHP
-export PHP_PATH=$homebrew_prefix[$CPUTYPE]/opt/php@7.4/bin:$homebrew_prefix[$CPUTYPE]/opt/php@7.4/sbin
-[ -d $homebrew_prefix[$CPUTYPE]/opt/php@7.4 ] && export PATH=$PHP_PATH:$PATH
-
-# php composer path
-export COMPOSER_PATH=~/.config/composer/vendor/bin
-[ -d $COMPOSER_PATH ] && export PATH=$COMPOSER_PATH:$PATH
-
-# jenv path
-export JENV_PATH=$HOME/.jenv/bin
-[ -d $JENV_PATH ] && export PATH=$PATH:$JENV_PATH && eval "$(jenv init -)"
-
-
  # Nix
  # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
  #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -46,6 +29,7 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 source $HOME/.cargo/env
 source "$HOME/.config/rustlang/autocomplete/rustup"
+
 fi
 
 export IDRIS2_PATH=$HOME/.idris2
