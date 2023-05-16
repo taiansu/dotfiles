@@ -40,3 +40,6 @@ fi
 
 export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
 [ -d $DOTNET_TOOLS_PATH ] && export PATH=$PATH:$DOTNET_TOOLS_PATH
+
+# Added by OrbStack: command-line tools and integration
+#source ~/.orbstack/shell/init.zsh 2>/dev/null || :
