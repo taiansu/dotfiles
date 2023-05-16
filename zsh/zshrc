@@ -243,20 +243,6 @@ function hr {
   print ${(l:COLUMNS::=:)}
 }
 
-# uninstall rails
-uninstallRails() {
-  gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails" "arel")
-  if [[ "$1" =~ "^3" ]] ; then
-    gems+=("activeresource")
-  else
-    gems+=("actionview" "activejob" "nio4r" "actioncable" "rails-dom-testing")
-  fi
-
-  for gem in $gems; do
-    gem uninstall $gem -v=$1 --force
-  done
-}
-
 # Hide desktop icons
 function desktopIcons() {
   defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
@@ -317,11 +303,8 @@ fi
 
 source ~/.dotfiles/zsh/aliasrc
 
-if [[ -f ~/.dotfiles/credentials ]]; then
-  source ~/.dotfiles/credentials
-fi
 # source google-cloud-sdk
-if [[ -s $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
+if [[ -s $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
   source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
@@ -346,10 +329,6 @@ fi
 # asdf
 if [[ -f ~/.asdf/asdf.sh ]]; then
   source $HOME/.asdf/asdf.sh
-fi
-
-if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
-  source /opt/homebrew/opt/asdf/libexec/asdf.sh
 fi
 
 # tre
@@ -383,6 +362,9 @@ fi
 # [ -s "/Users/tai/.bun/_bun" ] && source "/Users/tai/.bun/_bun"
 # export BUN_INSTALL="/Users/tai/.bun"
 # export PATH="$BUN_INSTALL/bin:$PATH"
+
+# atuin
+eval "$(atuin init zsh)"
 
 # zprof
 

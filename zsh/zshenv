@@ -3,6 +3,11 @@
 # vim:filetype=zsh
 
 # https://blog.patshead.com/2011/04/improve-your-oh-my-zsh-startup-time-maybe.html
+
+if [[ -f ~/.dotfiles/credentials ]]; then
+  source ~/.dotfiles/credentials
+fi
+
 skip_global_compinit=1
 
 # http://disq.us/p/f55b78
@@ -29,4 +34,3 @@ export HOMEBREW_NO_ANALYTICS=1
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
-
