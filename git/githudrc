@@ -59,7 +59,7 @@ merge_branch_commits_indicator=
 # If the orphan branch was created properly though (git branch --orphan gh-pages)
 # gitHUD will autodetect that it is orphan and not show this part of the prompt automatically
 # -------------------------------------------------------------------------------------------
-# merge_branch_ignore_branches=gh-pages,
+merge_branch_ignore_branches=gh-pages,main
 #
 # --
 # show_part_local_branch=True
