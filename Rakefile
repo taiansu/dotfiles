@@ -1,16 +1,14 @@
 require 'mkmf'
 require 'rake'
 
-task default: %w[update:tasks_with_commit update:finish_msg]
+task default: %w[update:all_tasks update:finish_msg]
 
 namespace :update do # rubocop: disable BlockLength
-  multitask async_tasks: %w[homebrew vim_with_commit]
-  task tasks_with_commit: %w[async_tasks source] # rubocop: disable LineLength
-  # multitask async_tasks_with_commit: %w[homebrew vim_with_commit source] # rubocop: disable LineLength
-  desc 'Update all without commit plug.vim'
-  task only: %w[homebrew vim asdf]
+  # multitask async_tasks: %w[homebrew vim]
+  # task tasks_by_step: %w[async_tasks source]
+  multitask all_tasks: %w[homebrew vim]
 
-  %i[homebrew cask npm yarn vim vim_with_commit source asdf].each do |task_name| # rubocop: disable LineLength
+  %i[homebrew cask npm yarn vim source asdf].each do |task_name| # rubocop: disable LineLength
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -65,7 +63,7 @@ def update_cask
   sh "brew cask install #{update_apps.join(' ')} --force" unless update_apps.empty? # rubocop: disable LineLength
 end
 
-def  update_npm
+def update_npm
   return unless find_executable 'npm'
 
   sh 'npm set progress=false && npm update -g'
@@ -79,23 +77,9 @@ def update_yarn
 end
 
 def update_vim
-  vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin", "+qall"'  # rubocop: disable LineLength
+  # vim_update = 'nvim "+set nomore" "+PackerSync" "+MasonUpdate" "+qall"'
+  vim_update = 'nvim "+set nomore" "+PackerSync" "+MasonUpdate"'
   sh vim_update
-
-  return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
-
-  Dir.chdir "#{Dir.home}/Projects/vimrc"
-  File.delete 'vim/autoload/plug.vim.old'
-end
-
-def update_vim_with_commit
-  update_vim
-
-  return unless File.exist? "#{Dir.home}/.vim/autoload/plug.vim.old"
-
-  Dir.chdir "#{Dir.home}/Projects/vimrc"
-  File.delete 'vim/autoload/plug.vim.old'
-  sh 'git add vim/autoload && git commit -m "update plug.vim"'
 end
 
 def update_source
