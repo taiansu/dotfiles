@@ -140,7 +140,7 @@ topTypedHistory(){
   awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
 
-alias nix=$HOME/.nix-profile/etc/profile.d/nix.sh
+# alias nix=$HOME/.nix-profile/etc/profile.d/nix.sh
 
 alias AWSEG="AWS_PROFILE=eagle"
 

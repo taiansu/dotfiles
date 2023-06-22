@@ -77,9 +77,10 @@ def update_yarn
 end
 
 def update_vim
-  # vim_update = 'nvim "+set nomore" "+PackerSync" "+MasonUpdate" "+qall"'
-  vim_update = 'nvim "+set nomore" "+PackerSync" "+MasonUpdate"'
-  sh vim_update
+  [
+    'nvim --headless "+Lazy! sync" "+qa"',
+    'nvim --headless +MasonUpdate +qa',
+  ].each { |cmd| sh cmd }
 end
 
 def update_source
