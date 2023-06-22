@@ -147,6 +147,13 @@ alias AWSEG="AWS_PROFILE=eagle"
 # vscode
 alias c="code"
 
+# ydkb
+alias unmount_ydkb="diskutil umount /Volumes/BLE660C"
+update_ydkb() {
+  if [[ $2 == "" ]]; then bin_file="./BLE660C.BIN"; else bin_file = "$2"; fi
+  sudo dd if="$bin_file" of=/dev/disk"$1" seek=4
+}
+
 ##
 # god file
 alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
