@@ -8,12 +8,15 @@ homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
 fpath=(${ASDF_DIR}/completions $fpath)
-autoload -U +X bashcompinit && bashcompinit
-autoload -U +X compinit && compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+autoload -U +X bashcompinit
+autoload -Uz compinit 
+
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  bashcompinit;
+	compinit;
+else
+	compinit -C;
+fi;
 
 autoload -Uz promptinit colors
 colors
@@ -355,8 +358,6 @@ fi
 
 # idris2
 if [[ -f ~/.idris2/bin/idris2 ]]; then
-  autoload -U +X compinit && compinit
-  autoload -U +X bashcompinit && bashcompinit
   eval "$(idris2 --bash-completion-script idris2)"
 fi
 
@@ -364,3 +365,6 @@ fi
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+# call zprof at the end of file
+# zprof
