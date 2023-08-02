@@ -281,8 +281,9 @@ function precmd() {
 
 # source
 
-# zsh-syntax-highlighting
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-fast-syntax-highlighting
+[[ -s $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # zsh-history-substring-search
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -358,11 +359,6 @@ if [[ -f ~/.idris2/bin/idris2 ]]; then
   autoload -U +X bashcompinit && bashcompinit
   eval "$(idris2 --bash-completion-script idris2)"
 fi
-
-# atuin
-[[ -f $homebrew_prefix[$CPUTYPE]/bin/atuin ]] && eval "$(atuin init zsh)"
-
-# zprof
 
 # [ -f "#{HOME}/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
 
