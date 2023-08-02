@@ -157,3 +157,6 @@ update_ydkb() {
 ##
 # god file
 alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sort -r | head -n 20'
+
+# mjubot
+alias mju="npm run --prefix ~/Projects/mjubot -- "
