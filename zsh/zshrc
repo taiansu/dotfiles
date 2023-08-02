@@ -238,6 +238,11 @@ bindkey -M isearch . self-insert # history search fix
 #   echo "${trunc_path: : -1}"
 # }
 
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 5); do /usr/bin/time $shell -i -c exit; done
+}
+
 function mkcd() {
   mkdir "$1"
   cd "$1"
