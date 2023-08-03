@@ -8,12 +8,11 @@ homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
 fpath=(${ASDF_DIR}/completions $fpath)
-autoload -U +X bashcompinit
-autoload -Uz compinit 
+autoload -Uz compinit bashcompinit
 
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit;
   bashcompinit;
-	compinit;
 else
 	compinit -C;
 fi;
