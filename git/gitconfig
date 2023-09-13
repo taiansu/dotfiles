@@ -46,6 +46,8 @@
   shp   = stash pop
   shu   = stash -u
   st    = status
+  sw    = switch
+  rs    = restore
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
 [core]

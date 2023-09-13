@@ -104,9 +104,6 @@ alias Pim="MIX_ENV=prod iex -S mix"
 alias Pmix="MIX_ENV=prod mix"
 alias Tmix="MIX_ENV=test mix"
 
-# stack
-alias ghci="stack ghci"
-
 # terraform
 alias tf="terraform"
 alias tg="terragrunt"
