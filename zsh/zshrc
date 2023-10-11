@@ -370,5 +370,9 @@ fi
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+[ -f "/Users/tai/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
+
+export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
+
 # call zprof at the end of file
 # zprof
