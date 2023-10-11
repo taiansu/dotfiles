@@ -365,14 +365,13 @@ if [[ -f ~/.idris2/bin/idris2 ]]; then
   eval "$(idris2 --bash-completion-script idris2)"
 fi
 
-# [ -f "#{HOME}/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-
 [ -f "/Users/tai/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
 # call zprof at the end of file
 # zprof
+
