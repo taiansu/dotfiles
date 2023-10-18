@@ -1,0 +1,7 @@
+local.hex
+local.rebar
+archive.install hex phx_new
+archive.install hex nerves_bootstrap
+archive.install hex credo
+archive.install hex bunt
+archive.install hex jason
