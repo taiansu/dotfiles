@@ -116,7 +116,7 @@ alias .net="dotnet"
 alias fsi="dotnet fsi"
 
 # ripgrep
-alias rg="rg --stats"
+alias rgs="rg --stats"
 
 # AWS default profile
 # export AWS_DEFAULT_PROFILE="some iam account"
@@ -157,3 +157,9 @@ alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sor
 
 # mjubot
 alias mju="npm run --prefix ~/Projects/mjubot -- "
+
+# yt-dlp
+alias yd="yt-dlp"
+
+# asdf
+alias apm="asdf local python miniconda3-latest"
