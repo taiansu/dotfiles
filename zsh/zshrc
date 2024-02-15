@@ -49,8 +49,8 @@ else
   _prompt="%F{reset_color%}𝝺"
 fi
 
-if which "git-radar" > /dev/null; then
-  PROMPT='$_path%F{reset_color}$(git-radar --zsh --fetch) $_prompt%b%f%k%F{white} '
+if type "githud" > /dev/null; then
+  PROMPT='$_path %F{reset_color}$(gitHUD zsh) $_prompt%b%f%k%F{white} '
 else
   autoload -Uz vcs_info
   zstyle ':vcs_info:*' enable git
