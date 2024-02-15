@@ -1,7 +1,6 @@
 tap "1password/tap"
 tap "charmbracelet/tap"
 tap "daipeihust/tap"
-tap "gbataille/gba"
 tap "github/gh"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -9,6 +8,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "michaeldfallen/formula"
 tap "muesli/tap"
 tap "possatti/possatti"
 brew "act"
@@ -130,7 +130,6 @@ brew "vim"
 brew "watchexec"
 brew "wget"
 brew "wireguard-tools"
-brew "youtube-dl"
 brew "yq"
 brew "yt-dlp"
 brew "z3"
@@ -148,11 +147,9 @@ cask "1password"
 cask "1password-cli"
 cask "alfred"
 cask "anki"
-cask "audacity"
 cask "calibre"
 cask "canva"
 cask "charles"
-cask "commander-one"
 cask "daisydisk"
 cask "dash"
 cask "deckset"
@@ -161,13 +158,11 @@ cask "discord"
 cask "docker"
 cask "dropbox"
 cask "fig"
-cask "firefox"
 cask "font-baskervville"
 cask "font-bitstream-vera-sans-mono-nerd-font"
 cask "font-cormorant-garamond"
 cask "font-fantasque-sans-mono"
 cask "font-fira-code-nerd-font"
-cask "font-hasklig"
 cask "font-intel-one-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-libre-baskerville"
@@ -180,72 +175,46 @@ cask "font-source-sans-pro"
 cask "google-chrome"
 cask "google-cloud-sdk"
 cask "google-drive"
-cask "grammarly-desktop"
-cask "hammerspoon"
 cask "hook"
 cask "iina"
-cask "insomnia"
 cask "istat-menus"
 cask "iterm2"
 cask "jetbrains-toolbox"
-cask "kaleidoscope"
 cask "kobo"
-cask "kodi"
-cask "ledger-live"
 cask "livebook"
 cask "logitech-options"
 cask "logitech-presentation"
 cask "logseq"
-cask "luxmark"
-cask "mactex"
 cask "mark-text"
-cask "microsoft-auto-update"
-cask "microsoft-edge"
 cask "miro"
-cask "mono-mdk-for-visual-studio"
 cask "musescore"
 cask "notion"
 cask "obsidian"
 cask "onedrive"
-cask "owasp-zap"
 cask "pdf-expert"
 cask "postman"
-cask "qview"
 cask "raindropio"
 cask "raycast"
 cask "setapp"
 cask "shureplus-motiv"
 cask "sizzy"
 cask "sketch"
-cask "skype"
-cask "slab"
-cask "sourcetree"
-cask "spotify"
 cask "squirrel"
 cask "steam"
 cask "surfshark"
 cask "suspicious-package"
 cask "transmission"
-cask "visual-studio"
 cask "visual-studio-code"
-cask "vlc"
 cask "welly"
 cask "wkhtmltopdf"
 cask "xld"
 cask "zoom"
 mas "1Password for Safari", id: 1569813296
-mas "Bluefruit Connect", id: 1494760882
 mas "Calcbot", id: 931657367
 mas "CalcTape", id: 945336271
 mas "Clearview", id: 557090104
 mas "Cloud Battery", id: 1481005137
-mas "Coin Stats", id: 1387758574
-mas "Coin Stats", id: 1498417304
 mas "Copied", id: 1026349850
-mas "Crypto Pro", id: 980888073
-mas "DaisyDisk", id: 411643860
-mas "Debit & Credit", id: 882637653
-mas "Developer", id: 640199958
 mas "Disk Speed Test", id: 425264550
 mas "Drafts", id: 1435957248
 mas "Eagle for Safari", id: 1526651672
@@ -254,7 +223,6 @@ mas "Fantastical", id: 975937182
 mas "Final Cut Pro", id: 424389933
 mas "Gemini 2", id: 1090488118
 mas "GoodNotes", id: 1444383602
-mas "Grammarly for Safari", id: 1462114288
 mas "Highlights", id: 1498912833
 mas "iMovie", id: 408981434
 mas "iReal Pro", id: 409035833
@@ -271,30 +239,21 @@ mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "MindNode", id: 1289197285
-mas "Moom", id: 419330170
-mas "Musicnotes", id: 1025073421
-mas "nkoda", id: 1386771502
 mas "Notability", id: 360593530
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pastebot", id: 1179623856
 mas "Playgrounds", id: 1496833156
 mas "PLIST Editor", id: 1157491961
-mas "QR Journal", id: 483820530
-mas "Reader", id: 1179373118
 mas "Save to Raindrop.io", id: 1549370672
-mas "Save to Reader", id: 1640236961
 mas "Slack", id: 803453959
 mas "Smart JSON Editor", id: 1268962404
 mas "Soulver 2", id: 413965349
 mas "Spark", id: 1176895641
 mas "Speedtest", id: 1153157709
 mas "Tab Space", id: 1473726602
-mas "Tayasui Sketches", id: 1178074963
 mas "Telegram", id: 747648890
 mas "The Unarchiver", id: 425424353
-mas "TheExplorers", id: 1436285774
-mas "Tweetbot", id: 1384080005
 mas "Xcode", id: 497799835
 mas "熊掌記（Bear）", id: 1091189122
 vscode "adpyke.vscode-sql-formatter"
