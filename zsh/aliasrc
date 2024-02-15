@@ -14,20 +14,19 @@ alias re="repeat"
 alias o="open -a"
 
 # ls aliases
-if command -V exa >/dev/null 2>&1; then
-  alias l="exa --git"
-  alias la="exa -al --git"
-  alias ll="exa -alFh --git"
+if command -V eza >/dev/null 2>&1; then
+  alias l="eza --git"
+  alias ll="eza -alh -F=auto --git"
   alias sl="l"
-  alias lt="exa --tree"
-  alias llt="exa --tree --long --git"
+  alias lt="eza --tree"
+  alias llt="eza --tree --long --git"
 else
-  alias ls="ls -G"
   alias l="ls -CF"
   alias la="ls -al"
   alias ll="ls -alFh"
   alias sl="ls"
 fi
+alias ls="ls -G"
 
 # tail
 alias tl="tail"

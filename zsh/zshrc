@@ -49,8 +49,8 @@ else
   _prompt="%F{reset_color%}𝝺"
 fi
 
-if type "gitHUD" > /dev/null; then
-  PROMPT='$_path %F{reset_color}$(gitHUD zsh) $_prompt%b%f%k%F{white} '
+if which "git-radar" > /dev/null; then
+  PROMPT='$_path%F{reset_color}$(git-radar --zsh --fetch) $_prompt%b%f%k%F{white} '
 else
   autoload -Uz vcs_info
   zstyle ':vcs_info:*' enable git
@@ -291,7 +291,6 @@ function precmd() {
 
 # zsh-fast-syntax-highlighting
 [[ -s $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-# source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # zsh-history-substring-search
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh

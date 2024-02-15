@@ -47,7 +47,7 @@ brew "docker", link: false
 brew "dotnet"
 brew "dotnet@6"
 brew "wxwidgets"
-brew "exa"
+brew "eza"
 brew "exercism"
 brew "exiftool"
 brew "fd"
