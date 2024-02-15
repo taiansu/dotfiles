@@ -94,14 +94,8 @@
   rebase = false
 [init]
   defaultBranch = main
-[commit]
-  gpgsign = true
-  template = ~/.stCommitMsg
 [tag]
   forceSignAnnotated = true
-  gpgSign = true
-[gpg]
-  program = gpg2
 [interactive]
   diffFilter = diff-so-fancy --patch
 [color "diff-highlight"]
@@ -117,3 +111,16 @@
   old = red bold
   new = green bold
   whitespace = red reverse
+
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFQYIeJufyOwEdzNwXqqVpaFnliJCrtY29blKSY1Pxgz
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+
