@@ -88,6 +88,7 @@ export EDITOR="nvim"
 # export EDITOR="vimr"
 export VEDITOR="code"
 alias nv="nvim"
+alias vr="vimr"
 
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
@@ -159,6 +160,3 @@ alias mju="npm run --prefix ~/Projects/mjubot -- "
 
 # yt-dlp
 alias yd="yt-dlp"
-
-# asdf
-alias apm="asdf local python miniconda3-latest"
