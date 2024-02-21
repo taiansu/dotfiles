@@ -304,7 +304,10 @@ if [[ test_declare(history-substring-search-up) ]]; then
 fi
 
 # autojump
-[ -f $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh ] && . $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh
+# [ -f $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh ] && . $homebrew_prefix[$CPUTYPE]/etc/profile.d/autojump.sh
+
+# zoxide
+[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd j)"
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
