@@ -50,6 +50,7 @@
   rs    = restore
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
+  wt    = worktree
 [core]
   excludesfile = ~/.gitignore
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
