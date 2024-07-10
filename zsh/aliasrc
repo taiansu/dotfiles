@@ -160,3 +160,6 @@ alias mju="npm run --prefix ~/Projects/mjubot -- "
 
 # yt-dlp
 alias yd="yt-dlp"
+
+# zed
+alias z="zed"
