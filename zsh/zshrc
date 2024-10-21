@@ -339,11 +339,6 @@ if [[ -f ~/.fzf.zsh ]]; then
   }
 fi
 
-# asdf
-if [[ -f ~/.asdf/asdf.sh ]]; then
-  source $HOME/.asdf/asdf.sh
-fi
-
 # tre
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
