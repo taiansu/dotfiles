@@ -111,6 +111,9 @@ alias tg="terragrunt"
 # ansible
 alias anpb="ansible-playbook"
 
+# mise
+alias asdf="mise"
+
 # dotnet
 alias .net="dotnet"
 alias fsi="dotnet fsi"

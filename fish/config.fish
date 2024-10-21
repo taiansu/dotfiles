@@ -148,9 +148,14 @@ set -gx AWS_DEFAULT_PROFILE "blog"
 # Typora
 abbr typora "open -a Typora"
 
+if status is-interactive
+  mise activate fish | source
+else
+  mise activate fish --shims | source
+end
+
 [ -f ~/.iterm2_shell_integration.fish ]
 and source ~/.iterm2_shell_integration.fish
-[ -f ~/.asdf/asdf.fish ]
-and source ~/.asdf/asdf.fish
+
 [ -f /usr/local/share/autojump/autojump.fish ]
 and source /usr/local/share/autojump/autojump.fish

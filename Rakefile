@@ -8,7 +8,7 @@ namespace :update do # rubocop: disable BlockLength
   # task tasks_by_step: %w[async_tasks source]
   multitask all_tasks: %w[homebrew vim]
 
-  %i[homebrew cask npm yarn vim source asdf].each do |task_name| # rubocop: disable LineLength
+  %i[homebrew cask npm yarn vim source mise].each do |task_name| # rubocop: disable LineLength
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -99,10 +99,11 @@ def git_pull(dir)
   sh 'git stash pop' if has_stash
 end
 
-def update_asdf
-  return unless find_executable 'asdf'
+def update_mise
+  return unless find_executable 'mise'
 
-  sh 'asdf plugin update --all'
+  sh 'mise self-update'
+  sh 'mise upgrade'
 end
 
 def clear_screen

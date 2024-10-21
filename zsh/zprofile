@@ -1,6 +1,14 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zprofile.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zprofile.pre.zsh"
 declare -A homebrew_prefix
+
+# mise
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  eval "$($HOME/.local/bin/mise activate zsh --shims)"
+elif; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi
+
 homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
