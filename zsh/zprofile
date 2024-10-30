@@ -2,19 +2,21 @@
 [[ -f "$HOME/.fig/shell/zprofile.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zprofile.pre.zsh"
 declare -A homebrew_prefix
 
-# mise
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  eval "$($HOME/.local/bin/mise activate zsh --shims)"
-elif; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
-fi
-
 homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export LANG=en_US.UTF-8
+
+# mise
+
+if [[ "$TERM_PROGRAM" == "vscode" || "$TERM_PROGRAM" == "zed" ]]; then
+  eval "$($HOME/.local/bin/mise activate zsh --shims)"
+elif; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi
+
 
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
