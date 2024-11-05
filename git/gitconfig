@@ -112,16 +112,3 @@
   old = red bold
   new = green bold
   whitespace = red reverse
-
-[user]
-  ***REMOVED***
-
-[gpg]
-  format = ssh
-
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-
-[commit]
-  gpgsign = true
-
