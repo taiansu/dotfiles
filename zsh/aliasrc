@@ -161,6 +161,13 @@ alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sor
 # mjubot
 alias mju="npm run --prefix ~/Projects/mjubot -- "
 
+# venv
+alias von="source .venv/bin/activate"
+alias voff="deactivate"
+
+# windsurf
+alias ws="windsurf"
+
 # yt-dlp
 alias yd="yt-dlp"
 
