@@ -324,7 +324,7 @@ fi
 
 
 # fzf
-if [[ $TERM_PROGRAM != "WarpTerminal"]]; then
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   source <(fzf --zsh)
 
   # Use fd (https://github.com/sharkdp/fd) instead of the default find
