@@ -50,6 +50,8 @@
   rs    = restore
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
+  # sign tags
+  tag = tag -s
   wt    = worktree
 [core]
   excludesfile = ~/.gitignore
@@ -114,3 +116,5 @@
   whitespace = red reverse
 [rebase]
 	authstash = true
+[commit]
+	gpgsign = true
