@@ -9,15 +9,6 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export LANG=en_US.UTF-8
 
-# mise
-
-if [[ "$TERM_PROGRAM" == "vscode" || "$TERM_PROGRAM" == "zed" ]]; then
-  eval "$($HOME/.local/bin/mise activate zsh --shims)"
-elif; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
-fi
-
-
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
 [ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
