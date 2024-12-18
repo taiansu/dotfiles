@@ -40,7 +40,6 @@ create_symlink() {
 echo "開始設定 dotfiles..."
 
 files = [
-  "ctags",
   "git/gitconfig",
   "git/gitignore",
   "git/githudrc",
