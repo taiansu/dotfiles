@@ -384,6 +384,7 @@ else
 fi
 
 
+[[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] && source "$HOME/.dotfiles/fzf-git/fzf-git.sh"
 
 # call zprof at the end of file
 # zprof
