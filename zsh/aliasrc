@@ -15,6 +15,7 @@ alias o="open -a"
 
 # ls aliases
 if command -V eza >/dev/null 2>&1; then
+  alias ls="eza --color=always --long --git"
   alias l="eza --git"
   alias ll="eza -alh -F=auto --git"
   alias sl="l"

@@ -135,9 +135,6 @@ abbr imp "env MIX_ENV=prod iex -S mix"
 # stack
 abbr ghci "stack ghci"
 
-# vagrant
-abbr vg "vagrant"
-
 # please
 alias please "sudo"
 alias pls "sudo"
@@ -157,5 +154,6 @@ end
 [ -f ~/.iterm2_shell_integration.fish ]
 and source ~/.iterm2_shell_integration.fish
 
-[ -f /usr/local/share/autojump/autojump.fish ]
-and source /usr/local/share/autojump/autojump.fish
+[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] 
+and eval "$(zoxide init zsh --cmd j)"
+
