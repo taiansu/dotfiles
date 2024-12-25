@@ -163,8 +163,8 @@ alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sor
 alias mju="npm run --prefix ~/Projects/mjubot -- "
 
 # venv
-alias von="source .venv/bin/activate"
-alias voff="deactivate"
+alias va="source .venv/bin/activate"
+alias vd="deactivate"
 
 # windsurf
 alias ws="windsurf"
