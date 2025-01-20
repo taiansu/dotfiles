@@ -5,7 +5,6 @@ declare -A homebrew_prefix
 homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
-fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit bashcompinit
 
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
@@ -355,6 +354,13 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     esac
   }
 fi
+
+# ghostty
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+
 
 # tre
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
