@@ -269,33 +269,7 @@ function precmd() {
     echo -ne "\e]1;${PWD##*/}\a"
 }
 
-# Extras
-#
-# if [ -n "$INSIDE_EMACS" ]; then
-#   chpwd() { print -P "\033AnSiTc %d" }
-#   print -P "\033AnSiTu %n"
-#   print -P "\033AnSiTc %d"
-# fi
-
-# if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
-#   stty ek
-# fi
-
 # source
-
-# zsh-fast-syntax-highlighting
-[[ -s $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-# zsh-history-substring-search
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# zsh-autosuggestions
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-if [[ test_declare(history-substring-search-up) ]]; then
-  bindkey "$terminfo[kcuu1]" history-substring-search-up
-  bindkey "$terminfo[kcud1]" history-substring-search-down
-fi
 
 # zoxide
 [ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd j)"
@@ -367,12 +341,6 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
 
-# if [ -n "$INSIDE_EMACS" ]; then
-#   bindkey "^[OA" history-substring-search-up
-#   bindkey "^[OB" history-substring-search-down
-# else
-# fi
-
 # rust
 if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
   mkdir -p ~/.config/rustlang/autocomplete
@@ -396,14 +364,10 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
 fi
 
 # mise
-if [[ "$TERM_PROGRAM" == "vscode" || "$TERM_PROGRAM" == "zed" || "$TERM_PROGRAM" == "windsurf" ]]; then
-  eval "$($HOME/.local/bin/mise activate zsh --shims)"
-else
-  eval "$($HOME/.local/bin/mise activate zsh)"
-fi
-
+eval "$($HOME/.local/bin/mise activate zsh)"
 
 [[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] && source "$HOME/.dotfiles/fzf-git/fzf-git.sh"
+
 export BAT_THEME=DarkNeon
 
 # call zprof at the end of file
