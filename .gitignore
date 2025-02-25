@@ -2,3 +2,4 @@
 dotfiles_backup
 data
 *_credential
+*.zwc
