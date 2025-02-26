@@ -1,18 +1,49 @@
 ### Profile
 # zmodload zsh/zprof
 
+# ghostty
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+
 declare -A homebrew_prefix
 homebrew_prefix[x86_64]=/usr/local
 homebrew_prefix[arm64]=/opt/homebrew
 
+#####
+
+# Load completion functions
 autoload -Uz compinit bashcompinit
 
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit;
-  bashcompinit;
+# Define helper function for compilation
+function zcompile-many() {
+  local f
+  for f; do zcompile -R -- "$f".zwc "$f"; done
+}
+
+# Determine dump file location
+zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+
+# Initialize based on dump file age
+if [[ -n "$zcompdump"(#qN.mh+24) ]]; then
+  # Dump file is older than 24 hours, recreate it
+  compinit
+  bashcompinit
 else
-	compinit -C;
-fi;
+  # Dump file is recent, skip security checks for speed
+  compinit -C
+  bashcompinit
+fi
+
+# Compile dump file if needed
+[[ "$zcompdump.zwc" -nt "$zcompdump" ]] || zcompile-many "$zcompdump"
+
+# Clean up
+unfunction zcompile-many
+unset zcompdump
+
+#####
 
 autoload -Uz promptinit colors
 colors
@@ -24,6 +55,22 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 autoload backward-delete-word
 zle -N backward-delete-word
+
+# zsh-autosuggestions
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-history-substring-search
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# zsh-f-sy-h
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh
+
+if [[ test_declare(history-substring-search-up) ]]; then
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Default colors:
 # White for users, red for root, yellow for system users
@@ -100,7 +147,7 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # KERL
 export KERL_BUILD_DOCS=yes
-export KERL_INSTALL_MANPAGES=yes
+export KERL_INSTALL_MANPAGES=no
 
 ##
 # zsh configuration
@@ -131,22 +178,42 @@ export TERM="xterm-256color"
 # Completion system
 #
 
+
+# Global completion settings first
+zstyle ":completion:*" use-cache on
+zstyle ":completion:*" cache-path $XDG_CACHE_HOME/zsh
 zstyle ":completion:*" auto-description "specify: %d"
-zstyle ":completion:*" completer _expand _complete _correct _approximate
 zstyle ":completion:*" format "Completing %d"
 zstyle ":completion:*" group-name ""
 zstyle ":completion:*" menu select=2
 zstyle ":completion:*:default" list-colors ${(s.:.)LS_COLORS}
-zstyle ":completion:*" list-colors ""
 zstyle ":completion:*" list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ":completion:*" matcher-list "" "m:{a-z}={A-Z}" "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=* l:|=*"
-zstyle ":completion:*" menu select=long
 zstyle ":completion:*" select-prompt %SScrolling active: current selection at %p%s
-zstyle ":completion:*" verbose true
-
 zstyle ":completion:*:*:kill:*:processes" list-colors "=(#b) #([0-9]#)*=0=01;31"
 zstyle ":completion:*:kill:*" command "ps -u $USER -o pid,%cpu,tty,cputime,cmd"
 
+# Man-specific settings with highest precedence
+#
+# _man_wrapper() {
+#   if { [[ ! -v _man ]] || _cache_invalid man } && ! _retrieve_cache man; then
+#     typeset -gU _man=(${^${(s.:.)MANPATH}}/**/*(-.N:t:r))
+#     _store_cache man _man
+#   fi
+#   _wanted man expl man compadd -a _man
+# }
+
+# Replace the built-in man completion with our wrapper
+# compdef _man_wrapper man
+compdef man man
+
+zstyle ':completion:*:*:man:*' completer _complete  # Simpler completer just for man
+zstyle ':completion:*:*:man:*' require-match true   # Don't try completion unless it can find matches
+zstyle ':completion:*:*:man:*' min-prefix-length 2
+zstyle ':completion:*:*:man:*' insert-sections true
+zstyle ':completion:*:*:man:*' menu select=long     # Menu only for long lists
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals' accept-exact true
 
 ##
 # Keybinds
@@ -232,11 +299,6 @@ bindkey -M isearch . self-insert # history search fix
 #   echo "${trunc_path: : -1}"
 # }
 
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 5); do /usr/bin/time $shell -i -c exit; done
-}
-
 function mkcd() {
   mkdir "$1"
   cd "$1"
@@ -247,19 +309,10 @@ function hr {
   print ${(l:COLUMNS::=:)}
 }
 
-# Hide desktop icons
-function desktopIcons() {
-  defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
-}
-
 # Download Gist
 
 function gistDownload() {
   curl -L ${1}/download | tar -xvz --strip-components=1
-}
-
-function tagjs() {
-  find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
 }
 
 function precmd() {
@@ -319,7 +372,7 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   _fzf_comprun() {
     local command=$1
     shift
-   
+
     case "$command" in
       cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
       export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
@@ -328,13 +381,6 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     esac
   }
 fi
-
-# ghostty
-# Ghostty shell integration for Bash. This should be at the top of your bashrc!
-if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
-fi
-
 
 # tre
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
@@ -356,11 +402,8 @@ fi
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 
 # mise
