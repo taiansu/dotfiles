@@ -1,4 +1,4 @@
-### Profile
+### profile config
 # zmodload zsh/zprof
 
 # ghostty
@@ -62,13 +62,13 @@ zle -N backward-delete-word
 # zsh-history-substring-search
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-# zsh-f-sy-h
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh
-
 if [[ test_declare(history-substring-search-up) ]]; then
   bindkey "$terminfo[kcuu1]" history-substring-search-up
   bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
+
+# zsh-f-sy-h
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
@@ -134,24 +134,14 @@ else
   export XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
 fi
 
+##
+# zsh config
+#
+
 # add ~/.config/zsh/completion to completion paths
 # NOTE: this needs to be a directory with 0755 permissions, otherwise you will
 # get "insecure" warnings on shell load!
 # fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
-
-# ANSIBLE
-export ANSIBLE_NOCOWS=1
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-# KERL
-export KERL_BUILD_DOCS=yes
-export KERL_INSTALL_MANPAGES=no
-
-##
-# zsh configuration
-#
 
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
@@ -177,8 +167,6 @@ export TERM="xterm-256color"
 ##
 # Completion system
 #
-
-
 # Global completion settings first
 zstyle ":completion:*" use-cache on
 zstyle ":completion:*" cache-path $XDG_CACHE_HOME/zsh
@@ -193,18 +181,6 @@ zstyle ":completion:*" select-prompt %SScrolling active: current selection at %p
 zstyle ":completion:*:*:kill:*:processes" list-colors "=(#b) #([0-9]#)*=0=01;31"
 zstyle ":completion:*:kill:*" command "ps -u $USER -o pid,%cpu,tty,cputime,cmd"
 
-# Man-specific settings with highest precedence
-#
-# _man_wrapper() {
-#   if { [[ ! -v _man ]] || _cache_invalid man } && ! _retrieve_cache man; then
-#     typeset -gU _man=(${^${(s.:.)MANPATH}}/**/*(-.N:t:r))
-#     _store_cache man _man
-#   fi
-#   _wanted man expl man compadd -a _man
-# }
-
-# Replace the built-in man completion with our wrapper
-# compdef _man_wrapper man
 compdef man man
 
 zstyle ':completion:*:*:man:*' completer _complete  # Simpler completer just for man
@@ -226,8 +202,6 @@ bindkey "$terminfo[khome]" beginning-of-line # Home
 bindkey "$terminfo[kend]" end-of-line # End
 bindkey "$terminfo[kich1]" overwrite-mode # Insert
 bindkey "$terminfo[kdch1]" delete-char # Delete
-# bindkey "$terminfo[kcuu1]" up-line-or-history # Up
-# bindkey "$terminfo[kcud1]" down-line-or-history # Down
 bindkey "$terminfo[kcub1]" backward-char # Left
 bindkey "$terminfo[kcuf1]" forward-char # Right
 # bindkey "$terminfo[kpp]" # PageUp
@@ -322,7 +296,17 @@ function precmd() {
     echo -ne "\e]1;${PWD##*/}\a"
 }
 
-# source
+# source and configs
+
+# ANSIBLE
+export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# KERL
+export KERL_BUILD_DOCS=yes
+export KERL_INSTALL_MANPAGES=no
 
 # zoxide
 [ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd j)"
@@ -398,20 +382,23 @@ if [[ -f ~/.idris2/bin/idris2 ]]; then
   eval "$(idris2 --bash-completion-script idris2)"
 fi
 
+# ghcup
 [ -f "/Users/tai/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 
-if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
 # mise
 eval "$($HOME/.local/bin/mise activate zsh)"
 
+# fzf-git
 [[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] && source "$HOME/.dotfiles/fzf-git/fzf-git.sh"
 
 export BAT_THEME=DarkNeon
+
+# iterm shell integration
+if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 # call zprof at the end of file
 # zprof
