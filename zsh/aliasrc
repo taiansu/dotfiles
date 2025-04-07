@@ -64,11 +64,8 @@ export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
 
-# Headless Firefox
-alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
-
 # Youtube mp3
-alias youtube-mp3="youtube-dl --extract-audio --audio-format mp3"
+alias yt-mp3="yt-dlp -x --audio-format mp3"
 
 # sed
 if command -V gsed >/dev/null 2>&1; then
@@ -110,13 +107,13 @@ alias tf="terraform"
 alias tg="terragrunt"
 
 # ansible
-alias anpb="ansible-playbook"
+alias ap="ansible-playbook"
 
 # mise
 alias asdf="mise"
 
 # dotnet
-alias .net="dotnet"
+alias net="dotnet"
 alias fsi="dotnet fsi"
 
 # ripgrep
@@ -124,6 +121,8 @@ alias rgs="rg --stats"
 
 # AWS default profile
 # export AWS_DEFAULT_PROFILE="some iam account"
+
+alias AWSEG="AWS_PROFILE=eagle"
 
 man () {
   LESS_TERMCAP_md=$'\e'"[1;36m" \
@@ -142,8 +141,6 @@ topTypedHistory(){
 }
 
 # alias nix=$HOME/.nix-profile/etc/profile.d/nix.sh
-
-alias AWSEG="AWS_PROFILE=eagle"
 
 # vscode
 alias c="code"
@@ -171,9 +168,6 @@ alias vd="deactivate"
 
 # windsurf
 alias ws="windsurf"
-
-# yt-dlp
-alias yd="yt-dlp"
 
 # zed
 alias z="zed"
