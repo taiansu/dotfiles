@@ -68,7 +68,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --h
 alias yt-mp3="yt-dlp -x --audio-format mp3"
 
 # sed
-if command -V gsed >/dev/null 2>&1; then
+if command -V gsed &>/dev/null; then
   alias sed=gsed
 fi
 
@@ -79,7 +79,6 @@ alias g="git"
 alias lg="lazygit"
 
 # vim
-alias v="nvim"
 export EDITOR="nvim"
 # alias v="vimr -n"
 # alias vdiff="nvim -d"
@@ -87,6 +86,14 @@ export EDITOR="nvim"
 export VEDITOR="code"
 alias nv="nvim"
 alias vr="vimr"
+
+if command -v vimr &> /dev/null; then
+    alias v='vimr'
+elif command -v nvim &> /dev/null; then
+    alias v='nvim'
+elif command -v vim &> /dev/null; then
+    alias v='vim'
+fi
 
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
@@ -165,9 +172,6 @@ alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 # venv
 alias va="source .venv/bin/activate"
 alias vd="deactivate"
-
-# windsurf
-alias ws="windsurf"
 
 # zed
 alias z="zed"
