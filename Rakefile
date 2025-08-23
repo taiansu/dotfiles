@@ -102,8 +102,7 @@ end
 def update_mise
   return unless find_executable 'mise'
 
-  sh 'mise self-update'
-  sh 'mise upgrade'
+  sh 'mise plugin update --all'
 end
 
 def clear_screen

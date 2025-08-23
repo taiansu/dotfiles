@@ -85,9 +85,12 @@ export EDITOR="nvim"
 # export EDITOR="vimr"
 export VEDITOR="code"
 alias nv="nvim"
+alias vd="neovide"
 alias vr="vimr"
 
-if command -v vimr &> /dev/null; then
+if command -v neovide &> /dev/null; then
+    alias v='neovide'
+elif command -v vimr &> /dev/null; then
     alias v='vimr'
 elif command -v nvim &> /dev/null; then
     alias v='nvim'
