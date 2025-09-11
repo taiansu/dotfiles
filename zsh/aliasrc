@@ -89,7 +89,7 @@ alias vd="neovide"
 alias vr="vimr"
 
 if command -v neovide &> /dev/null; then
-    alias v='neovide'
+    alias v='neovide --fork'
 elif command -v vimr &> /dev/null; then
     alias v='vimr'
 elif command -v nvim &> /dev/null; then
@@ -178,3 +178,28 @@ alias vd="deactivate"
 
 # zed
 alias z="zed"
+
+# ghostty
+##  search
+complete-screen-search() {
+  local current_line="$BUFFER"
+
+  if [[ -z "$current_line" ]]; then
+     # 空行：提示用戶先獲取螢幕內容
+     BUFFER="# Press Super+Alt+J first to get screen file, then use this hotkey"
+  elif [[ "$current_line" =~ ^[[:space:]]*/private/var/folders/.*/T/.*/screen\.txt$ ]]; then
+     # Ghostty 的螢幕檔案路徑格式：/private/var/folders/xx/亂碼/T/亂碼/screen.txt
+     BUFFER="cat $current_line | fzf"
+  elif [[ "$current_line" =~ ^[[:space:]]*/tmp/.*/screen\.txt$ ]]; then
+     # 其他可能的螢幕檔案路徑 (備用匹配)
+     BUFFER="cat $current_line | fzf"
+  else
+     # 其他情況，直接添加 pipe
+     BUFFER="$BUFFER | fzf"
+  fi
+
+  zle accept-line
+}
+
+zle -N complete-screen-search
+bindkey '^F' complete-screen-search
