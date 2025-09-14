@@ -102,6 +102,7 @@ end
 def update_mise
   return unless find_executable 'mise'
 
+  sh 'mise self-update'
   sh 'mise plugin update --all'
 end
 
