@@ -400,5 +400,8 @@ if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
+# kiro
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
 # call zprof at the end of file
 # zprof
