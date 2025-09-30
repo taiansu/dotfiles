@@ -55,12 +55,6 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 autoload backward-delete-word
 zle -N backward-delete-word
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr '*'
-zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:git*' formats "[%{$fg[white]%}%b%{$reset_color%}]%m%u%c%{$reset_color%}"
 
 # zsh-autosuggestions
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -78,8 +72,8 @@ fi
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-typeset -gaU precmd_functions
-precmd_functions+=(vcs_info)
+# gitstatus
+[[ -s $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh ]] && source $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh
 
 # Default colors:
 # White for users, red for root, yellow for system users
@@ -102,7 +96,22 @@ else
   _prompt="%F{reset_color%}𝝺"
 fi
 
-PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
+
+if [[ -s $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh ]]; then
+  PROMPT='$_path %F{reset_color}${GITSTATUS_PROMPT} $_prompt%b%f%k%F{white} '
+else
+  typeset -gaU precmd_functions
+  precmd_functions+=(vcs_info)
+
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' unstagedstr '*'
+  zstyle ':vcs_info:*' stagedstr '+'
+  zstyle ':vcs_info:git*' formats "[%{$fg[white]%}%b%{$reset_color%}]%m%u%c%{$reset_color%}"
+
+  PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
+fi
 
 local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then
