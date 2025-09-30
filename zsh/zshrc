@@ -55,6 +55,12 @@ autoload -Uz bracketed-paste-url-magic
 zle -N bracketed-paste bracketed-paste-url-magic
 autoload backward-delete-word
 zle -N backward-delete-word
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:git*' formats "[%{$fg[white]%}%b%{$reset_color%}]%m%u%c%{$reset_color%}"
 
 # zsh-autosuggestions
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -71,6 +77,9 @@ fi
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+typeset -gaU precmd_functions
+precmd_functions+=(vcs_info)
 
 # Default colors:
 # White for users, red for root, yellow for system users
@@ -93,13 +102,7 @@ else
   _prompt="%F{reset_color%}𝝺"
 fi
 
-if type "githud" > /dev/null; then
-  PROMPT='$_path %F{reset_color}$(gitHUD zsh) $_prompt%b%f%k%F{white} '
-else
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' enable git
-  PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
-fi
+PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
 
 local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then
