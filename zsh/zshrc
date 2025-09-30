@@ -72,9 +72,6 @@ fi
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# gitstatus
-[[ -s $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh ]] && source $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh
-
 # Default colors:
 # White for users, red for root, yellow for system users
 local _time="%F{246}[%*]"
@@ -96,22 +93,30 @@ else
   _prompt="%F{reset_color%}𝝺"
 fi
 
+## git status
+source ./.dotfiles/git-prompt.zsh/git-prompt.zsh
 
-if [[ -s $homebrew_prefix[$CPUTYPE]/opt/gitstatus/gitstatus.prompt.zsh ]]; then
-  PROMPT='$_path %F{reset_color}${GITSTATUS_PROMPT} $_prompt%b%f%k%F{white} '
-else
-  typeset -gaU precmd_functions
-  precmd_functions+=(vcs_info)
+ZSH_GIT_PROMPT_FORCE_BLANK=0
+ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
 
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' unstagedstr '*'
-  zstyle ':vcs_info:*' stagedstr '+'
-  zstyle ':vcs_info:git*' formats "[%{$fg[white]%}%b%{$reset_color%}]%m%u%c%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" ["
+ZSH_THEME_GIT_PROMPT_SUFFIX="] "
+ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
+ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_no_bold[cyan]%}:"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_no_bold[white]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳ "
+ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[red]%}(%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX="%{$fg[red]%})"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_no_bold[cyan]%}↓"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_no_bold[cyan]%}↑"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}x"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}o"
+ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}+"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
+ZSH_THEME_GIT_PROMPT_STASHED=""
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}v"
 
-  PROMPT='$_path %F{reset_color}${vcs_info_msg_0_} $_prompt%b%f%k%F{white} '
-fi
+PROMPT='$_path%F{reset_color}$(gitprompt)$_prompt%b%f%k%F{white} '
 
 local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then

@@ -1,3 +1,6 @@
 [submodule "fzf-git"]
 	path = fzf-git
 	url = https://github.com/junegunn/fzf-git.sh.git
+[submodule "git-prompt.zsh"]
+	path = git-prompt.zsh
+	url = https://github.com/woefe/git-prompt.zsh.git
