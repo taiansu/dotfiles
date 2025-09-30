@@ -8,7 +8,7 @@ namespace :update do # rubocop: disable BlockLength
   # task tasks_by_step: %w[async_tasks source]
   multitask all_tasks: %w[homebrew vim]
 
-  %i[homebrew cask npm yarn vim source mise].each do |task_name| # rubocop: disable LineLength
+  %i[homebrew cask npm yarn vim source mise ai].each do |task_name| # rubocop: disable LineLength
     desc "Update #{task_name}"
     task task_name do
       send "update_#{task_name}"
@@ -104,6 +104,12 @@ def update_mise
 
   sh 'mise self-update'
   sh 'mise plugin update --all'
+end
+
+def update_ai
+  sh 'claude update'
+  sh 'npm update -g @google/gemini-cli'
+  sh 'npm update -g @openai/codex'
 end
 
 def clear_screen
