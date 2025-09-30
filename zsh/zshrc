@@ -97,16 +97,17 @@ fi
 source ./.dotfiles/git-prompt.zsh/git-prompt.zsh
 
 ZSH_GIT_PROMPT_FORCE_BLANK=1
+ZSH_GIT_PROMPT_SHOW_STASH=0
 ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="["
-ZSH_THEME_GIT_PROMPT_SUFFIX="] "
-ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
+ZSH_THEME_GIT_PROMPT_SUFFIX="]"
+ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_no_bold[cyan]%}:"
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_no_bold[white]%}"
-ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳ "
-ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[red]%}(%{$fg[yellow]%}"
-ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX="%{$fg[red]%})"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX=""
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_no_bold[cyan]%}↓"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_no_bold[cyan]%}↑"
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}x"
@@ -116,7 +117,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 ZSH_THEME_GIT_PROMPT_STASHED="*"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-PROMPT='$_path%F{reset_color} $(gitprompt)$_prompt%b%f%k%F{white} '
+PROMPT='$_path%F{reset_color} $(gitprompt) $_prompt%b%f%k%F{white} '
 
 local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then
