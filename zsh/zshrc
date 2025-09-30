@@ -96,10 +96,10 @@ fi
 ## git status
 source ./.dotfiles/git-prompt.zsh/git-prompt.zsh
 
-ZSH_GIT_PROMPT_FORCE_BLANK=0
+ZSH_GIT_PROMPT_FORCE_BLANK=1
 ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" ["
+ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="] "
 ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
 ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_no_bold[cyan]%}:"
@@ -116,7 +116,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 ZSH_THEME_GIT_PROMPT_STASHED=""
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}v"
 
-PROMPT='$_path%F{reset_color}$(gitprompt)$_prompt%b%f%k%F{white} '
+PROMPT='$_path%F{reset_color} $(gitprompt)$_prompt%b%f%k%F{white} '
 
 local RPROMPT='$_time'
 if [[ ! -z "$SSH_CLIENT" ]]; then
