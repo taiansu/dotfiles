@@ -177,7 +177,7 @@ alias va="source .venv/bin/activate"
 alias vd="deactivate"
 
 # zed
-alias z="zed"
+alias z="zed -n"
 
 # ghostty
 ##  search
