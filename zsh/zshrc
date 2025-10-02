@@ -94,7 +94,7 @@ else
 fi
 
 ## git status
-source ./.dotfiles/git-prompt.zsh/git-prompt.zsh
+source ~/.dotfiles/git-prompt.zsh/git-prompt.zsh
 
 ZSH_GIT_PROMPT_FORCE_BLANK=1
 ZSH_GIT_PROMPT_SHOW_STASH=0
