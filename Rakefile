@@ -110,6 +110,7 @@ def update_ai
   sh 'claude update'
   sh 'npm update -g @google/gemini-cli'
   sh 'npm update -g @openai/codex'
+  sh ' npm update -g @github/copilot'
 end
 
 def clear_screen
