@@ -101,11 +101,6 @@ fi
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
-# bundle & rake
-alias k="rake"
-alias b="bundle"
-alias br="bundle exec rake"
-
 # mix
 alias im="iex -S mix"
 alias Pim="MIX_ENV=prod iex -S mix"
@@ -175,6 +170,9 @@ alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 # venv
 alias va="source .venv/bin/activate"
 alias vd="deactivate"
+
+# update dotfiles
+alias ud="cd ~/Projects/dotfiles && just"
 
 # zed
 alias z="zed -n"

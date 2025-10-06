@@ -327,7 +327,7 @@ export KERL_BUILD_DOCS=yes
 export KERL_INSTALL_MANPAGES=no
 
 # zoxide
-[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd j)"
+[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd cd)"
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
