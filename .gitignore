@@ -1,5 +1,6 @@
 *.log
 dotfiles_backup
 data
+hashrc
 *_credential
 *.zwc
