@@ -335,6 +335,7 @@ if [[ -f ~/.homebrew_github_api_token ]]; then
 fi
 
 source ~/.dotfiles/zsh/aliasrc
+[[ -f ~/.dotfiles/zsh/hashrc ]] && source ~/.dotfiles/zsh/hashrc
 
 # source google-cloud-sdk
 if [[ -s $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
