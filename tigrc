@@ -1,2 +1,0 @@
-set main-view	= line-number:no,interval=5 id:no date:default author:abbreviated commit-title:yes,graph,refs,overflow=no
-set vertical-split = vertical
