@@ -23,11 +23,11 @@ if command -V eza >/dev/null 2>&1; then
   alias llt="eza --tree --long --git"
 else
   alias l="ls -CF"
+  alias ls="ls -G"
   alias la="ls -al"
   alias ll="ls -alFh"
   alias sl="ls"
 fi
-alias ls="ls -G"
 
 # tail
 alias tl="tail"
@@ -184,7 +184,7 @@ complete-screen-search() {
 
   if [[ -z "$current_line" ]]; then
      # 空行：提示用戶先獲取螢幕內容
-     BUFFER="# Press Super+Alt+J first to get screen file, then use this hotkey"
+     BUFFER="# Press Shift+Super+J first to get screen file, then use this hotkey"
   elif [[ "$current_line" =~ ^[[:space:]]*/private/var/folders/.*/T/.*/screen\.txt$ ]]; then
      # Ghostty 的螢幕檔案路徑格式：/private/var/folders/xx/亂碼/T/亂碼/screen.txt
      BUFFER="cat $current_line | fzf"
