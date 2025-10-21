@@ -292,8 +292,7 @@ bindkey -M isearch . self-insert # history search fix
 # }
 
 function mkcd() {
-  mkdir "$1"
-  cd "$1"
+  mkdir "$1" && cd "$1"
 }
 
 # print a separator banner, as wide as the terminal
@@ -327,7 +326,7 @@ export KERL_BUILD_DOCS=yes
 export KERL_INSTALL_MANPAGES=no
 
 # zoxide
-[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ] && eval "$(zoxide init zsh --cmd cd)"
+[[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ]] && eval "$(zoxide init zsh --cmd cd)"
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
@@ -389,20 +388,6 @@ fi
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
-
-# rust
-if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
-  mkdir -p ~/.config/rustlang/autocomplete
-  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
-fi
-
-# idris2
-if [[ -f ~/.idris2/bin/idris2 ]]; then
-  eval "$(idris2 --bash-completion-script idris2)"
-fi
-
-# ghcup
-[ -f "/Users/tai/.ghcup/env" ] && source "/Users/tai/.ghcup/env" # ghcup-env
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 

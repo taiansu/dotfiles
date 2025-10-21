@@ -9,41 +9,58 @@ export LANG=en_US.UTF-8
 
 # Haskell
 export HASKELL_INSTALL_PATH=$HOME/.local/bin
-[ -d $HASKELL_INSTALL_PATH ] && export PATH=$PATH:$HASKELL_INSTALL_PATH
+[[ -d $HASKELL_INSTALL_PATH ]] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
 # ANDROID
 # export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
-# [ -d $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME
+# [[ -d $ANDROID_HOME ]] && export PATH=$PATH:$ANDROID_HOME
 
  # Nix
- # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+ # if [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
  #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
  # fi
  # End Nix
 
 export HOMEBREW_PATH=/opt/homebrew
-[ -d $HOMEBREW_PATH ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -d $HOMEBREW_PATH ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Rust
-if [ -e 'rustc' ]; then
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+if [[ -e 'rustc' ]]; then
+  export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
-source $HOME/.cargo/env
-source "$HOME/.config/rustlang/autocomplete/rustup"
-
+  source $HOME/.cargo/env
+  source "$HOME/.config/rustlang/autocomplete/rustup"
 fi
 
+if [[ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]]; then
+  mkdir -p ~/.config/rustlang/autocomplete
+  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
+fi
+
+# Lean 4
+export LEAN4_PATH=$HOME/.elan/bin
+if [[ -d $LEAN4_PATH ]]; then
+  export PATH="$LEAN4_PATH:$PATH"
+fi
+
+# Idris 2
 export IDRIS2_PATH=$HOME/.idris2
-if [ -d $IDRIS2_PATH ]; then
+if [[ -d $IDRIS2_PATH ]]; then
   export LD_LIBRARY_PATH=$IDRIS2_PATH/lib
   export PATH=$PATH:$IDRIS2_PATH/bin
+  eval "$(idris2 --bash-completion-script idris2)"
 fi
 
+# dotnet tools
 export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
-[ -d $DOTNET_TOOLS_PATH ] && export PATH=$PATH:$DOTNET_TOOLS_PATH
+[[ -d $DOTNET_TOOLS_PATH ]] && export PATH=$PATH:$DOTNET_TOOLS_PATH
 
-export POSTGRES_PATH=/opt/homebrew/Cellar/postgresql@15/15.3_2/bin
-[ -d $POSTGRES_PATH ] && export PATH=$PATH:$POSTGRES_PATH
+# PostgresQL
+() {
+  local postgres=(/opt/homebrew/opt/postgresql@*/bin(Non))
+  [[ -n $postgres[1] ]] && export PATH="$postgres[1]:$PATH"
+}
 
 # Added by OrbStack: command-line tools and integration
 #source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
