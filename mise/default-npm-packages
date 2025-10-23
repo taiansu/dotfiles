@@ -1,0 +1,9 @@
+neovim
+prettier
+typescript
+chrome-headless-render-pdf
+
+@anthropic-ai/claude-code
+@google/gemini-cli
+@openai/codex
+@github/copilot
