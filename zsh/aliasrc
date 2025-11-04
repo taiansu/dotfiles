@@ -175,7 +175,7 @@ alias vd="deactivate"
 alias ud="cd ~/Projects/dotfiles && just"
 
 # zed
-alias z="zed -n"
+alias z="zed"
 
 # ghostty
 ##  search
