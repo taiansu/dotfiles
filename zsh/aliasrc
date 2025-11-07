@@ -172,7 +172,7 @@ alias va="source .venv/bin/activate"
 alias vd="deactivate"
 
 # update dotfiles
-alias ud="cd ~/Projects/dotfiles && just"
+alias ju="cd ~/Projects/dotfiles && just"
 
 # zed
 alias z="zed"
