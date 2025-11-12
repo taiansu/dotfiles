@@ -7,3 +7,5 @@ chrome-headless-render-pdf
 @google/gemini-cli
 @openai/codex
 @github/copilot
+@zed-industries/claude-code-acp
+
