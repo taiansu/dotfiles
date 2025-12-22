@@ -7,7 +7,7 @@ alias please="sudo"
 alias pls="sudo"
 
 ## trash instead of rm -rf
-alias rm='rip'
+alias rm='trash'
 
 alias n="open -a $TERM_PROGRAM ."
 alias re="repeat"
