@@ -201,3 +201,6 @@ complete-screen-search() {
 
 zle -N complete-screen-search
 bindkey '^F' complete-screen-search
+
+# claude code
+alias cl="ENABLE_LSP_TOOL=1 claude"
