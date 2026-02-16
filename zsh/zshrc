@@ -384,6 +384,74 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   }
 fi
 
+# Tmux session manager
+t() {
+  local session_name="$1"
+  
+  # 沒參數 → 列出 sessions
+  if [ -z "$session_name" ]; then
+    echo "📋 Active tmux sessions:"
+    if tmux list-sessions 2>/dev/null; then
+      echo ""
+    else
+      echo "  (none)"
+      echo ""
+    fi
+    
+    # 如果有 tmuxinator，也列出 projects
+    if command -v tmuxinator >/dev/null 2>&1; then
+      echo "🎯 Tmuxinator projects:"
+      tmuxinator list 2>/dev/null | tail -n +2 | sed 's/^/  /' || echo "  (none)"
+      echo ""
+    fi
+    
+    echo "Usage:"
+    echo "  t <name>        Attach or create session"
+    echo "  t .             Use current directory name"
+    return
+  fi
+  
+  # 特殊參數 "." → 用當前目錄名稱
+  if [ "$session_name" = "." ]; then
+    session_name=$(basename "$PWD" | tr '.[:space:]' '-')
+    echo "📁 Using directory name: $session_name"
+  fi
+  
+  # 優先檢查 tmuxinator project
+  if [ -f "$HOME/.config/tmuxinator/$session_name.yml" ]; then
+    echo "🎯 Starting tmuxinator: $session_name"
+    tmuxinator start "$session_name"
+  # 再檢查現有 session
+  elif tmux has-session -t "$session_name" 2>/dev/null; then
+    echo "🔗 Attaching to: $session_name"
+    tmux attach -t "$session_name"
+  # 都沒有就建立新的
+  else
+    echo "✨ Creating session: $session_name"
+    tmux new -s "$session_name"
+  fi
+}
+
+# Zsh 自動補全
+if [ -n "$ZSH_VERSION" ]; then
+  _t_completion() {
+    local -a sessions projects
+    
+    # 取得現有 sessions
+    sessions=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
+    
+    # 取得 tmuxinator projects (如果有安裝)
+    if command -v tmuxinator >/dev/null 2>&1; then
+      projects=($(tmuxinator list 2>/dev/null | tail -n +2))
+    fi
+    
+    # 合併並補全
+    _describe 'sessions' sessions
+    _describe 'projects' projects
+  }
+  compdef _t_completion t
+fi
+
 # tre
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
@@ -409,3 +477,7 @@ fi
 
 # call zprof at the end of file
 # zprof
+
+# peon-ping quick controls
+alias peon="bash /Users/tai/.claude/hooks/peon-ping/peon.sh"
+[ -f /Users/tai/.claude/hooks/peon-ping/completions.bash ] && source /Users/tai/.claude/hooks/peon-ping/completions.bash
