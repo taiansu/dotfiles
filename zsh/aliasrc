@@ -75,28 +75,32 @@ fi
 # git
 alias g="git"
 
+gw() {
+    git worktree add -b "$1" "../$1" && cd "../$1"
+}
+
 # lazygit
 alias lg="lazygit"
 
 # vim
 export EDITOR="nvim"
-# alias v="vimr -n"
-# alias vdiff="nvim -d"
-# export EDITOR="vimr"
-export VEDITOR="code"
+alias vdiff="nvim -d"
+alias v="nvim"
+
 alias nv="nvim"
 alias vd="neovide"
 alias vr="vimr"
+export VEDITOR="code"
 
-if command -v neovide &> /dev/null; then
-    alias v='neovide --fork'
-elif command -v vimr &> /dev/null; then
-    alias v='vimr'
-elif command -v nvim &> /dev/null; then
-    alias v='nvim'
-elif command -v vim &> /dev/null; then
-    alias v='vim'
-fi
+# if command -v neovide &> /dev/null; then
+#     alias v='neovide --fork'
+# elif command -v vimr &> /dev/null; then
+#     alias v='vimr'
+# elif command -v nvim &> /dev/null; then
+#     alias v='nvim'
+# elif command -v vim &> /dev/null; then
+#     alias v='vim'
+# fi
 
 #clean open_with
 alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
