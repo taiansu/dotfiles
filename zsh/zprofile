@@ -67,3 +67,5 @@ export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
 # Added by OrbStack: command-line tools and integration
 #source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
+# Obsidian CLI
+[[ -d /Applications/Obsidian.app/Contents/MacOS ]] && export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
