@@ -1,4 +1,5 @@
 *.log
+.claude
 dotfiles_backup
 data
 hashrc
