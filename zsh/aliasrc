@@ -207,4 +207,4 @@ zle -N complete-screen-search
 bindkey '^F' complete-screen-search
 
 # claude
-alias cl="claude"
+alias cl="npx ccxray claude"
