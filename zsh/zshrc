@@ -481,3 +481,7 @@ fi
 # peon-ping quick controls
 alias peon="bash /Users/tai/.claude/hooks/peon-ping/peon.sh"
 [ -f /Users/tai/.claude/hooks/peon-ping/completions.bash ] && source /Users/tai/.claude/hooks/peon-ping/completions.bash
+
+# >>> railway initialize >>>
+source "$HOME/.railway/env"
+# <<< railway initialize <<<
