@@ -209,6 +209,9 @@ bindkey '^F' complete-screen-search
 # claude
 alias cl="npx ccxray claude"
 
+# codex
+alias co="npx ccxray codex"
+
 # zh-translate hook toggle
 alias zh-on="rm -f ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: ON'"
 alias zh-off="touch ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: OFF'"
