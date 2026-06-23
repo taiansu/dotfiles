@@ -187,3 +187,5 @@ venv
 
 ### IntelliJ
 *.iml
+
+**/.claude/settings.local.json

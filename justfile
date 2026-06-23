@@ -6,7 +6,7 @@ default: homebrew finish
 # 升級 homebrew
 homebrew:
     -brew update
-    -brew upgrade --greedy-latest
+    -brew upgrade -y --greedy-latest
 
 # 升級 vim 套件
 vim:
@@ -64,4 +64,3 @@ onesay:
     else \
         echo echo; \
     fi
-
