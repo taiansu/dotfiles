@@ -4,8 +4,8 @@
 
 # https://blog.patshead.com/2011/04/improve-your-oh-my-zsh-startup-time-maybe.html
 
-if [[ -f ~/.dotfiles/credentials ]]; then
-  source ~/.dotfiles/credentials
+if [[ -f ~/.dotfiles/credential ]]; then
+  source ~/.dotfiles/credential
 fi
 
 skip_global_compinit=1
