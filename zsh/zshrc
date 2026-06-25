@@ -1,10 +1,19 @@
 ### profile config
 # zmodload zsh/zprof
 
-# ghostty
+# cmux & ghostty
 # Ghostty shell integration for Zsh. This should be at the top of your zshrc!
-if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" && -f "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration" ]]; then
-    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
+    _ghostty_integration="${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+    # cmux
+    if [[ ! -f "$_ghostty_integration" ]]; then
+        _ghostty_integration="${GHOSTTY_RESOURCES_DIR:h}/shell-integration/zsh/ghostty-integration"
+    fi
+
+    if [[ -f "$_ghostty_integration" ]]; then
+        builtin source "$_ghostty_integration"
+    fi
+    unset _ghostty_integration
 fi
 
 declare -A homebrew_prefix
