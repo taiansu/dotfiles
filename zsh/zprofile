@@ -8,7 +8,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 export LANG=en_US.UTF-8
 
 # Haskell
-export HASKELL_INSTALL_PATH=$HOME/.local/bin
+export HASKELL_INSTALL_PATH=$HOME/.ghcup/bin
 [[ -d $HASKELL_INSTALL_PATH ]] && export PATH=$PATH:$HASKELL_INSTALL_PATH
 
 # ANDROID
