@@ -191,3 +191,6 @@ alias co="npx ccxray codex"
 alias zh-on="rm -f ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: ON'"
 alias zh-off="touch ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: OFF'"
 alias zh-status='[[ -f ~/.claude/hooks/zh-translate.disabled ]] && echo "zh-translate: OFF" || echo "zh-translate: ON"'
+
+# herdr
+alias hr="herdr"

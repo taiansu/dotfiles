@@ -301,13 +301,7 @@ function mkcd() {
   mkdir "$1" && cd "$1"
 }
 
-# print a separator banner, as wide as the terminal
-function hr {
-  print ${(l:COLUMNS::=:)}
-}
-
 # Download Gist
-
 function gistDownload() {
   curl -L ${1}/download | tar -xvz --strip-components=1
 }
