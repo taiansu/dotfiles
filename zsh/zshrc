@@ -94,7 +94,7 @@ local _user="%{$_usercol%}%n"
 
 local _prompt
 if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%F{reset_color%}𝝠"
+  _prompt="%F{reset_color%}𝝺′"
 else
   _prompt="%F{reset_color%}𝝺"
 fi
