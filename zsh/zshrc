@@ -463,7 +463,8 @@ export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 eval "$($HOME/.local/bin/mise activate zsh)"
 
 # fzf-git
-[[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] && source "$HOME/.dotfiles/fzf-git/fzf-git.sh"
+[[ -f "$HOME/.dotfiles/scripts/fzf-git.sh" ]] && source "$HOME/.dotfiles/scripts/fzf-git.sh"
+bindkey -M emacs -r '^g'
 
 export BAT_THEME=DarkNeon
 
