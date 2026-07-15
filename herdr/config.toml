@@ -154,6 +154,12 @@ type = "plugin_action"
 command = "cloudmanic.herdr-plus.quick-actions"
 description = "herdr-plus: projects"
 
+[[keys.command]]
+key = "prefix+l"
+type = "pane"
+command = "herdr pane send-text \"$HERDR_ACTIVE_PANE_ID\" $'\\e[1;9H'"
+description = "clear screen, keep scrollback"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
