@@ -1,3 +1,4 @@
+onboarding = false
 # herdr configuration
 # Place this file at ~/.config/herdr/config.toml
 
@@ -87,10 +88,13 @@ next_workspace = "prefix+j"     # optional, unset by default
 # focus_agent = ""        # optional indexed binding, e.g. "prefix+alt+1..9"
 # remote_image_paste = "ctrl+v" # only active in herdr --remote; empty disables raw-key image paste
 # new_tab = "prefix+c"
+new_tab = "prefix+t"
 # rename_tab = "prefix+shift+t"
 rename_tab = "prefix+,"
 # previous_tab = "prefix+p"
 # next_tab = "prefix+n"
+previous_tab = "prefix+["
+next_tab = "prefix+]"
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""   # optional indexed binding, e.g. "prefix+shift+1..9"
 # close_tab = "prefix+shift+x"
@@ -134,6 +138,21 @@ navigate_workspace_down = "ctrl+j"
 # key = "prefix+alt+g"
 # type = "pane"
 # command = "lazygit"
+
+## Plugin Herdr Plus - Quick Actions
+[[keys.command]]
+key = "prefix+y"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.quick-actions"
+description = "herdr-plus: quick actions"
+
+
+## Plugin Herdr Plus - Projects Dir
+[[keys.command]]
+key = "prefix+O"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.quick-actions"
+description = "herdr-plus: projects"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
