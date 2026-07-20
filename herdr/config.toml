@@ -93,6 +93,8 @@ new_tab = "prefix+t"
 rename_tab = "prefix+,"
 # previous_tab = "prefix+p"
 # next_tab = "prefix+n"
+previous_tab = ["prefix+p", "alt+{"]
+next_tab = ["prefix+n", "alt+}"]
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""   # optional indexed binding, e.g. "prefix+shift+1..9"
 # close_tab = "prefix+shift+x"
@@ -289,7 +291,7 @@ delivery = "system"
 # Requires a Kitty graphics-compatible outer terminal.
 # kitty_graphics = false
 # Save recent pane screen history across full server restarts.
-pane_history = false
+pane_history = true
 # While prefix mode is active, temporarily switch the macOS host input
 # source to an ASCII-capable keyboard layout so prefix commands register
 # even when a CJK IME is active, then restore the previous input source
