@@ -1,7 +1,7 @@
 set shell := ["zsh", "-cu"]
 # set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
-default: homebrew finish
+default: homebrew mise vim finish
 
 # 升級 homebrew
 homebrew:
@@ -11,12 +11,12 @@ homebrew:
 # 升級 vim 套件
 vim:
     -nvim --headless "+Lazy! sync" +qa
-    -nvim --headless "+MasonUpdateAll" +qa
+    -nvim --headless -c "autocmd User MasonUpdateAllComplete quitall" -c "MasonUpdateAll"
 
 # 升級 mise
 mise:
     -@mise self-update
-    -mise plugin update --all
+    -mise plugin update
 
 # 升級 npm global 套件
 npm:
