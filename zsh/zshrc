@@ -370,6 +370,7 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
 fi
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
+export PATH="/opt/homebrew/opt/arm-none-eabi-binutils/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/avr-binutils/bin:/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
 
 # mise
 eval "$($HOME/.local/bin/mise activate zsh)"
@@ -380,17 +381,9 @@ bindkey -M emacs -r '^g'
 
 export BAT_THEME=DarkNeon
 
-# iterm shell integration
-if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
-# kiro
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
-
-# call zprof at the end of file
-# zprof
-
 # >>> railway initialize >>>
 source "$HOME/.railway/env"
 # <<< railway initialize <<<
+
+# call zprof at the end of file
+# zprof

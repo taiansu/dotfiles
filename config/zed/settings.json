@@ -1,0 +1,83 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "cli_default_open_behavior": "new_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "gemini": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    }
+  },
+  "context_servers": {
+    "postgres-context-server": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "database_url": "postgresql://myuser:mypassword@localhost:5432/pgn"
+      }
+    },
+    "mcp-server-context7": {
+      "settings": {
+        "default_minimum_tokens": 10000
+      }
+    }
+  },
+  "agent": {
+    "dock": "right",
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-4-5-sonnet-latest"
+    }
+  },
+  "edit_predictions": {
+    "provider": "zed"
+  },
+  "cursor_blink": false,
+  "restore_on_startup": "empty_tab",
+  "restore_on_file_reopen": false,
+  "close_on_file_delete": false,
+  "theme": "One Hunter Light",
+  "tab_size": 2,
+  "preferred_line_length": 110,
+  "buffer_font_size": 18,
+  "buffer_font_fallbacks": [".ZedMono"],
+  "ui_font_size": 18,
+  "buffer_font_features": {
+    "calt": false
+  },
+  "buffer_font_family": "Source Code Pro",
+  "vim_mode": true,
+  "terminal": {
+    "blinking": "off"
+  },
+  "experimental.theme_overrides": {
+    "syntax": {
+      "keyword": {
+        "font_weight": 400
+      }
+    }
+  }
+}

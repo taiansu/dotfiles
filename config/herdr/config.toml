@@ -310,7 +310,8 @@ pane_history = true
 # cjk_ime_agents = []
 # Cursor shape rendered when reveal_hidden_cursor_for_cjk_ime is true.
 # Values: block, steady_block (default), underline, steady_underline, bar, steady_bar.
-# cjk_ime_cursor_shape = "steady_block"
+cjk_ime_cursor_shape = "steady_underline"
+kitty_graphics = true
 
 [advanced]
 # Maximum scrollback buffer size in bytes retained per pane terminal.
