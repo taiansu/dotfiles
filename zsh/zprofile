@@ -65,7 +65,10 @@ export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
 [[ -d /opt/homebrew/opt/macos-trash/bin ]] && export PATH="/opt/homebrew/opt/macos-trash/bin:$PATH"
 
 # Added by OrbStack: command-line tools and integration
-#source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
 # Obsidian CLI
 [[ -d /Applications/Obsidian.app/Contents/MacOS ]] && export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
+export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
+export PATH="/opt/homebrew/opt/arm-none-eabi-binutils/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/avr-binutils/bin:/opt/homebrew/opt/avr-gcc@8/bin:$PATH"

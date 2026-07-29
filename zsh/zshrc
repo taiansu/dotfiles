@@ -1,6 +1,9 @@
 ### profile config
 # zmodload zsh/zprof
 
+# Use emacs-style keybindings
+bindkey -e
+
 # cmux & ghostty
 # Ghostty shell integration for Zsh. This should be at the top of your zshrc!
 if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
@@ -65,18 +68,30 @@ zle -N backward-delete-word
 # zsh-autosuggestions
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# zsh-fast-syntax-highlighting
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
 # zsh-history-substring-search
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-if [[ test_declare(history-substring-search-up) ]]; then
-  bindkey "$terminfo[kcuu1]" history-substring-search-up
-  bindkey "$terminfo[kcud1]" history-substring-search-down
-fi
-
-# zsh-f-sy-h
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-f-sy-h/F-Sy-H.plugin.zsh
-
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# autosuggestions:退後,不搶眼
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
+
+# history-substring-search:整行套用,底色別太亮
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=#ffffff,bg=#3b5998,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=#ffffff,bg=#8b2635,bold'
+
+# fast-syntax-highlighting:個別 token 覆寫
+FAST_HIGHLIGHT_STYLES[command]='fg=#98c379'
+FAST_HIGHLIGHT_STYLES[builtin]='fg=#98c379'
+FAST_HIGHLIGHT_STYLES[alias]='fg=#98c379'
+FAST_HIGHLIGHT_STYLES[unknown-token]='fg=#e06c75,bold'
+FAST_HIGHLIGHT_STYLES[path]='fg=#61afef,underline'
+FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
+FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
+FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 
 # Default colors:
 # White for users, red for root, yellow for system users
@@ -219,8 +234,17 @@ zstyle ':completion:*:manuals' accept-exact true
 # Keybinds
 #
 
-# Use emacs-style keybindings
-bindkey -e
+if (( $+widgets[history-substring-search-up] )); then
+  zmodload -i zsh/terminfo
+
+  # terminfo 的值(application cursor mode)
+  [[ -n $terminfo[kcuu1] ]] && bindkey -- "$terminfo[kcuu1]" history-substring-search-up
+  [[ -n $terminfo[kcud1] ]] && bindkey -- "$terminfo[kcud1]" history-substring-search-down
+
+  # 實際常見的裸序列(normal cursor mode)— 兩者都綁才保險
+  bindkey -- '^[[A' history-substring-search-up
+  bindkey -- '^[[B' history-substring-search-down
+fi
 
 bindkey "$terminfo[khome]" beginning-of-line # Home
 bindkey "$terminfo[kend]" end-of-line # End
@@ -368,9 +392,6 @@ fi
 if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
-
-export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
-export PATH="/opt/homebrew/opt/arm-none-eabi-binutils/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/avr-binutils/bin:/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
 
 # mise
 eval "$($HOME/.local/bin/mise activate zsh)"
