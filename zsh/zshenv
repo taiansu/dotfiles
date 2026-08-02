@@ -2,7 +2,10 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
-# https://blog.patshead.com/2011/04/improve-your-oh-my-zsh-startup-time-maybe.html
+typeset -gA homebrew_prefix=(
+  x86_64 /usr/local
+  arm64 /opt/homebrew
+)
 
 if [[ -f ~/.dotfiles/credential ]]; then
   source ~/.dotfiles/credential
@@ -18,19 +21,44 @@ ulimit -n 4096
 
 export SYSTEM=$(uname -s)
 
+# basedir defaults, in case they're not already set up.
+# http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+if [[ -z $XDG_DATA_HOME ]]; then
+  export XDG_DATA_HOME=$HOME/.local/share
+fi
+
+if [[ -z $XDG_CONFIG_HOME ]]; then
+  export XDG_CONFIG_HOME=$HOME/.config
+fi
+
+if [[ -z $XDG_CACHE_HOME ]]; then
+  export XDG_CACHE_HOME=$HOME/.cache
+fi
+
+if [[ -z $XDG_DATA_DIRS ]]; then
+  export XDG_DATA_DIRS=/usr/local/share:/usr/share
+fi
+
+if [[ -z $XDG_CONFIG_DIRS ]]; then
+  export XDG_CONFIG_DIRS=/etc/xdg
+else
+  export XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
+fi
+
+# ANSIBLE
+export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # Erlang
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export COLORTERM="truecolor"
 
-# GPG
-export GPG_TTY=$(tty)
+# KERL
+export KERL_BUILD_DOCS=yes
+export KERL_INSTALL_MANPAGES=no
 
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
-
-# https://github.com/sorin-ionescu/prezto/blob/master/runcoms/zshenv
-# Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
-fi

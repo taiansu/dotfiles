@@ -1,46 +1,19 @@
-declare -A homebrew_prefix
-
-homebrew_prefix[x86_64]=/usr/local
-homebrew_prefix[arm64]=/opt/homebrew
-
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export LANG=en_US.UTF-8
 
-# Haskell
-export HASKELL_INSTALL_PATH=$HOME/.ghcup/bin
-[[ -d $HASKELL_INSTALL_PATH ]] && export PATH=$PATH:$HASKELL_INSTALL_PATH
+export BAT_THEME=DarkNeon
 
-# ANDROID
-# export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
-# [[ -d $ANDROID_HOME ]] && export PATH=$PATH:$ANDROID_HOME
-
- # Nix
- # if [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
- #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- # fi
- # End Nix
-
-export HOMEBREW_PATH=/opt/homebrew
-[[ -d $HOMEBREW_PATH ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_PATH=$homebrew_prefix[$CPUTYPE]
+[[ -d $HOMEBREW_PATH ]] && eval "$($HOMEBREW_PATH/bin/brew shellenv)"
 
 # Rust
-if [[ -e 'rustc' ]]; then
+if [[ -r "$HOME/.cargo/env" ]]; then
+  source "$HOME/.cargo/env"
+fi
+
+if (( $+commands[rustc] )); then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-
-  source $HOME/.cargo/env
-  source "$HOME/.config/rustlang/autocomplete/rustup"
-fi
-
-if [[ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]]; then
-  mkdir -p ~/.config/rustlang/autocomplete
-  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
-fi
-
-# Lean 4
-export LEAN4_PATH=$HOME/.elan/bin
-if [[ -d $LEAN4_PATH ]]; then
-  export PATH="$LEAN4_PATH:$PATH"
 fi
 
 # Idris 2
@@ -48,12 +21,7 @@ export IDRIS2_PATH=$HOME/.idris2
 if [[ -d $IDRIS2_PATH ]]; then
   export LD_LIBRARY_PATH=$IDRIS2_PATH/lib
   export PATH=$PATH:$IDRIS2_PATH/bin
-  eval "$(idris2 --bash-completion-script idris2)"
 fi
-
-# dotnet tools
-export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
-[[ -d $DOTNET_TOOLS_PATH ]] && export PATH=$PATH:$DOTNET_TOOLS_PATH
 
 # PostgresQL
 () {
@@ -61,17 +29,54 @@ export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
   [[ -n $postgres[1] ]] && export PATH="$postgres[1]:$PATH"
 }
 
+path_prepend_if_dir() {
+  local dir=$1
+  [[ -d $dir ]] || return 0
+
+  path=("$dir" "${(@)path:#$dir}")
+}
+
+# source google-cloud-sdk
+export GOOGLE_CLOUD_SDK_PATH=$HOMEBREW_PATH/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+path_prepend_if_dir $GOOGLE_CLOUD_SDK_PATH
+
+# Lean 4
+export LEAN4_PATH=$HOME/.elan/bin
+path_prepend_if_dir $LEAN4_PATH
+
+# dotnet tools
+export DOTNET_TOOLS_PATH=$HOME/.dotnet/tools
+path_prepend_if_dir $DOTNET_TOOLS_PATH
+
+# Haskell
+export HASKELL_INSTALL_PATH=$HOME/.ghcup/bin
+path_prepend_if_dir $HASKELL_INSTALL_PATH
+
 # macos-trash
-[[ -d /opt/homebrew/opt/macos-trash/bin ]] && export PATH="/opt/homebrew/opt/macos-trash/bin:$PATH"
+path_prepend_if_dir /opt/homebrew/opt/macos-trash/bin
+
+# Obsidian CLI
+path_prepend_if_dir /Applications/Obsidian.app/Contents/MacOS
+
+# bun
+path_prepend_if_dir "$HOME/.cache/.bun/bin"
+
+# ANDROID
+# export ANDROID_HOME=$brew_prefix[$CPUTYPE]/share/android-sdk
+# path_prepend_if_dir $ANDROID_HOME
+
+ # Nix
+ # if [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
+ #    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ # fi
+ # End Nix
 
 # Added by OrbStack: command-line tools and integration
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
-# Obsidian CLI
-[[ -d /Applications/Obsidian.app/Contents/MacOS ]] && export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
-
-# bun
-[[ -d "$HOME/.cache/.bun/bin" ]] && export PATH="$HOME/.cache/.bun/bin:$PATH"
+# >>> railway initialize >>>
+source "$HOME/.railway/env"
+# <<< railway initialize <<<
 
 export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
 export PATH="/opt/homebrew/opt/arm-none-eabi-binutils/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/avr-binutils/bin:/opt/homebrew/opt/avr-gcc@8/bin:$PATH"

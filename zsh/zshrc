@@ -1,8 +1,29 @@
 ### profile config
 # zmodload zsh/zprof
 
+# Functions
+
+function mkcd() {
+  mkdir "$1" && cd "$1"
+}
+
+# Download Gist
+function gistDownload() {
+  curl -L ${1}/download | tar -xvz --strip-components=1
+}
+
+[[ -o interactive ]] || return
+
+source ~/.dotfiles/zsh/aliasrc
+[[ -f ~/.dotfiles/zsh/hashrc ]] && source ~/.dotfiles/zsh/hashrc
+
+### interactive section
+
 # Use emacs-style keybindings
 bindkey -e
+
+# 256 color mode
+export TERM="xterm-256color"
 
 # cmux & ghostty
 # Ghostty shell integration for Zsh. This should be at the top of your zshrc!
@@ -16,40 +37,57 @@ if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
     fi
 fi
 
-declare -A homebrew_prefix
-homebrew_prefix[x86_64]=/usr/local
-homebrew_prefix[arm64]=/opt/homebrew
+# fzf
+[[ -t 1 ]] && source <(fzf --zsh)
 
-#####
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+
+# mise
+eval "$($HOME/.local/bin/mise activate zsh)"
+
+# GPG
+export GPG_TTY=$(tty)
 
 # Load completion functions
 autoload -Uz compinit bashcompinit
 
-# Define helper function for compilation
-function zcompile-many() {
-  local f
-  for f; do zcompile -R -- "$f".zwc "$f"; done
-}
-
-# Determine dump file location
+# Keep the completion dump in the zsh configuration directory.
 zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-
-# Initialize based on dump file age
-if [[ -n "$zcompdump"(#qN.mh+24) ]]; then
-  # Dump file is older than 24 hours, recreate it
-  compinit
-  bashcompinit
-else
-  # Dump file is recent, skip security checks for speed
-  compinit -C
-  bashcompinit
-fi
-
-# Compile dump file if needed
-[[ "$zcompdump.zwc" -nt "$zcompdump" ]] || zcompile-many "$zcompdump"
-
-# Clean up
-unfunction zcompile-many
+compinit -d "$zcompdump"
+bashcompinit
 unset zcompdump
 
 #####
@@ -66,15 +104,14 @@ autoload backward-delete-word
 zle -N backward-delete-word
 
 # zsh-autosuggestions
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# zsh-fast-syntax-highlighting
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # zsh-history-substring-search
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+# zsh-fast-syntax-highlighting must load after plugins that synchronously register ZLE widgets.
+[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # autosuggestions:退後,不搶眼
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
@@ -145,43 +182,6 @@ if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
 fi
 
-##
-# Environment variables
-#
-
-# basedir defaults, in case they're not already set up.
-# http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-if [[ -z $XDG_DATA_HOME ]]; then
-  export XDG_DATA_HOME=$HOME/.local/share
-fi
-
-if [[ -z $XDG_CONFIG_HOME ]]; then
-  export XDG_CONFIG_HOME=$HOME/.config
-fi
-
-if [[ -z $XDG_CACHE_HOME ]]; then
-  export XDG_CACHE_HOME=$HOME/.cache
-fi
-
-if [[ -z $XDG_DATA_DIRS ]]; then
-  export XDG_DATA_DIRS=/usr/local/share:/usr/share
-fi
-
-if [[ -z $XDG_CONFIG_DIRS ]]; then
-  export XDG_CONFIG_DIRS=/etc/xdg
-else
-  export XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
-fi
-
-##
-# zsh config
-#
-
-# add ~/.config/zsh/completion to completion paths
-# NOTE: this needs to be a directory with 0755 permissions, otherwise you will
-# get "insecure" warnings on shell load!
-# fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
-
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
 SAVEHIST=1000
@@ -194,18 +194,9 @@ setopt histignorealldups # Substitute commands in the prompt
 setopt sharehistory # Share the same history between all shells
 setopt promptsubst # required for git plugin
 setopt histignorespace # Ignore command start with space
-# setopt extendedglob
-# Extended glob syntax, eg ^ to negate, <x-y> for range, (foo|bar) etc.
-# Backwards-incompatible with bash, so disabled by default.
 
-# Colors!
-
-# 256 color mode
-export TERM="xterm-256color"
-
-##
 # Completion system
-#
+
 # Global completion settings first
 zstyle ":completion:*" use-cache on
 zstyle ":completion:*" cache-path $XDG_CACHE_HOME/zsh
@@ -230,9 +221,7 @@ zstyle ':completion:*:*:man:*' menu select=long     # Menu only for long lists
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals' accept-exact true
 
-##
 # Keybinds
-#
 
 if (( $+widgets[history-substring-search-up] )); then
   zmodload -i zsh/terminfo
@@ -255,6 +244,18 @@ bindkey "$terminfo[kcuf1]" forward-char # Right
 # bindkey "$terminfo[kpp]" # PageUp
 # bindkey "$terminfo[knp]" # PageDown
 zmodload zsh/terminfo
+
+# rust
+if [[ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]]; then
+  mkdir -p ~/.config/rustlang/autocomplete
+  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
+  source "$HOME/.config/rustlang/autocomplete/rustup"
+fi
+
+# idris2
+if (( $+commands[idris2] )); then
+  eval "$(idris2 --bash-completion-script idris2)"
+fi
 
 # Bind shift-tab to backwards-menu
 # NOTE this won't work on Konsole if the new tab button is shown
@@ -290,17 +291,6 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 bindkey -M isearch . self-insert # history search fix
 
-# Functions
-
-function mkcd() {
-  mkdir "$1" && cd "$1"
-}
-
-# Download Gist
-function gistDownload() {
-  curl -L ${1}/download | tar -xvz --strip-components=1
-}
-
 function precmd() {
     # Clear the terminal title before running any command.
     # This is a somewhat hacky workaround to Neovim not refreshing the title
@@ -317,75 +307,12 @@ scrollback-push-clear() {
 zle -N scrollback-push-clear
 bindkey '\e[1;9H' scrollback-push-clear
 
-# source and configs
-
-# ANSIBLE
-export ANSIBLE_NOCOWS=1
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-# KERL
-export KERL_BUILD_DOCS=yes
-export KERL_INSTALL_MANPAGES=no
-
 # zoxide
 [[ -f $homebrew_prefix[$CPUTYPE]/bin/zoxide ]] && eval "$(zoxide init zsh --cmd cd)"
 
-# source homebrew github api token
-if [[ -f ~/.homebrew_github_api_token ]]; then
-  source ~/.homebrew_github_api_token
-fi
-
-source ~/.dotfiles/zsh/aliasrc
-[[ -f ~/.dotfiles/zsh/hashrc ]] && source ~/.dotfiles/zsh/hashrc
-
-# source google-cloud-sdk
+# google-cloud-sdk
 if [[ -s $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
-  source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   source $homebrew_prefix[$CPUTYPE]/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-fi
-
-
-# fzf
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-  source <(fzf --zsh)
-
-  export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-  export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-  export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-
-
-  # Use fd (https://github.com/sharkdp/fd) instead of the default find
-  # command for listing path candidates.
-  # - The first argument to the function ($1) is the base path to start traversal
-  # - See the source code (completion.{bash,zsh}) for the details.
-  _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
-
-  # Use fd to generate the list for directory completion
-  _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-
-  show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-  # Advanced customization of fzf options via _fzf_comprun function
-  # - The first argument to the function is the name of the command.
-  # - You should make sure to pass the rest of the arguments to fzf.
-  _fzf_comprun() {
-    local command=$1
-    shift
-
-    case "$command" in
-      cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-      export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
-      ssh)          fzf --preview 'dig {}'                   "$@" ;;
-      *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
-    esac
-  }
 fi
 
 # tre
@@ -393,18 +320,9 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
   tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 fi
 
-# mise
-eval "$($HOME/.local/bin/mise activate zsh)"
-
 # fzf-git
 [[ -f "$HOME/.dotfiles/scripts/fzf-git.sh" ]] && source "$HOME/.dotfiles/scripts/fzf-git.sh"
 bindkey -M emacs -r '^g'
-
-export BAT_THEME=DarkNeon
-
-# >>> railway initialize >>>
-source "$HOME/.railway/env"
-# <<< railway initialize <<<
 
 # oh-my-pi
 local omp_completions="$HOME/.cache/zsh/completions/omp.zsh"
