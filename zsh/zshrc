@@ -406,5 +406,13 @@ export BAT_THEME=DarkNeon
 source "$HOME/.railway/env"
 # <<< railway initialize <<<
 
+# oh-my-pi
+local omp_completions="$HOME/.cache/zsh/completions/omp.zsh"
+if [[ ! -s "$omp_completions" ]]; then
+  mkdir -p "${omp_completions:h}"
+  omp completions zsh > "$omp_completions" || rm -f "$omp_completions"
+fi
+source "$omp_completions" 2>/dev/null
+
 # call zprof at the end of file
 # zprof
