@@ -1,7 +1,7 @@
 set shell := ["zsh", "-cu"]
 # set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
-default: homebrew mise vim npm bun update-omp-completions finish
+default: homebrew mise vim npm bun omp finish
 
 # 升級 homebrew
 homebrew:
@@ -32,7 +32,7 @@ bootstrap: ensure-brew install-tools setup-config
       @echo "🎉 Development environment ready!"
 
 # 重新產生 omp 的 zsh 補全快取
-update-omp-completions:
+omp:
     mkdir -p ~/.cache/zsh/completions
     omp completions zsh > ~/.cache/zsh/completions/omp.zsh
 

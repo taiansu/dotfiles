@@ -1,0 +1,24 @@
+theme = "Smyck"
+font-family = "SauceCodePro NFM"
+font-size = 19
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = true
+adjust-cell-height=5%
+mouse-scroll-multiplier = 2
+window-colorspace = "display-p3"
+copy-on-select = clipboard
+window-padding-balance = true
+window-save-state = always
+mouse-hide-while-typing = true
+macos-option-as-alt = true
+cursor-color = #ffffff
+cursor-opacity = 0.7
+cursor-style-blink = false
+cursor-text = cell-background
+cursor-style = bar
+adjust-cursor-thickness = 2
+shell-integration-features = no-cursor
+keybind = super+k=text:\x1b[1;9H
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+enter=text:\n
