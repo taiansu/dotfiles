@@ -4,6 +4,14 @@ modelRoles:
   smol: openai-codex/gpt-5.6-luna
   slow: openai-codex/gpt-5.6-sol
   plan: openai-codex/gpt-5.6-sol:max
-  commit: openai-codex/gpt-5.6-luna
+  designer: anthropic/claude-5-opus:high
+  commit: openai-codex/gpt-5.6-terra
 dev: 
   autoqaConsent: granted
+theme: 
+  dark: dark-lunar-custom
+  light: light-zenith
+statusLine: 
+  separator: none
+  transparent: true
+  preset: default
