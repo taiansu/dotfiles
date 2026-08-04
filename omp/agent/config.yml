@@ -15,3 +15,5 @@ statusLine:
   separator: none
   transparent: true
   preset: default
+shellMinimizer: 
+  enabled: false
