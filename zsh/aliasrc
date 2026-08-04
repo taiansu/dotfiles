@@ -15,19 +15,23 @@ alias o="open -a"
 
 # ls aliases
 if command -V eza >/dev/null 2>&1; then
-  alias ls="eza --color=always --long --git"
-  alias l="eza --git"
-  alias ll="eza -alh -F=auto --git"
-  alias sl="l"
-  alias lt="eza --tree"
-  alias llt="eza --tree --long --git"
+  ls () {
+    local arg
+    for arg in "$@"; do
+      [[ $arg != -* ]] && { command eza --color=always --icons=auto --git "$@"; return }
+    done
+    command eza --color=always --icons=auto --git "$@" .
+  }
+  ll() { ls -alh -F=auto "$@" }
+  lt() { ls --tree "$@" }
+  ltl() { ls --tree --long "$@" }
 else
   alias l="ls -CF"
-  alias ls="ls -G"
-  alias la="ls -al"
   alias ll="ls -alFh"
-  alias sl="ls"
 fi
+
+alias l="ls"
+alias sl="ls"
 
 # tail
 alias tl="tail"
