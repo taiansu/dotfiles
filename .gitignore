@@ -17,3 +17,5 @@ config/zed/prompts
 config/karabiner/automatic_backups 
 config/lazygit/state.yml
 
+config/herdr/session-history.json
+config/herdr/session.json
