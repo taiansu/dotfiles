@@ -18,13 +18,13 @@ if command -V eza >/dev/null 2>&1; then
   ls () {
     local arg
     for arg in "$@"; do
-      [[ $arg != -* ]] && { command eza --color=always --icons=auto --git "$@"; return }
+      [[ $arg != -* ]] && { command eza --color=always --icons=never --git "$@"; return }
     done
-    command eza --color=always --icons=auto --git "$@" .
+    command eza --color=always --icons=never --git "$@" .
   }
   ll() { ls -alh -F=auto "$@" }
-  lt() { ls --tree "$@" }
-  ltl() { ls --tree --long "$@" }
+  lt() { ls --tree --level=3 "$@" }
+  ltl() { ls --tree --long --level=3 "$@" }
 else
   alias l="ls -CF"
   alias ll="ls -alFh"
