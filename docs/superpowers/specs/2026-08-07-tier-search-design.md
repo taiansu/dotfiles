@@ -1,4 +1,4 @@
-# Adaptive Web Research Design
+# Tier Search Design
 
 **Status:** Approved for planning  
 **Date:** 2026-08-07
@@ -9,11 +9,11 @@ Provide an OMP skill and extension tool that autonomously searches only when ext
 
 ## Goals
 
-- Provide a skill that directs the agent to use adaptive search for current external facts, official documentation, prices, policy or legal information, citations, and user-provided URLs.
+- Provide a skill that directs the agent to use tiered search for current external facts, official documentation, prices, policy or legal information, citations, and user-provided URLs.
 - Query only the configured providers, in their configured order.
 - Fall through only when source quality fails deterministic, inspectable criteria.
 - Let the user configure a separate estimated monthly USD budget for each provider.
-- Keep Kagi available to OMP's built-in `web_search`; the adaptive tool only accounts for searches it initiates itself.
+- Keep Kagi available to OMP's built-in `web_search`; the tier-search tool only accounts for searches it initiates itself.
 - Report provider choice, quality failures, estimated cost, and provider-local monthly strategy usage for every tool call.
 
 ## Non-goals
@@ -28,15 +28,15 @@ Provide an OMP skill and extension tool that autonomously searches only when ext
 
 ### Skill
 
-Install `~/.claude/skills/adaptive-web-research/SKILL.md`.
+Install `~/.claude/skills/tier-search/SKILL.md`.
 
-The skill is policy only. It tells the agent to call `adaptive_web_search` when external or time-sensitive evidence is required, and not to search for questions answerable from the current repository or conversation. It does not execute network requests or enforce a budget.
+The skill is policy only. It tells the agent to call `tier_web_search` when external or time-sensitive evidence is required, and not to search for questions answerable from the current repository or conversation. It does not execute network requests or enforce a budget.
 
 ### Extension
 
-Install `~/.omp/agent/extensions/adaptive-web-search.ts`.
+Install `~/.omp/agent/extensions/tier-web-search.ts`.
 
-The extension registers the model-callable `adaptive_web_search` tool. It is the sole implementation of provider selection, source normalization, quality gates, metadata enrichment, cost estimation, and strategy-budget tracking.
+The extension registers the model-callable `tier_web_search` tool. It is the sole implementation of provider selection, source normalization, quality gates, metadata enrichment, cost estimation, and strategy-budget tracking.
 
 The extension uses provider API credentials from the existing environment or OMP credential store. It must never emit secret values.
 
@@ -45,7 +45,7 @@ The extension uses provider API credentials from the existing environment or OMP
 Use an extension-owned global file rather than unrecognized fields in OMP's core configuration:
 
 ```yaml
-# ~/.omp/agent/adaptive-web-search.yml
+# ~/.omp/agent/tier-web-search.yml
 version: 1
 
 providers:
@@ -65,7 +65,7 @@ Rules:
 - A zero budget disables that provider.
 - Unknown IDs, duplicate IDs, malformed YAML, or invalid values fail closed before any provider request.
 - The extension uses a versioned conservative request-cost estimator for its fixed search endpoints. Version 1 reserves the pay-as-you-go price while ignoring included credits: Tavily basic search `$0.008`, Brave Search `$0.005`, and Kagi Search `$0.012` per request. The user configures only provider budgets, not fragile provider unit prices.
-- The budget is a strategy policy. It applies only to calls made by `adaptive_web_search`; it is not reconciled against OMP's built-in `web_search` or any external usage.
+- The budget is a strategy policy. It applies only to calls made by `tier_web_search`; it is not reconciled against OMP's built-in `web_search` or any external usage.
 
 ## Provider-side billing controls
 
@@ -83,7 +83,7 @@ The ledger's purpose is to make behavior consistent across local OMP sessions an
 
 ## Tool contract
 
-`adaptive_web_search` accepts:
+`tier_web_search` accepts:
 
 - `query` (required)
 - `recency` (`day`, `week`, `month`, or `year`; optional)
