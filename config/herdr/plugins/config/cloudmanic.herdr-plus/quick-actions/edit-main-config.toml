@@ -1,0 +1,24 @@
+name = "Edit Config Files"
+description = "Select which config to edit"
+type = "select"
+command = "nvim ~/.{{.Value}}"
+
+[[options]]
+label = "zshrc"
+value = "zshrc"
+
+[[options]]
+label = "zsh alias"
+value = "dotfiles/zsh/alias"
+
+[[options]]
+label = "nvim config"
+value = "config/nvim"
+
+[[options]]
+label = "herdr config"
+value = "config.toml"
+
+[[options]]
+label = "ghostty config"
+value = "config/ghostty/config"

@@ -5,6 +5,19 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "ctrl to capslock",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "caps_lock" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "caps lock: tap in ABC = ctrl+cmd+space (previous IME); tap elsewhere = back to ABC; hold = control",
                         "manipulators": [
                             {
@@ -47,19 +60,6 @@
                                     }
                                 ],
                                 "to_if_alone": [{ "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.ABC$" } }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "ctrl to capslock",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "left_control",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "caps_lock" }],
                                 "type": "basic"
                             }
                         ]

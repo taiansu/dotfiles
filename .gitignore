@@ -5,3 +5,15 @@ data
 hashrc
 *_credential
 *.zwc
+*.sock
+*.bak
+.tmp*
+
+### config
+config/zed/conversations
+config/zed/embeddings
+config/zed/prompts
+
+config/karabiner/automatic_backups 
+config/lazygit/state.yml
+
