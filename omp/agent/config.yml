@@ -9,7 +9,7 @@ modelRoles:
 dev: 
   autoqaConsent: granted
 theme: 
-  dark: dark-lunar-custom
+  dark: dark-monochrome-custom
   light: light-zenith
 statusLine: 
   separator: none
