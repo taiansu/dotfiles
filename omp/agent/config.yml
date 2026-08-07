@@ -1,19 +1,21 @@
 setupVersion: 1
-modelRoles: 
+modelRoles:
   default: openai-codex/gpt-5.6-terra
   smol: openai-codex/gpt-5.6-luna
   slow: openai-codex/gpt-5.6-sol
   plan: openai-codex/gpt-5.6-sol:max
   designer: anthropic/claude-5-opus:high
   commit: openai-codex/gpt-5.6-terra
-dev: 
+  advisor: anthropic/claude-5-opus:max
+  task: openai-codex/gpt-5.6-terra
+dev:
   autoqaConsent: granted
-theme: 
+theme:
   dark: dark-monochrome-custom
   light: light-zenith
-statusLine: 
+statusLine:
   separator: none
   transparent: true
   preset: default
-shellMinimizer: 
+shellMinimizer:
   enabled: false
