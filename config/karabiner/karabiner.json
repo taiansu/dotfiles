@@ -5,30 +5,144 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "ctrl to capslock",
+                        "description": "Q11: F16=MEH+=, F17=CAG, F18=Ctrl+Option, F19=MEH, F20=HYPER",
                         "manipulators": [
                             {
-                                "from": {
-                                    "key_code": "left_control",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "caps_lock" }],
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f16" },
+                                "to": [
+                                    {
+                                        "key_code": "equal_sign",
+                                        "modifiers": ["left_control", "left_option", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f17" },
+                                "to": [
+                                    {
+                                        "key_code": "left_command",
+                                        "lazy": true,
+                                        "modifiers": ["left_control", "left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f18" },
+                                "to": [
+                                    {
+                                        "key_code": "left_option",
+                                        "lazy": true,
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f19" },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "lazy": true,
+                                        "modifiers": ["left_control", "left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f20" },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "lazy": true,
+                                        "modifiers": ["left_control", "left_option", "left_command"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
                     },
                     {
-                        "description": "caps lock: tap in ABC = ctrl+cmd+space (previous IME); tap elsewhere = back to ABC; hold = control",
+                        "description": "Ctrl tap in ABC = ctrl+cmd+space (previous IME); tap elsewhere = back toABC; hold = control",
                         "manipulators": [
                             {
                                 "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 480,
+                                                "vendor_id": 13364
+                                            },
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    },
                                     {
                                         "input_sources": [{ "input_source_id": "^com\\.apple\\.keylayout\\.ABC$" }],
                                         "type": "input_source_if"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "caps_lock",
+                                    "key_code": "left_control",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
@@ -48,8 +162,27 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 480,
+                                                "vendor_id": 13364
+                                            },
+                                            {
+                                                "product_id": 53288,
+                                                "vendor_id": 13364
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    },
+                                    {
+                                        "input_sources": [{ "input_source_id": "^com\\.apple\\.keylayout\\.ABC$" }],
+                                        "type": "input_source_unless"
+                                    }
+                                ],
                                 "from": {
-                                    "key_code": "caps_lock",
+                                    "key_code": "left_control",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
@@ -75,6 +208,22 @@
                         "vendor_id": 13364
                     },
                     "ignore": false
+                },
+                {
+                    "identifiers": {
+                        "is_pointing_device": true,
+                        "product_id": 53288,
+                        "vendor_id": 13364
+                    },
+                    "ignore": false
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 53288,
+                        "vendor_id": 13364
+                    },
+                    "ignore_vendor_events": true
                 }
             ],
             "fn_function_keys": [
@@ -87,7 +236,7 @@
             "selected": true,
             "simple_modifications": [
                 {
-                    "from": { "key_code": "f20" },
+                    "from": { "key_code": "f13" },
                     "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
                 }
             ],
