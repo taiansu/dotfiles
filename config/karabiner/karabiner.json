@@ -132,7 +132,8 @@
                                             {
                                                 "product_id": 53288,
                                                 "vendor_id": 13364
-                                            }
+                                            },
+                                            { "is_built_in_keyboard": true }
                                         ],
                                         "type": "device_if"
                                     },
@@ -172,7 +173,8 @@
                                             {
                                                 "product_id": 53288,
                                                 "vendor_id": 13364
-                                            }
+                                            },
+                                            { "is_built_in_keyboard": true }
                                         ],
                                         "type": "device_if"
                                     },
@@ -224,6 +226,19 @@
                         "vendor_id": 13364
                     },
                     "ignore_vendor_events": true
+                },
+                {
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "caps_lock" }]
+                        }
+                    ]
                 }
             ],
             "fn_function_keys": [
