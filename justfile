@@ -36,6 +36,34 @@ omp:
     mkdir -p ~/.cache/zsh/completions
     omp completions zsh > ~/.cache/zsh/completions/omp.zsh
 
+# 安裝／更新 peon-ping、預設音效包及套用本機 OMP adapter patch
+peon-ping: ensure-brew
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    brew install peonping/tap/peon-ping
+    peon-ping-setup
+    bash "$(brew --prefix peonping/tap/peon-ping)/libexec/adapters/omp.sh"
+
+    readonly adapter_dir="$HOME/.omp/agent/extensions/peon-ping"
+    readonly adapter_file="$adapter_dir/peon-ping.ts"
+    readonly patch_file="{{justfile_directory()}}/patches/peon-ping/omp-notification-lifecycle.patch"
+
+    if [[ ! -f "$adapter_file" ]]; then
+        printf 'Error: upstream OMP adapter not found: %s\n' "$adapter_file" >&2
+        exit 1
+    fi
+    if [[ ! -f "$patch_file" ]]; then
+        printf 'Error: tracked OMP adapter patch not found: %s\n' "$patch_file" >&2
+        exit 1
+    fi
+    if ! git -C "$adapter_dir" apply --check "$patch_file"; then
+        printf 'Error: peon-ping OMP adapter changed upstream; refresh patch: %s\n' "$patch_file" >&2
+        exit 1
+    fi
+
+    git -C "$adapter_dir" apply "$patch_file"
+
 # 安裝／更新所有 Herdr plugins
 herdr-plugins:
     herdr plugin install AltanS/collie --yes
