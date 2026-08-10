@@ -63,6 +63,10 @@ test("routes only actionable OMP lifecycle events", async () => {
       notification_type: "elicitation_dialog",
     }),
     expect.objectContaining({ hook_event_name: "Stop" }),
-    expect.objectContaining({ hook_event_name: "PostToolUseFailure" }),
+    expect.objectContaining({
+      hook_event_name: "PostToolUseFailure",
+      tool_name: "Bash",
+      error: "read: permission denied",
+    }),
   ]))
 })

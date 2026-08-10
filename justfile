@@ -47,7 +47,7 @@ peon-ping: ensure-brew
 
     readonly adapter_dir="$HOME/.omp/agent/extensions/peon-ping"
     readonly adapter_file="$adapter_dir/peon-ping.ts"
-    readonly patch_file="{{justfile_directory()}}/patches/peon-ping/omp-notification-lifecycle.patch"
+    readonly patch_file={{quote(justfile_directory())}}/patches/peon-ping/omp-notification-lifecycle.patch
 
     if [[ ! -f "$adapter_file" ]]; then
         printf 'Error: upstream OMP adapter not found: %s\n' "$adapter_file" >&2

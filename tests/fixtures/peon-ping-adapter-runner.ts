@@ -49,13 +49,32 @@ imported.default({
 })
 
 if (handlers.has("turn_end")) throw new Error("turn_end must not emit completion")
+if (handlers.has("tool_call")) throw new Error("tool_call must not emit question alerts")
 if (!handlers.has("session_stop")) throw new Error("session_stop handler is required")
-if (!handlers.has("tool_call")) throw new Error("tool_call handler is required")
+if (!handlers.has("agent_end")) throw new Error("agent_end handler is required")
+if (!handlers.has("tool_execution_start")) {
+  throw new Error("tool_execution_start handler is required")
+}
 if (!handlers.has("tool_result")) throw new Error("tool_result handler is required")
 
 const payloadPromise = capturePayloads(capturePath, 3)
-await handlers.get("tool_call")?.({ toolName: "ask" }, { hasUI: false })
 await handlers.get("session_stop")?.({}, { hasUI: false })
-await handlers.get("tool_result")?.({ isError: true }, { hasUI: false })
+await handlers.get("agent_end")?.({ willContinue: true }, { hasUI: false })
+await handlers.get("tool_execution_start")?.(
+  { toolCallId: "ask-1", toolName: "ask", args: {} },
+  { hasUI: true },
+)
+await handlers.get("tool_result")?.(
+  {
+    toolCallId: "read-1",
+    toolName: "read",
+    input: {},
+    content: [{ type: "text", text: "permission denied" }],
+    isError: true,
+  },
+  { hasUI: false },
+)
+await handlers.get("session_stop")?.({}, { hasUI: false })
+await handlers.get("agent_end")?.({ willContinue: false }, { hasUI: false })
 
 console.log(JSON.stringify(await payloadPromise))

@@ -1,45 +1,90 @@
 diff --git a/peon-ping.ts b/peon-ping.ts
+index 9811b44..0a706e0 100644
 --- a/peon-ping.ts
 +++ b/peon-ping.ts
-@@ -16,7 +16,8 @@
+@@ -14,12 +14,13 @@
+  * - Tab title updates
+  *
   * Event mapping (omp ExtensionAPI → peon.sh hook_event_name):
-  *   session_start                       → SessionStart
-  *   turn_start                          → UserPromptSubmit
+- *   session_start                       → SessionStart
+- *   turn_start                          → UserPromptSubmit
 - *   turn_end                            → Stop
-+ *   session_stop                        → Stop
-+ *   tool_call (event.toolName === "ask") → Notification (elicitation_dialog)
++ *   session_start                        → SessionStart
++ *   turn_start                           → UserPromptSubmit
++ *   session_stop + terminal agent_end    → Stop
++ *   tool_execution_start (ask, main UI)  → Notification (elicitation_dialog)
   *   tool_result (event.isError === true) → PostToolUseFailure
-  *   auto_compaction_start               → PreCompact
-  *   session_shutdown                    → SessionEnd
-@@ -62,10 +63,10 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
+- *   auto_compaction_start               → PreCompact
+- *   session_shutdown                    → SessionEnd
++ *   auto_compaction_start                → PreCompact
++ *   session_shutdown                     → SessionEnd
+  *
+  * Requires peon-ping installed: brew install PeonPing/tap/peon-ping
+  *   or: curl -fsSL peonping.com/install | bash
+@@ -49,6 +50,12 @@ function setTabTitle(title: string): void {
+   process.stdout.write(`\x1b]0;${title}\x07`)
+ }
+ 
++interface PeonEventDetails {
++  notificationType?: string
++  toolName?: string
++  error?: string
++}
++
+ export default function peonPingExtension(pi: ExtensionAPI): void {
+   const peonSh = findPeonSh()
+   if (!peonSh) {
+@@ -61,11 +68,14 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
+   const cwd = process.cwd()
    const projectName = path.basename(cwd) || "omp"
    const sessionId = `omp-${Date.now()}`
++  let mainStopPending = false
  
 -  function firePeon(event: string): void {
-+  function firePeon(event: string, notificationType = ""): void {
++  function firePeon(event: string, details: PeonEventDetails = {}): void {
      const payload = JSON.stringify({
        hook_event_name: event,
 -      notification_type: "",
-+      notification_type: notificationType,
++      notification_type: details.notificationType ?? "",
++      tool_name: details.toolName ?? "",
++      error: details.error ?? "",
        cwd,
        session_id: sessionId,
        permission_mode: "",
-@@ -92,11 +93,17 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
+@@ -92,15 +102,34 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
      firePeon("UserPromptSubmit")
    })
  
 -  pi.on("turn_end", async (_event, ctx) => {
-+  pi.on("session_stop", async (_event, ctx) => {
++  pi.on("session_stop", async () => {
++    mainStopPending = true
++  })
++
++  pi.on("agent_end", async (event, ctx) => {
++    if (event.willContinue) {
++      mainStopPending = false
++      return
++    }
++    if (!mainStopPending) return
++    mainStopPending = false
      if (ctx.hasUI) setTabTitle(`\u25cf ${projectName}: done`)
      firePeon("Stop")
    })
  
-+  pi.on("tool_call", async (event) => {
-+    if (event.toolName === "ask") {
-+      firePeon("Notification", "elicitation_dialog")
++  pi.on("tool_execution_start", async (event, ctx) => {
++    if (event.toolName === "ask" && ctx.hasUI) {
++      firePeon("Notification", { notificationType: "elicitation_dialog" })
 +    }
 +  })
 +
    pi.on("tool_result", async (event, ctx) => {
      if (!event.isError) return
      if (ctx.hasUI) setTabTitle(`\u25cf ${projectName}: error`)
+-    firePeon("PostToolUseFailure")
++    const text = event.content.find(item => item.type === "text")?.text.trim()
++    const error = `${event.toolName}: ${text || "tool failed"}`
++    // peon.sh uses the Claude hook schema's "Bash" sentinel for task.error.
++    firePeon("PostToolUseFailure", { toolName: "Bash", error })
+   })
+ 
+   pi.on("auto_compaction_start", async () => {
