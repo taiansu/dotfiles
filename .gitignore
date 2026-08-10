@@ -14,8 +14,20 @@ config/zed/conversations
 config/zed/embeddings
 config/zed/prompts
 
-config/karabiner/automatic_backups 
+config/karabiner/automatic_backups
 config/lazygit/state.yml
 
 config/herdr/session-history.json
 config/herdr/session.json
+
+# Herdr plugin manager generated state
+config/herdr/plugins.json
+config/herdr/.plugins.lock
+config/herdr/plugins/github/
+
+# Herdr plugin machine-local config and runtime state
+config/herdr/plugins/config/*/.env
+config/herdr/plugins/config/*/.env.*
+!config/herdr/plugins/config/*/.env.example
+config/herdr/plugins/config/*/serve.out
+config/herdr/plugins/config/*/tailscale-managed-handler

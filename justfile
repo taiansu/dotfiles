@@ -36,6 +36,11 @@ omp:
     mkdir -p ~/.cache/zsh/completions
     omp completions zsh > ~/.cache/zsh/completions/omp.zsh
 
+# 安裝／更新所有 Herdr plugins
+herdr-plugins:
+    herdr plugin install AltanS/collie --yes
+    herdr plugin install cloudmanic/herdr-plus --yes
+
 
 # 確保 brew 存在，不存在就安裝
 [private]
