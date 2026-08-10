@@ -5,5 +5,8 @@
     "anthropicExtraUsage": false
   },
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-terra"
+  "defaultModel": "gpt-5.6-terra",
+  "packages": [
+    "npm:pi-peon-ping"
+  ]
 }

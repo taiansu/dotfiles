@@ -36,6 +36,21 @@ omp:
     mkdir -p ~/.cache/zsh/completions
     omp completions zsh > ~/.cache/zsh/completions/omp.zsh
 
+# 安裝／更新 peon-ping、預設音效包及 OMP adapter
+peon-ping: ensure-brew
+    brew install peonping/tap/peon-ping
+    peon-ping-setup
+    bash "$(brew --prefix peonping/tap/peon-ping)/libexec/adapters/omp.sh"
+
+# 使用環境變數設定 Pushover mobile notification
+peon-ping-pushover:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    : "${PUSHOVER_USER_KEY:?Set PUSHOVER_USER_KEY before running this recipe}"
+    : "${PUSHOVER_APP_TOKEN:?Set PUSHOVER_APP_TOKEN before running this recipe}"
+    peon mobile pushover "$PUSHOVER_USER_KEY" "$PUSHOVER_APP_TOKEN"
+    peon mobile test
+
 # 安裝／更新所有 Herdr plugins
 herdr-plugins:
     herdr plugin install AltanS/collie --yes

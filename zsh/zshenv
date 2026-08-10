@@ -64,4 +64,4 @@ export KERL_INSTALL_MANPAGES=no
 export HOMEBREW_NO_ANALYTICS=1
 
 # Agents
-export SKILL_AGENTS="codex claude-code pi gemini-cli grok github-copilot opencode zed"
+export SKILL_AGENTS="codex claude-code gemini-cli grok github-copilot opencode zed"
