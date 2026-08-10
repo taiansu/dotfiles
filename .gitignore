@@ -31,3 +31,14 @@ config/herdr/plugins/config/*/.env.*
 !config/herdr/plugins/config/*/.env.example
 config/herdr/plugins/config/*/serve.out
 config/herdr/plugins/config/*/tailscale-managed-handler
+
+# Pi agent credentials and generated runtime state
+pi/agent/auth.json
+pi/agent/models-store.json
+pi/agent/sessions/
+
+# Generated and overwritten by Herdr integration
+pi/agent/extensions/herdr-agent-state.ts
+
+# Machine-local links to shared skills
+pi/agent/skills/
