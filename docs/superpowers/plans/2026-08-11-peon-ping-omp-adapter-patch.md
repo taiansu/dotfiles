@@ -22,7 +22,7 @@
 Final review identified lifecycle races in the initially planned snippets below. The implemented patch and contract tests make these corrections:
 
 - `session_stop` records pending main completion; terminal `agent_end` emits it. A continuation clears pending state and cannot produce an early `done`.
-- `tool_execution_start`, not blockable `tool_call`, emits the main-UI `ask` notification.
+- `tool_execution_start`, not blockable `tool_call`, emits the main-UI `ask` notification only after its args pass the mirrored ask-schema guard; validation-failure synthetic starts stay silent.
 - Error payloads include nonempty `error` plus the Claude-hook `tool_name: "Bash"` sentinel required by peon.sh's `task.error` route.
 - `quote(justfile_directory())` shell-quotes the checkout path before Bash evaluates it.
 - `tests/fixtures/peon-ping-adapter-runner.ts` runs the patched adapter in a child process whose HOME points to a fake peon hook, so tests never produce real notifications.

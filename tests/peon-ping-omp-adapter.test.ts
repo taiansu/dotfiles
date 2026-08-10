@@ -57,6 +57,10 @@ test("routes only actionable OMP lifecycle events", async () => {
 
   expect({ exitCode, stderr }).toEqual({ exitCode: 0, stderr: "" })
   const payloads = parsePayloads(stdout)
+  expect(payloads).toHaveLength(3)
+  expect(
+    payloads.filter(payload => payload.hook_event_name === "Notification"),
+  ).toHaveLength(1)
   expect(payloads).toEqual(expect.arrayContaining([
     expect.objectContaining({
       hook_event_name: "Notification",

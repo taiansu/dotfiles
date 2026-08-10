@@ -61,7 +61,21 @@ const payloadPromise = capturePayloads(capturePath, 3)
 await handlers.get("session_stop")?.({}, { hasUI: false })
 await handlers.get("agent_end")?.({ willContinue: true }, { hasUI: false })
 await handlers.get("tool_execution_start")?.(
-  { toolCallId: "ask-1", toolName: "ask", args: {} },
+  { toolCallId: "ask-invalid", toolName: "ask", args: {} },
+  { hasUI: true },
+)
+await handlers.get("tool_execution_start")?.(
+  {
+    toolCallId: "ask-valid",
+    toolName: "ask",
+    args: {
+      questions: [{
+        id: "choice",
+        question: "Continue?",
+        options: [{ label: "Continue" }],
+      }],
+    },
+  },
   { hasUI: true },
 )
 await handlers.get("tool_result")?.(

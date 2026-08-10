@@ -1,5 +1,5 @@
 diff --git a/peon-ping.ts b/peon-ping.ts
-index 9811b44..0a706e0 100644
+index 9811b44..e5963f4 100644
 --- a/peon-ping.ts
 +++ b/peon-ping.ts
 @@ -14,12 +14,13 @@
@@ -21,7 +21,7 @@ index 9811b44..0a706e0 100644
   *
   * Requires peon-ping installed: brew install PeonPing/tap/peon-ping
   *   or: curl -fsSL peonping.com/install | bash
-@@ -49,6 +50,12 @@ function setTabTitle(title: string): void {
+@@ -49,6 +50,64 @@ function setTabTitle(title: string): void {
    process.stdout.write(`\x1b]0;${title}\x07`)
  }
  
@@ -31,10 +31,62 @@ index 9811b44..0a706e0 100644
 +  error?: string
 +}
 +
++const RESERVED_ASK_LABELS: Record<string, true> = {
++  "Other (type your own)": true,
++  "Chat about this": true,
++  "Next →": true,
++}
++
++function isValidAskArgs(args: unknown): boolean {
++  if (
++    args === null
++    || typeof args !== "object"
++    || Array.isArray(args)
++    || !("questions" in args)
++    || !Array.isArray(args.questions)
++    || args.questions.length === 0
++  ) {
++    return false
++  }
++
++  return args.questions.every(question => {
++    if (
++      question === null
++      || typeof question !== "object"
++      || Array.isArray(question)
++      || !("id" in question)
++      || typeof question.id !== "string"
++      || !("question" in question)
++      || typeof question.question !== "string"
++      || !("options" in question)
++      || !Array.isArray(question.options)
++      || ("header" in question && typeof question.header !== "string")
++      || ("multi" in question && typeof question.multi !== "boolean")
++      || (
++        "recommended" in question
++        && (typeof question.recommended !== "number" || !Number.isFinite(question.recommended))
++      )
++    ) {
++      return false
++    }
++
++    return question.options.every(option =>
++      option !== null
++      && typeof option === "object"
++      && !Array.isArray(option)
++      && "label" in option
++      && typeof option.label === "string"
++      && RESERVED_ASK_LABELS[option.label] !== true
++      && (!("description" in option) || typeof option.description === "string")
++      && (!("preview" in option) || typeof option.preview === "string")
++    )
++  })
++}
++
  export default function peonPingExtension(pi: ExtensionAPI): void {
    const peonSh = findPeonSh()
    if (!peonSh) {
-@@ -61,11 +68,14 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
+@@ -61,11 +120,14 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
    const cwd = process.cwd()
    const projectName = path.basename(cwd) || "omp"
    const sessionId = `omp-${Date.now()}`
@@ -51,7 +103,7 @@ index 9811b44..0a706e0 100644
        cwd,
        session_id: sessionId,
        permission_mode: "",
-@@ -92,15 +102,34 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
+@@ -92,15 +154,34 @@ export default function peonPingExtension(pi: ExtensionAPI): void {
      firePeon("UserPromptSubmit")
    })
  
@@ -72,7 +124,7 @@ index 9811b44..0a706e0 100644
    })
  
 +  pi.on("tool_execution_start", async (event, ctx) => {
-+    if (event.toolName === "ask" && ctx.hasUI) {
++    if (event.toolName === "ask" && ctx.hasUI && isValidAskArgs(event.args)) {
 +      firePeon("Notification", { notificationType: "elicitation_dialog" })
 +    }
 +  })
