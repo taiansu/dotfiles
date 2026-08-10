@@ -42,3 +42,7 @@ pi/agent/extensions/herdr-agent-state.ts
 
 # Machine-local links to shared skills
 pi/agent/skills/
+
+
+# Local git worktrees
+.worktrees/
