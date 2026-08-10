@@ -35,10 +35,10 @@ Patch 路徑以 adapter 安裝目錄 `~/.omp/agent/extensions/peon-ping` 為工�
 
 Patch 僅保留以下本地差異：
 
-1. `firePeon` 增加可省略的 `notificationType` 參數，並寫入 payload 的 `notification_type`。
-2. 移除 `turn_end → Stop`；改用 `session_stop → Stop`。`session_stop` 只針對 main session，在主工作停止前觸發，且不會為 task/subagent session 觸發。
-3. 監聽 `tool_call`；當 `event.toolName === "ask"` 時送出 `Notification`，並將 `notification_type` 設為 `elicitation_dialog`。Peon-ping 會將此事件路由至 `input.required`。
-4. 保留既有 `tool_result` error 到 `PostToolUseFailure` 的映射，使工具錯誤繼續路由至 `task.error`。
+1. `firePeon` 接受可省略的 detail object，並將 `notification_type`、`tool_name` 與 `error` 寫入 payload。
+2. 移除 `turn_end → Stop`。Main-only 的 `session_stop` 只標記待完成狀態；其後 `agent_end` 僅在 `willContinue !== true` 時送出 `Stop`。若其他 stop hook 安排 continuation，先清除待完成狀態，避免提早或重複通知；task/subagent 不會收到 `session_stop`，因此其 `agent_end` 不會送出完成通知。
+3. 監聽已通過 `tool_call` middleware 的 `tool_execution_start`；只有 main UI 執行 `ask` 且 event args 完整符合 ask schema 時才送出 `Notification / elicitation_dialog`。這會排除 middleware block 與 OMP 為 schema validation failure 合成的 execution-start 事件。
+4. `tool_result` error 將實際工具名稱與文字整理為非空 `error`，並把 `tool_name` 正規化為 peon.sh Claude-hook schema 用來路由 `task.error` 的 `Bash` sentinel。
 5. 同步更新 adapter 頂端的 event mapping 註解，避免文件與實作分歧。
 
 ## 安裝與套用流程
@@ -79,11 +79,11 @@ brew install/update peon-ping
 
 1. 對上游剛安裝的 adapter 執行 `git apply --check`，結果成功。
 2. 套用 patch 後確認 `git apply --reverse --check` 成功，證明完整 patch 已存在。
-3. 確認 adapter 不再註冊 `turn_end` 完成通知，並註冊 `session_stop` 與 `ask` 的 `tool_call` 通知。
-4. 啟動 OMP smoke test，確認 extension 可載入且沒有 TypeScript/runtime 載入錯誤。
-5. 實際執行包含多次工具呼叫的 prompt，只收到一次完成通知。
-6. 觸發 `ask`，收到一次 `input.required` 通知。
-7. 觸發工具錯誤，收到 `task.error` 通知。
+3. 確認 adapter 不再註冊 `turn_end` 或 `tool_call` 通知，並註冊 `session_stop`、terminal `agent_end` 與 `ask` 的 `tool_execution_start` 通知。
+4. 模擬 `session_stop → agent_end(willContinue: true) → session_stop → agent_end(willContinue: false)`，只捕捉一次 `Stop` payload。
+5. 啟動 OMP smoke test，確認 extension 可載入且沒有 TypeScript/runtime 載入錯誤。
+6. 觸發已開始執行且 schema-valid 的 `ask`，收到一次 `input.required` payload；middleware-blocked 或 schema-invalid 的 `ask` 不通知。
+7. 觸發工具錯誤，payload 包含 peon.sh 路由 `task.error` 所需的非空 `error` 與 `tool_name: "Bash"`。
 8. 使用刻意不相容的 adapter 副本執行 `git apply --check`，確認流程以非零狀態停止且不修改副本。
 
 ## 安全與私密資料
