@@ -77,6 +77,10 @@ herdr-plugins:
     herdr plugin install AltanS/collie --yes
     herdr plugin install cloudmanic/herdr-plus --yes
 
+# 執行 Collie plugin action
+collie action:
+    herdr plugin action invoke {{quote(action)}} --plugin herdr.collie
+
 
 # 確保 brew 存在，不存在就安裝
 [private]
