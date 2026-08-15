@@ -81,6 +81,15 @@ herdr-plugins:
 collie action:
     herdr plugin action invoke {{quote(action)}} --plugin herdr.collie
 
+# 啟用tailscale dns
+tail-dns-on:
+  tailscale set --accept-dns=true
+  dscacheutil -flushcache
+
+# 停用tailscale dns
+tail-dns-off:
+  tailscale set --accept-dns=false
+  dscacheutil -flushcache
 
 # 確保 brew 存在，不存在就安裝
 [private]

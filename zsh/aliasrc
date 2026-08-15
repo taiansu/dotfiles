@@ -191,6 +191,9 @@ alias cl="npx ccxray claude --disallowedTools ExitPlanMode --disallowedTools Ask
 # codex
 alias co="npx ccxray codex"
 
+# omp
+alias onp="onp --config ~/.omp/agent/no-superpowers.yml"
+
 # zh-translate hook toggle
 alias zh-on="rm -f ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: ON'"
 alias zh-off="touch ~/.claude/hooks/zh-translate.disabled && echo 'zh-translate: OFF'"
