@@ -333,6 +333,22 @@ Initial groups are:
 | `homebrew` | Brewfile; linking only |
 | `dev` | ctags, Gem, IEx, Credo, and similar development config |
 
+### Credential incident precondition
+
+The public repository exposed a GitHub Personal Access Token in `git/git_credential`. The token was revoked on 2026-08-18 and must never be copied into plans, logs, fixtures, commits, or replacement files.
+
+Credential remediation is the first dotfiles implementation task:
+
+1. audit tracked `git/git_credential` and `credential` locally without printing values;
+2. preserve required non-secret identity settings in a sanitized template;
+3. remove both credential-bearing paths from the current tree;
+4. add secret-bearing local paths to ignore rules;
+5. use an isolated mirror clone and `git filter-repo` to remove both paths from every local branch and tag;
+6. verify the rewritten object database with a secret scanner and path-history checks;
+7. obtain explicit approval immediately before force-pushing rewritten branches and tags.
+
+The repository currently has a public fork. History rewriting cannot remove copies retained by forks or prior clones; revocation is the actual containment. The rewrite prevents normal future clones from continuing to distribute the files.
+
 Migration requirements:
 
 - inventory and approve every source-to-target mapping before moving files;
@@ -433,3 +449,4 @@ The dotfiles READMEs document its groups, default profile, prerequisites, and ex
 8. Dirty or unexpected Git checkouts are never reset or adopted.
 9. The migrated default dotfiles profile starts Zsh without fzf, omp, or Node.js installed.
 10. Both repositories contain mutually linked Traditional Chinese and English READMEs.
+11. Revoked credentials are absent from the current tree and rewritten branch/tag history, and no replacement credential enters version control.
