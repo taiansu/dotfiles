@@ -7,7 +7,7 @@ The current `setup.sh` cannot bootstrap a new machine. It assumes `~/.dotfiles` 
 The replacement must serve two distinct uses:
 
 1. Install Kaisian as a third-party CLI that can apply any compatible Stow-style dotfiles repository.
-2. Preserve a personal zero-argument `curl https://myurl | bash` path that installs a fixed Kaisian release and applies a fixed `taiansu/dotfiles` commit.
+2. Preserve a personal zero-argument `curl https://kaisian.phx.tw | bash` path that installs a fixed Kaisian release and applies a fixed `taiansu/dotfiles` commit.
 
 Kaisian only installs and links dotfiles. It does not install Homebrew packages, language runtimes, or other CLIs.
 
@@ -20,7 +20,7 @@ Kaisian only installs and links dotfiles. It does not install Homebrew packages,
 - Restructure `taiansu/dotfiles` into root-level Stow-style groups.
 - Permit one non-payload metadata file, `.kaisian.toml`, in compatible dotfiles repositories.
 - Keep the generic installer independent of any particular dotfiles repository.
-- Keep a separate personal endpoint, `https://myurl`, whose response pins both the Kaisian release and the `taiansu/dotfiles` commit.
+- Keep a separate personal endpoint, `https://kaisian.phx.tw`, whose response pins both the Kaisian release and the `taiansu/dotfiles` commit.
 - Use shell locale by default; `--lang=en` and `--lang=zh-TW` override it.
 - Support macOS only in the first release.
 
@@ -117,7 +117,7 @@ The checksum detects corruption and a mismatched release asset. It does not prot
 
 ### Personal endpoint
 
-`https://myurl` serves a fixed wrapper configuration. Its response pins:
+`https://kaisian.phx.tw` serves a fixed wrapper configuration. Its response pins:
 
 - an exact Kaisian release and per-platform checksum;
 - `https://github.com/taiansu/dotfiles.git`;
@@ -138,7 +138,7 @@ After installing Kaisian, the wrapper performs the equivalent of:
   --yes
 ```
 
-The hostname and routing deployment for `https://myurl` are external to the two repositories. Kaisian must provide a versioned, configurable installer wrapper that can be deployed at that endpoint without changing the generic binary.
+GitHub Pages serves the endpoint from `taiansu/kaisian` with custom domain `kaisian.phx.tw`; DNS uses `CNAME kaisian.phx.tw → taiansu.github.io`. Kaisian provides the versioned configurable wrapper without coupling the generic binary to personal dotfiles.
 
 ## CLI Contract
 
@@ -274,7 +274,7 @@ Kaisian creates a complete immutable `ApplyPlan` before any `$HOME` mutation. Pl
 
 - validate manifest schema and compatibility;
 - resolve and validate selected groups;
-- recursively enumerate regular leaf files, including hidden files inside groups;
+- recursively enumerate regular leaf files, including dotfiles inside groups, while excluding any path component named exactly `.git` so nested submodule administration files never become payload;
 - reject source symlinks in the first release;
 - ignore empty source directories;
 - reject duplicate targets across groups;
@@ -440,7 +440,7 @@ The dotfiles READMEs document its groups, default profile, prerequisites, and ex
 ## Acceptance Criteria
 
 1. A macOS user can install the fixed Kaisian release without Rust or Node.js.
-2. `curl -fsSL https://myurl | bash` installs Kaisian and applies the pinned `taiansu/dotfiles` default profile to a fresh HOME without additional input.
+2. `curl -fsSL https://kaisian.phx.tw | bash` installs Kaisian and applies the pinned `taiansu/dotfiles` default profile to a fresh HOME without additional input.
 3. `kaisian apply` works with another compatible root-group Stow-style repository.
 4. Default, explicit group, all-group, interactive checkbox, and dry-run selection paths work through both `kaisian apply` and the personal curl endpoint as documented.
 5. Locale follows shell settings and can be overridden by `--lang=en` or `--lang=zh-TW`.
