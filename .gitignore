@@ -46,3 +46,6 @@ pi/agent/skills/
 
 # Local git worktrees
 .worktrees/
+
+# Subagent-driven development progress
+.superpowers/
