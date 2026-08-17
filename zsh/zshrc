@@ -130,57 +130,37 @@ FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 
-# Default colors:
-# White for users, red for root, yellow for system users
-local _time="%F{246}[%*]"
-# PROMPT_COMMAND='PS1X=$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
-local _path="%F{blue}%(4~|%-1~/…/%2~|%3~)"
-local _usercol
-if [[ $EUID -lt 1000 ]]; then
-  # red for root, yellow for system users
-  _usercol="%(!.%F{red}.%F{154})"
-else
-  _usercol="%F{yellow}"
-fi
-local _user="%{$_usercol%}%n"
-
-local _prompt
-if [[ $SHLVL -gt 1 ]]; then
-  _prompt="%F{reset_color%}𝝺′"
-else
-  _prompt="%F{reset_color%}𝝺"
-fi
+# Prompt
+local _path='%F{blue}%(4~|%-1~/…/%2~|%3~)%f'
+local _prompt='𝝺'
+(( SHLVL > 1 )) && _prompt+='′'
 
 ## git status
 source ~/.dotfiles/git-prompt.zsh/git-prompt.zsh
 
-ZSH_GIT_PROMPT_FORCE_BLANK=1
-ZSH_GIT_PROMPT_SHOW_STASH=0
-ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
+_zsh_git_prompt_clear_cache() {
+  typeset -g _ZSH_GIT_PROMPT_STATUS_OUTPUT=""
+  typeset -g _ZSH_GIT_PROMPT_STATUS_SECONDARY_OUTPUT=""
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _zsh_git_prompt_clear_cache
 
-ZSH_THEME_GIT_PROMPT_PREFIX="["
+ZSH_THEME_GIT_PROMPT_PREFIX=" ["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]"
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_no_bold[cyan]%}:"
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_no_bold[white]%}"
-ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳"
-ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX=""
-ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_no_bold[cyan]%}↓"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_no_bold[cyan]%}↑"
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}x"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}o"
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}+"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
-ZSH_THEME_GIT_PROMPT_STASHED="*"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-PROMPT='$_path%F{reset_color} $(gitprompt) $_prompt%b%f%k%F{white} '
+PROMPT='$_path${_ZSH_GIT_PROMPT_STATUS_OUTPUT} $_prompt%b%f%k%F{white} '
 
-local RPROMPT='$_time'
-if [[ ! -z "$SSH_CLIENT" ]]; then
-  RPROMPT="$RPROMPT ⇄" # ssh icon
-fi
+RPROMPT='%F{246}[%*]%f'
+[[ -n $SSH_CLIENT ]] && RPROMPT+=' ⇄'
 
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
@@ -188,11 +168,10 @@ SAVEHIST=1000
 HISTFILE=$XDG_CACHE_HOME/shell_history
 
 # shell options
-setopt PROMPT_SUBST
+setopt PROMPT_SUBST # expand cached Git status in the prompt
 setopt autocd # assume "cd" when a command is a directory
 setopt histignorealldups # Substitute commands in the prompt
 setopt sharehistory # Share the same history between all shells
-setopt promptsubst # required for git plugin
 setopt histignorespace # Ignore command start with space
 
 # Completion system
