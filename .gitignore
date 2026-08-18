@@ -3,7 +3,8 @@
 dotfiles_backup
 data
 hashrc
-*_credential
+/credential
+/git/git_credential
 *.zwc
 *.sock
 *.bak
