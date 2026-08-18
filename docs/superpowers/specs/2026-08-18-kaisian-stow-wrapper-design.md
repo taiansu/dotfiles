@@ -27,7 +27,7 @@ The archived Rust implementation remains outside the new repository at `~/Projec
 
 ## 3. Runtime Prerequisites
 
-The wrapper supports macOS 13 or newer and requires these commands to exist before it starts:
+The wrapper supports macOS 13 or newer. Normal execution after help/argument-shape handling requires these commands:
 
 - `/bin/bash`;
 - `/usr/bin/git` or `git` on `PATH`;
@@ -126,6 +126,8 @@ Package validation rejects:
 - an empty payload directory, gitlink, or nested Git repository anywhere inside a selectable package.
 
 Kaisian transforms every source component once, normalizes the resulting HOME-relative target once, ASCII-case-folds that value for conservative collision checks on both case-sensitive and case-insensitive macOS filesystems, and uses the original normalized value for containment, backup, and display decisions. Rejecting non-ASCII payload names avoids dependence on APFS/HFS Unicode normalization tables. Kaisian never constructs a backup path from an unnormalized source name.
+
+Across every declared package, Kaisian merges transformed paths into one ASCII-case-folded typed tree before selection or backup. Directory/directory prefixes may be shared. Duplicate leaves, a leaf where another package requires a directory, and every leaf/descendant or file/directory prefix collision are rejected. This validation completes before confirmation and ensures every default, profile, and explicit selection is structurally representable by Stow.
 
 ## 6. Manifest Contract
 
@@ -250,9 +252,9 @@ For an existing checkout, Kaisian requires:
 - config-independent porcelain status with all untracked and ignored files visible and `ignore-submodules=none`;
 - every initialized submodule and nested submodule at the exact superproject-recorded commit and clean under the same tracked/untracked/ignored checks.
 
-The top-level administrative directory must resolve through both `git rev-parse --absolute-git-dir` and `--git-common-dir` to the same real `<checkout>/.git` directory. Bare repositories, linked worktrees, `.git` gitfiles/symlinks, separate/common Git directories, external object alternates, and administrative paths outside the checkout are rejected. No path inside the mutable administrative tree may be a symlink, and every mutable objects, refs, logs, config, index, and child-admin path must resolve below that embedded `.git`. Kaisian-created child submodules use the same real embedded `<submodule>/.git` layout below the child checkout; absorbed or externally stored submodule gitdirs are unsupported.
+The top-level administrative directory must resolve through both `git rev-parse --absolute-git-dir` and `--git-common-dir` to the same real `<checkout>/.git` directory. Bare repositories, linked worktrees, `.git` gitfiles/symlinks, separate/common Git directories, external object alternates, and administrative paths outside the checkout are rejected. No repository-owned or repository-discovered mutable administrative path may be a symlink, and its objects, refs, logs, config, and real index must resolve below that embedded `.git`. Kaisian-created child submodules use the same real embedded `<submodule>/.git` layout below the child checkout; absorbed or externally stored submodule gitdirs are unsupported.
 
-Cleanliness and safe configuration are checked both before fetch/checkout and after staged submodule update. Index-only changes are rejected against HEAD. Worktree bytes are compared with HEAD through a fresh temporary index inside the invocation sandbox, so `assume-unchanged`, `skip-worktree`, sparse-index, and sparse-checkout state in the repository index cannot conceal modified or missing payload. Separate config-independent scans reject all untracked and ignored paths. Any wrong-commit or nested-submodule change is rejected. Package traversal separately proves that each payload leaf is tracked by the top-level superproject. Kaisian never invokes `reset --hard`, `clean`, `stash`, or automatic conflict resolution.
+Cleanliness and safe configuration are checked both before fetch/checkout and after staged submodule update. Index-only changes are rejected against HEAD. For worktree verification only, Kaisian explicitly sets `GIT_INDEX_FILE` to a fresh index whose recorded physical path is inside the revalidated invocation sandbox; that tool-owned exception is never read from repository config or metadata. Comparing worktree bytes with HEAD through this isolated index prevents `assume-unchanged`, `skip-worktree`, sparse-index, and sparse-checkout state in the repository index from concealing modified or missing payload. Separate config-independent scans reject all untracked and ignored paths. Any wrong-commit or nested-submodule change is rejected. Package traversal separately proves that each payload leaf is tracked by the top-level superproject. Kaisian never invokes `reset --hard`, `clean`, `stash`, or automatic conflict resolution.
 
 ### 7.7 Checkout and target separation
 
@@ -315,10 +317,11 @@ For each selected leaf:
 - an absent target is installable;
 - a symlink already resolving to the expected package leaf is unchanged;
 - an exact regular file, directory, broken symlink, or wrong symlink is a backup conflict;
+- a FIFO, socket, device, or any other non-regular target node is rejected for manual resolution;
 - an existing parent that is not a real directory, including a symlink parent, is rejected for manual resolution;
 - every resolved target path must remain below the physical `$HOME` root.
 
-Preflight also rejects duplicate target mappings across selected or declared packages. It completes before any conflict is moved.
+Preflight also applies the typed-tree collision validation across all declared packages. It completes before confirmation or any conflict move.
 
 Conflicts are moved, never copied, to:
 
@@ -335,6 +338,8 @@ Confirmation behavior:
 - `--yes`: move listed conflicts without prompting;
 - explicit rejection: exit zero without moving conflicts or changing target links; any already completed managed-checkout update remains;
 - missing, unreadable, or unwritable controlling TTY, or a failed confirmation read: exit nonzero before creating the backup root or moving conflicts.
+
+`--dry-run` never requests backup confirmation and does not require `/dev/tty` merely because conflicts exist; it reports planned moves and exits according to preflight success. `--interactive` still requires a TTY independently.
 
 Once conflict moves begin, failures preserve the backup and return nonzero with exact manual restore guidance. Kaisian does not automatically restore moved conflicts. Backups are never automatically removed. Before acquisition, Kaisian rejects a physical checkout or computed backup tree equal to, above, or below the canonical lock path; siblings remain valid. Kaisian then validates root-owned sticky `/private/tmp` and atomically acquires the fixed per-UID directory `/private/tmp/kaisian-<UID>.lock` with mode `0700` before source or target mutation. The lock contains only the current PID record and an invocation sandbox. Exit/signal traps revalidate the recorded lock/sandbox identity and containment, remove only the exact sandbox entries they created, then remove the empty lock; they never recursively cross a persistent-tree boundary or automatically clean an unrecognized/stale lock. An existing lock causes a nonzero refusal with owner/type/mode verification and stale-lock inspection/removal guidance. The non-overridable canonical location rejects concurrent invocations even when they have different `TMPDIR` or XDG values.
 
@@ -358,6 +363,8 @@ Every invocation supplies:
 
 Every probe, simulation, and apply runs through one sanitized Stow runner. It uses an empty controlled working directory and a temporary process HOME inside the invocation lock, creates an empty `.stow-global-ignore` there to disable Stow's built-in ignore list deterministically, and supplies only a minimal locale/PATH environment. Caller `.stowrc`, target-HOME `.stowrc`/`.stow-global-ignore`, `STOW_DIR`, and Perl injection variables including `PERL5OPT`, `PERL5LIB`, `PERLLIB`, `PERL_LOCAL_LIB_ROOT`, `PERL_MB_OPT`, and `PERL_MM_OPT` are absent. Absolute `--dir` and `--target` values remain explicit. Consequently the preflight payload set and Stow payload set are identical, including README/LICENSE-like filenames that Stow would otherwise ignore by default.
 
+When the checkout or computed state/backup tree lies below the physical Stow target, the runner also passes literal, anchored subtree ignore expressions generated by escaping every regex metacharacter in their HOME-relative paths. Preflight already forbids payload mappings at, above, or below those excluded trees, so these rules cannot suppress valid payload. Kaisian behaviorally probes that the supported Stow applies these ignores during `--compat` target traversal; if not, it fails before target mutation. Paths outside the target require no ignore rule. Current and historical backups, state files, and the managed checkout therefore remain outside compatibility deletion scans.
+
 The implementation must verify first-run deletion of never-stowed unselected packages against the supported GNU Stow version. If Stow requires filtering no-op deletes, Kaisian may omit only packages for which no Stow-owned target link exists; observable selection semantics must remain identical and no persistent Kaisian selection state may be introduced.
 
 `--compat` is passed on every restow and delete invocation, including mixed operations; there is no runtime detection branch. This whole-target compatibility scan removes links for payload files deleted from an existing package. Schema 1 package names are stable across every supported pinned dotfiles release: removing or renaming a package is a breaking manifest change and release CI rejects it until a separately designed migration exists. Upgrade tests remove a payload file within a retained package and prove its obsolete HOME link is removed.
@@ -366,14 +373,14 @@ Stow's own deferred conflict analysis remains authoritative after Kaisian's pref
 
 ## 12. Dry Run
 
-`--dry-run` performs source acquisition/update, manifest parsing, package validation, selection, mapping, and conflict discovery. It may create or update the physical managed checkout selected by `--repo-dir` and, when that checkout is absent, create only its minimal missing ancestor chain. It also creates the ephemeral lock and sanitized Stow sandbox under `/private/tmp`; both are removed before exit. No other HOME path may change. It must not:
+`--dry-run` performs source acquisition/update, manifest parsing, package validation, selection, mapping, and conflict discovery. It may create or update the physical managed checkout selected by `--repo-dir` and, when that checkout is absent, create only its minimal missing ancestor chain. It also creates the ephemeral lock and sanitized Stow sandbox under `/private/tmp`; both are removed before exit. It skips backup confirmation and its TTY requirement, does not create compatibility-sensitive backup content, and reports planned moves. No other HOME path may change. It must not:
 
 - move conflicts or mutate paths outside that managed checkout and its newly required ancestors;
 - create backup directories;
 - create, remove, or change target links;
 - write persistent Kaisian state.
 
-The output identifies selected packages, unselected packages, planned backup moves, and the Stow operations. When preflight finds no conflicts, Kaisian invokes Stow with `--simulate --verbose` using the same semantic operations as the real apply. When planned backup conflicts still occupy target paths, Kaisian reports those conflicts as the dry-run result and does not misrepresent Stow's expected conflict exit as an unrelated failure; the real operation will move only the approved conflicts before invoking Stow.
+The output identifies selected packages, unselected packages, planned backup moves, and the Stow operations. When preflight finds no conflicts, Kaisian invokes Stow with `--simulate --verbose` using the same sanitized runner, subtree exclusions, and semantic operations as the real apply. When planned backup conflicts still occupy target paths, Kaisian reports those conflicts as the dry-run result and does not misrepresent Stow's expected conflict exit as an unrelated failure; the real operation will move only the approved conflicts before invoking Stow.
 
 ## 13. Error Model
 
@@ -446,11 +453,11 @@ The shell suite runs in temporary HOME/XDG roots with fake network Git remotes a
 13. JSON syntax, schema, types, unknown keys, documented duplicate-key behavior, package alignment, stable package names, and profile references;
 14. manifest-order default/all/profile/groups selection;
 15. fzf multi-selection, cancellation/empty/error status handling, control-free descriptions, and non-TTY refusal;
-16. `dot-` mapping, post-transform traversal, non-ASCII path, ASCII case-fold collision, hidden/untracked source, empty directory, source symlink, package gitlink/nested-repository rejection, non-payload submodule metadata, and staged physical checkout/target/state separation checks;
+16. `dot-` mapping, post-transform traversal, non-ASCII path, ASCII case-fold collision, typed directory sharing, duplicate-leaf and leaf/descendant collision rejection, hidden/untracked source, empty directory, source symlink, package gitlink/nested-repository rejection, non-payload submodule metadata, and staged physical checkout/target/state separation checks;
 17. correct-link idempotency and selected/unselected package switching;
-18. conflict detection, confirmation read failure, `--yes`, atomic same-device hierarchy-preserving backup moves, cross-device refusal, safe unique backup roots, canonical lock exclusion across differing `TMPDIR` values, and user rejection no-op;
+18. conflict detection, special-node refusal, confirmation read failure, `--yes`, dry-run conflict reporting without TTY/confirmation, atomic same-device hierarchy-preserving backup moves, cross-device refusal, safe unique backup roots, canonical lock exclusion across differing `TMPDIR` values, and user rejection no-op;
 19. checkout and computed XDG backup paths equal to, above, and below the lock/sandbox are rejected while siblings remain valid; cleanup removes only revalidated invocation-owned sandbox entries;
-20. real Stow apply with `--dotfiles --no-folding --compat` into a temporary target HOME;
+20. real Stow apply with `--dotfiles --no-folding --compat` into a temporary target HOME, with anchored literal compatibility exclusions preserving current/prior backup and state symlinks;
 21. hostile caller/target `.stowrc`, `.stow-global-ignore`, `STOW_DIR`, Perl environment, and built-in-ignore filenames cannot alter sanitized Stow probes/simulation/apply or preflight parity;
 22. upgrade of a retained package removing an obsolete payload link, plus release rejection for package removal/rename;
 23. Stow failure preserving backup and reporting manual recovery;
