@@ -73,6 +73,8 @@
 [push]
       default = simple
       autoSetupRemote = true
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com/
 [rerere]
   enabled = true
 [difftool]

@@ -1,15 +1,25 @@
 setupVersion: 1
 modelRoles:
-  default: openai-codex/gpt-5.6-sol:high
-  smol: openai-codex/gpt-5.6-luna
-  slow: openai-codex/gpt-5.6-sol
-  plan: openai-codex/gpt-5.6-sol:max
+  default: anthropic/claude-opus-5
+  smol: anthropic/claude-hiku-5
+  slow: anthropic/claude-sonnet-5
+  plan: anthropic/claude-fable-5
   designer: anthropic/claude-5-opus:high
   commit: google-antigravity/gemini-3.7-flash
-  advisor: anthropic/claude-5-opus:max
+  advisor: anthropic/claude-5-opus:high
   task: google-antigravity/gemini-3.7-flash
   tiny: google-antigravity/gemini-3.7-flash
-  vision: openai-codex/gpt-5.5
+  vision: anthropic/claude-5-opus:high
+  # default: openai-codex/gpt-5.6-sol
+  # smol: openai-codex/gpt-5.6-luna
+  # slow: openai-codex/gpt-5.6-sol
+  # plan: openai-codex/gpt-5.6-sol:max
+  # designer: anthropic/claude-5-opus:high
+  # commit: google-antigravity/gemini-3.7-flash
+  # advisor: anthropic/claude-5-opus:max
+  # task: google-antigravity/gemini-3.7-flash
+  # tiny: google-antigravity/gemini-3.7-flash
+  # vision: openai-codex/gpt-5.5
 dev:
   autoqaConsent: granted
 theme:
