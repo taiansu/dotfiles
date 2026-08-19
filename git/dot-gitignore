@@ -33,7 +33,8 @@ Temporary Items
 
 #dropbox file
 .dropbox
-Icon
+Icon
+
 
 
 # editor
@@ -189,3 +190,6 @@ venv
 *.iml
 
 **/.claude/settings.local.json
+
+# git worktree 目錄（gwx base_dir: .worktrees）
+.worktrees/
