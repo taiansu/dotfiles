@@ -7,8 +7,8 @@ typeset -gA homebrew_prefix=(
   arm64 /opt/homebrew
 )
 
-if [[ -f ~/.dotfiles/credential ]]; then
-  source ~/.dotfiles/credential
+if [[ -f ~/.config/dotfiles/credential ]]; then
+  source ~/.config/dotfiles/credential
 fi
 
 skip_global_compinit=1

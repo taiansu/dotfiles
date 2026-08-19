@@ -14,8 +14,8 @@ function gistDownload() {
 
 [[ -o interactive ]] || return
 
-source ~/.dotfiles/zsh/aliasrc
-[[ -f ~/.dotfiles/zsh/hashrc ]] && source ~/.dotfiles/zsh/hashrc
+source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc
+[[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/hashrc ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/hashrc
 
 ### interactive section
 
@@ -300,7 +300,7 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
 fi
 
 # fzf-git
-[[ -f "$HOME/.dotfiles/scripts/fzf-git.sh" ]] && source "$HOME/.dotfiles/scripts/fzf-git.sh"
+[[ -f "$HOME/.local/libexec/dotfiles/fzf-git.sh" ]] && source "$HOME/.local/libexec/dotfiles/fzf-git.sh"
 bindkey -M emacs -r '^g'
 
 # oh-my-pi

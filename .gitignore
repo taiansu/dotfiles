@@ -1,52 +1,40 @@
 *.log
-.claude
-dotfiles_backup
-data
-hashrc
-/credential
-/git/git_credential
-*.zwc
 *.sock
 *.bak
+*.zwc
 .tmp*
+dotfiles_backup
 
-### config
-config/zed/conversations
-config/zed/embeddings
-config/zed/prompts
+# Credential guards (must never live in a stow package)
+/credential
+/git/git_credential
 
-config/karabiner/automatic_backups
-config/lazygit/state.yml
-
-config/herdr/session-history.json
-config/herdr/session.json
-
-# Herdr plugin manager generated state
-config/herdr/plugins.json
-config/herdr/.plugins.lock
-config/herdr/plugins/github/
-
-# Herdr plugin machine-local config and runtime state
-config/herdr/plugins/config/*/.env
-config/herdr/plugins/config/*/.env.*
-!config/herdr/plugins/config/*/.env.example
-config/herdr/plugins/config/*/serve.out
-config/herdr/plugins/config/*/tailscale-managed-handler
-
-# Pi agent credentials and generated runtime state
-pi/agent/auth.json
-pi/agent/models-store.json
-pi/agent/sessions/
-
-# Generated and overwritten by Herdr integration
-pi/agent/extensions/herdr-agent-state.ts
-
-# Machine-local links to shared skills
-pi/agent/skills/
-
+# Machine-local state inside packages
+agents/dot-omp/agent/config.yml.lock
+agents/dot-pi/agent/auth.json
+agents/dot-pi/agent/models-store.json
+agents/dot-pi/agent/sessions/
+agents/dot-pi/agent/skills/
+agents/dot-pi/agent/extensions/herdr-agent-state.ts
+cli/dot-config/herdr/plugins.json
+cli/dot-config/herdr/.plugins.lock
+cli/dot-config/herdr/session-history.json
+cli/dot-config/herdr/session.json
+cli/dot-config/herdr/plugins/github/
+cli/dot-config/herdr/plugins/config/*/.env
+cli/dot-config/herdr/plugins/config/*/.env.*
+!cli/dot-config/herdr/plugins/config/*/dot-env.example
+cli/dot-config/herdr/plugins/config/*/serve.out
+cli/dot-config/herdr/plugins/config/*/tailscale-managed-handler
+cli/dot-config/lazygit/state.yml
+editors/dot-config/zed/conversations
+editors/dot-config/zed/embeddings
+editors/dot-config/zed/prompts
+macos/dot-config/karabiner/automatic_backups
 
 # Local git worktrees
 .worktrees/
 
 # Subagent-driven development progress
 .superpowers/
+.DS_Store
