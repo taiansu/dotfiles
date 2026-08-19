@@ -80,8 +80,6 @@ brew "ghostscript"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
 # Cross-platform program for developing Haskell projects
 brew "haskell-stack"
 # Package compiler and linker metadata toolkit
