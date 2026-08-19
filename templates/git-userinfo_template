@@ -1,0 +1,23 @@
+# Machine-local Git identity, signing, and credential settings.
+# ~/.gitconfig includes this file; it must never live inside a stow package.
+#
+#   mkdir -p ~/.config/dotfiles
+#   cp templates/git-userinfo_template ~/.config/dotfiles/git-userinfo
+#   chmod 600 ~/.config/dotfiles/git-userinfo
+#
+# A missing include target is silently ignored by Git, so an unconfigured
+# machine simply has no global identity until this file exists.
+
+[user]
+  name = "#{your_full_name}"
+  email = "#{your_git_email}"
+  signingkey = #{path_to_your_ssh_public_key}
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[credential]
+  helper = osxkeychain

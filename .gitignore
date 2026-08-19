@@ -7,7 +7,7 @@ dotfiles_backup
 
 # Credential guards (must never live in a stow package)
 /credential
-/git/git_credential
+/git/dot-gituserinfo
 
 # Machine-local state inside packages
 agents/dot-omp/agent/config.yml.lock
