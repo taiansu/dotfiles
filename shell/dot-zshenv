@@ -63,5 +63,11 @@ export KERL_INSTALL_MANPAGES=no
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
 
+# Go
+# GOROOT 不手動設：由安裝位置決定（Homebrew 為 /opt/homebrew/Cellar/go/<版本>/libexec）。
+# 這裡只把「資料」移出家目錄頂層——模組快取與 go install 產物。
+export GOPATH=$XDG_DATA_HOME/go
+export GOBIN=$HOME/.local/bin
+
 # Agents
 export SKILL_AGENTS="codex claude-code gemini-cli grok github-copilot opencode zed"
