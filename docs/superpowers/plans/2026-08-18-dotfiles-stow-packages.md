@@ -1,5 +1,7 @@
 # Dotfiles GNU Stow Package Migration Implementation Plan
 
+> **Status: superseded on 2026-08-20.** The migration was completed manually; the executed steps are recorded in `docs/stow-migration.md`. The layout below is partly historical: submodules stayed at the repository root instead of moving into `.vendor/`, and documentation/templates were not moved into `.maintenance/`. Keep this file for design rationale only; do not execute it.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Migrate `taiansu/dotfiles` into ten manifest-declared GNU Stow packages consumed safely by the shell-only Kaisian wrapper.

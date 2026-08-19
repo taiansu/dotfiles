@@ -20,7 +20,7 @@
 - Public HTTPS repositories only. Reject SSH/scp, local/file/ext, authenticated URLs, raw Unicode URL text, explicit ports, query/fragment, percent encoding, traversal, and option/refspec-like input.
 - No WAL, rollback, recover command, automatic restore, destructive Git cleanup, Stow `--adopt`, or Stow `--override`.
 - Source symlinks, hidden payload components, non-ASCII payload components, package gitlinks/nested repositories, untracked/ignored payload, and structurally colliding targets are invalid.
-- Every Stow operation uses absolute `--dir`/`--target` plus `--dotfiles --no-folding --compat` through the sanitized runner.
+- Every Stow operation uses absolute `--dir`/`--target` plus `--dotfiles --no-folding` through the sanitized runner. `--compat` is deliberately not used; obsolete links are removed by an explicit prune step instead of target-tree scanning.
 - Follow test-first order. Each task ends with its named focused suite and commit; do not run project-wide gates between tasks.
 
 ## File Map
@@ -244,7 +244,7 @@ Capture HOME once with `cd -P -- "$HOME" && pwd -P`; require the original absolu
 
 `run_git` invokes `env -i` with only controlled `PATH`, `HOME=$SANDBOX/git-home`, `LC_ALL=C`, `GIT_CONFIG_NOSYSTEM=1`, `GIT_CONFIG_GLOBAL=/dev/null`, `GIT_ATTR_NOSYSTEM=1`, `GIT_TERMINAL_PROMPT=0`, `GIT_ASKPASS=/usr/bin/false`, and `GIT_NO_REPLACE_OBJECTS=1`. Explicitly omit inherited `GIT_*` object/config variables.
 
-`run_stow` changes to `$SANDBOX/stow-cwd`, sets process `HOME=$SANDBOX/stow-home`, creates an empty `$SANDBOX/stow-home/.stow-global-ignore`, and uses `env -i PATH=... LC_ALL=C HOME=...`; inherited `STOW_DIR` and every `PERL*` variable disappear. `require_prerequisites` probes the exact Stow behaviors in disposable sandbox source/target trees: `--dotfiles`, `--no-folding`, `--compat`, mixed `-R/-D`, `--simulate`, built-in-ignore disabling, and anchored compatibility subtree exclusion.
+`run_stow` changes to `$SANDBOX/stow-cwd`, sets process `HOME=$SANDBOX/stow-home`, creates an empty `$SANDBOX/stow-home/.stow-global-ignore`, and uses `env -i PATH=... LC_ALL=C HOME=...`; inherited `STOW_DIR` and every `PERL*` variable disappear. `require_prerequisites` probes the exact Stow behaviors in disposable sandbox source/target trees: `--dotfiles`, `--no-folding`, mixed `-R/-D`, `--simulate`, and built-in-ignore disabling. (Simplified on 2026-08-20: the `--compat` and anchored-subtree-exclusion probes are no longer required; Task 6 removes them.)
 
 - [ ] **Step 6: Run the focused suite and syntax gate**
 
@@ -477,75 +477,49 @@ git -c commit.gpgsign=false commit -m "feat: preflight and back up dotfile confl
 
 ---
 
-### Task 6: Execute Deterministic Stow Plans, Dry Runs, Switching, and Upgrades
+### Task 6: Execute Stow Plans and Prune Obsolete Links
 
 **Files:**
 - Modify: `~/Projects/kaisian/setup.sh`
 - Modify: `~/Projects/kaisian/tests/setup_test.sh`
-- Create: `~/Projects/kaisian/tests/fixtures/stable-package-names.txt`
 
 **Interfaces:**
-- Produces `build_stow_ignores`, `simulate_stow`, `apply_stow_plan`.
-- Consumes ordered `selected.txt`, `unselected.txt`, validated `mapping.tsv`, and conflict plan.
-- Executes one mixed plan where possible: selected `-R`, explicitly omitted `-D`; default/all restow every package.
+- Produces `simulate_stow`, `apply_stow_plan`, `prune_orphan_links`.
+- Consumes ordered `selected.txt`, `unselected.txt`, validated `mapping.tsv`, and the approved conflict plan.
+- One mixed invocation: selected packages under `-R`, explicitly omitted packages under `-D`; default/all restows every declared package.
 
-- [ ] **Step 1: Add failing real-Stow behavioral fixtures**
+- [ ] **Step 1: Add real-Stow behavioral fixtures**
 
-With actual GNU Stow and temporary target HOME, cover:
+With actual GNU Stow and a temporary target HOME, cover exactly these six cases:
 
 ```text
-first apply creates only expected leaf links using dotfiles/no-folding/compat
-second apply converges without new backup
-profile/groups switching deletes omitted package links and keeps selected links
-never-stowed unselected deletion is filtered only when behavior probe requires it
-retained package update removes obsolete payload link under --compat
-`stable-package-names.txt` exactly matches manifest order and package removal/rename fixtures reject
-hostile caller/target .stowrc, .stow-global-ignore, STOW_DIR, and Perl vars do not alter result
-README/LICENSE package leaves are installed because controlled global ignore is empty
-literal anchored checkout/state subtree ignores preserve current and prior backup symlinks during --compat
-ignore regex metacharacters are escaped and cannot suppress neighboring valid payload
-dry-run no-conflict calls --simulate --verbose and changes no target
-dry-run conflict reports plan without running misleading Stow failure or requiring TTY
-Stow failure preserves backup and reports manual recovery
-command trace never contains --adopt or --override
+first apply creates the expected leaf links with --dotfiles --no-folding
+second apply is idempotent and creates no new backup
+profile/groups switching removes omitted package links and keeps selected links
+a payload file removed upstream leaves no broken link in the target
+dry-run calls --simulate --verbose and mutates nothing
+Stow failure exits nonzero, preserves the backup, and prints manual recovery
 ```
 
-Add a `tests/setup_test.sh --smoke-default` mode that builds one canonical existing fixture checkout with a matching fake HTTPS origin/fetch boundary, invokes the public `main` path rather than internal functions, applies it to a fresh target HOME twice, and asserts actual link destinations plus no second-run backup.
+Add a `tests/setup_test.sh --smoke-default` mode that builds one fixture checkout with the existing fake HTTPS boundary, invokes the public `main` path rather than internal functions, applies it to a fresh target HOME twice, and asserts actual link destinations plus no second-run backup.
 
-- [ ] **Step 2: Run and observe first real-Stow failure**
+- [ ] **Step 2: Run and observe the first real-Stow failure**
 
 Run: `cd ~/Projects/kaisian && /bin/bash tests/setup_test.sh`
 
-Expected: nonzero because mixed Stow orchestration is absent.
+Expected: nonzero because Stow orchestration is absent.
 
-- [ ] **Step 3: Create the cumulative stable-package contract**
+- [ ] **Step 3: Implement simulation and mixed apply**
 
-Create `tests/fixtures/stable-package-names.txt` with exactly one name per line in manifest order:
+Build arguments as Bash indexed arrays. Always pass absolute `--dir`/`--target` plus `--dotfiles --no-folding`. Append selected packages under `-R` and omitted packages under `-D`; default/all uses one all-package `-R`. With no planned conflicts, dry-run adds `--simulate --verbose`. With planned conflicts, dry-run prints the plan and skips Stow because occupied targets are expected. Real apply moves approved conflicts first, then calls Stow; a Stow error returns nonzero without deleting backups. Never pass `--adopt` or `--override`.
 
-```text
-shell
-git
-mise
-terminal
-editors
-agents
-cli
-macos
-homebrew
-dev
-```
+- [ ] **Step 4: Implement `prune_orphan_links`**
 
-Every future release appends new package names but never edits/removes an existing line; Task 7 compares this file with all prior release tags and the fetched default manifest.
+After a successful apply, visit only the target parent directories named in `mapping.tsv`. Remove a symlink when both hold: it resolves into the checkout directory, and its resolved path no longer exists. Never traverse the whole target HOME, never follow directory symlinks, and never delete a real file or a link pointing outside the checkout. This replaces `--compat` for upstream payload removal.
 
-- [ ] **Step 4: Generate validated compatibility exclusions**
+Also delete the now-unused `--compat` and anchored-exclusion prerequisite probes and their tests introduced in Task 2, so the prerequisite check no longer rejects a Stow build over an unused capability.
 
-For checkout and computed state/backup trees below target HOME, convert their normalized HOME-relative paths into literal anchored Perl regexes by escaping every metacharacter and matching the subtree boundary. Require preflight to prove no payload equals/contains/is contained by an excluded tree. Pass repeated `--ignore=<regex>` through the sanitized runner. The prerequisite probe must prove these expressions exclude target traversal under `--compat`; otherwise normal execution fails before mutation.
-
-- [ ] **Step 5: Implement simulation and mixed apply**
-
-Build arguments as Bash indexed arrays. Always include absolute dir/target and `--dotfiles --no-folding --compat`. Append selected packages under `-R`; append explicit/profile/interactive omissions under `-D`; default/all use only all-package `-R`. With no backup conflicts, dry-run adds `--simulate --verbose`. With planned conflicts, dry-run reports them and skips Stow because occupied targets are expected. Real apply moves approved conflicts first, then calls Stow; a Stow error returns nonzero without deleting backups.
-
-- [ ] **Step 6: Verify full runtime suite and actual CLI smoke**
+- [ ] **Step 5: Verify the runtime suite and an actual CLI smoke**
 
 Run:
 
@@ -554,79 +528,80 @@ cd ~/Projects/kaisian
 /bin/bash -n setup.sh tests/setup_test.sh
 /bin/bash tests/setup_test.sh
 TMP_HOME=$(mktemp -d)
-# Harness creates a canonical existing fixture checkout and fake network boundary.
 HOME="$TMP_HOME" /bin/bash tests/setup_test.sh --smoke-default
 ```
 
-Expected: all cases pass; smoke output identifies selected packages and actual symlinks resolve into the fixture checkout.
+Expected: all cases pass; smoke output names the selected packages and the actual symlinks resolve into the fixture checkout.
 
-- [ ] **Step 7: Commit Stow orchestration**
+- [ ] **Step 6: Commit Stow orchestration**
 
 ```bash
-git add setup.sh tests/setup_test.sh tests/fixtures/stable-package-names.txt
-git -c commit.gpgsign=false commit -m "feat: apply deterministic GNU Stow plans"
+git add setup.sh tests/setup_test.sh
+git -c commit.gpgsign=false commit -m "feat: apply GNU Stow plans and prune obsolete links"
 ```
 
 ---
 
-### Task 7: Add Bilingual Documentation and Tagged Shell Release CI
+### Task 7: Add Bilingual Documentation and Minimal Release CI
 
 **Files:**
 - Create: `~/Projects/kaisian/README.md`
 - Create: `~/Projects/kaisian/README.en.md`
 - Create: `~/Projects/kaisian/.github/workflows/ci.yml`
 - Create: `~/Projects/kaisian/.github/workflows/release.yml`
-- Modify: `~/Projects/kaisian/tests/setup_test.sh`
 - Modify before release only: `~/Projects/kaisian/setup.sh` constant `DEFAULT_DOTFILES_COMMIT`
 
 **Interfaces:**
-- CI proves Bash syntax and full shell suite on macOS.
-- Release workflow consumes tag `vX.Y.Z`; publishes exact repository `setup.sh` and `setup.sh.sha256` only after the embedded dotfiles SHA is remotely fetchable and its manifest package list equals the cumulative stable-package contract.
-- Endpoint plan consumes those immutable assets.
+- CI proves Bash syntax and the full shell suite on macOS.
+- Release triggers on tag `vX.Y.Z` and publishes exactly `setup.sh` and `setup.sh.sha256`.
+- The endpoint plan consumes those two assets.
 
-- [ ] **Step 1: Add failing documentation/release contract checks**
+- [ ] **Step 1: Write the paired README files**
 
-Add a suite mode that asserts README structural parity, both curl forms, all CLI flags, prerequisites, public-source limitation, backup/manual recovery, dry-run mutation boundary, inspect-before-run, and explicit trust boundaries. Add static workflow checks for macOS runner, `bash -n`, full suite, tag-only release, SHA-256 generation, and absence of branch-head publication.
-
-- [ ] **Step 2: Run and observe missing docs/workflows**
-
-Run: `cd ~/Projects/kaisian && /bin/bash tests/setup_test.sh`
-
-Expected: nonzero because README/workflow files do not exist.
-
-- [ ] **Step 3: Write structurally paired README files**
-
-Both files use the same sections and command blocks. Required quick starts:
+`README.md` is Traditional Chinese, `README.en.md` is English; both use the same sections and the same command blocks. Required quick starts:
 
 ```bash
 curl -fsSL https://kaisian.phx.tw | bash
 curl -fsSL https://kaisian.phx.tw | bash -s -- --interactive
 ```
 
-Include an inspect-first alternative that downloads `setup.sh` and its SHA-256, verifies with `shasum -a 256 -c`, reads it, then executes it. State the macOS 13+, Bash, Git, GNU Stow, fzf, and plutil prerequisites; present Homebrew only as the recommended way to install missing Git/Stow/fzf, not as a runtime command requirement. State that Node.js is not required, only public HTTPS repos are accepted, conflicts are moved to XDG state on the same filesystem, and rollback/recovery are manual.
+Include an inspect-first alternative that downloads `setup.sh` and `setup.sh.sha256`, verifies with `shasum -a 256 -c`, reads the script, then runs it. State the macOS 13+, Bash, Git, GNU Stow, fzf, and `plutil` prerequisites, and present Homebrew only as the recommended way to install missing Git/Stow/fzf. State that Node.js is not required, that only public HTTPS repositories are accepted, that conflicts are moved to XDG state on the same filesystem, and that recovery is manual.
 
-- [ ] **Step 4: Create CI and release workflows**
+Structural parity between the two files is verified by review, not by an automated test.
 
-`ci.yml` checks out source on `macos-13` and latest macOS, installs only `stow` and `fzf` with Homebrew for CI, runs `/bin/bash -n setup.sh tests/setup_test.sh`, then `/bin/bash tests/setup_test.sh`.
+- [ ] **Step 2: Create the CI workflow**
 
-`release.yml` triggers only on `v*` tags, verifies tag version equals `KAISIAN_VERSION`, and requires the embedded commit to be 40-hex/nonzero. It creates a temporary empty Git repository, fetches exactly that SHA from `https://github.com/taiansu/dotfiles.git` into `FETCH_HEAD`, verifies `FETCH_HEAD^{commit}` equals the embedded value, and extracts `.kaisian.json`; `ls-remote <sha>` is not used because a raw object ID is not a ref-pattern lookup. The manifest group list must exactly equal `tests/fixtures/stable-package-names.txt`. For every earlier `v*` tag, each name in that tag's stable-package file must remain in the current file and manifest, so removal/rename cannot bypass a direct-upgrade release. The workflow reruns CI commands, writes `setup.sh.sha256` with `shasum -a 256`, and uploads only `setup.sh` plus checksum via GitHub CLI/action. It never renders from `main` after tag checkout.
+`ci.yml` runs on push and pull request, checks out on `macos-latest`, installs only `stow` and `fzf` with Homebrew, then runs `/bin/bash -n setup.sh tests/setup_test.sh` followed by `/bin/bash tests/setup_test.sh`.
 
-- [ ] **Step 5: Run the complete local release gate**
+- [ ] **Step 3: Create the release workflow**
 
-Run:
+`release.yml` triggers only on `v*` tags and performs, in order:
+
+```text
+assert the tag equals KAISIAN_VERSION
+assert DEFAULT_DOTFILES_COMMIT is 40-hex and nonzero
+fetch exactly that commit from https://github.com/taiansu/dotfiles.git and verify FETCH_HEAD^{commit}
+rerun bash -n and the full suite
+write setup.sh.sha256 and upload only setup.sh and setup.sh.sha256
+```
+
+No branch-head publication, no additional assets, and no cross-tag package-list comparison.
+
+- [ ] **Step 4: Verify locally before tagging**
 
 ```bash
 cd ~/Projects/kaisian
 /bin/bash -n setup.sh tests/setup_test.sh
 /bin/bash tests/setup_test.sh
+/bin/bash setup.sh --help
 git diff --check
 ```
 
-Expected: all tests pass, syntax exits 0, diff check emits nothing. Do not tag until the endpoint plan replaces the development pin `0b3b0c3f206e1f4fb35dac82794a871c5c18f405` with the final reviewed package-layout commit.
+Expected: tests pass, syntax exits 0, every flag documented in both READMEs appears in `--help`, and diff check emits nothing. Do not tag until the endpoint plan replaces the development pin with the final reviewed dotfiles commit.
 
-- [ ] **Step 6: Commit documentation and release automation**
+- [ ] **Step 5: Commit documentation and release automation**
 
 ```bash
-git add README.md README.en.md .github/workflows setup.sh tests/setup_test.sh
+git add README.md README.en.md .github/workflows
 git -c commit.gpgsign=false commit -m "docs: publish kaisian shell release contract"
 ```
