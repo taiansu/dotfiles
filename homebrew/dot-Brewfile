@@ -3,13 +3,13 @@ tap "bisovka-labs/tap"
 tap "evg4b/tap"
 tap "gigalixir/brew", trusted: true
 tap "hashicorp/tap", trusted: true
+tap "ktakada42/tap"
 tap "osx-cross/arm", trusted: true
 tap "osx-cross/avr", trusted: true
 tap "peonping/tap", "https://github.com/PeonPing/homebrew-tap", trusted: true
 tap "possatti/possatti", trusted: true
 tap "qmk/qmk", trusted: true
 tap "romkatv/gitstatus", trusted: true
-tap "satococoa/tap"
 # Simple, modern, secure file encryption
 brew "age"
 # General-purpose data compression with high compression ratio
@@ -188,6 +188,8 @@ brew "evg4b/tap/apple-notes-mcp", trusted: true
 brew "gigalixir/brew/gigalixir"
 # Terraform
 brew "hashicorp/tap/terraform"
+# A friendly git worktree manager
+brew "ktakada42/tap/gwx"
 # GNU Tools for ARM Embedded Processors - GCC
 brew "osx-cross/arm/arm-none-eabi-gcc@8", trusted: true
 # Sound effects and desktop notifications for AI coding agents
@@ -198,8 +200,6 @@ brew "possatti/possatti/pokemonsay"
 brew "qmk/qmk/qmk"
 # Git status for Bash/Zsh prompt
 brew "romkatv/gitstatus/gitstatus"
-# Worktree Plus - Enhanced worktree management with automated setup and hooks
-brew "satococoa/tap/wtp", trusted: true
 # Command-line interface for 1Password
 cask "1password-cli"
 # E-book reader

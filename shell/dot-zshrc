@@ -90,6 +90,9 @@ compinit -d "$zcompdump"
 bashcompinit
 unset zcompdump
 
+# gwx（git worktree 管理）：cd 用的 shell function + 補全
+eval "$(gwx shell-init zsh)"
+
 #####
 
 autoload -Uz promptinit colors

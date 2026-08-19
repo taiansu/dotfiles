@@ -1,0 +1,9 @@
+# gwx user-wide config：屬於「我」而非專案的設定。
+# 專案自己的設定（hooks 等）放在該 repo 的 .gwx.toml，並且會覆蓋這裡的同名 key。
+# 文件：https://github.com/ktakada42/gwx/blob/main/docs/configuration.md
+version = "1"
+
+[defaults]
+# worktree 建在 repo 內：<repo>/.worktrees/<branch>
+# `.worktrees/` 已列在 ~/.gitignore（core.excludesfile），所以不會被任何 repo 追蹤。
+base_dir = ".worktrees"
