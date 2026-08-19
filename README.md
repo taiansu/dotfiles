@@ -1,3 +1,110 @@
+## Structure
+
+```
+.
+├── AGENTS.md
+├── agents
+│   ├── dot-omp
+│   │   └── agent
+│   │       ├── config.yml
+│   │       └── no-superpowers.yml
+│   └── dot-pi
+│       └── agent
+│           ├── extensions
+│           │   └── exit-alias.ts
+│           └── settings.json
+├── cli
+│   └── dot-config
+│       ├── btop
+│       │   └── btop.conf
+│       ├── cabal
+│       │   └── config
+│       ├── herdr
+│       │   ├── config.toml
+│       │   └── plugins
+│       │       └── config
+│       │           ├── cloudmanic.herdr-plus
+│       │           │   └── quick-actions/
+│       │           └── herdr.collie
+│       │               └── dot-env.example
+│       ├── lazygit
+│       │   └── config.yml
+│       ├── mactop
+│       │   └── config.json
+│       ├── superfile
+│       │   ├── config.toml
+│       │   ├── hotkeys.toml
+│       │   └── theme/
+│       └── tidewave
+│           └── app.toml
+├── dev
+│   ├── dot-agignore
+│   ├── dot-credo.exs
+│   ├── dot-ctags
+│   ├── dot-gemrc
+│   ├── dot-gnuplot
+│   ├── dot-iex.exs
+│   └── dot-local
+│       └── bin
+│           └── rust
+├── dotfiles_backup/
+├── editors
+│   └── dot-config
+│       └── zed
+│           ├── keymap.json
+│           └── settings.json
+├── git-prompt.zsh
+├── git
+│   ├── dot-config
+│   │   └── git
+│   │       └── ignore
+│   ├── dot-gitconfig
+│   └── dot-gitignore
+├── homebrew
+│   └── dot-Brewfile
+├── justfile
+├── macos
+│   └── dot-config
+│       └── karabiner
+│           └── karabiner.json
+├── mise
+│   ├── dot-asdfrc
+│   ├── dot-config
+│   │   └── mise
+│   │       └── config.toml
+│   ├── dot-default-gems
+│   ├── dot-default-mix-commands
+│   └── dot-default-npm-packages
+├── patches
+│   └── peon-ping
+│       └── omp-notification-lifecycle.patch
+├── shell
+│   ├── dot-config
+│   │   └── zsh
+│   │       └── aliasrc
+│   ├── dot-local
+│   │   └── libexec
+│   │       └── dotfiles
+│   │           ├── fzf-git.sh
+│   │           ├── fzf_listoldfiles.sh
+│   │           ├── vimr_wait.sh
+│   │           └── zoxide_openfiles_nvim.sh
+│   ├── dot-zprofile
+│   ├── dot-zshenv
+│   └── dot-zshrc
+├── templates
+│   └── git-userinfo_template
+└── terminal
+    └── dot-config
+        ├── cmux
+        │   └── cmux.json
+        ├── ghostty
+        │   └── config
+        └── kitty
+            ├── current-theme.conf
+            ├── kitty.app.icns
+            └── kitty.conf
+
 ## Completion
 
 first execute
