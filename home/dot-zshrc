@@ -303,8 +303,9 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
 fi
 
 # fzf-git
-[[ -f "$HOME/.local/libexec/dotfiles/fzf-git.sh" ]] && source "$HOME/.local/libexec/dotfiles/fzf-git.sh"
-bindkey -M emacs -r '^g'
+[[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] &&  source ~/.dotfiles/fzf-git/fzf-git.sh
+bindkey -M emacs -r '^g'             # fzf-git prefix
+bindkey -M emacs '^g^g' send-break   # 重綁 send-break 成連按兩次 Ctrl-G
 
 # oh-my-pi
 local omp_completions="$HOME/.cache/zsh/completions/omp.zsh"

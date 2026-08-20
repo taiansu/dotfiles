@@ -32,7 +32,6 @@ maintenance and is never installed.
 │   ├── dot-local/
 │   │   ├── bin/rust
 │   │   └── libexec/dotfiles/
-│   │       ├── fzf-git.sh
 │   │       ├── fzf_listoldfiles.sh
 │   │       ├── vimr_wait.sh
 │   │       └── zoxide_openfiles_nvim.sh
@@ -70,6 +69,7 @@ maintenance and is never installed.
 ├── templates/                   # machine-local file templates
 ├── tests/                       # repository tests
 ├── dotfiles_backup/
+├── fzf-git.zsh                  # submodule
 ├── git-prompt.zsh               # submodule
 ├── justfile
 ├── setup.sh
