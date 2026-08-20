@@ -13,7 +13,7 @@ modelRoles:
 dev: 
   autoqaConsent: granted
 theme: 
-  dark: dark-monochrome-custom
+  dark: dark-lunar-custom
   light: light-zenith
 statusLine: 
   separator: none
@@ -30,3 +30,6 @@ browser:
   relay: true
 composer: 
   shape: claude
+tui: 
+  textSizing: true
+  scrollbackRebuild: true

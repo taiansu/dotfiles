@@ -162,7 +162,6 @@ npm-debug.log
 ##########
 
 # The silver searcher ignore
-.agignore
 
 # Haskell
 dist
