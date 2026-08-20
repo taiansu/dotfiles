@@ -119,7 +119,7 @@
                         ]
                     },
                     {
-                        "description": "Ctrl tap in English = ctrl+cmd+space (previous IME); tap elsewhere = ABC; hold = control",
+                        "description": "Ctrl tap in English = ctrl+cmd+space (previous IME); tap elsewhere = right_control (Rime 中英切換); hold = control",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -194,7 +194,12 @@
                                         "lazy": true
                                     }
                                 ],
-                                "to_if_alone": [{ "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.ABC$" } }],
+                                "to_if_alone": [
+                                    {
+                                        "hold_down_milliseconds": 50,
+                                        "key_code": "right_control"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]

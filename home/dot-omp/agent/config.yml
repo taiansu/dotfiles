@@ -1,6 +1,5 @@
-setupVersion: 1
-modelRoles:
-  default: anthropic/claude-opus-5
+setupVersion: 2
+modelRoles: 
   smol: anthropic/claude-hiku-5
   slow: anthropic/claude-sonnet-5
   plan: anthropic/claude-fable-5
@@ -10,29 +9,24 @@ modelRoles:
   task: google-antigravity/gemini-3.7-flash
   tiny: google-antigravity/gemini-3.7-flash
   vision: anthropic/claude-5-opus:high
-  # default: openai-codex/gpt-5.6-sol
-  # smol: openai-codex/gpt-5.6-luna
-  # slow: openai-codex/gpt-5.6-sol
-  # plan: openai-codex/gpt-5.6-sol:max
-  # designer: anthropic/claude-5-opus:high
-  # commit: google-antigravity/gemini-3.7-flash
-  # advisor: anthropic/claude-5-opus:max
-  # task: google-antigravity/gemini-3.7-flash
-  # tiny: google-antigravity/gemini-3.7-flash
-  # vision: openai-codex/gpt-5.5
-dev:
+  default: anthropic/claude-opus-5
+dev: 
   autoqaConsent: granted
-theme:
+theme: 
   dark: dark-monochrome-custom
   light: light-zenith
-statusLine:
+statusLine: 
   separator: none
   transparent: true
   preset: default
-shellMinimizer:
+shellMinimizer: 
   enabled: false
-providers:
-  webSearchOrder:
+providers: 
+  webSearchOrder: 
     - tavily
     - brave
     - kagi
+browser: 
+  relay: true
+composer: 
+  shape: claude

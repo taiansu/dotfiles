@@ -7,30 +7,30 @@ dotfiles_backup
 
 # Credential guards (must never live in a stow package)
 /credential
-/git/dot-gituserinfo
+/home/dot-gituserinfo
 
 # Machine-local state inside packages
-agents/dot-omp/agent/config.yml.lock
-agents/dot-pi/agent/auth.json
-agents/dot-pi/agent/models-store.json
-agents/dot-pi/agent/sessions/
-agents/dot-pi/agent/skills/
-agents/dot-pi/agent/extensions/herdr-agent-state.ts
-cli/dot-config/herdr/plugins.json
-cli/dot-config/herdr/.plugins.lock
-cli/dot-config/herdr/session-history.json
-cli/dot-config/herdr/session.json
-cli/dot-config/herdr/plugins/github/
-cli/dot-config/herdr/plugins/config/*/.env
-cli/dot-config/herdr/plugins/config/*/.env.*
-!cli/dot-config/herdr/plugins/config/*/dot-env.example
-cli/dot-config/herdr/plugins/config/*/serve.out
-cli/dot-config/herdr/plugins/config/*/tailscale-managed-handler
-cli/dot-config/lazygit/state.yml
-editors/dot-config/zed/conversations
-editors/dot-config/zed/embeddings
-editors/dot-config/zed/prompts
-macos/dot-config/karabiner/automatic_backups
+home/dot-omp/agent/config.yml.lock
+home/dot-pi/agent/auth.json
+home/dot-pi/agent/models-store.json
+home/dot-pi/agent/sessions/
+home/dot-pi/agent/skills/
+home/dot-pi/agent/extensions/herdr-agent-state.ts
+home/dot-config/herdr/plugins.json
+home/dot-config/herdr/.plugins.lock
+home/dot-config/herdr/session-history.json
+home/dot-config/herdr/session.json
+home/dot-config/herdr/plugins/github/
+home/dot-config/herdr/plugins/config/*/.env
+home/dot-config/herdr/plugins/config/*/.env.*
+!home/dot-config/herdr/plugins/config/*/dot-env.example
+home/dot-config/herdr/plugins/config/*/serve.out
+home/dot-config/herdr/plugins/config/*/tailscale-managed-handler
+home/dot-config/lazygit/state.yml
+home/dot-config/zed/conversations
+home/dot-config/zed/embeddings
+home/dot-config/zed/prompts
+home/dot-config/karabiner/automatic_backups
 
 # Local git worktrees
 .worktrees/
