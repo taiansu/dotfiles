@@ -1,109 +1,95 @@
 ## Structure
 
+`home/` is the only GNU Stow package. Everything else is repository
+maintenance and is never installed.
+
 ```
 .
-├── AGENTS.md
-├── agents
-│   ├── dot-omp
-│   │   └── agent
-│   │       ├── config.yml
-│   │       └── no-superpowers.yml
-│   └── dot-pi
-│       └── agent
-│           ├── extensions
-│           │   └── exit-alias.ts
-│           └── settings.json
-├── cli
-│   └── dot-config
-│       ├── btop
-│       │   └── btop.conf
-│       ├── cabal
-│       │   └── config
-│       ├── herdr
+├── home/                        # stow package: mirrors $HOME
+│   ├── dot-Brewfile
+│   ├── dot-asdfrc
+│   ├── dot-credo.exs
+│   ├── dot-ctags
+│   ├── dot-default-gems
+│   ├── dot-default-mix-commands
+│   ├── dot-default-npm-packages
+│   ├── dot-gemrc
+│   ├── dot-gitconfig
+│   ├── dot-gitignore
+│   ├── dot-gnuplot
+│   ├── dot-iex.exs
+│   ├── dot-zprofile
+│   ├── dot-zshenv
+│   ├── dot-zshrc
+│   ├── dot-agents/
+│   │   └── AGENTS.md
+│   ├── dot-omp/agent/
+│   │   ├── config.yml
+│   │   └── no-superpowers.yml
+│   ├── dot-pi/agent/
+│   │   ├── extensions/exit-alias.ts
+│   │   └── settings.json
+│   ├── dot-local/
+│   │   ├── bin/rust
+│   │   └── libexec/dotfiles/
+│   │       ├── fzf-git.sh
+│   │       ├── fzf_listoldfiles.sh
+│   │       ├── vimr_wait.sh
+│   │       └── zoxide_openfiles_nvim.sh
+│   └── dot-config/
+│       ├── btop/btop.conf
+│       ├── cabal/config
+│       ├── cmux/cmux.json
+│       ├── ghostty/config
+│       ├── git/ignore
+│       ├── gwx/config.toml
+│       ├── herdr/
 │       │   ├── config.toml
-│       │   └── plugins
-│       │       └── config
-│       │           ├── cloudmanic.herdr-plus
-│       │           │   └── quick-actions/
-│       │           └── herdr.collie
-│       │               └── dot-env.example
-│       ├── lazygit
-│       │   └── config.yml
-│       ├── mactop
-│       │   └── config.json
-│       ├── superfile
+│       │   └── plugins/config/
+│       │       ├── cloudmanic.herdr-plus/quick-actions/
+│       │       └── herdr.collie/dot-env.example
+│       ├── karabiner/karabiner.json
+│       ├── kitty/
+│       │   ├── current-theme.conf
+│       │   ├── kitty.app.icns
+│       │   └── kitty.conf
+│       ├── lazygit/config.yml
+│       ├── mactop/config.json
+│       ├── mise/config.toml
+│       ├── superfile/
 │       │   ├── config.toml
 │       │   ├── hotkeys.toml
 │       │   └── theme/
-│       └── tidewave
-│           └── app.toml
-├── dev
-│   ├── dot-agignore
-│   ├── dot-credo.exs
-│   ├── dot-ctags
-│   ├── dot-gemrc
-│   ├── dot-gnuplot
-│   ├── dot-iex.exs
-│   └── dot-local
-│       └── bin
-│           └── rust
+│       ├── tidewave/app.toml
+│       ├── zed/
+│       │   ├── keymap.json
+│       │   └── settings.json
+│       └── zsh/aliasrc
+├── docs/                        # design notes, plans, migration steps
+├── patches/                     # third-party patches applied by justfile
+├── templates/                   # machine-local file templates
+├── tests/                       # repository tests
 ├── dotfiles_backup/
-├── editors
-│   └── dot-config
-│       └── zed
-│           ├── keymap.json
-│           └── settings.json
-├── git-prompt.zsh
-├── git
-│   ├── dot-config
-│   │   └── git
-│   │       └── ignore
-│   ├── dot-gitconfig
-│   └── dot-gitignore
-├── homebrew
-│   └── dot-Brewfile
+├── git-prompt.zsh               # submodule
 ├── justfile
-├── macos
-│   └── dot-config
-│       └── karabiner
-│           └── karabiner.json
-├── mise
-│   ├── dot-asdfrc
-│   ├── dot-config
-│   │   └── mise
-│   │       └── config.toml
-│   ├── dot-default-gems
-│   ├── dot-default-mix-commands
-│   └── dot-default-npm-packages
-├── patches
-│   └── peon-ping
-│       └── omp-notification-lifecycle.patch
-├── shell
-│   ├── dot-config
-│   │   └── zsh
-│   │       └── aliasrc
-│   ├── dot-local
-│   │   └── libexec
-│   │       └── dotfiles
-│   │           ├── fzf-git.sh
-│   │           ├── fzf_listoldfiles.sh
-│   │           ├── vimr_wait.sh
-│   │           └── zoxide_openfiles_nvim.sh
-│   ├── dot-zprofile
-│   ├── dot-zshenv
-│   └── dot-zshrc
-├── templates
-│   └── git-userinfo_template
-└── terminal
-    └── dot-config
-        ├── cmux
-        │   └── cmux.json
-        ├── ghostty
-        │   └── config
-        └── kitty
-            ├── current-theme.conf
-            ├── kitty.app.icns
-            └── kitty.conf
+├── setup.sh
+└── README.md
+```
+
+## Install
+
+```shell
+stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -R home
+```
+
+Preview first with `--simulate --verbose`; it lists every `LINK` and aborts on
+conflicts without touching the filesystem. `--no-folding` is required so that
+`~/.config` and other shared directories stay real directories instead of
+becoming symlinks into this repository.
+
+Machine-local files stay outside the package: Git identity in
+`~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`) and
+shell credentials in `~/.config/dotfiles/credential`.
 
 ## Completion
 
