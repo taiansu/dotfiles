@@ -180,7 +180,7 @@ alias va="source .venv/bin/activate"
 alias vd="deactivate"
 
 # update dotfiles
-alias ju="cd ~/Projects/dotfiles && just"
+alias ju="cd ~/.dotfiles && just"
 
 # zed
 alias z="zed"

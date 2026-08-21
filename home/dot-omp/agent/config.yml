@@ -29,7 +29,7 @@ providers:
 browser: 
   relay: true
 composer: 
-  shape: claude
+  shape: rule
 tui: 
   textSizing: true
   scrollbackRebuild: true

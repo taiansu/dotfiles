@@ -126,7 +126,7 @@ Selection, exactly zero or one:
 Source and execution:
   --repo URL|OWNER/REPO
   --ref REF
-  --repo-dir PATH
+  --dir PATH
   --lang en|zh-TW
   --dry-run
   --yes
@@ -198,7 +198,7 @@ normal execution reports every missing prerequisite without installing it
 relative, missing, symlinked, unowned, or unwritable HOME fails
 existing /private/tmp/kaisian-$UID.lock fails and is never removed
 runs with different TMPDIR values contend on the same fixed lock
-repo-dir/state paths equal to, above, or below the lock fail; sibling paths pass
+checkout/state paths equal to, above, or below the lock fail; sibling paths pass
 cleanup leaves an unrecognized lock entry untouched
 ```
 

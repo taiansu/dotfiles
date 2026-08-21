@@ -260,7 +260,7 @@ Cleanliness and safe configuration are checked both before fetch/checkout and af
 
 Before source mutation, `HOME` must be nonempty, absolute, existing, owned by the effective user, searchable/writable, and a real directory whose textual path equals its physical path; symlinked/missing/relative HOME values are rejected. Kaisian captures that physical HOME once and uses it for the default checkout, containment, default state/backup paths, and the exact `stow --target` argument.
 
-`--repo-dir` must be absolute. Before checkout creation or update, Kaisian resolves its existing parent physically and rejects a checkout that is the physical HOME, an ancestor of HOME, a symlink, or administratively backed outside itself. After the fetched tree and staged submodules are materialized, but before any conflict move, backup creation, or Stow operation, it requires every declared package root to be a real non-symlink directory directly below the checkout and rejects any normalized mapped target that equals, contains, or is contained by the checkout. The mapping checks are repeated immediately before target mutation.
+`--dir` must be absolute. Before checkout creation or update, Kaisian resolves its existing parent physically and rejects a checkout that is the physical HOME, an ancestor of HOME, a symlink, or administratively backed outside itself. After the fetched tree and staged submodules are materialized, but before any conflict move, backup creation, or Stow operation, it requires every declared package root to be a real non-symlink directory directly below the checkout and rejects any normalized mapped target that equals, contains, or is contained by the checkout. The mapping checks are repeated immediately before target mutation.
 
 ## 8. CLI Contract
 
@@ -276,7 +276,7 @@ Selection, exactly zero or one:
 Source and execution:
   --repo URL|OWNER/REPO
   --ref REF
-  --repo-dir PATH
+  --dir PATH
   --lang en|zh-TW
   --dry-run
   --yes
@@ -373,7 +373,7 @@ Stow's own deferred conflict analysis remains authoritative after Kaisian's pref
 
 ## 12. Dry Run
 
-`--dry-run` performs source acquisition/update, manifest parsing, package validation, selection, mapping, and conflict discovery. It may create or update the physical managed checkout selected by `--repo-dir` and, when that checkout is absent, create only its minimal missing ancestor chain. It also creates the ephemeral lock and sanitized Stow sandbox under `/private/tmp`; both are removed before exit. It skips backup confirmation and its TTY requirement, does not create compatibility-sensitive backup content, and reports planned moves. No other HOME path may change. It must not:
+`--dry-run` performs source acquisition/update, manifest parsing, package validation, selection, mapping, and conflict discovery. It may create or update the physical managed checkout selected by `--dir` and, when that checkout is absent, create only its minimal missing ancestor chain. It also creates the ephemeral lock and sanitized Stow sandbox under `/private/tmp`; both are removed before exit. It skips backup confirmation and its TTY requirement, does not create compatibility-sensitive backup content, and reports planned moves. No other HOME path may change. It must not:
 
 - move conflicts or mutate paths outside that managed checkout and its newly required ancestors;
 - create backup directories;
@@ -461,7 +461,7 @@ The shell suite runs in temporary HOME/XDG roots with fake network Git remotes a
 21. hostile caller/target `.stowrc`, `.stow-global-ignore`, `STOW_DIR`, Perl environment, and built-in-ignore filenames cannot alter sanitized Stow probes/simulation/apply or preflight parity;
 22. upgrade of a retained package removing an obsolete payload link, plus release rejection for package removal/rename;
 23. Stow failure preserving backup and reporting manual recovery;
-24. arbitrary absolute `--repo-dir` dry-run creating only its minimal missing parent chain and embedded Git directory plus removable `/private/tmp` lock/sandbox while leaving targets, backups, and persistent state untouched;
+24. arbitrary absolute `--dir` dry-run creating only its minimal missing parent chain and embedded Git directory plus removable `/private/tmp` lock/sandbox while leaving targets, backups, and persistent state untouched;
 25. repeat application converging without new backups.
 
 Tests assert observable filesystem state, command arguments, statuses, and messages. They do not assert implementation source text except to prove forbidden destructive Git/Stow arguments are absent from executed command traces.

@@ -66,11 +66,14 @@
   "buffer_font_fallbacks": [".ZedMono"],
   "ui_font_size": 18,
   "buffer_font_features": {
-    "calt": false
+    "calt": false,
+    "liga": false,
+    "dlig": false,
   },
-  "buffer_font_family": "Source Code Pro",
+  "buffer_font_family": "SauceCodePro Nerd Font Mono",
   "vim_mode": true,
   "terminal": {
+    "font_family": "SauceCodePro Nerd Font Mono",
     "blinking": "off"
   },
   "experimental.theme_overrides": {

@@ -432,7 +432,7 @@ git -c commit.gpgsign=false commit -m "docs: document Stow dotfiles layout"
 DOTFILES_COMMIT=$(git rev-parse HEAD)
 ```
 
-After pushing this feature commit to an explicitly named review branch, run in a disposable HOME with `~/Projects/kaisian/setup.sh --repo taiansu/dotfiles --ref "$DOTFILES_COMMIT" --repo-dir "$TMP_HOME/.dotfiles" --all --yes`, verify all expected links, rerun for idempotency, then run `--dry-run` and verify no target/state change. Do not embed/tag the commit until review passes.
+After pushing this feature commit to an explicitly named review branch, run in a disposable HOME with `~/Projects/kaisian/setup.sh --repo taiansu/dotfiles --ref "$DOTFILES_COMMIT" --dir "$TMP_HOME/.dotfiles" --all --yes`, verify all expected links, rerun for idempotency, then run `--dry-run` and verify no target/state change. Do not embed/tag the commit until review passes.
 
 ---
 
