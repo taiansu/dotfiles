@@ -7,3 +7,6 @@ rust = "latest"
 go = "latest"
 bun = "latest"
 usage = "latest"
+[env]
+  GOBIN = "{{env.HOME}}/.local/bin"
+  _.path = ["{{env.HOME}}/.local/bin"]
