@@ -7,6 +7,28 @@ function mkcd() {
   mkdir "$1" && cd "$1"
 }
 
+# append to pbcopy
+pba() {
+  local tmp status
+
+  tmp="$(mktemp "${TMPDIR:-/tmp}/pbappend.XXXXXX")" || return 1
+
+  pbpaste >| "$tmp" || {
+    rm -f -- "$tmp"
+    return 1
+  }
+
+  # 原剪貼簿非空時，先加入換行
+  [[ -s "$tmp" ]] && printf '\n' >> "$tmp"
+  printf '%s' "$*" >> "$tmp"
+
+  pbcopy < "$tmp"
+  status=$?
+
+  rm -f -- "$tmp"
+  return "$status"
+}
+
 # Download Gist
 function gistDownload() {
   curl -L ${1}/download | tar -xvz --strip-components=1
