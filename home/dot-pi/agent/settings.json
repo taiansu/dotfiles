@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.4",
   "theme": "dark",
   "warnings": {
     "anthropicExtraUsage": false
@@ -7,6 +7,12 @@
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-terra",
   "packages": [
-    "npm:pi-peon-ping"
+    "npm:pi-peon-ping",
+    "npm:@schultzp2020/pi-cursor",
+    "npm:@destiner/pi-usage",
+    "npm:pi-mcp-adapter",
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "npm:pi-lens"
   ]
 }
