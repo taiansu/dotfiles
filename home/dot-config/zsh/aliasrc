@@ -6,6 +6,10 @@
 alias please="sudo"
 alias pls="sudo"
 
+## cd aliases
+alias 屠="cd " # boshiamy
+alias ㄏ="cd " # bopomofo
+
 ## trash instead of rm -rf
 alias rm='trash'
 
@@ -40,9 +44,6 @@ alias tln="tail -n"
 
 # less
 alias lf="less +F"
-
-# Make unified diff syntax the default
-alias diff="diff -u"
 
 # octal+text permissions for files
 alias perms="stat -c '%A %a %n'"
