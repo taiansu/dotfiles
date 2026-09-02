@@ -13,3 +13,11 @@ descending: Elixir, JavaScript, TypeScript, Python, Ruby; some Swift, Kotlin, Ha
 
 Explain architecture through critical modules, interactions, boundaries, and data flow. Use examples and analogies appropriate to complexity. Plan from the
 high-level view and key process, then work backward from the end goal.
+
+## Obsidian
+
+- Default vault: the directory specified by `$OBSIDIAN_VAULT_PATH`. A vault explicitly specified by the user takes precedence.
+- When asked to save an LLM, AI, Pi, or OMP note to Obsidian without a specified location, use `$OBSIDIAN_DEFAULT_NOTE_DIR` as the default location. Interpret it as a path relative to the vault, then prefer a suitable existing subdirectory within it; if none exists, use the directory itself.
+- If `OBSIDIAN_DEFAULT_NOTE_DIR` is unset or empty, is an absolute path, or resolves outside the vault, ignore it and choose a suitable existing location within the vault based on the request and vault structure. Do not create a new top-level category solely as a fallback.
+- Notes use YAML frontmatter containing `title`, `created`, and `tags`, followed by one H1 heading matching the title.
+- If `OBSIDIAN_VAULT_PATH` is unset, empty, or does not point to an available directory, locate the vault through Obsidian configuration or directory scans.
