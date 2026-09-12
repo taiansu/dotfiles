@@ -36,6 +36,7 @@ maintenance and is never installed.
 │   │       ├── vimr_wait.sh
 │   │       └── zoxide_openfiles_nvim.sh
 │   └── dot-config/
+│       ├── atuin/config.toml
 │       ├── btop/btop.conf
 │       ├── cabal/config
 │       ├── cmux/cmux.json
@@ -90,6 +91,24 @@ becoming symlinks into this repository.
 Machine-local files stay outside the package: Git identity in
 `~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`) and
 shell credentials in `~/.config/dotfiles/credential`.
+
+## Shell history
+
+Atuin manages local history search in Zsh. Install it with `brew install atuin`,
+apply the Stow package, and open a new shell. Import existing Zsh history once:
+
+```shell
+HISTFILE="$HISTFILE" atuin import zsh
+```
+
+- `Ctrl-R` and `Up` open Atuin; `Enter` inserts the selected command for editing
+  rather than executing it immediately.
+- fzf still provides `Ctrl-T` file search and `Alt-C` directory selection.
+- Automatic sync and update checks are disabled; upgrades use Homebrew.
+- Atuin's `?` AI binding is disabled.
+- Configuration lives in `home/dot-config/atuin/config.toml`; history stays in
+  `$XDG_DATA_HOME/atuin` (normally `~/.local/share/atuin`), outside this repository.
+  Zsh continues to maintain its original `$HISTFILE`.
 
 ## Completion
 

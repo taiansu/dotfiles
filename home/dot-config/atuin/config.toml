@@ -1,0 +1,6 @@
+# 僅在本機保存歷史；套件更新交給 Homebrew。
+auto_sync = false
+update_check = false
+
+# 選取後先填回命令列，確認或編輯後再執行。
+enter_accept = false

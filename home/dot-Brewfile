@@ -18,6 +18,8 @@ brew "xz"
 brew "ansible"
 # Code searching, linting, rewriting
 brew "ast-grep"
+# Shell history search backed by a local SQLite database
+brew "atuin"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Microsoft Azure CLI 2.0
@@ -176,8 +178,6 @@ brew "zoxide"
 brew "zsh-autosuggestions"
 # Feature-rich syntax highlighting for Zsh
 brew "zsh-fast-syntax-highlighting"
-# Zsh port of Fish shell's history search
-brew "zsh-history-substring-search"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
 # Remove stale projects from Claude Code's Recent dropdown

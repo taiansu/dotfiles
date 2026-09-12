@@ -60,6 +60,8 @@ if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
 fi
 
 # fzf
+# Ctrl-R 交給 Atuin；保留 fzf 的檔案搜尋與目錄切換。
+FZF_CTRL_R_COMMAND=''
 [[ -t 1 ]] && source <(fzf --zsh)
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
@@ -132,18 +134,14 @@ zle -N backward-delete-word
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# zsh-history-substring-search
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+# Atuin 接管 Ctrl-R 與 ↑；在 syntax highlighting 前註冊 ZLE widgets。
+eval "$(atuin init zsh --disable-ai)"
 
 # zsh-fast-syntax-highlighting must load after plugins that synchronously register ZLE widgets.
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # autosuggestions:退後,不搶眼
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
-
-# history-substring-search:整行套用,底色別太亮
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=#ffffff,bg=#3b5998,bold'
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=#ffffff,bg=#8b2635,bold'
 
 # fast-syntax-highlighting:個別 token 覆寫
 FAST_HIGHLIGHT_STYLES[command]='fg=#98c379'
@@ -227,17 +225,7 @@ zstyle ':completion:*:manuals' accept-exact true
 
 # Keybinds
 
-if (( $+widgets[history-substring-search-up] )); then
-  zmodload -i zsh/terminfo
-
-  # terminfo 的值(application cursor mode)
-  [[ -n $terminfo[kcuu1] ]] && bindkey -- "$terminfo[kcuu1]" history-substring-search-up
-  [[ -n $terminfo[kcud1] ]] && bindkey -- "$terminfo[kcud1]" history-substring-search-down
-
-  # 實際常見的裸序列(normal cursor mode)— 兩者都綁才保險
-  bindkey -- '^[[A' history-substring-search-up
-  bindkey -- '^[[B' history-substring-search-down
-fi
+zmodload -i zsh/terminfo
 
 bindkey "$terminfo[khome]" beginning-of-line # Home
 bindkey "$terminfo[kend]" end-of-line # End
@@ -247,7 +235,6 @@ bindkey "$terminfo[kcub1]" backward-char # Left
 bindkey "$terminfo[kcuf1]" forward-char # Right
 # bindkey "$terminfo[kpp]" # PageUp
 # bindkey "$terminfo[knp]" # PageDown
-zmodload zsh/terminfo
 
 # rust
 if [[ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]]; then
