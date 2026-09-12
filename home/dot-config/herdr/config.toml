@@ -73,6 +73,7 @@ settings = "prefix+;"
 # workspace_picker = "prefix+w"
 # goto = "prefix+g"
 # new_workspace = "prefix+shift+n"
+new_workspace = "prefix+n"
 # new_worktree = "prefix+shift+g"
 # open_worktree = ""    # optional, unset by default
 # remove_worktree = ""  # optional, unset by default; opens confirmation
@@ -93,12 +94,13 @@ new_tab = "prefix+t"
 rename_tab = "prefix+,"
 # previous_tab = "prefix+p"
 # next_tab = "prefix+n"
-previous_tab = ["prefix+p", "alt+{"]
-next_tab = ["prefix+n", "alt+}"]
+previous_tab = "alt+{"
+next_tab = "alt+}"
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""   # optional indexed binding, e.g. "prefix+shift+1..9"
 # close_tab = "prefix+shift+x"
 # rename_pane = "prefix+shift+p"
+rename_pane = "prefix+p"
 # edit_scrollback = "prefix+e"
 # focus_pane_left = "prefix+h"
 # focus_pane_down = "prefix+j"
@@ -136,6 +138,12 @@ navigate_workspace_down = "down"
 # key = "prefix+alt+g"
 # type = "pane"
 # command = "lazygit"
+
+[[keys.command]]
+key = "ctrl+;"
+type = "shell"
+command = "\"$HOME/.local/bin/herdr-toggle-right-pane\" \"$HERDR_ACTIVE_PANE_ID\""
+description = "toggle right pane"
 
 ## Plugin Herdr Plus - Quick Actions
 [[keys.command]]

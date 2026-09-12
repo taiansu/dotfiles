@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+pane_id=${1:-${HERDR_ACTIVE_PANE_ID:-${HERDR_PANE_ID:-}}}
+if [[ -z "$pane_id" ]]; then
+  printf 'herdr-toggle-right-pane: no active pane ID\n' >&2
+  exit 1
+fi
+
+right_pane_id=$(herdr pane neighbor --pane "$pane_id" --direction right | jq -er '.result.neighbor.neighbor_pane_id // .result.neighbor.pane_id')
+
+if [[ "$right_pane_id" == "$pane_id" ]]; then
+  exec herdr pane split --pane "$pane_id" --direction right --no-focus
+fi
+
+exec herdr pane close "$right_pane_id"
