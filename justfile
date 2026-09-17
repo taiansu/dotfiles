@@ -1,7 +1,7 @@
 set shell := ["zsh", "-cu"]
 # set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
-default: homebrew mise vim npm bun omp finish
+default: homebrew mise vim npm bun uv omp finish
 
 # 升級 homebrew
 homebrew:
@@ -26,6 +26,10 @@ npm:
 # 升級 bun global 套件
 bun:
     -bun update -g
+
+# 升級 uv tool 套件
+uv:
+    -uv tool upgrade --all
 
 # 設定整個開發環境
 bootstrap: ensure-brew install-tools setup-config
