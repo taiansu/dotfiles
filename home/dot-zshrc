@@ -153,37 +153,9 @@ FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 
-# Prompt
-local _path='%F{blue}%(4~|%-1~/…/%2~|%3~)%f'
-local _prompt='𝝺'
-(( SHLVL > 1 )) && _prompt+='′'
-
-## git status
-source ~/.dotfiles/git-prompt.zsh/git-prompt.zsh
-
-_zsh_git_prompt_clear_cache() {
-  typeset -g _ZSH_GIT_PROMPT_STATUS_OUTPUT=""
-  typeset -g _ZSH_GIT_PROMPT_STATUS_SECONDARY_OUTPUT=""
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook chpwd _zsh_git_prompt_clear_cache
-
-ZSH_THEME_GIT_PROMPT_PREFIX=" ["
-ZSH_THEME_GIT_PROMPT_SUFFIX="]"
-ZSH_THEME_GIT_PROMPT_SEPARATOR=""
-ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_no_bold[cyan]%}:"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_no_bold[white]%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_no_bold[cyan]%}↓"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_no_bold[cyan]%}↑"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}x"
-ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}o"
-ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}+"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-PROMPT='$_path${_ZSH_GIT_PROMPT_STATUS_OUTPUT} $_prompt%b%f%k%F{white} '
-
-RPROMPT='%F{246}[%*]%f'
-[[ -n $SSH_CLIENT ]] && RPROMPT+=' ⇄'
+# Prompt: async git engine (gitstatus) + layout
+source $XDG_CONFIG_HOME/zsh/prompt-engine.zsh
+[[ -r $XDG_CONFIG_HOME/zsh/prompt.zsh ]] && source $XDG_CONFIG_HOME/zsh/prompt.zsh
 
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
