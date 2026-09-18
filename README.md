@@ -64,14 +64,16 @@ maintenance and is never installed.
 │       ├── zed/
 │       │   ├── keymap.json
 │       │   └── settings.json
-│       └── zsh/aliasrc
+│       └── zsh/
+│           ├── aliasrc
+│           ├── prompt-engine.zsh  # async git status (gitstatus)
+│           └── prompt.zsh         # prompt layout
 ├── docs/                        # design notes, plans, migration steps
 ├── patches/                     # third-party patches applied by justfile
 ├── templates/                   # machine-local file templates
 ├── tests/                       # repository tests
 ├── dotfiles_backup/
 ├── fzf-git.zsh                  # submodule
-├── git-prompt.zsh               # submodule
 ├── justfile
 ├── setup.sh
 └── README.md
@@ -91,6 +93,19 @@ becoming symlinks into this repository.
 Machine-local files stay outside the package: Git identity in
 `~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`) and
 shell credentials in `~/.config/dotfiles/credential`.
+
+## Karabiner-Elements
+
+`home/dot-config/karabiner/` is excluded from Stow (`home/.stow-local-ignore`):
+Karabiner saves its config atomically and replaces a symlink with a real file.
+The repository copy and the live file are kept equal by `just karabiner-sync`,
+which copies whichever is newer over the other (and refuses to import
+Karabiner's empty default config). Run it after editing in the GUI or in the
+repository.
+
+```shell
+just karabiner-sync
+```
 
 ## Shell history
 
