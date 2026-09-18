@@ -223,7 +223,7 @@ cask "dropbox"
 cask "font-fira-code"
 cask "font-noto-sans-cjk-tc"
 # Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
+cask "ghostty@tip"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Automated organisation
