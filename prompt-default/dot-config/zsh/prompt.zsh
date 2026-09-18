@@ -1,5 +1,5 @@
 # prompt-default: the original hand-rolled prompt, now on the gitstatus engine.
-#   ~/p/…/dir [branch↓1↑2x1●2+3…4≡1] 𝝺              [12:34:56]
+#   ~/p/…/dir [branch↓1↑2x1●2+3…4≡1] $              [12:34:56]
 
 prompt_git_render() {
   PROMPT_GIT=''
@@ -17,7 +17,7 @@ prompt_git_render() {
 }
 
 local _path='%F{blue}%(4~|%-1~/…/%2~|%3~)%f'
-local _prompt=${PROMPT_CHAR:-𝝺}
+local _prompt=${PROMPT_CHAR:-\$}
 (( SHLVL > 1 )) && _prompt+='′'
 
 PROMPT='${_path}${PROMPT_GIT} ${_prompt}%b%f%k%F{white} '
