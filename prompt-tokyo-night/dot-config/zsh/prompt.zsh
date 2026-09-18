@@ -30,5 +30,5 @@ PROMPT+="%K{${_c_git}}%F{${_c_dir}}%F{${_c_dir}}"'${PROMPT_GIT}'
 PROMPT+="%K{${_c_time}}%F{${_c_git}}%F{${_c_timefg}}  %T "
 PROMPT+="%k%F{${_c_time}}%f"
 PROMPT+=$'\n'
-PROMPT+='%F{%(?.green.red)}%B❯%b%f '
+PROMPT+="%F{%(?.green.red)}%B${PROMPT_CHAR:-❯}%b%f "
 RPROMPT=''

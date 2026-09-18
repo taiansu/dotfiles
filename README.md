@@ -105,8 +105,14 @@ conflicts without touching the filesystem. `--no-folding` is required so that
 becoming symlinks into this repository.
 
 Machine-local files stay outside the package: Git identity in
-`~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`) and
-shell credentials in `~/.config/dotfiles/credential`.
+`~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`),
+shell credentials in `~/.config/dotfiles/credential`, and shell overrides in
+`~/.config/zsh/local.zsh`, which `.zshrc` sources before the prompt when present.
+`PROMPT_CHAR` set there replaces the input marker in every `prompt-*` layout:
+
+```shell
+echo 'PROMPT_CHAR=❯' > ~/.config/zsh/local.zsh
+```
 
 ## Karabiner-Elements
 

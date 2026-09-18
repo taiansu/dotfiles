@@ -17,7 +17,7 @@ prompt_git_render() {
 }
 
 local _path='%F{blue}%(4~|%-1~/…/%2~|%3~)%f'
-local _prompt='𝝺'
+local _prompt=${PROMPT_CHAR:-𝝺}
 (( SHLVL > 1 )) && _prompt+='′'
 
 PROMPT='${_path}${PROMPT_GIT} ${_prompt}%b%f%k%F{white} '

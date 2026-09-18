@@ -153,6 +153,9 @@ FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
 FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 
+# Machine-local overrides (PROMPT_CHAR, ...): not in the repo, loaded before the prompt
+[[ -r $XDG_CONFIG_HOME/zsh/local.zsh ]] && source $XDG_CONFIG_HOME/zsh/local.zsh
+
 # Prompt: async git engine (gitstatus) + layout
 source $XDG_CONFIG_HOME/zsh/prompt-engine.zsh
 [[ -r $XDG_CONFIG_HOME/zsh/prompt.zsh ]] && source $XDG_CONFIG_HOME/zsh/prompt.zsh

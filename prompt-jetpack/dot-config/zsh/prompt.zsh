@@ -31,5 +31,5 @@ prompt_git_render() {
 
 PROMPT='%F{blue}'"${_it}"'%2~'"${_ni}"'%f${PROMPT_GIT}'
 PROMPT+=$'\n'
-PROMPT+='%(?.%F{11}%B'"${_it}"'◎'"${_ni}"'%b%f.%F{magenta}'"${_it}"'○'"${_ni}"'%f) '
+PROMPT+="%(?.%F{11}%B${_it}${PROMPT_CHAR:-◎}${_ni}%b%f.%F{magenta}${_it}${PROMPT_CHAR:-○}${_ni}%f) "
 RPROMPT='%F{245}'"${_it}"' %T'"${_ni}"'%f'

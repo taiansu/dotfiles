@@ -7,6 +7,8 @@
 #   - define `prompt_git_render` which reads the PROMPT_GIT_* variables below and
 #     sets PROMPT_GIT (a prompt-escaped string, may be empty)
 #   - reference ${PROMPT_GIT} inside PROMPT / RPROMPT (prompt_subst is on)
+#   - render the input marker as ${PROMPT_CHAR:-<layout default>} so a single
+#     machine-local setting (~/.config/zsh/local.zsh) overrides it in every layout
 #
 # Variables set before every prompt_git_render call:
 #   PROMPT_GIT_REPO        1 inside a git work tree, else 0

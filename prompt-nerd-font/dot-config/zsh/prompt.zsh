@@ -24,5 +24,5 @@ prompt_git_render() {
 
 PROMPT='%F{cyan}%B%~%b%f${PROMPT_GIT}'
 PROMPT+=$'\n'
-PROMPT+='%F{%(?.green.red)}❯%f '
+PROMPT+="%F{%(?.green.red)}${PROMPT_CHAR:-❯}%f "
 RPROMPT=''
