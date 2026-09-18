@@ -5,5 +5,5 @@
 ^/\.stow-local-ignore$
 
 # Karabiner-Elements rewrites its config atomically and replaces symlinks with
-# real files. Managed by `just karabiner-push` / `just karabiner-pull` instead.
+# real files. Managed by `just karabiner-sync` instead.
 ^/\.config/karabiner$

@@ -1,0 +1,417 @@
+{
+  "schema": 2,
+  "groups": [
+    {
+      "name": "home",
+      "brew": [
+        "gitstatus"
+      ],
+      "description": {
+        "en": "Shell, git, editors and everyday dotfiles",
+        "zh-TW": "Shell、git、編輯器與日常設定檔"
+      }
+    },
+    {
+      "name": "prompt-default",
+      "kind": "prompt",
+      "description": {
+        "en": "Compact path + git status, single line",
+        "zh-TW": "精簡路徑 + git 狀態,單行"
+      },
+      "preview": [
+        [
+          {
+            "text": "~/p/kaisian",
+            "color": "blue"
+          },
+          {
+            "text": " [",
+            "color": "white"
+          },
+          {
+            "text": "main",
+            "color": "white"
+          },
+          {
+            "text": "↑1",
+            "color": "cyan"
+          },
+          {
+            "text": "●2",
+            "color": "green"
+          },
+          {
+            "text": "○1",
+            "color": "red"
+          },
+          {
+            "text": "]",
+            "color": "white"
+          },
+          {
+            "text": " 𝝺 ",
+            "color": "white"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "prompt-pure",
+      "kind": "prompt",
+      "description": {
+        "en": "Pure: minimal two-line prompt",
+        "zh-TW": "Pure:極簡雙行"
+      },
+      "preview": [
+        [
+          {
+            "text": "~/p/kaisian",
+            "color": "blue"
+          },
+          {
+            "text": " main",
+            "color": "gray"
+          },
+          {
+            "text": "*",
+            "color": "#f5b8c8"
+          },
+          {
+            "text": " ⇡",
+            "color": "cyan"
+          }
+        ],
+        [
+          {
+            "text": "❯ ",
+            "color": "magenta"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "prompt-bracketed",
+      "kind": "prompt",
+      "description": {
+        "en": "Bracketed segments, plain text",
+        "zh-TW": "方括號分段,純文字"
+      },
+      "preview": [
+        [
+          {
+            "text": "[~/p/kaisian]",
+            "color": "cyan"
+          },
+          {
+            "text": "[main]",
+            "color": "magenta"
+          },
+          {
+            "text": "[!+⇡]",
+            "color": "red"
+          }
+        ],
+        [
+          {
+            "text": "❯ ",
+            "color": "green"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "prompt-nerd-font",
+      "kind": "prompt",
+      "description": {
+        "en": "Starship default look with Nerd Font icons (needs a Nerd Font)",
+        "zh-TW": "Starship 預設樣式 + Nerd Font 圖示(需 Nerd Font)"
+      },
+      "preview": [
+        [
+          {
+            "text": "~/p/kaisian",
+            "color": "cyan"
+          },
+          {
+            "text": " on ",
+            "color": "white"
+          },
+          {
+            "text": " main",
+            "color": "magenta"
+          },
+          {
+            "text": " [!+⇡]",
+            "color": "red"
+          }
+        ],
+        [
+          {
+            "text": "❯ ",
+            "color": "green"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "prompt-jetpack",
+      "kind": "prompt",
+      "description": {
+        "en": "Jetpack: geometric symbols, two lines, time on the right",
+        "zh-TW": "Jetpack:幾何符號,雙行,右側時間"
+      },
+      "preview": [
+        [
+          {
+            "text": "kaisian",
+            "color": "blue"
+          },
+          {
+            "text": " △ ",
+            "color": "blue"
+          },
+          {
+            "text": "main",
+            "color": "blue"
+          },
+          {
+            "text": " ⎪",
+            "color": "blue"
+          },
+          {
+            "text": "▴│1│",
+            "color": "green"
+          },
+          {
+            "text": "▪┤2│",
+            "color": "cyan"
+          },
+          {
+            "text": "●◦",
+            "color": "yellow"
+          },
+          {
+            "text": "⎥",
+            "color": "blue"
+          },
+          {
+            "text": "                      12:34",
+            "color": "gray"
+          }
+        ],
+        [
+          {
+            "text": "◎ ",
+            "color": "yellow"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "prompt-tokyo-night",
+      "kind": "prompt",
+      "description": {
+        "en": "Tokyo Night powerline (needs a Nerd Font and true colour)",
+        "zh-TW": "Tokyo Night powerline(需 Nerd Font 與 true color)"
+      },
+      "preview": [
+        [
+          {
+            "text": "░▒▓",
+            "color": "#a3aed2",
+            "bg": "#a3aed2"
+          },
+          {
+            "text": "  ",
+            "color": "#090c0c",
+            "bg": "#a3aed2"
+          },
+          {
+            "text": "",
+            "color": "#a3aed2",
+            "bg": "#769ff0"
+          },
+          {
+            "text": " ~/p/kaisian ",
+            "color": "#e3e5e5",
+            "bg": "#769ff0"
+          },
+          {
+            "text": "",
+            "color": "#769ff0",
+            "bg": "#394260"
+          },
+          {
+            "text": "  main !+⇡ ",
+            "color": "#769ff0",
+            "bg": "#394260"
+          },
+          {
+            "text": "",
+            "color": "#394260",
+            "bg": "#1d2230"
+          },
+          {
+            "text": "  12:34 ",
+            "color": "#a0a9cb",
+            "bg": "#1d2230"
+          },
+          {
+            "text": "",
+            "color": "#1d2230"
+          }
+        ],
+        [
+          {
+            "text": "❯ ",
+            "color": "green"
+          }
+        ]
+      ]
+    }
+  ],
+  "profiles": {
+    "default": [
+      "home",
+      "prompt-default"
+    ]
+  },
+  "fonts": [
+    {
+      "cask": "font-sauce-code-pro-nerd-font",
+      "family": "SauceCodePro NFM",
+      "preview": "Source Code Pro",
+      "description": {
+        "en": "Source Code Pro Nerd Font",
+        "zh-TW": "Source Code Pro Nerd Font"
+      }
+    },
+    {
+      "cask": "font-jetbrains-mono-nerd-font",
+      "family": "JetBrainsMono NFM",
+      "preview": "JetBrains Mono",
+      "description": {
+        "en": "JetBrains Mono Nerd Font",
+        "zh-TW": "JetBrains Mono Nerd Font"
+      }
+    },
+    {
+      "cask": "font-fira-code-nerd-font",
+      "family": "FiraCode NFM",
+      "preview": "Fira Code",
+      "description": {
+        "en": "Fira Code Nerd Font",
+        "zh-TW": "Fira Code Nerd Font"
+      }
+    },
+    {
+      "cask": "font-blex-mono-nerd-font",
+      "family": "BlexMono NFM",
+      "preview": "IBM Plex Mono",
+      "description": {
+        "en": "IBM Plex Mono Nerd Font",
+        "zh-TW": "IBM Plex Mono Nerd Font"
+      }
+    },
+    {
+      "cask": "font-ubuntu-mono-nerd-font",
+      "family": "UbuntuMono NFM",
+      "preview": "Ubuntu Mono",
+      "description": {
+        "en": "Ubuntu Mono Nerd Font",
+        "zh-TW": "Ubuntu Mono Nerd Font"
+      }
+    }
+  ],
+  "brew": [
+    {
+      "name": "ghostty",
+      "cask": true,
+      "description": {
+        "en": "Terminal emulator",
+        "zh-TW": "終端機"
+      }
+    },
+    {
+      "name": "ripgrep",
+      "description": {
+        "en": "Fast grep",
+        "zh-TW": "快速搜尋"
+      }
+    },
+    {
+      "name": "zoxide",
+      "description": {
+        "en": "Smarter cd",
+        "zh-TW": "智慧 cd"
+      }
+    },
+    {
+      "name": "fd",
+      "description": {
+        "en": "find alternative",
+        "zh-TW": "find 替代品"
+      }
+    },
+    {
+      "name": "atuin",
+      "description": {
+        "en": "Shell history search (Ctrl-R)",
+        "zh-TW": "Shell 歷史搜尋(Ctrl-R)"
+      }
+    },
+    {
+      "name": "fzf",
+      "description": {
+        "en": "Fuzzy finder",
+        "zh-TW": "模糊搜尋"
+      }
+    },
+    {
+      "name": "gitstatus",
+      "description": {
+        "en": "Async git status daemon for the prompt",
+        "zh-TW": "提示字元用的非同步 git 狀態 daemon"
+      }
+    }
+  ],
+  "features": [
+    {
+      "name": "karabiner-ime",
+      "macos": true,
+      "brew": [
+        {
+          "name": "karabiner-elements",
+          "cask": true
+        }
+      ],
+      "copy": [
+        {
+          "from": "home/dot-config/karabiner/karabiner.json",
+          "to": ".config/karabiner/karabiner.json"
+        }
+      ],
+      "hotkeys": [
+        {
+          "id": 60,
+          "enabled": true,
+          "ascii": 32,
+          "keycode": 49,
+          "modifiers": 1310720
+        },
+        {
+          "id": 61,
+          "enabled": false
+        }
+      ],
+      "description": {
+        "en": "Caps Lock as IME switch: tap to switch between ABC and your last-used input method; hold as Control. Left Control held emits Control+Option. Sets macOS 'previous input source' to ⌃⌥Space (⌘Space stays free for Spotlight/Raycast).",
+        "zh-TW": "Caps Lock 當輸入法切換鍵:輕點在 ABC 與上次使用的輸入法間切換,長按當 Control。長按左 Control 送出 Control+Option。macOS「選擇上一個輸入法」改為 ⌃⌥Space(⌘Space 留給 Spotlight/Raycast)。"
+      },
+      "notes": {
+        "en": "Installs Karabiner-Elements. After setup you must open Karabiner-Elements once and approve its driver extension and Input Monitoring in System Settings. With three or more input sources, Caps Lock toggles between ABC and the most recently used one.",
+        "zh-TW": "會安裝 Karabiner-Elements。安裝後需開啟 Karabiner-Elements 一次,並在系統設定核准驅動程式延伸功能與輸入監控。若有三個以上輸入法,Caps Lock 會在 ABC 與最近使用的輸入法間切換。"
+      }
+    }
+  ]
+}

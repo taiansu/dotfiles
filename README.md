@@ -1,7 +1,8 @@
 ## Structure
 
-`home/` is the only GNU Stow package. Everything else is repository
-maintenance and is never installed.
+`home/` is the base GNU Stow package and one `prompt-*` package supplies the
+shell prompt layout. Everything else is repository maintenance and is never
+installed.
 
 ```
 .
@@ -66,8 +67,15 @@ maintenance and is never installed.
 │       │   └── settings.json
 │       └── zsh/
 │           ├── aliasrc
-│           ├── prompt-engine.zsh  # async git status (gitstatus)
-│           └── prompt.zsh         # prompt layout
+│           └── prompt-engine.zsh  # async git status (gitstatus); calls prompt_git_render
+├── prompt-default/              # stow package: one prompt layout, pick exactly one
+│   └── dot-config/zsh/prompt.zsh
+├── prompt-pure/                 #   … same shape for pure, bracketed, nerd-font,
+├── prompt-bracketed/            #   jetpack, tokyo-night
+├── prompt-nerd-font/
+├── prompt-jetpack/
+├── prompt-tokyo-night/
+├── .kaisian.json                # manifest for kaisian.phx.tw: groups, fonts, tools, features
 ├── docs/                        # design notes, plans, migration steps
 ├── patches/                     # third-party patches applied by justfile
 ├── templates/                   # machine-local file templates
@@ -82,8 +90,14 @@ maintenance and is never installed.
 ## Install
 
 ```shell
-stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -R home
+stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -R home prompt-default
 ```
+
+`home` is always stowed; exactly one `prompt-*` package goes with it. Switch
+layouts by restowing a different one (`stow -D prompt-default; stow prompt-pure`).
+[kaisian](https://kaisian.phx.tw) reads `.kaisian.json` and does the same from a
+generated one-line command; when a font is chosen it writes
+`~/.config/ghostty/kaisian.conf`, which `home/dot-config/ghostty/config` includes.
 
 Preview first with `--simulate --verbose`; it lists every `LINK` and aborts on
 conflicts without touching the filesystem. `--no-folding` is required so that
