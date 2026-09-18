@@ -7,10 +7,22 @@ if [[ -z "$pane_id" ]]; then
   exit 1
 fi
 
-right_pane_id=$(herdr pane neighbor --pane "$pane_id" --direction right | jq -er '.result.neighbor.neighbor_pane_id // .result.neighbor.pane_id')
+neighbor() {
+  herdr pane neighbor --pane "$pane_id" --direction "$1" \
+    | jq -er '.result.neighbor.neighbor_pane_id // .result.neighbor.pane_id'
+}
 
-if [[ "$right_pane_id" == "$pane_id" ]]; then
-  exec herdr pane split --pane "$pane_id" --direction right --no-focus
+right_pane_id=$(neighbor right)
+
+if [[ "$right_pane_id" != "$pane_id" ]]; then
+  exec herdr pane close "$right_pane_id"
 fi
 
-exec herdr pane close "$right_pane_id"
+# No right neighbor: we are the right pane if something sits to our left.
+left_pane_id=$(neighbor left)
+
+if [[ "$left_pane_id" != "$pane_id" ]]; then
+  exec herdr pane close "$pane_id"
+fi
+
+exec herdr pane split --pane "$pane_id" --direction right --focus
