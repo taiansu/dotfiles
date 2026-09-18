@@ -1,0 +1,128 @@
+{
+  "profiles": [
+    {
+      "name": "Default profile",
+      "selected": true,
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      },
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "caps_lock: hold = left_control; tap outside ABC = switch to ABC; tap in ABC = previous input source (⌃⌥Space)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "input_source_unless",
+                    "input_sources": [
+                      {
+                        "input_source_id": "^com\\.apple\\.keylayout\\.ABC$"
+                      }
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_control",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "select_input_source": {
+                      "input_source_id": "^com\\.apple\\.keylayout\\.ABC$"
+                    }
+                  }
+                ],
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250
+                }
+              },
+              {
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "input_source_id": "^com\\.apple\\.keylayout\\.ABC$"
+                      }
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_control",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "left_control",
+                      "left_option"
+                    ],
+                    "hold_down_milliseconds": 100
+                  }
+                ],
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250
+                }
+              }
+            ]
+          },
+          {
+            "description": "left_control (R1c1) = ⌃⌥",
+            "manipulators": [
+              {
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "event_changed_if",
+                    "value": false
+                  }
+                ],
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_option",
+                    "lazy": true,
+                    "modifiers": [
+                      "left_control"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

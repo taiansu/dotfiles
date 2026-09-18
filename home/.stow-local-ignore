@@ -1,0 +1,9 @@
+# Stow reads this file from the package directory. Patterns are matched against
+# the *translated* path (dot-config → .config) with --dotfiles. Creating this
+# file replaces stow's built-in default list, so keep what we need here.
+\.DS_Store
+^/\.stow-local-ignore$
+
+# Karabiner-Elements rewrites its config atomically and replaces symlinks with
+# real files. Managed by `just karabiner-push` / `just karabiner-pull` instead.
+^/\.config/karabiner$

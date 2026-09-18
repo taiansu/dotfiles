@@ -1,5 +1,7 @@
 # Kaisian and Dotfiles Design
 
+> **Status (2026-09-17):** Historical. The multi-group layout in "Dotfiles Migration" (`shell`, `git`, `macos`, …) was superseded by a single Stow package `home/` (see `README.md`). Paneru config was removed in `5b03f79`. Group and payload lists below reflect the 2026-08-18 design, not the current repository.
+
 ## Problem
 
 The current `setup.sh` cannot bootstrap a new machine. It assumes `~/.dotfiles` already exists, uses invalid shell collection syntax at runtime, iterates the literal word `files`, builds relative source paths, and cannot safely handle directories, conflicting links, repeat runs, or input while the script itself arrives through stdin.

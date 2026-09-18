@@ -95,6 +95,32 @@ tail-dns-off:
   tailscale set --accept-dns=false
   dscacheutil -flushcache
 
+karabiner_repo := justfile_directory() / "home/dot-config/karabiner/karabiner.json"
+karabiner_live := home_directory() / ".config/karabiner/karabiner.json"
+
+# 同步 karabiner.json:較新的一份覆蓋較舊的(Karabiner 不能吃 symlink,故不走 stow)
+karabiner-sync:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    repo="{{karabiner_repo}}"; live="{{karabiner_live}}"
+    if [[ -L "$live" ]]; then rm "$live"; fi
+    if [[ ! -e "$live" ]]; then
+        install -m 600 "$repo" "$live"; echo "repo → live (live was missing)"; exit 0
+    fi
+    jq empty "$repo" "$live"
+    if (( $(wc -c < "$live") < 1000 )); then
+        echo "refusing: live file looks like Karabiner's empty default; run again after fixing it" >&2; exit 1
+    fi
+    if diff -q <(jq -S . "$repo") <(jq -S . "$live") >/dev/null; then
+        echo "in sync"; exit 0
+    fi
+    if [[ "$live" -nt "$repo" ]]; then
+        cp "$live" "$repo"; echo "live → repo"
+        git -C "{{justfile_directory()}}" --no-pager diff --stat -- home/dot-config/karabiner/karabiner.json
+    else
+        install -m 600 "$repo" "$live"; echo "repo → live"
+    fi
+
 # 確保 brew 存在，不存在就安裝
 [private]
 ensure-brew:
