@@ -1,35 +1,56 @@
 setupVersion: 2
-modelRoles: 
+modelRoles:
   smol: anthropic/claude-hiku-5
   slow: anthropic/claude-sonnet-5
   plan: anthropic/claude-fable-5
   designer: anthropic/claude-5-opus:high
   commit: google-antigravity/gemini-3.7-flash
   advisor: anthropic/claude-5-opus:high
-  task: google-antigravity/gemini-3.7-flash
+  task: google-antigravity/gemini-3.8-flash:high
   tiny: google-antigravity/gemini-3.7-flash
   vision: anthropic/claude-5-opus:high
-  default: openai-codex/gpt-5.6-sol:high
-dev: 
+  default: anthropic/claude-fable-5-1:high
+retry:
+  enabled: true
+  modelFallback: true
+  fallbackRevertPolicy: cooldown-expiry
+  fallbackChains:
+    default:
+      - openai-codex/gpt-6-astra:high
+      - anthropic/claude-opus-4-5
+      - openai/gpt-5.6-sol
+    smol:
+      - anthropic/claude-haiku-4-5
+      - openai/gpt-5.6-luna
+dev:
   autoqaConsent: granted
-theme: 
+theme:
   dark: dark-lunar-custom
   light: light-zenith
-statusLine: 
+statusLine:
   separator: none
   transparent: true
-  preset: default
-shellMinimizer: 
+  # default preset + built-in `usage` (active provider quota) after `cost`
+  preset: custom
+  leftSegments: [pi, vim, model, mode, collab, stream, path, git, pr, context_pct, cost, usage]
+  rightSegments: [session_name]
+  segmentOptions:
+    model: { showThinkingLevel: true }
+    path: { abbreviate: true, maxLength: 40, stripWorkPrefix: true }
+    git: { showBranch: true, showStaged: true, showUnstaged: true, showUntracked: true }
+shellMinimizer:
   enabled: false
-providers: 
-  webSearchOrder: 
+providers:
+  webSearchOrder:
     - tavily
     - brave
     - kagi
-browser: 
+browser:
+  enabled: true
   relay: true
-composer: 
+composer:
   shape: rule
-tui: 
+tui:
   textSizing: true
   scrollbackRebuild: true
+symbolPreset: nerd

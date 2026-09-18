@@ -1,11 +1,11 @@
 {
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "theme": "dark",
   "warnings": {
     "anthropicExtraUsage": false
   },
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-terra",
+  "defaultModel": "gpt-6-astra",
   "packages": [
     "npm:pi-peon-ping",
     "npm:@schultzp2020/pi-cursor",
