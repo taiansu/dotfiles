@@ -114,6 +114,17 @@ shell credentials in `~/.config/dotfiles/credential`, and shell overrides in
 echo 'PROMPT_CHAR=❯' > ~/.config/zsh/local.zsh
 ```
 
+## Branches
+
+`main` is where changes land. `kaisian` is a release pointer: it is the ref the
+[kaisian](https://kaisian.phx.tw) installer checks out by default and the branch
+the web generator reads `.kaisian.json` from, so users only see what has been
+fast-forwarded to it. Publish the current `main` with:
+
+```shell
+git branch -f kaisian main && git push origin kaisian
+```
+
 ## Karabiner-Elements
 
 `home/dot-config/karabiner/` is excluded from Stow (`home/.stow-local-ignore`):
