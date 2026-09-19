@@ -328,36 +328,36 @@
       "name": "ghostty",
       "cask": true,
       "description": {
-        "en": "Terminal emulator",
-        "zh-TW": "終端機"
+        "en": "Modern terminal emulator",
+        "zh-TW": "現代終端機"
       }
     },
     {
       "name": "ripgrep",
       "description": {
-        "en": "Fast grep",
-        "zh-TW": "快速搜尋"
+        "en": "Fast text search",
+        "zh-TW": "快速內文搜尋"
       }
     },
     {
       "name": "zoxide",
       "description": {
-        "en": "Smarter cd",
-        "zh-TW": "智慧 cd"
+        "en": "Smarter directory switching",
+        "zh-TW": "智慧目錄切換"
       }
     },
     {
       "name": "fd",
       "description": {
-        "en": "find alternative",
-        "zh-TW": "find 替代品"
+        "en": "Fast file name search",
+        "zh-TW": "快速檔名搜尋"
       }
     },
     {
       "name": "atuin",
       "description": {
-        "en": "Shell history search (Ctrl-R)",
-        "zh-TW": "Shell 歷史搜尋(Ctrl-R)"
+        "en": "Shell history search",
+        "zh-TW": "歷史指令搜尋"
       }
     },
     {
@@ -370,8 +370,8 @@
     {
       "name": "gitstatus",
       "description": {
-        "en": "Async git status daemon for the prompt",
-        "zh-TW": "提示字元用的非同步 git 狀態 daemon"
+        "en": "Display version control status",
+        "zh-TW": "顯示版控狀態"
       }
     }
   ],
