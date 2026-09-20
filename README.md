@@ -157,6 +157,35 @@ HISTFILE="$HISTFILE" atuin import zsh
   `$XDG_DATA_HOME/atuin` (normally `~/.local/share/atuin`), outside this repository.
   Zsh continues to maintain its original `$HISTFILE`.
 
+## Recording without paths
+
+Start a recording shell from this repository:
+
+```shell
+just hide-path
+```
+
+From another project, select this justfile explicitly:
+
+```shell
+just --justfile "$HOME/.dotfiles/justfile" hide-path
+```
+
+The recipe preserves the invocation directory and starts an interactive child
+Zsh with the usual aliases, completion, mise, and plugins. Only that child uses
+a minimal `%` prompt, an empty right prompt, and `Recording` as its shell-managed
+terminal title; the regular prompt layout and Git prompt engine are not loaded.
+Ghostty's automatic path/command titles are disabled in the child, while its
+other shell integration features remain enabled.
+
+Run `exit` or press `Ctrl-D` to return to the original shell. The recipe saves
+and restores the terminal title using the terminal's title stack.
+
+This is not output redaction: commands, errors, history search, autosuggestions,
+completion menus, and existing scrollback can still reveal paths. Applications
+may also change the title while running. Clear or crop existing terminal content
+before starting the recording.
+
 ## Completion
 
 first execute

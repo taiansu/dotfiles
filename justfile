@@ -3,6 +3,14 @@ set shell := ["zsh", "-cu"]
 
 default: homebrew mise vim npm bun uv omp finish
 
+# 開啟隱藏路徑的互動 shell；exit 回到原本環境
+[no-cd]
+hide-path:
+    #!/usr/bin/env zsh
+    printf '\e[22;0t'
+    trap 'printf "\e[23;0t"' EXIT
+    DOTFILES_HIDE_PATH=1 zsh -i
+
 # 升級 homebrew
 homebrew:
     -brew update
