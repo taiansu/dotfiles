@@ -1,24 +1,28 @@
 setupVersion: 2
 modelRoles:
-  smol: anthropic/claude-hiku-5
-  slow: anthropic/claude-sonnet-5
-  plan: anthropic/claude-fable-5
+  smol: openai-codex/gpt-5.6-luna
+  slow: openai-codex/gpt-6-astra:xhigh
+  plan: anthropic/claude-5-opus:high
   designer: anthropic/claude-5-opus:high
   commit: google-antigravity/gemini-3.7-flash
-  advisor: anthropic/claude-5-opus:high
+  advisor: openai-codex/gpt-5.6-sol
   task: google-antigravity/gemini-3.8-flash:high
-  tiny: google-antigravity/gemini-3.7-flash
-  vision: anthropic/claude-5-opus:high
-  default: anthropic/claude-fable-5-1:high
+  tiny: openai-codex/gpt-5.6-luna
+  vision: openai-codex/gpt-5.6-sol
+  default: openai-codex/gpt-6-astra:xhigh
 retry:
   enabled: true
   modelFallback: true
   fallbackRevertPolicy: cooldown-expiry
   fallbackChains:
     default:
-      - openai-codex/gpt-6-astra:high
-      - anthropic/claude-opus-4-5
-      - openai/gpt-5.6-sol
+      - openai-codex/gpt-6-astra:xhigh
+      - openai-codex/gpt-5.6-sol:xhigh
+      - anthropic/claude-opus-5
+      - anthropic-api/claude-fable-5-1:xhigh
+    task:
+      - anthropic/claude-sonnet-5
+      - openai-codex/gpt-5.6-sol:high
     smol:
       - anthropic/claude-haiku-4-5
       - openai/gpt-5.6-luna
@@ -30,14 +34,34 @@ theme:
 statusLine:
   separator: none
   transparent: true
-  # default preset + built-in `usage` (active provider quota) after `cost`
   preset: custom
-  leftSegments: [pi, vim, model, mode, collab, stream, path, git, pr, context_pct, cost, usage]
-  rightSegments: [session_name]
+  leftSegments:
+    - pi
+    - vim
+    - model
+    - mode
+    - collab
+    - stream
+    - path
+    - git
+    - pr
+    - context_pct
+    - cost
+    - usage
+  rightSegments:
+    - session_name
   segmentOptions:
-    model: { showThinkingLevel: true }
-    path: { abbreviate: true, maxLength: 40, stripWorkPrefix: true }
-    git: { showBranch: true, showStaged: true, showUnstaged: true, showUntracked: true }
+    model:
+      showThinkingLevel: true
+    path:
+      abbreviate: true
+      maxLength: 40
+      stripWorkPrefix: true
+    git:
+      showBranch: true
+      showStaged: true
+      showUnstaged: true
+      showUntracked: true
 shellMinimizer:
   enabled: false
 providers:
@@ -45,6 +69,7 @@ providers:
     - tavily
     - brave
     - kagi
+  judgmentProvider: auto
 browser:
   enabled: true
   relay: true
@@ -54,3 +79,12 @@ tui:
   textSizing: true
   scrollbackRebuild: true
 symbolPreset: nerd
+task:
+  agentModelOverrides:
+    task: anthropic/claude-opus-5
+extendedContext: true
+codexResets:
+  autoRedeem: "yes"
+  salvageHorizonHours: 0.5
+  minBlockedMinutes: 360
+  keepCredits: 1

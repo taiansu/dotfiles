@@ -26,6 +26,7 @@ installed.
 │   │   └── AGENTS.md
 │   ├── dot-omp/agent/
 │   │   ├── config.yml
+│   │   ├── models.yml
 │   │   └── no-superpowers.yml
 │   ├── dot-pi/agent/
 │   │   ├── AGENTS.md -> ../../dot-agents/AGENTS.md
