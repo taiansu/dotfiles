@@ -28,6 +28,7 @@ installed.
 │   │   ├── config.yml
 │   │   └── no-superpowers.yml
 │   ├── dot-pi/agent/
+│   │   ├── AGENTS.md -> ../../dot-agents/AGENTS.md
 │   │   ├── extensions/exit-alias.ts
 │   │   └── settings.json
 │   ├── dot-local/
