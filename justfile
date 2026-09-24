@@ -1,7 +1,7 @@
 set shell := ["zsh", "-cu"]
 # set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
-default: homebrew mise vim npm bun uv omp finish
+default: homebrew mise vim npm bun agents uv omp finish
 
 # 開啟隱藏路徑的互動 shell；exit 回到原本環境
 [no-cd]
@@ -38,6 +38,11 @@ bun:
 # 升級 uv tool 套件
 uv:
     -uv tool upgrade --all
+
+agents:
+    omp update
+    pi update
+    pi update --extensions
 
 # 設定整個開發環境
 bootstrap: ensure-brew install-tools setup-config

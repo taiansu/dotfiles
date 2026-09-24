@@ -1,15 +1,16 @@
 setupVersion: 2
 modelRoles:
-  smol: openai-codex/gpt-5.6-luna
+  smol: openai-codex/gpt-6-luna
   slow: openai-codex/gpt-6-astra:xhigh
   plan: anthropic/claude-5-opus:high
   designer: anthropic/claude-5-opus:high
-  commit: google-antigravity/gemini-3.7-flash
-  advisor: openai-codex/gpt-5.6-sol
+  commit: google-antigravity/gemini-3.8-flash
+  advisor: openai-codex/gpt-6-sol
   task: google-antigravity/gemini-3.8-flash:high
-  tiny: openai-codex/gpt-5.6-luna
-  vision: openai-codex/gpt-5.6-sol
+  tiny: openai-codex/gpt-6-luna
+  vision: openai-codex/gpt-6-sol
   default: openai-codex/gpt-6-astra:xhigh
+  web: web/tavily
 retry:
   enabled: true
   modelFallback: true
@@ -17,15 +18,41 @@ retry:
   fallbackChains:
     default:
       - openai-codex/gpt-6-astra:xhigh
-      - openai-codex/gpt-5.6-sol:xhigh
-      - anthropic/claude-opus-5
+      - openai-codex/gpt-6-sol:xhigh
       - anthropic-api/claude-fable-5-1:xhigh
+      - anthropic/claude-opus-5
     task:
       - anthropic/claude-sonnet-5
-      - openai-codex/gpt-5.6-sol:high
+      - openai-codex/gpt-6-sol
     smol:
       - anthropic/claude-haiku-4-5
-      - openai/gpt-5.6-luna
+      - openai/gpt-6-luna
+    web:
+      - web/brave
+      - web/kagi
+      - web/parallel
+      - web/perplexity
+      - google/gemini-2.5-flash
+      - google-antigravity/gemini-2.5-flash
+      - anthropic/claude-haiku-4-5
+      - openai-codex/gpt-6-luna
+      - openai-codex/gpt-6
+      - openai-codex/gpt-5.5
+      - xai/grok-4.5
+      - xai-oauth/grok-4.5
+      - web/exa
+      - web/tinyfish
+      - web/jina
+      - web/firecrawl
+      - web/synthetic
+      - web/ollama
+      - web/searxng
+      - web/startpage
+      - web/duckduckgo
+      - web/ecosia
+      - web/google
+      - web/mojeek
+      - web/public
 dev:
   autoqaConsent: granted
 theme:
@@ -64,12 +91,6 @@ statusLine:
       showUntracked: true
 shellMinimizer:
   enabled: false
-providers:
-  webSearchOrder:
-    - tavily
-    - brave
-    - kagi
-  judgmentProvider: auto
 browser:
   enabled: true
   relay: true
@@ -79,12 +100,14 @@ tui:
   textSizing: true
   scrollbackRebuild: true
 symbolPreset: nerd
-task:
-  agentModelOverrides:
-    task: anthropic/claude-opus-5
+# task:
+#   agentModelOverrides:
+#     task: anthropic/claude-opus-5
 extendedContext: true
 codexResets:
   autoRedeem: "yes"
   salvageHorizonHours: 0.5
   minBlockedMinutes: 360
   keepCredits: 1
+completion:
+  notify: "off"
