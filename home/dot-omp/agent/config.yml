@@ -5,11 +5,11 @@ modelRoles:
   plan: anthropic/claude-5-opus:high
   designer: anthropic/claude-5-opus:high
   commit: google-antigravity/gemini-3.8-flash
-  advisor: openai-codex/gpt-6-sol
+  advisor: anthropic/claude-fable-5-1:high
   task: google-antigravity/gemini-3.8-flash:high
   tiny: openai-codex/gpt-6-luna
   vision: openai-codex/gpt-6-sol
-  default: openai-codex/gpt-6-astra:xhigh
+  default: openai-codex/gpt-6-sol:xhigh
   web: web/tavily
 retry:
   enabled: true
@@ -100,9 +100,6 @@ tui:
   textSizing: true
   scrollbackRebuild: true
 symbolPreset: nerd
-# task:
-#   agentModelOverrides:
-#     task: anthropic/claude-opus-5
 extendedContext: true
 codexResets:
   autoRedeem: "yes"
