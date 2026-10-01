@@ -9,8 +9,8 @@ modelRoles:
   task: google-antigravity/gemini-3.8-flash:high
   tiny: openai-codex/gpt-6-luna
   vision: openai-codex/gpt-6-sol
-  default: openai-codex/gpt-6-sol:xhigh
   web: web/tavily
+  default: openai-codex/gpt-6-sol
 retry:
   enabled: true
   modelFallback: true
