@@ -5,12 +5,12 @@ modelRoles:
   plan: anthropic/claude-5-opus:high
   designer: anthropic/claude-5-opus:high
   commit: google-antigravity/gemini-3.8-flash
-  advisor: anthropic/claude-fable-5-1:high
+  advisor: anthropic/claude-fable-5-1:xhigh
   task: google-antigravity/gemini-3.8-flash:high
   tiny: openai-codex/gpt-6-luna
   vision: openai-codex/gpt-6-sol
   web: web/tavily
-  default: openai-codex/gpt-6-sol
+  default: anthropic/claude-opus-5-5:high
 retry:
   enabled: true
   modelFallback: true
@@ -27,6 +27,8 @@ retry:
     smol:
       - anthropic/claude-haiku-4-5
       - openai/gpt-6-luna
+    advisor:
+      - anthropic-api/claude-fable-5-1:xhigh
     web:
       - web/brave
       - web/kagi
@@ -108,3 +110,5 @@ codexResets:
   keepCredits: 1
 completion:
   notify: "off"
+claudeResets:
+  autoRedeem: "no"

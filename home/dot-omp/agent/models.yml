@@ -2,7 +2,7 @@ providers:
   anthropic-api:
     baseUrl: https://api.anthropic.com
     api: anthropic-messages
-    apiKey: ANTHROPIC_FABLE_API_KEY
+    apiKey: ANTHROPIC_API_KEY
     models:
       - id: claude-fable-5-1
         name: Claude Fable 5.1 (API)

@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "1.0.0",
   "theme": "dark",
   "warnings": {
     "anthropicExtraUsage": false
@@ -14,5 +14,9 @@
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-lens"
-  ]
+  ],
+  "extensions": [
+    "-builtin:mcp"
+  ],
+  "deviceId": "09b90f89-37fd-44bb-ad89-7e830ad98e30"
 }
