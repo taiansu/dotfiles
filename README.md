@@ -253,6 +253,23 @@ repository.
 just karabiner-sync
 ```
 
+The `RIME_Q11` profile makes Caps Lock act as Control when held. A tap shorter
+than 250 ms with no other key emits a lone `right_control`; Rime
+(`~/Library/Rime/default.custom.yaml`, not in this repository) must treat that
+as the ASCII/Chinese switch and ignore the left Control:
+
+```yaml
+ascii_composer:
+  switch_key:
+    Control_L: noop
+    Control_R: commit_code
+```
+
+Keep `Control_L` at `noop`. Zed and Ghostty consume `Ctrl+key` before the input
+method receives the key, so Rime would see only Control press/release and
+mistake a chord such as `Caps Lock+[` for a tap. A modified signal key (e.g.
+`Ctrl+Shift+F15`) is consumed the same way and never reaches Rime.
+
 ## Shell history
 
 Native Zsh history is enabled with or without Atuin. `HISTSIZE` and `SAVEHIST`
