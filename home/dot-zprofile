@@ -1,11 +1,12 @@
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
-
-export LANG=en_US.UTF-8
+# Preserve inherited search order and append missing baseline paths.
+typeset -U path PATH
+path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
+export PATH
 
 export BAT_THEME=DarkNeon
 
 export HOMEBREW_PATH=$homebrew_prefix[$CPUTYPE]
-[[ -d $HOMEBREW_PATH ]] && eval "$($HOMEBREW_PATH/bin/brew shellenv)"
+[[ -x "$HOMEBREW_PATH/bin/brew" ]] && eval "$("$HOMEBREW_PATH/bin/brew" shellenv)"
 
 # Rust
 if [[ -r "$HOME/.cargo/env" ]]; then
@@ -16,25 +17,31 @@ if (( $+commands[rustc] )); then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
 
-# Idris 2
-export IDRIS2_PATH=$HOME/.idris2
-if [[ -d $IDRIS2_PATH ]]; then
-  export LD_LIBRARY_PATH=$IDRIS2_PATH/lib
-  export PATH=$PATH:$IDRIS2_PATH/bin
-fi
-
-# PostgresQL
-() {
-  local postgres=(/opt/homebrew/opt/postgresql@*/bin(Non))
-  [[ -n $postgres[1] ]] && export PATH="$postgres[1]:$PATH"
-}
-
 path_prepend_if_dir() {
   local dir=$1
   [[ -d $dir ]] || return 0
 
   path=("$dir" "${(@)path:#$dir}")
 }
+# Idris 2
+export IDRIS2_PATH=$HOME/.idris2
+if [[ -d "$IDRIS2_PATH/lib" ]]; then
+  case ":${LD_LIBRARY_PATH-}:" in
+    *":$IDRIS2_PATH/lib:"*) ;;
+    *) export LD_LIBRARY_PATH="$IDRIS2_PATH/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" ;;
+  esac
+fi
+path_prepend_if_dir "$IDRIS2_PATH/bin"
+
+# PostgresQL
+() {
+  local postgres=("$HOMEBREW_PATH"/opt/postgresql@*/bin(Non))
+  [[ -n $postgres[1] ]] && export PATH="$postgres[1]:$PATH"
+}
+
+
+# User-installed commands and binaries shipped by the home package.
+path_prepend_if_dir "$HOME/.local/bin"
 
 # source google-cloud-sdk
 export GOOGLE_CLOUD_SDK_PATH=$HOMEBREW_PATH/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
@@ -53,7 +60,7 @@ export HASKELL_INSTALL_PATH=$HOME/.ghcup/bin
 path_prepend_if_dir $HASKELL_INSTALL_PATH
 
 # macos-trash
-path_prepend_if_dir /opt/homebrew/opt/macos-trash/bin
+path_prepend_if_dir "$HOMEBREW_PATH/opt/macos-trash/bin"
 
 # Obsidian CLI
 path_prepend_if_dir /Applications/Obsidian.app/Contents/MacOS
@@ -72,11 +79,19 @@ path_prepend_if_dir "$HOME/.cache/.bun/bin"
  # End Nix
 
 # Added by OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+if [[ -r "$HOME/.orbstack/shell/init.zsh" ]]; then
+  source "$HOME/.orbstack/shell/init.zsh"
+fi
 
 # >>> railway initialize >>>
-source "$HOME/.railway/env"
+if [[ -r "$HOME/.railway/env" ]]; then
+  source "$HOME/.railway/env"
+fi
 # <<< railway initialize <<<
 
-export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
-export PATH="/opt/homebrew/opt/arm-none-eabi-binutils/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/avr-binutils/bin:/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
+# Optional compiler toolchains: preserve versions and existing PATH precedence.
+path_prepend_if_dir "$HOMEBREW_PATH/opt/llvm@12/bin"
+path_prepend_if_dir "$HOMEBREW_PATH/opt/avr-gcc@8/bin"
+path_prepend_if_dir "$HOMEBREW_PATH/opt/avr-binutils/bin"
+path_prepend_if_dir "$HOMEBREW_PATH/opt/arm-none-eabi-gcc@8/bin"
+path_prepend_if_dir "$HOMEBREW_PATH/opt/arm-none-eabi-binutils/bin"
