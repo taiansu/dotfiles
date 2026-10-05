@@ -5,7 +5,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "caps_lock: hold = left_control; tap outside Rime = switch to Rime; tap inside Rime = left_control (Rime 中英切換)",
+                        "description": "caps_lock: hold = left_control; tap within 250ms outside Rime = switch to Rime; tap inside Rime = lone right_control (Rime Control_R 中英切換)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -40,7 +40,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 250 },
-                                "to": [{ "key_code": "left_control" }],
+                                "to": [{ "key_code": "left_control", "lazy": true }],
+                                "to_if_alone": [{ "key_code": "right_control" }],
                                 "type": "basic"
                             }
                         ]
