@@ -1,14 +1,14 @@
 setupVersion: 2
 modelRoles:
-  smol: openai-codex/gpt-6-luna
-  slow: openai-codex/gpt-6-astra:xhigh
-  plan: anthropic/claude-5-opus:high
-  designer: anthropic/claude-5-opus:high
-  commit: google-antigravity/gemini-3.8-flash
-  advisor: anthropic/claude-fable-5-1:xhigh
-  task: google-antigravity/gemini-3.8-flash:high
-  tiny: openai-codex/gpt-6-luna
-  vision: openai-codex/gpt-6-sol
+  smol: anthropic/claude-haiku-4-5
+  slow: anthropic/claude-fable-5-1:xhigh
+  plan: anthropic/claude-opus-5-5:high
+  designer: anthropic/claude-opus-5-5:high
+  commit: anthropic-ai/claude-sonnet-5
+  advisor: anthropic-ai/claude-fable-5-1:high
+  task: anthropic-ai/claude-sonnet-5
+  tiny: anthropic/claude-haiku-4-5
+  vision: anthropic-ai/claude-sonnet-5
   web: web/tavily
   default: anthropic/claude-opus-5-5:high
 retry:
@@ -19,7 +19,7 @@ retry:
     default:
       - openai-codex/gpt-6-astra:xhigh
       - openai-codex/gpt-6-sol:xhigh
-      - anthropic-api/claude-fable-5-1:xhigh
+      - anthropic/claude-fable-5-1
       - anthropic/claude-opus-5
     task:
       - anthropic/claude-sonnet-5
@@ -28,7 +28,7 @@ retry:
       - anthropic/claude-haiku-4-5
       - openai/gpt-6-luna
     advisor:
-      - anthropic-api/claude-fable-5-1:xhigh
+      - anthropic/claude-fable-5-1
     web:
       - web/brave
       - web/kagi
@@ -112,3 +112,33 @@ completion:
   notify: "off"
 claudeResets:
   autoRedeem: "no"
+modelPresets:
+  anthropic:
+    modelRoles:
+      smol: anthropic/claude-haiku-4-5
+      slow: anthropic/claude-fable-5-1:xhigh
+      plan: anthropic/claude-opus-5-5:high
+      designer: anthropic/claude-opus-5-5:high
+      commit: anthropic-ai/claude-sonnet-5
+      advisor: anthropic-ai/claude-fable-5-1:high
+      task: anthropic-ai/claude-sonnet-5
+      tiny: anthropic/claude-haiku-4-5
+      vision: anthropic-ai/claude-sonnet-5
+      web: web/tavily
+      default: anthropic/claude-opus-5-5:high
+    defaultThinkingLevel: high
+  openai:
+    modelRoles:
+      smol: openai-codex/gpt-6-luna
+      slow: openai-codex/gpt-6-astra:xhigh
+      plan: openai-codex/gpt-6-sol:xhigh
+      designer: openai-codex/gpt-6-sol
+      commit: openai-codex/gpt-6-luna:high
+      advisor: openai-codex/gpt-6-astra:xhigh
+      task: openai-codex/gpt-6-astra:xhigh
+      tiny: openai-codex/gpt-6-luna
+      vision: openai-codex/gpt-6-sol
+      web: web/tavily
+      default: openai-codex/gpt-6-sol:high
+    defaultThinkingLevel: high
+defaultThinkingLevel: high
