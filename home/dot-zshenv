@@ -16,8 +16,21 @@ skip_global_compinit=1
 # http://disq.us/p/f55b78
 setopt noglobalrcs
 
-# ulimit
-ulimit -n 4096
+# Raise the soft file limit only when needed, without changing the hard limit.
+() {
+  local soft_limit hard_limit target=4096
+  soft_limit=$(ulimit -S -n) || return
+  if [[ $soft_limit == unlimited ]] || (( soft_limit >= target )); then
+    return 0
+  fi
+  hard_limit=$(ulimit -H -n) || return
+  if [[ $hard_limit != unlimited ]] && (( hard_limit < target )); then
+    target=$hard_limit
+  fi
+  if (( target > soft_limit )); then
+    ulimit -S -n "$target"
+  fi
+}
 
 export SYSTEM=$(uname -s)
 
@@ -41,20 +54,18 @@ fi
 
 if [[ -z $XDG_CONFIG_DIRS ]]; then
   export XDG_CONFIG_DIRS=/etc/xdg
-else
-  export XDG_CONFIG_DIRS=/etc/xdg:$XDG_CONFIG_DIRS
 fi
 
 # ANSIBLE
 export ANSIBLE_NOCOWS=1
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-export ERL_AFLAGS="-kernel shell_history enabled"
+# Enable Erlang history by default without replacing explicit startup flags.
+if (( ! ${+ERL_AFLAGS} )); then
+  export ERL_AFLAGS="-kernel shell_history enabled"
+fi
 
-# Erlang
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export COLORTERM="truecolor"
+# Locale: keep inherited preferences; use UTF-8 when LANG is unset or empty.
+export LANG=${LANG:-en_US.UTF-8}
 
 # KERL
 export KERL_BUILD_DOCS=yes
@@ -66,8 +77,12 @@ export HOMEBREW_NO_ANALYTICS=1
 # Go
 # GOROOT 不手動設：由安裝位置決定（mise 為 ~/.local/share/mise/installs/go/<版本>）。
 # 這裡只把「資料」移出家目錄頂層——模組快取與 go install 產物。
-export GOPATH=$XDG_DATA_HOME/go
-export GOBIN=$HOME/.local/bin
+if (( ! ${+GOPATH} )); then
+  export GOPATH=$XDG_DATA_HOME/go
+fi
+if (( ! ${+GOBIN} )); then
+  export GOBIN=$HOME/.local/bin
+fi
 
 # Agents
 export SKILL_AGENTS="codex claude-code gemini-cli grok github-copilot opencode zed"

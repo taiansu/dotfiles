@@ -29,6 +29,26 @@ pba() {
   return "$status"
 }
 
+# Reuse a completion cache, or safely generate it with the supplied argv.
+_dotfiles_source_completion_cache() {
+  local completion=$1 tmp
+  shift
+
+  if [[ ! -s $completion ]]; then
+    (( $+commands[$1] )) || return 0
+    mkdir -p -- "${completion:h}" || return 0
+    tmp=$(mktemp "${completion}.XXXXXX") || return 0
+
+    if "$@" >| "$tmp" && [[ -s $tmp ]]; then
+      mv -f -- "$tmp" "$completion"
+    fi
+    rm -f -- "$tmp"
+  fi
+
+  [[ -r $completion && -s $completion ]] || return 0
+  source "$completion"
+}
+
 # Download Gist
 function gistDownload() {
   curl -L ${1}/download | tar -xvz --strip-components=1
@@ -44,9 +64,6 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc
 # Use emacs-style keybindings
 bindkey -e
 
-# 256 color mode
-export TERM="xterm-256color"
-
 # cmux & ghostty
 # Ghostty shell integration for Zsh. This should be at the top of your zshrc!
 if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
@@ -60,62 +77,90 @@ if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
 fi
 
 # fzf
-# Ctrl-R 交給 Atuin；保留 fzf 的檔案搜尋與目錄切換。
+# Ctrl-R 交給 Atuin／原生 Zsh；保留 fzf 的檔案搜尋與目錄切換。
 FZF_CTRL_R_COMMAND=''
-[[ -t 1 ]] && source <(fzf --zsh)
+if (( $+commands[fzf] )) && [[ -t 1 ]]; then
+  source <(fzf --zsh)
+fi
 
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+# Keep fzf's default search and completion generators when fd is absent.
+if (( $+commands[fd] )); then
+  export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
 
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
 
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+fzf_file_preview=''
+fzf_directory_preview=''
+if (( $+commands[bat] )); then
+  fzf_file_preview='bat -n --color=always --line-range :500 {}'
+  export FZF_CTRL_T_OPTS="--preview '$fzf_file_preview'"
+fi
+if (( $+commands[eza] )); then
+  fzf_directory_preview='eza --tree --color=always {} | head -200'
+  export FZF_ALT_C_OPTS="--preview '$fzf_directory_preview'"
+fi
+
+# Keep the existing file/directory behavior for each available-tool combination.
+fzf_path_preview=''
+if [[ -n $fzf_directory_preview && -n $fzf_file_preview ]]; then
+  fzf_path_preview="if [ -d {} ]; then $fzf_directory_preview; else $fzf_file_preview; fi"
+elif [[ -n $fzf_directory_preview ]]; then
+  fzf_path_preview="if [ -d {} ]; then $fzf_directory_preview; fi"
+elif [[ -n $fzf_file_preview ]]; then
+  fzf_path_preview="if [ -f {} ]; then $fzf_file_preview; fi"
+fi
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
-  local command=$1
+  local command=$1 preview=''
+  local -a preview_args=()
   shift
 
   case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+    cd)           preview=$fzf_directory_preview ;;
+    export|unset) preview="eval 'echo ${}'" ;;
+    ssh)          preview='dig {}' ;;
+    *)            preview=$fzf_path_preview ;;
   esac
+
+  [[ -n $preview ]] && preview_args=(--preview "$preview")
+  fzf "${preview_args[@]}" "$@"
 }
 
-# mise
-eval "$($HOME/.local/bin/mise activate zsh)"
+# mise: use the executable on PATH, including Homebrew installations.
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
 
 # GPG
-export GPG_TTY=$(tty)
+if [[ -t 0 ]]; then
+  export GPG_TTY=$(tty)
+fi
 
 # Load completion functions
 autoload -Uz compinit bashcompinit
 
-# Keep the completion dump in the zsh configuration directory.
-zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+# Keep generated completion dumps separate from shell configuration.
+zcompdump="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
+mkdir -p -- "${zcompdump:h}"
 compinit -d "$zcompdump"
 bashcompinit
 unset zcompdump
 
 # gwx（git worktree 管理）：cd 用的 shell function + 補全
-eval "$(gwx shell-init zsh)"
+if (( $+commands[gwx] )); then
+  eval "$(gwx shell-init zsh)"
+fi
 
 #####
 
@@ -134,24 +179,29 @@ zle -N backward-delete-word
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Atuin 接管 Ctrl-R 與 ↑；在 syntax highlighting 前註冊 ZLE widgets。
-eval "$(atuin init zsh --disable-ai)"
+# Atuin 接管 Ctrl-R 與 ↑；未安裝時保留原生 Zsh history 按鍵。
+# 在 syntax highlighting 前註冊 ZLE widgets。
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh --disable-ai)"
+fi
 
 # zsh-fast-syntax-highlighting must load after plugins that synchronously register ZLE widgets.
-[[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+if [[ -s "${homebrew_prefix[$CPUTYPE]}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]] &&
+  source "${homebrew_prefix[$CPUTYPE]}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"; then
+  # fast-syntax-highlighting:個別 token 覆寫
+  FAST_HIGHLIGHT_STYLES[command]='fg=#98c379'
+  FAST_HIGHLIGHT_STYLES[builtin]='fg=#98c379'
+  FAST_HIGHLIGHT_STYLES[alias]='fg=#98c379'
+  FAST_HIGHLIGHT_STYLES[unknown-token]='fg=#e06c75,bold'
+  FAST_HIGHLIGHT_STYLES[path]='fg=#61afef,underline'
+  FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
+  FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
+  FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
+fi
 
 # autosuggestions:退後,不搶眼
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
 
-# fast-syntax-highlighting:個別 token 覆寫
-FAST_HIGHLIGHT_STYLES[command]='fg=#98c379'
-FAST_HIGHLIGHT_STYLES[builtin]='fg=#98c379'
-FAST_HIGHLIGHT_STYLES[alias]='fg=#98c379'
-FAST_HIGHLIGHT_STYLES[unknown-token]='fg=#e06c75,bold'
-FAST_HIGHLIGHT_STYLES[path]='fg=#61afef,underline'
-FAST_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#e5c07b'
-FAST_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#e5c07b'
-FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 
 # Machine-local overrides (PROMPT_CHAR, ...): not in the repo, loaded before the prompt
 [[ -r $XDG_CONFIG_HOME/zsh/local.zsh ]] && source $XDG_CONFIG_HOME/zsh/local.zsh
@@ -160,17 +210,18 @@ FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 source $XDG_CONFIG_HOME/zsh/prompt-engine.zsh
 [[ -r $XDG_CONFIG_HOME/zsh/prompt.zsh ]] && source $XDG_CONFIG_HOME/zsh/prompt.zsh
 
-# Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=$XDG_CACHE_HOME/shell_history
+# Keep native history usable even without Atuin.
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/shell_history
+mkdir -p -m 700 -- "${HISTFILE:h}"
 
 # shell options
 setopt PROMPT_SUBST # expand cached Git status in the prompt
 setopt autocd # assume "cd" when a command is a directory
-setopt histignorealldups # Substitute commands in the prompt
-setopt sharehistory # Share the same history between all shells
-setopt histignorespace # Ignore command start with space
+setopt histignorealldups # Remove older copies of duplicate commands
+setopt sharehistory # Share history between shells
+setopt histignorespace # Omit leading-space commands from native history
 
 # Completion system
 
@@ -202,21 +253,27 @@ zstyle ':completion:*:manuals' accept-exact true
 
 zmodload -i zsh/terminfo
 
-bindkey "$terminfo[khome]" beginning-of-line # Home
-bindkey "$terminfo[kend]" end-of-line # End
-bindkey "$terminfo[kich1]" overwrite-mode # Insert
-bindkey "$terminfo[kdch1]" delete-char # Delete
-bindkey "$terminfo[kcub1]" backward-char # Left
-bindkey "$terminfo[kcuf1]" forward-char # Right
+() {
+  local capability widget
+  for capability widget in \
+    khome beginning-of-line \
+    kend end-of-line \
+    kich1 overwrite-mode \
+    kdch1 delete-char \
+    kcub1 backward-char \
+    kcuf1 forward-char; do
+    if [[ -n ${terminfo[$capability]-} ]]; then
+      bindkey "${terminfo[$capability]}" "$widget"
+    fi
+  done
+}
 # bindkey "$terminfo[kpp]" # PageUp
 # bindkey "$terminfo[knp]" # PageDown
 
-# rust
-if [[ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]]; then
-  mkdir -p ~/.config/rustlang/autocomplete
-  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
-  source "$HOME/.config/rustlang/autocomplete/rustup"
-fi
+# rustup: generate only when available, but load a usable cache on every startup.
+_dotfiles_source_completion_cache \
+  "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions/rustup.bash" \
+  rustup completions bash rustup
 
 # idris2
 if (( $+commands[idris2] )); then
@@ -287,17 +344,16 @@ if [[ -f $homebrew_prefix[$CPUTYPE]/bin/tre ]]; then
 fi
 
 # fzf-git
-[[ -f "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] &&  source ~/.dotfiles/fzf-git/fzf-git.sh
-bindkey -M emacs -r '^g'             # fzf-git prefix
-bindkey -M emacs '^g^g' send-break   # 重綁 send-break 成連按兩次 Ctrl-G
-
-# oh-my-pi
-local omp_completions="$HOME/.cache/zsh/completions/omp.zsh"
-if [[ ! -s "$omp_completions" ]]; then
-  mkdir -p "${omp_completions:h}"
-  omp completions zsh > "$omp_completions" || rm -f "$omp_completions"
+if [[ -r "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] &&
+  source "$HOME/.dotfiles/fzf-git/fzf-git.sh"; then
+  bindkey -M emacs -r '^g'             # fzf-git prefix
+  bindkey -M emacs '^g^g' send-break   # 重綁 send-break 成連按兩次 Ctrl-G
 fi
-source "$omp_completions" 2>/dev/null
+
+# oh-my-pi: optional executable, reusable completion cache.
+_dotfiles_source_completion_cache \
+  "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions/omp.zsh" \
+  omp completions zsh
 
 # call zprof at the end of file
 # zprof
