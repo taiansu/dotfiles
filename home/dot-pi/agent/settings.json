@@ -1,14 +1,13 @@
 {
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.2.0",
   "theme": "dark",
   "warnings": {
     "anthropicExtraUsage": false
   },
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6-astra",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-5-5",
   "packages": [
     "npm:pi-peon-ping",
-    "npm:@schultzp2020/pi-cursor",
     "npm:@destiner/pi-usage",
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
