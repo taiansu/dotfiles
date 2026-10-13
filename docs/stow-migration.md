@@ -11,7 +11,7 @@
 
 ```bash
 brew install stow
-stow --version | head -1   # 需要 >= 2.3.0（--dotfiles 支援）
+stow --version | head -1   # Requires Stow 2.3.0+ for --dotfiles.
 cd ~/.dotfiles
 ```
 
@@ -80,7 +80,7 @@ git mv config/cmux/cmux.json          terminal/dot-config/cmux/cmux.json
 ```bash
 git mv config/zed/settings.json  editors/dot-config/zed/settings.json
 git mv config/zed/keymap.json    editors/dot-config/zed/keymap.json
-# config/zed/settings_backup.json 不搬（備份檔）
+# Leave config/zed/settings_backup.json in place; it is a backup.
 ```
 
 ### agents
@@ -91,8 +91,8 @@ git mv omp/agent/no-superpowers.yml   agents/dot-omp/agent/no-superpowers.yml
 git mv pi/agent/settings.json         agents/dot-pi/agent/settings.json
 git mv pi/agent/extensions/exit-alias.ts agents/dot-pi/agent/extensions/exit-alias.ts
 git mv claude_codex_instructions.md   agents/dot-claude/CLAUDE.md
-# omp/agent/config.yml.lock、pi/agent/npm/.gitignore 不搬（lock 與隱藏檔）
-# AGENTS.md 保留在 repo root；若也想放進 $HOME：
+# Leave omp/agent/config.yml.lock and pi/agent/npm/.gitignore in place.
+# Keep AGENTS.md at the repo root; optionally copy it under HOME:
 #   cp AGENTS.md agents/dot-omp/agent/AGENTS.md && git add agents/dot-omp/agent/AGENTS.md
 ```
 
@@ -110,7 +110,7 @@ git mv config/cabal/config           cli/dot-config/cabal/config
 git mv config/herdr/config.toml      cli/dot-config/herdr/config.toml
 git mv config/herdr/plugins/config/cloudmanic.herdr-plus \
        cli/dot-config/herdr/plugins/config/cloudmanic.herdr-plus
-# config/herdr/.plugins.lock、release-notes.json、plugins/.../.env.example 不搬
+# Leave config/herdr/.plugins.lock, release-notes.json and plugins/.../.env.example in place.
 ```
 
 ### macos
@@ -172,28 +172,28 @@ agents/dot-pi/agent/extensions/herdr-agent-state.ts
 `shell/dot-zshrc`
 
 ```zsh
-# 原本第 17-18 行
+# Before
 source ~/.dotfiles/zsh/aliasrc
 [[ -f ~/.dotfiles/zsh/hashrc ]] && source ~/.dotfiles/zsh/hashrc
-# 改為
+# After
 source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc
 [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/hashrc ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/hashrc
 ```
 
 ```zsh
-# 原本第 303 行
+# Before
 [[ -f "$HOME/.dotfiles/scripts/fzf-git.sh" ]] && source "$HOME/.dotfiles/scripts/fzf-git.sh"
-# 改為
+# After
 [[ -f "$HOME/.local/libexec/dotfiles/fzf-git.sh" ]] && source "$HOME/.local/libexec/dotfiles/fzf-git.sh"
 ```
 
 `shell/dot-zshenv`
 
 ```zsh
-# 原本第 10-11 行
+# Before
 if [[ -f ~/.dotfiles/credential ]]; then
   source ~/.dotfiles/credential
-# 改為
+# After
 if [[ -f ~/.config/dotfiles/credential ]]; then
   source ~/.config/dotfiles/credential
 ```
@@ -232,33 +232,31 @@ stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding \
 常用變化：
 
 ```bash
-# 只裝核心三個
+# Install only the three core packages.
 stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding shell git mise
 
-# 檔案增刪後重新套用（同時清掉已消失的舊連結）
+# Restow after file changes to remove obsolete links.
 stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding --compat -R \
   shell git mise terminal editors agents cli macos homebrew dev
 
-# 移除某個 package 的連結
+# Unstow a package.
 stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -D cli
 ```
 
 ## 6. 輕量驗證
 
 ```bash
-# 連結指向正確來源
+# Verify symlink targets.
 readlink ~/.zshrc                      # → …/.dotfiles/shell/dot-zshrc
 readlink ~/.config/zsh/aliasrc         # → …/.dotfiles/shell/dot-config/zsh/aliasrc
 readlink ~/.gitconfig                  # → …/.dotfiles/git/dot-gitconfig
 
-# 目錄是真目錄、不是被折疊成單一連結
+# Shared directories must stay real directories, not folded symlinks.
 test -d ~/.config && test ! -L ~/.config && echo config-ok
 
-# 語法與實際啟動
 zsh -n ~/.zshrc && echo zshrc-syntax-ok
 zsh -i -c 'exit' && echo interactive-ok
 
-# repo 狀態
 cd ~/.dotfiles && git status --short
 ```
 
@@ -278,5 +276,5 @@ git commit -m "refactor: restructure dotfiles as stow packages"
 cd ~/.dotfiles
 stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -D \
   shell git mise terminal editors agents cli macos homebrew dev
-# 再把步驟 4 產生的 *.pre-stow 檔改回原名
+# Rename the *.pre-stow backups from step 4 to their original names.
 ```

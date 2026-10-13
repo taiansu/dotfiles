@@ -50,7 +50,7 @@ collie-start:
 with:
 
 ```just
-# 執行 Collie plugin action
+# Invoke a Collie action through Herdr.
 collie action:
     herdr plugin action invoke {{quote(action)}} --plugin herdr.collie
 ```

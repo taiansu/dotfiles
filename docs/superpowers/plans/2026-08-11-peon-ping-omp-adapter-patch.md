@@ -249,7 +249,7 @@ Expected before the change: exit 0 with no output, proving the recipe does not y
 Replace lines 39–43 of `justfile` with:
 
 ```just
-# 安裝／更新 peon-ping、預設音效包及套用本機 OMP adapter patch
+# Install or update peon-ping with the local OMP adapter patch.
 peon-ping: ensure-brew
     #!/usr/bin/env bash
     set -euo pipefail
