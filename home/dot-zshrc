@@ -18,7 +18,6 @@ pba() {
     return 1
   }
 
-  # 原剪貼簿非空時，先加入換行
   [[ -s "$tmp" ]] && printf '\n' >> "$tmp"
   printf '%s' "$*" >> "$tmp"
 
@@ -81,7 +80,7 @@ if [[ "$TERM_PROGRAM" == "ghostty" && -n "${GHOSTTY_RESOURCES_DIR}" ]]; then
 fi
 
 # fzf
-# Ctrl-R 交給 Atuin／原生 Zsh；保留 fzf 的檔案搜尋與目錄切換。
+# Keep Ctrl-R for Atuin or native history; fzf handles file and directory search.
 FZF_CTRL_R_COMMAND=''
 if (( $+commands[fzf] )) && [[ -t 1 ]]; then
   source <(fzf --zsh)
@@ -161,7 +160,7 @@ compinit -d "$zcompdump"
 bashcompinit
 unset zcompdump
 
-# gwx（git worktree 管理）：cd 用的 shell function + 補全
+# Load gwx's directory-changing wrapper and completion.
 if (( $+commands[gwx] )); then
   eval "$(gwx shell-init zsh)"
 fi
@@ -183,8 +182,7 @@ zle -N backward-delete-word
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 [[ -s $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $homebrew_prefix[$CPUTYPE]/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Atuin 接管 Ctrl-R 與 ↑；未安裝時保留原生 Zsh history 按鍵。
-# 在 syntax highlighting 前註冊 ZLE widgets。
+# Atuin owns Ctrl-R and Up; initialize its ZLE widgets before syntax highlighting.
 if (( $+commands[atuin] )); then
   eval "$(atuin init zsh --disable-ai)"
 fi
@@ -192,7 +190,6 @@ fi
 # zsh-fast-syntax-highlighting must load after plugins that synchronously register ZLE widgets.
 if [[ -s "${homebrew_prefix[$CPUTYPE]}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]] &&
   source "${homebrew_prefix[$CPUTYPE]}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"; then
-  # fast-syntax-highlighting:個別 token 覆寫
   FAST_HIGHLIGHT_STYLES[command]='fg=#98c379'
   FAST_HIGHLIGHT_STYLES[builtin]='fg=#98c379'
   FAST_HIGHLIGHT_STYLES[alias]='fg=#98c379'
@@ -203,7 +200,7 @@ if [[ -s "${homebrew_prefix[$CPUTYPE]}/share/zsh-fast-syntax-highlighting/fast-s
   FAST_HIGHLIGHT_STYLES[variable]='fg=#c678dd'
 fi
 
-# autosuggestions:退後,不搶眼
+# Keep suggestions dimmer than the command being edited.
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c6370'
 
 
@@ -359,7 +356,7 @@ fi
 if [[ -r "$HOME/.dotfiles/fzf-git/fzf-git.sh" ]] &&
   source "$HOME/.dotfiles/fzf-git/fzf-git.sh"; then
   bindkey -M emacs -r '^g'             # fzf-git prefix
-  bindkey -M emacs '^g^g' send-break   # 重綁 send-break 成連按兩次 Ctrl-G
+  bindkey -M emacs '^g^g' send-break
 fi
 
 # oh-my-pi: optional executable, reusable completion cache.

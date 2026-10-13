@@ -190,5 +190,5 @@ venv
 
 **/.claude/settings.local.json
 
-# git worktree 目錄（gwx base_dir: .worktrees）
+# gwx worktrees (base_dir = .worktrees)
 .worktrees/

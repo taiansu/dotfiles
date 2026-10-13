@@ -3,7 +3,7 @@ set shell := ["zsh", "-cu"]
 
 default: homebrew mise vim npm bun agents uv omp finish
 
-# 開啟隱藏路徑的互動 shell；exit 回到原本環境
+# Start a recording subshell with generic prompt and tab titles.
 [no-cd]
 hide-path:
     #!/usr/bin/env zsh
@@ -11,31 +11,31 @@ hide-path:
     trap 'printf "\e[23;0t"' EXIT
     DOTFILES_HIDE_PATH=1 zsh -i
 
-# 升級 homebrew
+# Update Homebrew formulae and casks.
 homebrew:
     -brew update
     -brew upgrade -y --greedy-latest
 
-# 升級 vim 套件
+# Update Neovim plugins and Mason tools.
 vim:
     -nvim --headless "+Lazy! sync" +qa
     -nvim --headless -c "autocmd User MasonUpdateAllComplete quitall" -c "MasonUpdateAll"
 
-# 升級 mise
+# Update mise and its plugins.
 mise:
     -@mise self-update
     -mise plugin update
 
-# 升級 npm global 套件
+# Update global npm packages.
 npm:
     # @npm update -g npm
     -npm update -g
 
-# 升級 bun global 套件
+# Update global Bun packages.
 bun:
     -bun update -g
 
-# 升級 uv tool 套件
+# Update uv-managed tools.
 uv:
     -uv tool upgrade --all
 
@@ -44,16 +44,16 @@ agents:
     pi update
     pi update --extensions
 
-# 設定整個開發環境
+# Bootstrap basic CLI tools.
 bootstrap: ensure-brew install-tools setup-config
       @echo "🎉 Development environment ready!"
 
-# 重新產生 omp 的 zsh 補全快取
+# Regenerate the OMP zsh completion cache.
 omp:
     mkdir -p ~/.cache/zsh/completions
     omp completions zsh > ~/.cache/zsh/completions/omp.zsh
 
-# 安裝／更新 peon-ping、預設音效包及套用本機 OMP adapter patch
+# Install or update peon-ping with the local OMP adapter patch.
 peon-ping: ensure-brew
     #!/usr/bin/env bash
     set -euo pipefail
@@ -80,7 +80,7 @@ peon-ping: ensure-brew
 
     git -C "$adapter_dir" apply "$patch_file"
 
-# 使用環境變數設定 Pushover mobile notification
+# Configure Pushover using credentials supplied via environment variables.
 peon-ping-pushover:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -89,21 +89,21 @@ peon-ping-pushover:
     peon mobile pushover "$PUSHOVER_USER_KEY" "$PUSHOVER_APP_TOKEN"
     peon mobile test
 
-# 安裝／更新所有 Herdr plugins
+# Install or update Collie and Herdr Plus.
 herdr-plugins:
     herdr plugin install AltanS/collie --yes
     herdr plugin install cloudmanic/herdr-plus --yes
 
-# 執行 Collie plugin action
+# Invoke a Collie action through Herdr.
 collie action:
     herdr plugin action invoke {{quote(action)}} --plugin herdr.collie
 
-# 啟用tailscale dns
+# Accept Tailscale DNS settings and refresh the macOS DNS cache.
 tail-dns-on:
   tailscale set --accept-dns=true
   dscacheutil -flushcache
 
-# 停用tailscale dns
+# Stop accepting Tailscale DNS settings and refresh the macOS DNS cache.
 tail-dns-off:
   tailscale set --accept-dns=false
   dscacheutil -flushcache
@@ -111,7 +111,7 @@ tail-dns-off:
 karabiner_repo := justfile_directory() / "home/dot-config/karabiner/karabiner.json"
 karabiner_live := home_directory() / ".config/karabiner/karabiner.json"
 
-# 同步 karabiner.json:較新的一份覆蓋較舊的(Karabiner 不能吃 symlink,故不走 stow)
+# Sync the newer Karabiner file; the app replaces symlinks when saving.
 karabiner-sync:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -134,7 +134,6 @@ karabiner-sync:
         install -m 600 "$repo" "$live"; echo "repo → live"
     fi
 
-# 確保 brew 存在，不存在就安裝
 [private]
 ensure-brew:
     #!/usr/bin/env bash
@@ -151,7 +150,6 @@ install-tools: ensure-brew
 
 [private]
 setup-config:
-      # @# 設定 dotfiles 之類的
 
 [private]
 finish:
