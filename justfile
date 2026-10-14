@@ -93,8 +93,10 @@ peon-ping-pushover:
 herdr-plugins:
     herdr plugin install AltanS/collie --yes
     herdr plugin install cloudmanic/herdr-plus --yes
+    # `install` swaps the checkout but restarts nothing: the launchd bridge keeps running the old binary.
+    herdr plugin action invoke restart --plugin herdr.collie
 
-# Invoke a Collie action through Herdr.
+# Invoke a Collie action through Herdr, mainly `stop`/`restart`; async, see `herdr plugin log list`.
 collie action:
     herdr plugin action invoke {{quote(action)}} --plugin herdr.collie
 
