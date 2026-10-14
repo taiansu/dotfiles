@@ -95,3 +95,5 @@ path_prepend_if_dir "$HOMEBREW_PATH/opt/avr-gcc@8/bin"
 path_prepend_if_dir "$HOMEBREW_PATH/opt/avr-binutils/bin"
 path_prepend_if_dir "$HOMEBREW_PATH/opt/arm-none-eabi-gcc@8/bin"
 path_prepend_if_dir "$HOMEBREW_PATH/opt/arm-none-eabi-binutils/bin"
+
+export PATH="$HOME/.elan/bin:$PATH"
