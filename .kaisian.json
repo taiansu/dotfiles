@@ -280,6 +280,7 @@
     {
       "cask": "font-sauce-code-pro-nerd-font",
       "family": "SauceCodePro NFM",
+      "nerd_font": "SourceCodePro",
       "preview": "Source Code Pro",
       "description": {
         "en": "Source Code Pro Nerd Font",
@@ -289,6 +290,7 @@
     {
       "cask": "font-jetbrains-mono-nerd-font",
       "family": "JetBrainsMono NFM",
+      "nerd_font": "JetBrainsMono",
       "preview": "JetBrains Mono",
       "description": {
         "en": "JetBrains Mono Nerd Font",
@@ -298,6 +300,7 @@
     {
       "cask": "font-fira-code-nerd-font",
       "family": "FiraCode NFM",
+      "nerd_font": "FiraCode",
       "preview": "Fira Code",
       "description": {
         "en": "Fira Code Nerd Font",
@@ -307,6 +310,7 @@
     {
       "cask": "font-blex-mono-nerd-font",
       "family": "BlexMono NFM",
+      "nerd_font": "IBMPlexMono",
       "preview": "IBM Plex Mono",
       "description": {
         "en": "IBM Plex Mono Nerd Font",
@@ -316,6 +320,7 @@
     {
       "cask": "font-ubuntu-mono-nerd-font",
       "family": "UbuntuMono NFM",
+      "nerd_font": "UbuntuMono",
       "preview": "Ubuntu Mono",
       "description": {
         "en": "Ubuntu Mono Nerd Font",
