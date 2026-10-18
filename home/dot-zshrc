@@ -7,6 +7,14 @@ function mkcd() {
   mkdir "$1" && cd "$1"
 }
 
+# WSL: bridge pbcopy/pbpaste to the Windows clipboard (UTF-16 keeps CJK intact).
+if [[ -n $WSL_DISTRO_NAME ]] && (( ! $+commands[pbcopy] && $+commands[clip.exe] )); then
+  pbcopy() { iconv -f UTF-8 -t UTF-16LE | clip.exe }
+  pbpaste() {
+    powershell.exe -NoProfile -Command '[Console]::OutputEncoding = [Text.Encoding]::UTF8; Get-Clipboard -Raw' | tr -d '\r'
+  }
+fi
+
 # append to pbcopy
 pba() {
   local tmp status

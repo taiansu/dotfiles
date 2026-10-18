@@ -10,12 +10,14 @@ alias pls="sudo"
 alias 屠="cd " # boshiamy
 alias ㄏ="cd " # bopomofo
 
-## trash instead of rm -rf
-alias rm='trash'
+## trash instead of rm -rf (macOS always; elsewhere only when trash exists)
+if [[ $OSTYPE == darwin* ]] || (( $+commands[trash] )); then
+  alias rm='trash'
+fi
 
-alias n="open -a $TERM_PROGRAM ."
+[[ $OSTYPE == darwin* ]] && alias n="open -a $TERM_PROGRAM ."
 alias re="repeat"
-alias o="open -a"
+[[ $OSTYPE == darwin* ]] && alias o="open -a"
 
 # ls aliases
 if command -V eza >/dev/null 2>&1; then
@@ -67,7 +69,7 @@ alias less="less -R"
 export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # Headless Chrome
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
+[[ $OSTYPE == darwin* ]] && alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --crash-dumps-dir=/tmp"
 
 # Youtube mp3
 alias yt-mp3="yt-dlp -x --audio-format mp3"
@@ -108,7 +110,7 @@ export VEDITOR="code"
 # fi
 
 #clean open_with
-alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+[[ $OSTYPE == darwin* ]] && alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # mix
 alias im="iex -S mix"
@@ -174,7 +176,7 @@ alias god_file='find . -not \( -name .git* -prune \) -type f | xargs wc -l | sor
 alias mju="npm run --prefix ~/Projects/mjubot -- "
 
 # tailscale
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+[[ $OSTYPE == darwin* ]] && alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 # venv
 alias va="source .venv/bin/activate"

@@ -2,10 +2,18 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
-typeset -gA homebrew_prefix=(
-  x86_64 /usr/local
-  arm64 /opt/homebrew
-)
+# Homebrew prefix by CPU type; Homebrew on Linux (WSL) always uses one prefix.
+if [[ $OSTYPE == linux* ]]; then
+  typeset -gA homebrew_prefix=(
+    x86_64 /home/linuxbrew/.linuxbrew
+    aarch64 /home/linuxbrew/.linuxbrew
+  )
+else
+  typeset -gA homebrew_prefix=(
+    x86_64 /usr/local
+    arm64 /opt/homebrew
+  )
+fi
 
 if [[ -f ~/.config/dotfiles/credential ]]; then
   source ~/.config/dotfiles/credential

@@ -26,7 +26,7 @@
 
 [[ -o interactive ]] || return 0
 
-: ${HOMEBREW_PREFIX:=/opt/homebrew}
+: ${HOMEBREW_PREFIX:=${homebrew_prefix[$CPUTYPE]:-/opt/homebrew}}
 [[ -r $HOMEBREW_PREFIX/opt/gitstatus/gitstatus.plugin.zsh ]] || return 0
 # The plugin uses $1 as a function-name suffix; pass an explicit empty one so the
 # caller's positional parameters never leak in.
