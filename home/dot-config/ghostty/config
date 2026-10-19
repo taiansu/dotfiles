@@ -27,3 +27,4 @@ shell-integration-features = no-cursor
 keybind = super+k=text:\x1b[1;9H
 keybind = alt+backspace=text:\x1b\x7f
 keybind = shift+enter=text:\x1b[13;2u
+shell-integration-features = ssh-terminfo,ssh-env

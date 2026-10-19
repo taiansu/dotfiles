@@ -23,8 +23,8 @@ vim:
 
 # Update mise and its plugins.
 mise:
-    -@mise self-update
-    -mise plugin update
+    -@mise self-update --yes
+    -mise plugin update --yes
 
 # Update global npm packages.
 npm:

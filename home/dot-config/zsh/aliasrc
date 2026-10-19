@@ -186,6 +186,9 @@ alias ju="just --justfile $HOME/.dotfiles/justfile"
 # zed
 alias z="zed"
 
+# agents exit
+alias /exit="exit"
+
 # claude
 alias cl="npx ccxray claude --disallowedTools ExitPlanMode --disallowedTools AskUserQuestion"
 
