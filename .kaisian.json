@@ -68,25 +68,25 @@
         [
           {
             "text": "~/p/kaisian",
-            "color": "blue"
+            "color": "#86b8c9"
           },
           {
             "text": " main",
-            "color": "gray"
+            "color": "#c6c6c0"
           },
           {
             "text": "*",
-            "color": "#f5b8c8"
+            "color": "#c4a1cd"
           },
           {
             "text": " ⇡",
-            "color": "cyan"
+            "color": "#83c3bd"
           }
         ],
         [
           {
             "text": "❯ ",
-            "color": "magenta"
+            "color": "#c4a1cd"
           }
         ]
       ]
