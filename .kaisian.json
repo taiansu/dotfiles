@@ -369,6 +369,10 @@
     },
     {
       "name": "gitstatus",
+      "tap": {
+        "name": "romkatv/gitstatus",
+        "trusted": true
+      },
       "description": {
         "en": "Display version control status",
         "zh-TW": "顯示版控狀態"
