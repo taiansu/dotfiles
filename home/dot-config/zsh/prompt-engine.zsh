@@ -24,19 +24,11 @@
 #   PROMPT_GIT_ACTION      merge / rebase / cherry-pick / ... or empty
 #   PROMPT_GIT_DIRTY       1 when staged+unstaged+untracked+conflicted > 0
 
-[[ -o interactive ]] || return 0
-
-: ${HOMEBREW_PREFIX:=/opt/homebrew}
-[[ -r $HOMEBREW_PREFIX/opt/gitstatus/gitstatus.plugin.zsh ]] || return 0
-# The plugin uses $1 as a function-name suffix; pass an explicit empty one so the
-# caller's positional parameters never leak in.
-source "$HOMEBREW_PREFIX/opt/gitstatus/gitstatus.plugin.zsh" '' || return 0
-
-typeset -g  PROMPT_GIT=''
+typeset -g PROMPT_GIT=''
 typeset -gi PROMPT_GIT_REPO=0 PROMPT_GIT_DETACHED=0 PROMPT_GIT_DIRTY=0
 typeset -gi PROMPT_GIT_AHEAD=0 PROMPT_GIT_BEHIND=0 PROMPT_GIT_STAGED=0 PROMPT_GIT_UNSTAGED=0
 typeset -gi PROMPT_GIT_UNTRACKED=0 PROMPT_GIT_CONFLICTED=0 PROMPT_GIT_STASHED=0
-typeset -g  PROMPT_GIT_BRANCH='' PROMPT_GIT_ACTION=''
+typeset -g PROMPT_GIT_BRANCH='' PROMPT_GIT_ACTION=''
 
 _prompt_git_reset() {
   PROMPT_GIT='' PROMPT_GIT_REPO=0 PROMPT_GIT_DETACHED=0 PROMPT_GIT_DIRTY=0
@@ -44,6 +36,68 @@ _prompt_git_reset() {
   PROMPT_GIT_UNTRACKED=0 PROMPT_GIT_CONFLICTED=0 PROMPT_GIT_STASHED=0
   PROMPT_GIT_BRANCH='' PROMPT_GIT_ACTION=''
 }
+
+# Assemble PROMPT and RPROMPT from theme defaults and optional Kaisian prompt flags.
+# Args: default_multiline default_show_time info input [native_rprompt] [rprompt_suffix] [legacy_inline_info]
+prompt_apply_layout() {
+  local default_multiline=$1
+  local default_show_time=$2
+  local info=$3
+  local input=$4
+  local native_rprompt=${5-}
+  local rprompt_suffix=${6-}
+  local legacy_inline_info=${7-}
+
+  local multiline=$default_multiline
+  case ${KAISIAN_PROMPT_MULTILINE-} in
+    true)  multiline=1 ;;
+    false) multiline=0 ;;
+  esac
+
+  local show_time=$default_show_time
+  local time_controlled=0
+  case ${KAISIAN_PROMPT_SHOW_TIME-} in
+    true)  show_time=1; time_controlled=1 ;;
+    false) show_time=0; time_controlled=1 ;;
+  esac
+
+  # Single-line must always move an existing visible time to RPROMPT.
+  if (( default_multiline && ! multiline && show_time && ! time_controlled )); then
+    time_controlled=1
+  fi
+
+  local active_info=$info
+  if (( multiline && show_time && ! time_controlled )) && [[ -n $legacy_inline_info ]]; then
+    active_info=$legacy_inline_info
+  fi
+
+  if (( multiline )); then
+    PROMPT="${active_info}"$'\n'"${input}"
+  else
+    PROMPT="${active_info} ${input}"
+  fi
+
+  if (( ! show_time )); then
+    RPROMPT=''
+  elif (( time_controlled )); then
+    RPROMPT='%F{#9ca3b5}%D{%H:%M:%S}%f'
+  else
+    RPROMPT=$native_rprompt
+  fi
+  RPROMPT+=$rprompt_suffix
+
+  (( $+functions[prompt_git_render] )) && prompt_git_render
+}
+
+setopt prompt_subst prompt_percent no_prompt_bang
+
+[[ -o interactive ]] || return 0
+
+: ${HOMEBREW_PREFIX:=/opt/homebrew}
+[[ -r $HOMEBREW_PREFIX/opt/gitstatus/gitstatus.plugin.zsh ]] || return 0
+# The plugin uses $1 as a function-name suffix; pass an explicit empty one so the
+# caller's positional parameters never leak in.
+source "$HOMEBREW_PREFIX/opt/gitstatus/gitstatus.plugin.zsh" '' || return 0
 
 # Copy VCS_STATUS_* into PROMPT_GIT_* and let the layout render.
 _prompt_git_apply() {
@@ -102,5 +156,3 @@ gitstatus_stop KAISIAN && gitstatus_start -s -1 -u -1 -c -1 -d -1 KAISIAN
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _prompt_git_precmd
 add-zsh-hook chpwd  _prompt_git_chpwd
-
-setopt prompt_subst prompt_percent no_prompt_bang

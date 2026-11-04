@@ -15,42 +15,44 @@
       "name": "prompt-default",
       "kind": "prompt",
       "description": {
-        "en": "Compact path + git status, single line",
-        "zh-TW": "精簡路徑 + git 狀態,單行"
+        "en": "Compact path + git status",
+        "zh-TW": "精簡路徑 + git 狀態"
       },
       "preview": [
         [
           {
             "text": "~/p/kaisian",
-            "color": "blue"
+            "color": "#86b8c9"
           },
           {
             "text": " [",
-            "color": "white"
+            "color": "#c6c6c0"
           },
           {
             "text": "main",
-            "color": "white"
+            "color": "#c6c6c0"
           },
           {
             "text": "↑1",
-            "color": "cyan"
+            "color": "#83c3bd"
           },
           {
             "text": "●2",
-            "color": "green"
+            "color": "#b4c982"
           },
           {
             "text": "○1",
-            "color": "red"
+            "color": "#d88c82"
           },
           {
             "text": "]",
-            "color": "white"
-          },
+            "color": "#c6c6c0"
+          }
+        ],
+        [
           {
-            "text": " $ ",
-            "color": "white"
+            "text": "$ ",
+            "color": "#c6c6c0"
           }
         ]
       ]
@@ -59,8 +61,8 @@
       "name": "prompt-pure",
       "kind": "prompt",
       "description": {
-        "en": "Pure: minimal two-line prompt",
-        "zh-TW": "Pure:極簡雙行"
+        "en": "Pure: minimal prompt",
+        "zh-TW": "Pure:極簡風格"
       },
       "preview": [
         [
@@ -100,21 +102,21 @@
         [
           {
             "text": "[~/p/kaisian]",
-            "color": "cyan"
+            "color": "#83c3bd"
           },
           {
             "text": "[main]",
-            "color": "magenta"
+            "color": "#c4a1cd"
           },
           {
             "text": "[!+⇡]",
-            "color": "red"
+            "color": "#d88c82"
           }
         ],
         [
           {
             "text": "❯ ",
-            "color": "green"
+            "color": "#b4c982"
           }
         ]
       ]
@@ -130,25 +132,25 @@
         [
           {
             "text": "~/p/kaisian",
-            "color": "cyan"
+            "color": "#83c3bd"
           },
           {
             "text": " on ",
-            "color": "white"
+            "color": "#c6c6c0"
           },
           {
             "text": " main",
-            "color": "magenta"
+            "color": "#c4a1cd"
           },
           {
             "text": " [!+⇡]",
-            "color": "red"
+            "color": "#d88c82"
           }
         ],
         [
           {
             "text": "❯ ",
-            "color": "green"
+            "color": "#b4c982"
           }
         ]
       ]
@@ -157,8 +159,8 @@
       "name": "prompt-jetpack",
       "kind": "prompt",
       "description": {
-        "en": "Jetpack: geometric symbols, two lines, time on the right",
-        "zh-TW": "Jetpack:幾何符號,雙行,右側時間"
+        "en": "Jetpack: geometric symbols",
+        "zh-TW": "Jetpack:幾何符號"
       },
       "preview": [
         [
@@ -193,10 +195,6 @@
           {
             "text": "⎥",
             "color": "blue"
-          },
-          {
-            "text": "                      12:34",
-            "color": "gray"
           }
         ],
         [
@@ -248,17 +246,7 @@
           },
           {
             "text": "",
-            "color": "#394260",
-            "bg": "#1d2230"
-          },
-          {
-            "text": "  12:34 ",
-            "color": "#a0a9cb",
-            "bg": "#1d2230"
-          },
-          {
-            "text": "",
-            "color": "#1d2230"
+            "color": "#394260"
           }
         ],
         [
@@ -282,8 +270,8 @@
       "family": "SauceCodePro NFM",
       "preview": "Source Code Pro",
       "description": {
-        "en": "Source Code Pro Nerd Font",
-        "zh-TW": "Source Code Pro Nerd Font"
+        "en": "Neutral styling and airy spacing for a clean, understated look.",
+        "zh-TW": "風格中性、留白舒展，外觀簡潔耐看。"
       }
     },
     {
@@ -291,8 +279,8 @@
       "family": "JetBrainsMono NFM",
       "preview": "JetBrains Mono",
       "description": {
-        "en": "JetBrains Mono Nerd Font",
-        "zh-TW": "JetBrains Mono Nerd Font"
+        "en": "Tall lowercase letters with programming ligatures.",
+        "zh-TW": "小寫字母偏高，支援程式連字。"
       }
     },
     {
@@ -300,8 +288,8 @@
       "family": "FiraCode NFM",
       "preview": "Fira Code",
       "description": {
-        "en": "Fira Code Nerd Font",
-        "zh-TW": "Fira Code Nerd Font"
+        "en": "Rich ligatures join common programming operators.",
+        "zh-TW": "程式連字豐富，讓常見運算符號連成一體。"
       }
     },
     {
@@ -309,8 +297,8 @@
       "family": "BlexMono NFM",
       "preview": "IBM Plex Mono",
       "description": {
-        "en": "IBM Plex Mono Nerd Font",
-        "zh-TW": "IBM Plex Mono Nerd Font"
+        "en": "Geometric forms with a humanist touch.",
+        "zh-TW": "結合幾何與人文筆形，風格俐落而有個性。"
       }
     },
     {
@@ -318,8 +306,8 @@
       "family": "UbuntuMono NFM",
       "preview": "Ubuntu Mono",
       "description": {
-        "en": "Ubuntu Mono Nerd Font",
-        "zh-TW": "Ubuntu Mono Nerd Font"
+        "en": "Rounded, compact forms with a distinctive character.",
+        "zh-TW": "字形圓潤、結構緊湊，風格輕鬆鮮明。"
       }
     }
   ],
@@ -340,10 +328,10 @@
       }
     },
     {
-      "name": "zoxide",
+      "name": "fzf",
       "description": {
-        "en": "Smarter directory switching",
-        "zh-TW": "智慧目錄切換"
+        "en": "Fuzzy finder",
+        "zh-TW": "模糊搜尋"
       }
     },
     {
@@ -354,17 +342,17 @@
       }
     },
     {
+      "name": "zoxide",
+      "description": {
+        "en": "Smarter directory switching",
+        "zh-TW": "智慧目錄切換"
+      }
+    },
+    {
       "name": "atuin",
       "description": {
         "en": "Shell history search",
         "zh-TW": "歷史指令搜尋"
-      }
-    },
-    {
-      "name": "fzf",
-      "description": {
-        "en": "Fuzzy finder",
-        "zh-TW": "模糊搜尋"
       }
     },
     {

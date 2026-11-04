@@ -69,7 +69,7 @@ installed.
 │       │   └── settings.json
 │       └── zsh/
 │           ├── aliasrc
-│           └── prompt-engine.zsh  # async git status (gitstatus); calls prompt_git_render
+│           └── prompt-engine.zsh  # async git status (gitstatus) + shared prompt layout helper
 ├── prompt-default/              # stow package: one prompt layout, pick exactly one
 │   └── dot-config/zsh/prompt.zsh
 ├── prompt-pure/                 #   … same shape for pure, bracketed, nerd-font,
@@ -99,7 +99,10 @@ stow --dir "$HOME/.dotfiles" --target "$HOME" --dotfiles --no-folding -R home pr
 layouts by restowing a different one (`stow -D prompt-default; stow prompt-pure`).
 [kaisian](https://kaisian.phx.tw) reads `.kaisian.json` and does the same from a
 generated one-line command; when a font is chosen it writes
-`~/.config/ghostty/kaisian.conf`, which `home/dot-config/ghostty/config` includes.
+`~/.config/ghostty/kaisian.conf`, which `home/dot-config/ghostty/config` includes,
+and when prompt options (`--multiline`, `--show-time`) are chosen it writes
+`~/.config/zsh/kaisian-prompt.zsh` (`KAISIAN_PROMPT_MULTILINE=true|false` and
+`KAISIAN_PROMPT_SHOW_TIME=true|false`).
 
 Preview first with `--simulate --verbose`; it lists every `LINK` and aborts on
 conflicts without touching the filesystem. `--no-folding` is required so that
@@ -108,13 +111,26 @@ becoming symlinks into this repository.
 
 Machine-local files stay outside the package: Git identity in
 `~/.config/dotfiles/git-userinfo` (see `templates/git-userinfo_template`),
-shell credentials in `~/.config/dotfiles/credential`, and shell overrides in
-`~/.config/zsh/local.zsh`, which `.zshrc` sources before the prompt when present.
-`PROMPT_CHAR` set there replaces the input marker in every `prompt-*` layout:
+shell credentials in `~/.config/dotfiles/credential`, generated prompt
+preferences in `~/.config/zsh/kaisian-prompt.zsh`, and shell overrides in
+`~/.config/zsh/local.zsh`. `.zshrc` sources `kaisian-prompt.zsh` before
+`local.zsh` and both before the prompt, so personal overrides in `local.zsh`
+always win. All six `prompt-*` layouts accept `KAISIAN_PROMPT_MULTILINE`
+(`true` for two lines, `false` for a single line) and
+`KAISIAN_PROMPT_SHOW_TIME` (`true` to show `HH:MM:SS` on the right of the input
+line via `RPROMPT`, `false` to hide the clock while keeping `prompt-default`'s
+SSH `⇄` marker). When those variables are unset, each layout retains its native
+line count and clock behavior. `PROMPT_CHAR` replaces the input marker in every
+`prompt-*` layout. Add this assignment to `local.zsh`, preserving existing settings:
 
 ```shell
-echo 'PROMPT_CHAR=❯' > ~/.config/zsh/local.zsh
+PROMPT_CHAR=❯
 ```
+
+Default, Bracketed, and Nerd Font share Smyck-inspired true-color accents;
+the other layouts keep their original palettes. Prompt preferences respect
+`XDG_CONFIG_HOME` when set. Run the layout, clock-padding, and SSH-marker
+regressions with `python3 -m unittest discover -s tests -p test_prompt.py -v`.
 
 Homebrew initialization uses the shell CPU architecture: `.zshenv` defines
 `x86_64` → `/usr/local` and `arm64` → `/opt/homebrew`; `.zprofile` evaluates
