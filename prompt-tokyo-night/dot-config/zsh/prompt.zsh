@@ -24,11 +24,11 @@ prompt_git_render() {
   [[ -n $st ]] && PROMPT_GIT+="${st} "
 }
 
-PROMPT="%F{${_c_os}}░▒▓%K{${_c_os}}%F{${_c_osfg}}  "
-PROMPT+="%K{${_c_dir}}%F{${_c_os}}%F{${_c_dirfg}} %(4~|…/%3~|%~) "
-PROMPT+="%K{${_c_git}}%F{${_c_dir}}%F{${_c_dir}}"'${PROMPT_GIT}'
-PROMPT+="%K{${_c_time}}%F{${_c_git}}%F{${_c_timefg}}  %T "
-PROMPT+="%k%F{${_c_time}}%f"
-PROMPT+=$'\n'
-PROMPT+="%F{%(?.green.red)}%B${PROMPT_CHAR:-❯}%b%f "
-RPROMPT=''
+local _tokyo_base="%F{${_c_os}}░▒▓%K{${_c_os}}%F{${_c_osfg}}  %K{${_c_dir}}%F{${_c_os}}%F{${_c_dirfg}} %(4~|…/%3~|%~) %K{${_c_git}}%F{${_c_dir}}%F{${_c_dir}}"'${PROMPT_GIT}'
+
+prompt_apply_layout 1 1 \
+  "${_tokyo_base}%k%F{${_c_git}}%f" \
+  "%F{%(?.green.red)}%B${PROMPT_CHAR:-❯}%b%f " \
+  '' \
+  '' \
+  "${_tokyo_base}%K{${_c_time}}%F{${_c_git}}%F{${_c_timefg}}  %T %k%F{${_c_time}}%f"

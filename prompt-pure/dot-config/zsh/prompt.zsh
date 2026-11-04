@@ -16,7 +16,6 @@ prompt_git_render() {
   PROMPT_GIT=$s
 }
 
-PROMPT='%F{blue}%~%f${PROMPT_GIT}'
-PROMPT+=$'\n'
-PROMPT+="%F{%(?.magenta.red)}${PROMPT_CHAR:-❯}%f "
-RPROMPT=''
+prompt_apply_layout 1 0 \
+  '%F{blue}%~%f${PROMPT_GIT}' \
+  "%F{%(?.magenta.red)}${PROMPT_CHAR:-❯}%f "

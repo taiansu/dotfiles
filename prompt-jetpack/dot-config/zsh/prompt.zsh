@@ -9,6 +9,7 @@ local _ni=$'%{\e[23m%}'  # italic off
 prompt_git_render() {
   PROMPT_GIT=''
   (( PROMPT_GIT_REPO )) || return 0
+  local _it=$'%{\e[3m%}' _ni=$'%{\e[23m%}'
   local b=$PROMPT_GIT_BRANCH
   (( $#b > 11 )) && b="${b[1,11]}⋯"
   local s=" %F{12}%B△%b%f %F{12}${_it}${b}${_ni}%f"
@@ -29,7 +30,7 @@ prompt_git_render() {
   PROMPT_GIT=$s
 }
 
-PROMPT='%F{blue}'"${_it}"'%2~'"${_ni}"'%f${PROMPT_GIT}'
-PROMPT+=$'\n'
-PROMPT+="%(?.%F{11}%B${_it}${PROMPT_CHAR:-◎}${_ni}%b%f.%F{magenta}${_it}${PROMPT_CHAR:-○}${_ni}%f) "
-RPROMPT='%F{245}'"${_it}"' %T'"${_ni}"'%f'
+prompt_apply_layout 1 1 \
+  '%F{blue}'"${_it}"'%2~'"${_ni}"'%f${PROMPT_GIT}' \
+  "%(?.%F{11}%B${_it}${PROMPT_CHAR:-◎}${_ni}%b%f.%F{magenta}${_it}${PROMPT_CHAR:-○}${_ni}%f) " \
+  '%F{245}'"${_it}"' %T'"${_ni}"'%f'
