@@ -1,0 +1,220 @@
+#!/usr/bin/env python3
+"""Move an exited OMP session and its Git workspace to a new SSH workspace."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shlex
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import uuid
+
+MODULE_DIR = Path(__file__).resolve().parent.parent / "libexec" / "dotfiles"
+sys.path.insert(0, str(MODULE_DIR))
+sys.dont_write_bytecode = True
+
+
+class HandoffError(Exception):
+    pass
+
+
+def run(argv, **kwargs):
+    result = subprocess.run([str(arg) for arg in argv], capture_output=True, **kwargs)
+    if result.returncode:
+        error = result.stderr.decode(errors="replace").strip()
+        label = f"ssh {argv[-2]}" if str(argv[0]) == "ssh" else shlex.join([str(arg) for arg in argv])
+        raise HandoffError(f"{label}: {error or f'exit {result.returncode}'}")
+    return result
+
+
+def session_header(source):
+    with source.open("rb") as stream:
+        for _ in range(20):
+            line = stream.readline(1024 * 1024)
+            if not line:
+                break
+            try:
+                value = json.loads(line)
+            except (ValueError, UnicodeDecodeError):
+                continue
+            if isinstance(value, dict) and value.get("type") == "session":
+                if not isinstance(value.get("id"), str) or not isinstance(value.get("cwd"), str):
+                    break
+                return value
+    raise HandoffError(f"No OMP session header in {source}")
+
+
+def digest(source):
+    with source.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def shell_command(code, arguments=()):
+    # SSH runs one command through the destination login shell. Quote every argument.
+    return shlex.join(["python3", "-c", code, *[str(arg) for arg in arguments]])
+
+
+def ssh(host, code, arguments=(), **kwargs):
+    command = shell_command(code, arguments)
+    return run(["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", "--", host, command], **kwargs)
+
+
+PREFLIGHT = r'''
+import json, os, pathlib, shutil, subprocess, sys
+if sys.version_info < (3, 11):
+    sys.exit("Python 3.11 or newer is required")
+tools = {}
+for name in ("omp", "herdr", "git"):
+    executable = shutil.which(name)
+    if not executable:
+        candidate = pathlib.Path.home() / ".local/bin" / name
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            executable = str(candidate)
+    if not executable:
+        sys.exit("Required destination command not found: " + name)
+    tools[name] = executable
+version = subprocess.check_output([tools["omp"], "--version"], text=True).strip()
+if version != sys.argv[1]:
+    sys.exit("OMP version mismatch: local " + sys.argv[1] + ", destination " + version)
+print(json.dumps(tools))
+'''
+
+RECEIVE = r'''
+import json, os, pathlib, sys, tarfile, tempfile
+os.umask(0o077)
+root = pathlib.Path(sys.argv[1]).expanduser().resolve()
+root.mkdir(parents=True, exist_ok=True, mode=0o700)
+stage = pathlib.Path(tempfile.mkdtemp(prefix="handoff-", dir=root))
+try:
+    with tarfile.open(fileobj=sys.stdin.buffer, mode="r|*") as archive:
+        for member in archive:
+            if not member.isfile() or pathlib.PurePosixPath(member.name).name != member.name:
+                raise ValueError("Invalid transfer member: " + member.name)
+            with archive.extractfile(member) as source, (stage / member.name).open("xb") as target:
+                import shutil
+                shutil.copyfileobj(source, target)
+            (stage / member.name).chmod(0o600)
+    print(json.dumps({"transfer_dir": str(stage)}))
+except Exception:
+    print("Transfer incomplete; private staging directory: " + str(stage), file=sys.stderr)
+    raise
+'''
+
+PREPARE = r'''
+import json, os, pathlib, subprocess, sys
+os.umask(0o077)
+stage = pathlib.Path(sys.argv[1])
+tools = json.loads(sys.argv[2])
+os.environ["PATH"] = str(pathlib.Path(tools["omp"]).parent) + os.pathsep + str(pathlib.Path(tools["herdr"]).parent) + os.pathsep + os.environ.get("PATH", "")
+sys.path.insert(0, str(stage))
+from hop_project import unpack_project
+metadata = json.loads((stage / "project.json").read_text())
+cwd = unpack_project(stage, stage / "project", metadata)
+result = subprocess.run([tools["omp"], "session", "unpack", str(stage / "session.tar"), "--cwd", str(cwd)], capture_output=True, text=True)
+if result.stderr:
+    print(result.stderr, file=sys.stderr, end="")
+if result.returncode:
+    sys.exit(result.returncode)
+session_file = pathlib.Path(result.stdout.strip())
+if not session_file.is_file():
+    sys.exit("OMP unpack did not return a session file")
+ready = {"cwd": str(cwd), "session_file": str(session_file), "transfer_dir": str(stage)}
+(stage / "prepared.json").write_text(json.dumps(ready, indent=2) + "\n")
+print(json.dumps(ready))
+'''
+
+START = r'''
+import json, os, pathlib, sys
+os.umask(0o077)
+stage = pathlib.Path(sys.argv[1])
+tools = json.loads(sys.argv[2])
+os.environ["PATH"] = str(pathlib.Path(tools["omp"]).parent) + os.pathsep + str(pathlib.Path(tools["herdr"]).parent) + os.pathsep + os.environ.get("PATH", "")
+sys.path.insert(0, str(stage))
+from hop_remote import start_runtime
+prepared = json.loads((stage / "prepared.json").read_text())
+ready = start_runtime(pathlib.Path(prepared["cwd"]), pathlib.Path(prepared["session_file"]), stage, sys.argv[3])
+print(json.dumps(ready))
+'''
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, epilog="Exit the source OMP first. Git-ignored files and machine credential stores are not transferred; tracked/nonignored repository secrets are not redacted. The destination starts without submitting a prompt.")
+    parser.add_argument("session", type=Path, help="Path to the exited source session .jsonl")
+    parser.add_argument("--host", default=os.environ.get("HOP_HOST"), help="OpenSSH host alias (defaults to HOP_HOST; no implicit destination)")
+    parser.add_argument("--remote-root", default="~/.local/state/omp-handoff", help="Parent of new private destination workspaces")
+    parser.add_argument("--project", type=Path, help="Override the session's local working directory")
+    args = parser.parse_args(argv)
+    if sys.version_info < (3, 11):
+        parser.error("Python 3.11 or newer is required")
+    if not args.host or not args.host.strip():
+        parser.error("Specify --host or set HOP_HOST")
+    args.host = args.host.strip()
+    if args.host.startswith("-"):
+        parser.error("--host must be an SSH destination, not an option")
+    source = args.session.expanduser().resolve(strict=True)
+    header = session_header(source)
+    project = (args.project or Path(header["cwd"])).expanduser().resolve(strict=True)
+    if not project.is_dir():
+        raise HandoffError(f"Not a project directory: {project}")
+    for command in ("omp", "git", "ssh"):
+        if not shutil.which(command):
+            raise HandoffError(f"Required local command not found: {command}")
+    ownership = json.loads(run(["omp", "session", "lease", "--json", "--", header["id"]]).stdout)
+    if header["id"] in ownership["held"] or header["id"] in ownership["unknown"]:
+        raise HandoffError("Source session is live or its ownership is unknown. Exit its OMP process first; no session was moved.")
+    initial_hash = digest(source)
+    version = run(["omp", "--version"]).stdout.decode().strip()
+    print(f"Checking {args.host} (OMP {version})...", file=sys.stderr)
+    tools = json.loads(ssh(args.host, PREFLIGHT, [version]).stdout)
+    transfer_dir = None
+    with tempfile.TemporaryDirectory(prefix="omp-handoff-") as temporary:
+        staging = Path(temporary)
+        staging.chmod(0o700)
+        packed = run(["omp", "session", "pack", source, staging / "session.tar"])
+        if packed.stderr:
+            sys.stderr.write(packed.stderr.decode(errors="replace"))
+            if b"missing" in packed.stderr.lower() and b"blob" in packed.stderr.lower():
+                raise HandoffError("Session has missing image blobs; refusing an incomplete handoff.")
+        if digest(source) != initial_hash:
+            raise HandoffError("Source session changed while packing; nothing was transferred.")
+        from hop_project import pack_project
+        metadata = pack_project(project, staging)
+        print(f"Packing {metadata['source_root']} into a new destination workspace...", file=sys.stderr)
+        for filename in ("hop_project.py", "hop_remote.py"):
+            shutil.copyfile(MODULE_DIR / filename, staging / filename)
+        with tempfile.TemporaryFile() as payload:
+            with tarfile.open(fileobj=payload, mode="w") as archive:
+                for file in sorted(staging.iterdir()):
+                    if not file.is_file():
+                        raise HandoffError(f"Unexpected staging entry: {file.name}")
+                    archive.add(file, arcname=file.name, recursive=False)
+            payload.seek(0)
+            received = json.loads(ssh(args.host, RECEIVE, [args.remote_root], stdin=payload).stdout)
+        transfer_dir = received["transfer_dir"]
+        print(f"Destination staging: {args.host}:{transfer_dir}", file=sys.stderr)
+        try:
+            prepared = json.loads(ssh(args.host, PREPARE, [transfer_dir, json.dumps(tools)]).stdout)
+            name = "omp-handoff-" + uuid.uuid4().hex[:12]
+            ready = json.loads(ssh(args.host, START, [transfer_dir, json.dumps(tools), name]).stdout)
+            if digest(source) != initial_hash:
+                raise HandoffError("Destination is running, but source session changed. Source was NOT marked moved; do not resume both copies.")
+            run(["omp", "session", "moved", source, "--to", f"{args.host}:{name}"])
+        except Exception:
+            print(f"Source was NOT marked moved. Destination may already exist or be running; inspect {args.host}:{transfer_dir} before retrying.", file=sys.stderr)
+            raise
+    print(json.dumps({"status": "moved", "host": args.host, "source": str(source), **prepared, "runtime": ready}, indent=2))
+    print("Attach: " + shlex.join(["ssh", "-t", args.host, tools["herdr"], "--session", name]), file=sys.stderr)
+    return 0
+
+
+if __name__ == "__main__":
+    os.umask(0o077)
+    try:
+        raise SystemExit(main())
+    except (HandoffError, OSError, ValueError, subprocess.SubprocessError) as error:
+        print(f"hop: {error}", file=sys.stderr)
+        raise SystemExit(1)

@@ -340,6 +340,95 @@ completion menus, and existing scrollback can still reveal paths. Applications
 may also change the title while running. Clear or crop existing terminal content
 before starting the recording.
 
+## Hop: move OMP sessions over SSH
+
+`home/dot-local/bin/hop` moves an **exited** OMP session and its Git
+workspace to a new, private directory on an SSH host. It does not migrate running
+processes. Select an OpenSSH destination with `--host` or `HOP_HOST`; there is no
+implicit destination. An explicit `--host` overrides the environment variable.
+Stow's `home` package installs the command in `~/.local/bin`.
+
+Requirements: Python 3.11+, Git and OMP on the Mac; Python 3.11+, Git, Herdr and
+the **same OMP version** on the destination. SSH access must work first. Destination
+tools are resolved from PATH or `~/.local/bin`; provider credentials must already
+be configured on the destination.
+
+Set a personal default in your machine-local shell configuration, using an alias
+from your own `~/.ssh/config`:
+
+```shell
+export HOP_HOST=workbox
+```
+
+Without `--host` or a nonblank `HOP_HOST`, `hop` exits with an argument error
+before reading the session or connecting to SSH.
+
+For ChatGPT on headless WSL, log in separately using device authorization:
+
+```shell
+ssh -t "$HOP_HOST" '~/.local/bin/omp login openai-codex-device'
+```
+
+Open the device authorization page shown by OMP in your Mac browser and enter
+the displayed device code. This avoids a `localhost` OAuth callback on the wrong
+machine. Do not put codes or credentials in chat or in this repository.
+
+After the current turn finishes, exit the source OMP process, then run:
+
+```shell
+hop /absolute/path/to/session.jsonl
+```
+
+Optional overrides:
+
+```shell
+hop /absolute/path/to/session.jsonl \
+  --host devbox --remote-root '~/.local/state/omp-handoff' \
+  --project /absolute/path/to/local/project
+```
+
+The command:
+
+1. Refuses a source session still owned by a live OMP process.
+2. Packs the session, artifacts and referenced image blobs, plus the repository
+   history reachable from HEAD, branch, staged/unstaged binary changes and
+   nonignored untracked files. It preserves a session cwd inside a repository
+   subdirectory. It does not alter the source repository.
+3. Restores into a new `~/.local/state/omp-handoff/handoff-*/project` directory,
+   without overwriting an existing working copy.
+4. Starts `omp --resume` in its own named, detached Herdr server. A private
+   session-start hook appends an ownership entry; it does not submit a prompt or
+   automatically resume interrupted work.
+5. Verifies the destination OMP's session lease and process liveness before
+   marking the source copy moved. Resuming that stale source later forks it.
+
+On success, stdout contains a JSON receipt and stderr prints the exact SSH/Herdr
+attachment command. Disconnecting the client leaves the destination running.
+Windows/WSL restarts still interrupt running processes.
+
+Ignored files and machine credential/config stores are not copied. **Tracked or
+nonignored repository secrets and committed history are not redacted.** Prepare
+dependencies and ignored environment files separately on WSL; Mac binaries,
+external files, shell state and running child processes do not move.
+
+The snapshot refuses states it cannot preserve safely: unborn/bare repositories,
+in-progress Git operations, submodules, nonignored nested repositories, external
+Git filters (including LFS), unsupported encoding transformations, and symlinks
+escaping the repository. Resolve these before using this command.
+
+If a failure occurs after upload, the command prints the destination staging
+path and leaves the source unmarked. The destination **may already be running**;
+inspect its `runtime-state.json` and `runtime.log` before retrying. Its copied
+`hop_remote.py check TRANSFER_DIR` command rechecks ownership without
+starting another agent. Transfer directories and stopped sessions are retained
+for recovery; the command does not delete earlier workspaces.
+
+Run the isolated behavior regressions (no model requests):
+
+```shell
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_hop*.py' -v
+```
+
 ## Completion
 
 first execute
