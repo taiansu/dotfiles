@@ -127,7 +127,7 @@ line count and clock behavior. `PROMPT_CHAR` replaces the input marker in every
 PROMPT_CHAR=❯
 ```
 
-Default, Bracketed, and Nerd Font share Smyck-inspired true-color accents;
+Default, Pure, Bracketed, and Nerd Font share Smyck-inspired true-color accents;
 the other layouts keep their original palettes. Prompt preferences respect
 `XDG_CONFIG_HOME` when set. Run the layout, clock-padding, and SSH-marker
 regressions with `python3 -m unittest discover -s tests -p test_prompt.py -v`.
