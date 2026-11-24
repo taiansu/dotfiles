@@ -1,10 +1,10 @@
 theme = "Smyck"
-font-family = "SauceCodePro NFM"
+font-family = "Menlo"
 # kaisian writes kaisian.conf (resets font-family, sets the chosen font); loaded after this file
 config-file = ?~/.config/ghostty/kaisian.conf
 # CJK fallback, appended after kaisian.conf so it survives the reset
 config-file = ~/.config/ghostty/fallback.conf
-font-size = 19
+font-size = 15
 window-padding-x = 10
 window-padding-y = 10
 window-decoration = true
